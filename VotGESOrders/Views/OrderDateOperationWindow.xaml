@@ -1,0 +1,52 @@
+﻿<controls:ChildWindow xmlns:sdk="http://schemas.microsoft.com/winfx/2006/xaml/presentation/sdk"  xmlns:toolkit="http://schemas.microsoft.com/winfx/2006/xaml/presentation/toolkit" x:Class="VotGESOrders.Views.OrderDateOperationWindow"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+           xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+           xmlns:controls="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls"
+			  xmlns:usr="clr-namespace:VotGESOrders.Views"
+           Width="400" MaxHeight="350" 
+           Title="OrderDateOperationWindow">
+	<Grid x:Name="LayoutRoot" Margin="2">
+		<Grid.RowDefinitions>
+			<RowDefinition />
+			<RowDefinition Height="Auto" />
+		</Grid.RowDefinitions>
+
+		<toolkit:DataForm Grid.Row="0" HorizontalAlignment="Stretch" Name="orderForm" 
+								VerticalAlignment="Stretch" AutoGenerateFields="False"
+								CommandButtonsVisibility="None">
+			<StackPanel>
+				<StackPanel Orientation="Vertical">
+					<StackPanel Name="FaktStartDate">
+						<toolkit:DataField  Label="Факт старт">
+							<usr:DateTimePicker SelectedDateTime="{Binding FaktStartDate, Mode=TwoWay}"
+													  Enabled="{Binding OrderIsExtend, Converter={StaticResource logicNotConverter}}"/>
+						</toolkit:DataField>
+						<toolkit:DataField Name="OpenText" Label="Текст" LabelVisibility="Collapsed">
+							<TextBox Text="{Binding OpenText, Mode=TwoWay}" Height="50"  AcceptsReturn="true" TextWrapping="Wrap"/>
+						</toolkit:DataField>
+					</StackPanel>
+					<StackPanel  Name="FaktStopDate">
+						<toolkit:DataField Label="Факт стоп">
+							<usr:DateTimePicker SelectedDateTime="{Binding FaktStopDate, Mode=TwoWay}"/>
+						</toolkit:DataField>
+						<toolkit:DataField Name="CloseText" Label="Текст"  LabelVisibility="Collapsed">
+							<TextBox Text="{Binding CloseText, Mode=TwoWay}" Height="50"  AcceptsReturn="true" TextWrapping="Wrap"/>
+						</toolkit:DataField>
+					</StackPanel>
+					<StackPanel  Name="FaktEnterDate">
+						<toolkit:DataField Label="Ввод оборудования"  LabelVisibility="Collapsed">
+							<usr:DateTimePicker SelectedDateTime="{Binding FaktEnterDate, Mode=TwoWay}"/>
+						</toolkit:DataField>
+						<toolkit:DataField Name="EnterText" Label="Текст">
+							<TextBox Text="{Binding EnterText, Mode=TwoWay}" Height="50"  AcceptsReturn="true" TextWrapping="Wrap"/>
+						</toolkit:DataField>
+					</StackPanel>
+
+				</StackPanel>
+			</StackPanel>
+		</toolkit:DataForm>
+
+		<Button x:Name="CancelButton" Content="Отмена" Click="CancelButton_Click" Width="75" Height="23" HorizontalAlignment="Right" Margin="0,12,0,0" Grid.Row="1" />
+		<Button x:Name="OKButton" Content="ОК" Click="OKButton_Click" Width="75" Height="23" HorizontalAlignment="Right" Margin="0,12,79,0" Grid.Row="1" />
+	</Grid>
+</controls:ChildWindow>

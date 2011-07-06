@@ -1,0 +1,165 @@
+﻿<UserControl xmlns:sdk="http://schemas.microsoft.com/winfx/2006/xaml/presentation/sdk"  x:Class="VotGESOrders.Views.FilterControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d" MaxHeight="200" >
+
+	<Grid x:Name="LayoutRoot" Background="White">
+		<Border Style="{StaticResource borderFilterControl}" Padding="1,1,1,1" CornerRadius="3">
+			<Grid >
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="180"/>
+					<ColumnDefinition Width="100"/>
+					<ColumnDefinition Width="100"/>
+					<ColumnDefinition Width="170"/>
+					<ColumnDefinition Width="300"/>
+					<ColumnDefinition Width="300"/>
+				</Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="*"/>
+				</Grid.RowDefinitions>
+
+				<Border  Name="brdStates" Style="{StaticResource borderFilterControl}"  Grid.Column="0" Grid.RowSpan="2" >
+					<StackPanel Name="chbOrders">
+						<CheckBox Content="Все состояния" IsChecked="{Binding ShowAllStates, Mode=TwoWay}" 
+					 HorizontalAlignment="Right"/>
+						<CheckBox Content="Созданные" IsChecked="{Binding ShowOrdersCreated,Mode=TwoWay}"
+									 IsEnabled="{Binding ShowAllStates, Converter={StaticResource logicNotConverter}}"/>
+						<CheckBox Content="Разрешенные" IsChecked="{Binding ShowOrdersAccepted,Mode=TwoWay}"
+									 IsEnabled="{Binding ShowAllStates, Converter={StaticResource logicNotConverter}}"/>
+						<CheckBox Content="Отклоненные" IsChecked="{Binding ShowOrdersBanned,Mode=TwoWay}"
+									 IsEnabled="{Binding ShowAllStates, Converter={StaticResource logicNotConverter}}"/>
+						<CheckBox Content="Открытые" IsChecked="{Binding ShowOrdersOpened,Mode=TwoWay}"
+									 IsEnabled="{Binding ShowAllStates, Converter={StaticResource logicNotConverter}}"/>
+						<CheckBox Content="Снятые" IsChecked="{Binding ShowOrdersCanceled,Mode=TwoWay}"
+									 IsEnabled="{Binding ShowAllStates, Converter={StaticResource logicNotConverter}}"/>
+						<CheckBox Content="Разрешенные к вводу" IsChecked="{Binding ShowOrdersClosed,Mode=TwoWay}"
+									 IsEnabled="{Binding ShowAllStates, Converter={StaticResource logicNotConverter}}"/>
+						<CheckBox Content="Закрытые" IsChecked="{Binding ShowOrdersEntered,Mode=TwoWay}"
+									 IsEnabled="{Binding ShowAllStates, Converter={StaticResource logicNotConverter}}"/>
+						<CheckBox Content="Продленные" IsChecked="{Binding ShowOrdersExtended,Mode=TwoWay}"
+									 IsEnabled="{Binding ShowAllStates, Converter={StaticResource logicNotConverter}}"/>
+						<CheckBox Content="Ожидающие продления" IsChecked="{Binding ShowOrdersAskExtended,Mode=TwoWay}"
+									 IsEnabled="{Binding ShowAllStates, Converter={StaticResource logicNotConverter}}"/>
+					</StackPanel>
+				</Border>
+
+				<Border  Name="brdTypes" Style="{StaticResource borderFilterControl}"  Grid.Column="1" Grid.Row="0">
+					<StackPanel Name="chbTypes">
+						<CheckBox Content="Все типы" IsChecked="{Binding ShowAllTypes, Mode=TwoWay}"  HorizontalAlignment="Right"/>
+						<CheckBox Content="Аварийные" IsChecked="{Binding ShowOrdersAV,Mode=TwoWay}"
+									 IsEnabled="{Binding ShowAllTypes, Converter={StaticResource logicNotConverter}}"/>
+						<CheckBox Content="Неотложные" IsChecked="{Binding ShowOrdersNO,Mode=TwoWay}"
+									 IsEnabled="{Binding ShowAllTypes, Converter={StaticResource logicNotConverter}}"/>
+						<CheckBox Content="Неплановые" IsChecked="{Binding ShowOrdersNPL,Mode=TwoWay}"
+									 IsEnabled="{Binding ShowAllTypes, Converter={StaticResource logicNotConverter}}"/>
+						<CheckBox Content="Плановые" IsChecked="{Binding ShowOrdersPL,Mode=TwoWay}"
+									 IsEnabled="{Binding ShowAllTypes, Converter={StaticResource logicNotConverter}}"/>
+					</StackPanel>
+				</Border>
+
+				<Border  Name="brdNumbers" Style="{StaticResource borderFilterControl}"  Grid.Column="2" Grid.Row="0">
+					<StackPanel Name="chbNumbers">
+						<CheckBox Content="Все номера" IsChecked="{Binding ShowAllNumbers, Mode=TwoWay}" 
+					 HorizontalAlignment="Right"/>
+						<TextBlock Text="Старт номер"/>
+						<TextBox Text="{Binding StartNumber, Mode=TwoWay}"
+									IsEnabled="{Binding ShowAllNumbers, Converter={StaticResource logicNotConverter}}"/>
+						<TextBlock Text="Стоп номер"/>
+						<TextBox Text="{Binding StopNumber, Mode=TwoWay}"
+									IsEnabled="{Binding ShowAllNumbers, Converter={StaticResource logicNotConverter}}"/>
+					</StackPanel>
+				</Border>
+
+				<Border  Name="brdOther" Style="{StaticResource borderFilterControl}"  Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2">
+					<StackPanel Name="chbOther">
+						<CheckBox Content="Зависимые заявки" IsChecked="{Binding ShowRelatedOrders,Mode=TwoWay}"/>
+						<CheckBox Content="Только просроченные заявки" IsChecked="{Binding ShowExpiredOnly,Mode=TwoWay}"/>
+					</StackPanel>
+				</Border>
+
+				<Border  Name="brdDates" Style="{StaticResource borderFilterControl}"  Grid.Column="3" Grid.RowSpan="2">
+					<StackPanel Name="pnlDates">
+						<CheckBox Content="Все время" IsChecked="{Binding ShowAllTime, Mode=TwoWay}" 
+								HorizontalAlignment="Right"/>
+
+						<ComboBox Name="cmbFilterDate" SelectedValuePath="Key" 
+										 DisplayMemberPath="Value" SelectedValue="{Binding FilterDate, Mode=TwoWay}"
+										 IsEnabled="{Binding ShowAllTime, Converter={StaticResource logicNotConverter}}"></ComboBox>
+						<StackPanel Orientation="Horizontal">
+							<TextBlock Text="Старт: " Width="50" VerticalAlignment="Center" TextAlignment="Right"/>
+							<sdk:DatePicker SelectedDate="{Binding DateStart, Mode=TwoWay}"  Width="100"
+												 IsEnabled="{Binding ShowAllTime, Converter={StaticResource logicNotConverter}}"/>
+						</StackPanel>
+						<StackPanel Orientation="Horizontal">
+							<TextBlock Text="Стоп: "   Width="50" VerticalAlignment="Center" TextAlignment="Right"/>
+							<sdk:DatePicker SelectedDate="{Binding DateEnd, Mode=TwoWay}" Width="100" 
+												 IsEnabled="{Binding ShowAllTime, Converter={StaticResource logicNotConverter}}"/>
+						</StackPanel>
+
+						<StackPanel Orientation="Horizontal" Margin="0,10,0,0" >
+							<TextBlock Text="Оборудование" Width="105"/>
+							<CheckBox Content="Любое" IsChecked="{Binding ShowAllObjects, Mode=TwoWay}" />
+						</StackPanel>
+						<TextBox Text="{Binding OrderObject, Mode=TwoWay}" HorizontalAlignment="Stretch" VerticalAlignment="Top"
+									IsEnabled="{Binding ShowAllObjects, Converter={StaticResource logicNotConverter}}"/>
+						<StackPanel Orientation="Horizontal">
+							<TextBlock Text="Текст" Width="105"/>
+							<CheckBox Content="Любой" IsChecked="{Binding ShowAllOrderTexts, Mode=TwoWay}"/>
+						</StackPanel>
+						<TextBox Text="{Binding OrderText, Mode=TwoWay}"
+									IsEnabled="{Binding ShowAllOrderTexts, Converter={StaticResource logicNotConverter}}"/>
+					</StackPanel>
+				</Border>
+				<Border  Name="brdObjects" Style="{StaticResource borderFilterControl}"  Grid.Column="4" Grid.RowSpan="2">
+					<StackPanel Name="pnlObjects">
+						<StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+							<CheckBox Content="Все оборудование" IsChecked="{Binding ShowAllObjectIDs, Mode=TwoWay}" 
+								 HorizontalAlignment="Right"/>
+							<CheckBox Content="Вложенные объекты" IsChecked="{Binding ShowChildObjects, Mode=TwoWay}" HorizontalAlignment="Right"
+										 IsEnabled="{Binding ShowAllObjectIDs, Converter={StaticResource logicNotConverter}}"/>
+						</StackPanel>
+
+						<ListBox Name="lstObjects" ItemsSource="{Binding SelectedObjects}" 
+								DisplayMemberPath="FullName"  Height="135" Width="300">
+						</ListBox>
+						<Button Content="Выбрать оборудование" Name="btnChooseObjects" Click="btnChooseObjects_Click"
+								  IsEnabled="{Binding ShowAllObjectIDs, Converter={StaticResource logicNotConverter}}"/>
+					</StackPanel>
+				</Border>
+				<Border Name="brdUsers"  Style="{StaticResource borderFilterControl}"  Grid.Column="5" Grid.RowSpan="2">
+					<StackPanel>
+						<Grid>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition/>
+								<ColumnDefinition/>
+							</Grid.ColumnDefinitions>
+							<ComboBox Name="cmbFilterUser" SelectedValuePath="Key" 
+										 DisplayMemberPath="Value" SelectedValue="{Binding FilterUser, Mode=TwoWay}"
+										 IsEnabled="{Binding ShowAllUsers, Converter={StaticResource logicNotConverter}}"></ComboBox>
+							<CheckBox Grid.Column="1" Content="Все пользователи" 
+										 IsChecked="{Binding ShowAllUsers, Mode=TwoWay}"  HorizontalAlignment="Right"/>
+						</Grid>
+
+						<StackPanel Name="pnlUsers" Orientation="Horizontal">
+							<ListBox Name="lstAllUsers" DisplayMemberPath="FullName" 
+								Height="155" Width="150"  MouseLeftButtonUp="lstAllUsers_MouseLeftButtonUp" 
+								IsEnabled="{Binding ShowAllUsers, Converter={StaticResource logicNotConverter}}">
+
+							</ListBox>
+							<ListBox Name="lstSelUsers" ItemsSource="{Binding SelectedUsers}" 
+								DisplayMemberPath="FullName"  Height="155" Width="150"
+								MouseLeftButtonUp="lstSelUsers_MouseLeftButtonUp" 
+								IsEnabled="{Binding ShowAllUsers, Converter={StaticResource logicNotConverter}}">
+
+							</ListBox>
+						</StackPanel>
+
+					</StackPanel>
+				</Border>
+			</Grid>
+		</Border>
+	</Grid>
+</UserControl>

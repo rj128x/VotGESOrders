@@ -1,0 +1,238 @@
+﻿<UserControl x:Class="VotGESOrders.Views.OrderControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+	<Grid x:Name="LayoutRoot" Margin="2">
+		<StackPanel>
+
+			<StackPanel HorizontalAlignment="Stretch" Name="orderForm" 
+								VerticalAlignment="Stretch">
+
+				<Grid >
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition  Width="420"/>
+						<ColumnDefinition  Width="*" MinWidth="600"/>
+					</Grid.ColumnDefinitions>
+					<Grid.RowDefinitions>
+						<RowDefinition/>
+						<RowDefinition/>
+						<RowDefinition/>
+					</Grid.RowDefinitions>
+
+					<Border Style="{StaticResource borderFilterControl}" Grid.ColumnSpan="2" Grid.Row="0">
+						<Grid>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="250"/>
+								<ColumnDefinition Width="*"/>
+							</Grid.ColumnDefinitions>
+							<StackPanel Orientation="Horizontal" Grid.Column="0" HorizontalAlignment="Left">
+								<TextBlock Text="Заявка " Style="{StaticResource Label}"/>
+								<TextBlock Text="{Binding OrderType}" Style="{StaticResource Value}"/>
+								<TextBlock Text=" № " Style="{StaticResource Label}"/>
+								<TextBlock Text="{Binding OrderNumber}" 
+											 Style="{StaticResource Value}"/>
+								<TextBlock Text=" от " Style="{StaticResource Label}" />
+								<TextBlock Text="{Binding OrderDateCreate, Converter={StaticResource dateTimeConverter}, ConverterParameter='dd.MM.yyyy'}"
+											 Style="{StaticResource Value}"/>
+							</StackPanel>
+
+							<StackPanel  Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right">						
+
+								<StackPanel  Orientation="Horizontal" Margin="10,00,0,0">
+									<TextBlock Text="Состояние: " Style="{StaticResource Label}" />
+									<TextBlock Text="{Binding OrderStateStr}"
+											 Style="{StaticResource Value}"/>
+								</StackPanel>
+							</StackPanel>
+						</Grid>
+					</Border>
+
+					<Border Style="{StaticResource borderFilterControl}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1">
+						<Grid>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition/>
+								<ColumnDefinition/>
+								<ColumnDefinition/>
+							</Grid.ColumnDefinitions>
+
+							<StackPanel Orientation="Vertical" Grid.Column="0">
+								<TextBlock Text="Оборудование:  " Style="{StaticResource Label}" HorizontalAlignment="Center"/>
+								<TextBlock Text="{Binding FullOrderObjectInfo}" Style="{StaticResource ValueText}"/>
+							</StackPanel>
+
+							<StackPanel Orientation="Vertical" Grid.Column="1">
+								<TextBlock Text="Текст заявки:  " Style="{StaticResource Label}"  HorizontalAlignment="Center"/>
+								<TextBlock Text="{Binding OrderText}" Style="{StaticResource ValueText}" />
+							</StackPanel>
+							<StackPanel Orientation="Vertical" Grid.Column="2">
+								<TextBlock Text="Согласованно:  " Style="{StaticResource Label}" HorizontalAlignment="Center"/>
+								<TextBlock Text="{Binding SoglasText}" Style="{StaticResource ValueText}"/>
+							</StackPanel>
+						</Grid>
+					</Border>
+
+					<Border Style="{StaticResource borderFilterControl}" Grid.Column="0" Grid.Row="2">
+						<StackPanel >
+							<StackPanel Orientation="Horizontal" Visibility="{Binding OrderIsExtend, Converter={StaticResource visibilityConverter}}">
+								<TextBlock Style="{StaticResource Label}" Text="ЗАЯВКА НА ПРОДЛЕНИЕ. РОДИТЕЛЬСКАЯ ЗАЯВКА №"/>
+								<TextBlock Style="{StaticResource Value}" Text="{Binding ParentOrderNumber}"/>
+							</StackPanel>
+							<StackPanel Orientation="Horizontal" Visibility="{Binding OrderAskExtended, Converter={StaticResource visibilityConverter}}">
+								<TextBlock Style="{StaticResource Label}" Text="ОЖИДАНИЕ РАЗРЕШЕНИЯ НА ПРОДЛЕНИЕ. ДОЧЕРНЯЯ ЗАЯВКА №"/>
+								<TextBlock Style="{StaticResource Value}" Text="{Binding ChildOrderNumber}"/>
+							</StackPanel>
+							<StackPanel Orientation="Horizontal" Visibility="{Binding OrderExtended, Converter={StaticResource visibilityConverter}}">
+								<TextBlock Style="{StaticResource Label}" Text="ЗАЯВКА ПРОДЛЕНА. ДОЧЕРНЯЯ ЗАЯВКА №"/>
+								<TextBlock Style="{StaticResource Value}" Text="{Binding ChildOrderNumber}"/>
+							</StackPanel>
+
+							<Grid  Margin="0,15,0,0" >
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="120"/>
+									<ColumnDefinition Width="150"/>
+									<ColumnDefinition Width="150"/>
+								</Grid.ColumnDefinitions>
+								<Grid.RowDefinitions>
+									<RowDefinition></RowDefinition>
+									<RowDefinition></RowDefinition>
+									<RowDefinition></RowDefinition>
+									<RowDefinition></RowDefinition>
+								</Grid.RowDefinitions>
+								<TextBlock Text="План" Style="{StaticResource Label}" Grid.Row="1" HorizontalAlignment="Right"/>
+								<TextBlock Text="Факт" Style="{StaticResource Label}" Grid.Row="2" HorizontalAlignment="Right"/>
+								<TextBlock Text="Разрешение на ввод" Style="{StaticResource Label}" Grid.Row="3" HorizontalAlignment="Right"/>
+								<TextBlock Text="Начало" Style="{StaticResource Label}" Grid.Column="1" HorizontalAlignment="Center"/>
+								<TextBlock Text="Окончание" Style="{StaticResource Label}" Grid.Column="2" HorizontalAlignment="Center"/>
+
+								<TextBlock Text="{Binding PlanStartDate, Converter={StaticResource dateTimeConverter}}"
+                               Style="{StaticResource Value}" Grid.Row="1" Grid.Column="1"/>
+								<TextBlock Text="{Binding PlanStopDate, Converter={StaticResource dateTimeConverter}}"
+                               Style="{StaticResource Value}"  Grid.Row="1" Grid.Column="2"/>
+								<TextBlock Text="{Binding FaktStartDate, Converter={StaticResource dateTimeConverter}}"
+                               Style="{StaticResource Value}" Grid.Row="2" Grid.Column="1"/>
+								<TextBlock Text="{Binding FaktEnterDate, Converter={StaticResource dateTimeConverter}}"
+                               Style="{StaticResource Value}" Grid.Row="2" Grid.Column="2"/>
+								<TextBlock Text="{Binding FaktStopDate, Converter={StaticResource dateTimeConverter}}"
+                           Style="{StaticResource Value}" Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="2"/>
+							</Grid>
+						</StackPanel>
+					</Border>
+
+					<Border Style="{StaticResource borderFilterControl}" Grid.Column="2" Grid.Row="2">
+						<StackPanel>
+
+							<Grid  Margin="0,15,0,0">
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="100"/>
+									<ColumnDefinition Width="150"/>
+									<ColumnDefinition Width="150"/>
+									<ColumnDefinition Width="1*"/>
+								</Grid.ColumnDefinitions>
+								<Grid.RowDefinitions>
+									<RowDefinition />
+									<RowDefinition Height="{Binding OrderCreated, Converter={StaticResource heightConverter}}"/>
+									<RowDefinition Height="{Binding OrderAccepted, Converter={StaticResource heightConverter}}"/>
+									<RowDefinition Height="{Binding OrderBanned, Converter={StaticResource heightConverter}}"/>
+									<RowDefinition Height="{Binding OrderOpened, Converter={StaticResource heightConverter}}"/>
+									<RowDefinition Height="{Binding OrderClosed, Converter={StaticResource heightConverter}}"/>
+									<RowDefinition Height="{Binding OrderEntered, Converter={StaticResource heightConverter}}"/>
+									<RowDefinition Height="{Binding OrderCanceled, Converter={StaticResource heightConverter}}"/>
+								</Grid.RowDefinitions>
+
+								<TextBlock Text="Создал:" Style="{StaticResource Label}" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right"/>
+								<TextBlock Text="Разрешил:" Style="{StaticResource Label}" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right"/>
+								<TextBlock Text="Отклонил:" Style="{StaticResource Label}" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right"/>
+								<TextBlock Text="Открыл:" Style="{StaticResource Label}" Grid.Row="4" Grid.Column="0" HorizontalAlignment="Right"/>
+								<TextBlock Text="Разрешил ввод:" Style="{StaticResource Label}" Grid.Row="5" Grid.Column="0" HorizontalAlignment="Right"/>
+								<TextBlock Text="Закрыл:" Style="{StaticResource Label}" Grid.Row="6" Grid.Column="0" HorizontalAlignment="Right"/>
+								<TextBlock Text="Снял:" Style="{StaticResource Label}" Grid.Row="7" Grid.Column="0" HorizontalAlignment="Right"/>
+
+								<TextBlock Text="Автор" Style="{StaticResource Label}" Grid.Row="0" Grid.Column="1"  HorizontalAlignment="Center"/>
+								<TextBlock Text="Дата" Style="{StaticResource Label}" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center"/>
+								<TextBlock Text="Комментарий" Style="{StaticResource Label}" Grid.Row="0" Grid.Column="3" HorizontalAlignment="Center"/>
+
+								<TextBlock Text="{Binding UserCreateOrder.FullName}" Style="{StaticResource Value}" 
+							  Grid.Column="1" Grid.Row="1" />
+								<TextBlock Text="{Binding OrderDateCreate, Converter={StaticResource dateTimeConverter}}" 
+							  Grid.Column="2" Grid.Row="1"   Style="{StaticResource Value}"/>
+								<TextBlock Text="{Binding CreateText}" 
+							  Grid.Column="3" Grid.Row="1"  Style="{StaticResource ValueText}" TextWrapping="Wrap"/>
+
+								<TextBlock Text="{Binding UserAcceptOrder.FullName}" Style="{StaticResource Value}" 
+							  Grid.Column="1" Grid.Row="2" />
+								<TextBlock Text="{Binding OrderDateAccept, Converter={StaticResource dateTimeConverter}}" 
+							  Grid.Column="2" Grid.Row="2"   Style="{StaticResource Value}"/>
+								<TextBlock Text="{Binding AcceptText}" 
+							  Grid.Column="3" Grid.Row="2"  Style="{StaticResource ValueText}" TextWrapping="Wrap"/>
+
+								<TextBlock Text="{Binding UserBanOrder.FullName}" Style="{StaticResource Value}" 
+							  Grid.Column="1" Grid.Row="3"  />
+								<TextBlock Text="{Binding OrderDateBan, Converter={StaticResource dateTimeConverter}}" 
+							  Grid.Column="2" Grid.Row="3"  Style="{StaticResource Value}" />
+								<TextBlock Text="{Binding BanText}" 
+							  Grid.Column="3" Grid.Row="3"  Style="{StaticResource ValueText}" TextWrapping="Wrap"/>
+
+								<TextBlock Text="{Binding UserOpenOrder.FullName}" Style="{StaticResource Value}" 
+							  Grid.Column="1" Grid.Row="4"  />
+								<TextBlock Text="{Binding OrderDateOpen, Converter={StaticResource dateTimeConverter}}" 
+							  Grid.Column="2" Grid.Row="4"   Style="{StaticResource Value}"/>
+								<TextBlock Text="{Binding OpenText}" 
+							  Grid.Column="3" Grid.Row="4"   Style="{StaticResource ValueText}" />
+
+								<TextBlock Text="{Binding UserCloseOrder.FullName}" Style="{StaticResource Value}" 
+							  Grid.Column="1" Grid.Row="5"  />
+								<TextBlock Text="{Binding OrderDateClose, Converter={StaticResource dateTimeConverter}}" 
+							  Grid.Column="2" Grid.Row="5"   Style="{StaticResource Value}"/>
+								<TextBlock Text="{Binding CloseText}" 
+							  Grid.Column="3" Grid.Row="5"  Style="{StaticResource ValueText}" />
+
+								<TextBlock Text="{Binding UserEnterOrder.FullName}" Style="{StaticResource Value}" 
+							  Grid.Column="1" Grid.Row="6"  />
+								<TextBlock Text="{Binding OrderDateEnter, Converter={StaticResource dateTimeConverter}}" 
+							  Grid.Column="2" Grid.Row="6"   Style="{StaticResource Value}"/>
+								<TextBlock Text="{Binding EnterText}" 
+							  Grid.Column="3" Grid.Row="6"   Style="{StaticResource ValueText}" />
+
+								<TextBlock Text="{Binding UserCancelOrder.FullName}" Style="{StaticResource Value}" 
+							  Grid.Column="1" Grid.Row="7"  />
+								<TextBlock Text="{Binding OrderDateCancel, Converter={StaticResource dateTimeConverter}}" 
+							  Grid.Column="2" Grid.Row="7"  Style="{StaticResource Value}"/>
+								<TextBlock Text="{Binding CancelText}" 
+							  Grid.Column="3" Grid.Row="7"   Style="{StaticResource ValueText}" />
+
+							</Grid>
+						</StackPanel>
+					</Border>
+				</Grid>
+			</StackPanel>
+
+			<StackPanel x:Name="pnlOrderButtons" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left" >
+				<Button Name="btnChange" Click="btnChange_Click" Content="Изменить"
+					  Visibility="{Binding AllowChangeOrder, Converter={StaticResource visibilityConverter}}"
+					  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
+				<Button Name="btnAccept" Click="btnAccept_Click" Content="Разрешить/запретить"
+					  Visibility="{Binding AllowAcceptOrder, Converter={StaticResource visibilityConverter}}"
+					  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
+				<Button Name="btnOpen" Click="btnOpen_Click" Content="Открыть"
+					  Visibility="{Binding AllowOpenOrder, Converter={StaticResource visibilityConverter}}"
+					  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
+				<Button Name="btnClose" Click="btnClose_Click" Content="Разрешить ввод"
+					  Visibility="{Binding AllowCloseOrder, Converter={StaticResource visibilityConverter}}"
+					  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
+				<Button Name="btnCancel" Click="btnCancel_Click"  Content="Снять заявку"
+					  Visibility="{Binding AllowCancelOrder, Converter={StaticResource visibilityConverter}}" 					  
+					  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
+				<Button Name="btnEnter" Click="btnEnter_Click" Content="Ввести в работу"
+					  Visibility="{Binding AllowEnterOrder, Converter={StaticResource visibilityConverter}}"
+					  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
+				<Button Name="btnLongate" Click="btnLongate_Click" Content="Продлить"
+					  Visibility="{Binding AllowExtendOrder, Converter={StaticResource visibilityConverter}}"
+					  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
+
+			</StackPanel>
+		</StackPanel>
+	</Grid>
+</UserControl>

@@ -1,0 +1,115 @@
+﻿<UserControl x:Class="VotGESOrders.Views.OrderPrintBriefControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d" >
+
+	<Grid x:Name="LayoutRoot" Margin="2">
+		<StackPanel>
+			<Grid Name="grdOrders">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="150"/>
+					<ColumnDefinition Width="*"/>
+					<ColumnDefinition Width="110"/>
+					<ColumnDefinition Width="110" />
+					<ColumnDefinition Width="110" />
+				</Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition />
+					<RowDefinition />
+				</Grid.RowDefinitions>
+				
+				<StackPanel Grid.Row="0" Grid.Column="0">
+					<TextBlock Text="Заявка " Style="{StaticResource LabelPrint}" HorizontalAlignment="Center"/>
+				</StackPanel>
+				<StackPanel Grid.Row="0" Grid.Column="1">
+					<TextBlock Text="Текст " Style="{StaticResource LabelPrint}" HorizontalAlignment="Center"/>
+				</StackPanel>
+				<StackPanel Grid.Row="0" Grid.Column="2">
+					<TextBlock Text="Начало работ" Style="{StaticResource LabelPrint}" HorizontalAlignment="Center"/>
+				</StackPanel>
+				<StackPanel Grid.Row="0" Grid.Column="3">
+					<TextBlock Text="Разрешение на ввод" Style="{StaticResource LabelPrint}" HorizontalAlignment="Center" TextWrapping="Wrap"/>
+				</StackPanel>
+				<StackPanel Grid.Row="0" Grid.Column="4">
+					<TextBlock Text="Окончание работ" Style="{StaticResource LabelPrint}" HorizontalAlignment="Center"/>
+				</StackPanel>
+
+
+				<Border Style="{StaticResource borderFilterControl}" Grid.Column="0" Grid.Row="1">
+				<StackPanel   HorizontalAlignment="Stretch">
+					<StackPanel Orientation="Horizontal">
+						<TextBlock Text="Заявка " Style="{StaticResource LabelPrint}"/>
+						<TextBlock Text="{Binding OrderType}" Style="{StaticResource ValuePrint}"/>
+						<TextBlock Text=" № " Style="{StaticResource LabelPrint}"/>
+						<TextBlock Text="{Binding OrderNumber}" 
+												 Style="{StaticResource ValuePrint}"/>
+					</StackPanel>
+						
+						<StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+						<TextBlock Text=" от " Style="{StaticResource LabelPrint}" />
+						<TextBlock Text="{Binding OrderDateCreate, Converter={StaticResource dateTimeConverter}, ConverterParameter='dd.MM.yyyy'}"
+											 Style="{StaticResource ValuePrint}"/>						
+					</StackPanel>
+						<TextBlock Text="{Binding OrderStateStr}"
+											 Style="{StaticResource ValuePrint}" FontSize="14"/>
+
+						<StackPanel Orientation="Horizontal" Visibility="{Binding OrderIsExtend, Converter={StaticResource visibilityConverter}}" HorizontalAlignment="Right">
+							<TextBlock Style="{StaticResource LabelPrint}" Text="Продление заявки №"/>
+							<TextBlock Style="{StaticResource ValuePrint}" Text="{Binding ParentOrderNumber}"/>
+						</StackPanel>
+						<StackPanel Orientation="Horizontal" Visibility="{Binding OrderAskExtended, Converter={StaticResource visibilityConverter}}" HorizontalAlignment="Right">
+							<TextBlock Style="{StaticResource LabelPrint}" Text="Продленная заявка №"/>
+							<TextBlock Style="{StaticResource ValuePrint}" Text="{Binding ChildOrderNumber}"/>
+						</StackPanel>
+						<StackPanel Orientation="Horizontal" Visibility="{Binding OrderExtended, Converter={StaticResource visibilityConverter}}" HorizontalAlignment="Right">
+							<TextBlock Style="{StaticResource LabelPrint}" Text="Продленная заявка №"/>
+							<TextBlock Style="{StaticResource ValuePrint}" Text="{Binding ChildOrderNumber}"/>
+						</StackPanel>						
+					</StackPanel>					
+				</Border>
+				<Border Style="{StaticResource borderFilterControl}" Grid.Column="1" Grid.Row="1">
+					<StackPanel Orientation="Vertical" >
+						<TextBlock Text="Оборудование:  " Style="{StaticResource LabelPrint}"   HorizontalAlignment="Center"/>
+						<TextBlock Text="{Binding FullOrderObjectInfo}" Style="{StaticResource ValuePrintText}" />
+						<TextBlock Text="Текст заявки:  " Style="{StaticResource LabelPrint}"  HorizontalAlignment="Center"/>
+						<TextBlock Text="{Binding OrderText}" Style="{StaticResource ValuePrintText}" />
+						<StackPanel Orientation="Horizontal">
+							<TextBlock Text="C " Style="{StaticResource LabelPrint}"/>
+							<TextBlock Text="{Binding PlanStartDate, Converter={StaticResource dateTimeConverter}}"
+                               Style="{StaticResource ValuePrint}" Grid.Row="1" Grid.Column="1"/>
+
+							<TextBlock Text=" по " Style="{StaticResource LabelPrint}"/>
+							<TextBlock Text="{Binding PlanStopDate, Converter={StaticResource dateTimeConverter}}"
+                               Style="{StaticResource ValuePrint}"  Grid.Row="1" Grid.Column="2"/>
+						</StackPanel>
+						<TextBlock Text="{Binding UserCreateOrder.FullName}" Style="{StaticResource ValuePrint}" HorizontalAlignment="Right"/>
+					</StackPanel>
+				</Border>
+				<Border Style="{StaticResource borderFilterControl}" Grid.Column="2" Grid.Row="1">
+					<StackPanel Grid.Row="1" Grid.Column="2">
+						<TextBlock Text="{Binding FaktStartDate, Converter={StaticResource dateTimeConverter}}"
+                               Style="{StaticResource ValuePrint}" />
+						<TextBlock Text="{Binding UserOpenOrder.FullName}" Style="{StaticResource ValuePrint}" />
+					</StackPanel>
+				</Border>
+				<Border Style="{StaticResource borderFilterControl}" Grid.Column="3" Grid.Row="1">
+					<StackPanel >
+						<TextBlock Text="{Binding FaktStopDate, Converter={StaticResource dateTimeConverter}}"
+                           Style="{StaticResource ValuePrint}" />
+						<TextBlock Text="{Binding UserCloseOrder.FullName}" Style="{StaticResource ValuePrint}" />
+					</StackPanel>
+				</Border>
+				<Border Style="{StaticResource borderFilterControl}" Grid.Column="4" Grid.Row="1">
+					<StackPanel >
+						<TextBlock Text="{Binding FaktEnterDate, Converter={StaticResource dateTimeConverter}}"
+                               Style="{StaticResource ValuePrint}"/>
+						<TextBlock Text="{Binding UserEnterOrder.FullName}" Style="{StaticResource ValuePrint}" />
+					</StackPanel>
+				</Border>
+			</Grid>		
+			
+		</StackPanel>
+	</Grid>
+</UserControl>

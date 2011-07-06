@@ -1,0 +1,125 @@
+﻿<UserControl x:Class="VotGESOrders.Views.OrdersGridControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	 xmlns:sdk="http://schemas.microsoft.com/winfx/2006/xaml/presentation/sdk"
+    mc:Ignorable="d" d:DesignWidth="1000">
+
+	<Grid x:Name="LayoutRoot" Background="White">
+		<sdk:DataGrid x:Name="ordersGrid" AutoGenerateColumns="False" ColumnHeaderStyle="{StaticResource CenterHeaderText}"
+                             HorizontalAlignment="Stretch" 
+								   RowHeight="50"  VerticalAlignment="Stretch" VerticalContentAlignment="Stretch" Height="Auto"
+						  CanUserSortColumns="True" CanUserResizeColumns="False">
+			<sdk:DataGrid.Columns>
+
+				<sdk:DataGridTemplateColumn Header="№ заявки" SortMemberPath="OrderNumber" Width="80" >
+					<sdk:DataGridTemplateColumn.CellTemplate >
+						<DataTemplate>
+							<StackPanel>
+								<ContentControl Content="{Binding OrderNumber, Converter={StaticResource orderNumberConverter}, Mode=OneWay}" 
+													 Template="{StaticResource OrderCellDef}"/>								
+								<StackPanel Orientation="Horizontal" Visibility="{Binding OrderIsExtend, Converter={StaticResource visibilityConverter}}" 
+												HorizontalAlignment="Right">
+									<TextBlock Text="№ст=" Style="{StaticResource Label}"/>
+									<TextBlock Text="{Binding ParentOrderNumber, Converter={StaticResource orderNumberConverter}, Mode=OneWay}" 
+												  Style="{StaticResource Label}"/>
+								</StackPanel>
+								<StackPanel Orientation="Horizontal" Visibility="{Binding OrderExtended, Converter={StaticResource visibilityConverter}}"
+												HorizontalAlignment="Right">
+									<TextBlock Text="№нов="  Style="{StaticResource Label}"/>
+									<TextBlock Text="{Binding ChildOrderNumber, Converter={StaticResource orderNumberConverter}, Mode=OneWay}" 
+												   Style="{StaticResource Label}"/>
+								</StackPanel>
+								<StackPanel Orientation="Horizontal" Visibility="{Binding OrderAskExtended, Converter={StaticResource visibilityConverter}}"
+												HorizontalAlignment="Right">
+									<TextBlock Text="№нов="  Style="{StaticResource Label}"/>
+									<TextBlock Text="{Binding ChildOrderNumber, Converter={StaticResource orderNumberConverter}, Mode=OneWay}"
+												   Style="{StaticResource Label}"/>
+								</StackPanel>
+							</StackPanel>
+						</DataTemplate>
+					</sdk:DataGridTemplateColumn.CellTemplate>
+				</sdk:DataGridTemplateColumn>
+				
+				<sdk:DataGridTemplateColumn Header="Тип"  SortMemberPath="OrderType"  Width="50" >
+					<sdk:DataGridTemplateColumn.CellTemplate>
+						<DataTemplate>
+							<ContentControl Content="{Binding OrderType}"  Template="{StaticResource OrderCellDef}"/>
+						</DataTemplate>
+					</sdk:DataGridTemplateColumn.CellTemplate>
+				</sdk:DataGridTemplateColumn>
+
+				<sdk:DataGridTemplateColumn Header="Состояние"  SortMemberPath="OrderStateStr" Width="80" >
+					<sdk:DataGridTemplateColumn.CellTemplate>
+						<DataTemplate>
+							<ContentControl Content="{Binding OrderStateStr}" Template="{StaticResource OrderCellState}"/>
+						</DataTemplate>
+					</sdk:DataGridTemplateColumn.CellTemplate>
+				</sdk:DataGridTemplateColumn>
+				<sdk:DataGridTemplateColumn Header="Оборудование"  SortMemberPath="SelOrderObject.FullName"  Width="*"  MinWidth="150" >
+					<sdk:DataGridTemplateColumn.CellTemplate>
+						<DataTemplate>
+							<ContentControl Content="{Binding FullOrderObjectInfo}"    Template="{StaticResource OrderCellDef}"/>
+						</DataTemplate>
+					</sdk:DataGridTemplateColumn.CellTemplate>
+				</sdk:DataGridTemplateColumn>
+				<sdk:DataGridTemplateColumn Header="Текст заявки"  
+													 SortMemberPath="OrderText" Width="*"   MinWidth="150">
+					<sdk:DataGridTemplateColumn.CellTemplate>
+						<DataTemplate>
+							<ContentControl Content="{Binding OrderText}" Template="{StaticResource OrderCellDef}"/>
+						</DataTemplate>
+					</sdk:DataGridTemplateColumn.CellTemplate>
+				</sdk:DataGridTemplateColumn>
+				<sdk:DataGridTemplateColumn Header="Автор"  SortMemberPath="UserCreateOrder.FullName"   >
+					<sdk:DataGridTemplateColumn.CellTemplate>
+						<DataTemplate>
+							<ContentControl Content="{Binding UserCreateOrder.FullName}"  Template="{StaticResource OrderCellDef}"/>
+						</DataTemplate>
+					</sdk:DataGridTemplateColumn.CellTemplate>
+				</sdk:DataGridTemplateColumn>
+				<sdk:DataGridTemplateColumn Header="План начало"  SortMemberPath="PlanStartDate"   Width="100">
+					<sdk:DataGridTemplateColumn.CellTemplate>
+						<DataTemplate>
+							<ContentControl Content="{Binding PlanStartDate, Converter={StaticResource dateTimeConverter}}"  
+												  Template="{StaticResource OrderCellDef}"/>
+						</DataTemplate>
+					</sdk:DataGridTemplateColumn.CellTemplate>
+				</sdk:DataGridTemplateColumn>
+				<sdk:DataGridTemplateColumn Header="План завершение"  SortMemberPath="PlanStopDate"  Width="100">
+					<sdk:DataGridTemplateColumn.CellTemplate>
+						<DataTemplate>
+							<ContentControl Content="{Binding PlanStopDate, Converter={StaticResource dateTimeConverter}}"  
+												   Template="{StaticResource OrderCellDef}"/>
+						</DataTemplate>
+					</sdk:DataGridTemplateColumn.CellTemplate>
+				</sdk:DataGridTemplateColumn >
+				<sdk:DataGridTemplateColumn Header="Факт начало"   SortMemberPath="FaktStartDate"  Width="100">
+					<sdk:DataGridTemplateColumn.CellTemplate>
+						<DataTemplate>
+							<ContentControl Content="{Binding FaktStartDate, Converter={StaticResource dateTimeConverter}}"  
+												    Template="{StaticResource OrderCellTimeOpen}"/>
+						</DataTemplate>
+					</sdk:DataGridTemplateColumn.CellTemplate>
+				</sdk:DataGridTemplateColumn>
+				<sdk:DataGridTemplateColumn Header="Разрешение на ввод"   SortMemberPath="FaktStopDate"  Width="100">
+					<sdk:DataGridTemplateColumn.CellTemplate>
+						<DataTemplate>
+							<ContentControl Content="{Binding FaktStopDate, Converter={StaticResource dateTimeConverter}}"  
+												   Template="{StaticResource OrderCellTimeClose}"/>
+						</DataTemplate>
+					</sdk:DataGridTemplateColumn.CellTemplate>
+				</sdk:DataGridTemplateColumn>
+				<sdk:DataGridTemplateColumn Header="Ввод в работу"   SortMemberPath="FaktEnterDate"  Width="100">
+					<sdk:DataGridTemplateColumn.CellTemplate>
+						<DataTemplate>
+							<ContentControl Content="{Binding FaktEnterDate, Converter={StaticResource dateTimeConverter}}"  
+												   Template="{StaticResource OrderCellTimeEnter}"/>
+						</DataTemplate>
+					</sdk:DataGridTemplateColumn.CellTemplate>
+				</sdk:DataGridTemplateColumn>				
+			</sdk:DataGrid.Columns>
+		</sdk:DataGrid>
+	</Grid>
+</UserControl>

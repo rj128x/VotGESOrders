@@ -1,0 +1,92 @@
+<navigation:Page xmlns:sdk="http://schemas.microsoft.com/winfx/2006/xaml/presentation/sdk"  
+					  x:Class="VotGESOrders.EditTree" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+					  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+					  xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+					  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+					  xmlns:navigation="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Navigation" 
+					  xmlns:usr="clr-namespace:VotGESOrders.Views"
+					  mc:Ignorable="d" Title="Редактор справочника оборудования" Style="{StaticResource PageStyle}" 
+					  xmlns:toolkit="http://schemas.microsoft.com/winfx/2006/xaml/presentation/toolkit" 
+					  d:DesignHeight="400" d:DesignWidth="850" >
+
+	<UserControl.Resources>
+		<sdk:HierarchicalDataTemplate ItemsSource="{Binding ChildObjects}" x:Key="treeTemplateCmd" >
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="300"/>
+					<ColumnDefinition Width="300"/>
+				</Grid.ColumnDefinitions>
+				<TextBlock Text="{Binding ObjectName}" FontWeight="Normal" FontFamily="Courier New" VerticalAlignment="Center" Grid.Column="0"/>
+				<StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="1" >
+					<Border Style="{StaticResource borderFilterControl}"  Width="100" Height="20" MouseLeftButtonUp="btnChangeItem_Click">
+						<TextBlock Name="btnChangeItem" Text="Изменить"   VerticalAlignment="Center" HorizontalAlignment="Center"  
+									  FontSize="14" Foreground="Blue" Margin="0,0,0,0" Padding="0,0,0,0"/>
+					</Border>
+					<Border Style="{StaticResource borderFilterControl}" Width="100" Height="20" MouseLeftButtonUp="btnDeleteItem_Click">
+						<TextBlock Name="btnDeleteItem" Text="Удалить"   VerticalAlignment="Center" HorizontalAlignment="Center" 
+									  FontSize="14" Foreground="Red" Margin="0,0,0,0" Padding="0,0,0,0"/>
+					</Border>
+					<Border Style="{StaticResource borderFilterControl}" Width="100" Height="20" MouseLeftButtonUp="btnAddItem_Click">
+						<TextBlock Name="btnAddItem" Text="Добавить"   VerticalAlignment="Center"  HorizontalAlignment="Center" 
+									  FontSize="14" Foreground="Green" Margin="0,0,0,0" Padding="0,0,0,0"/>
+					</Border>
+				</StackPanel>
+			</Grid>			
+		</sdk:HierarchicalDataTemplate>
+	</UserControl.Resources>
+	<Grid x:Name="LayoutRoot" VerticalAlignment="Stretch">
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition />
+			<ColumnDefinition />
+		</Grid.ColumnDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition />
+			<RowDefinition Height="25"/>
+		</Grid.RowDefinitions>
+
+		<Border Style="{StaticResource borderFilterControl}" Grid.Column="0" Grid.Row="0">
+				<sdk:TreeView Name="treeObjects" ItemTemplate="{StaticResource treeTemplateCmd}"
+										  VerticalAlignment="Stretch" 
+										  VerticalContentAlignment="Stretch"
+								  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"
+								  SelectedItemChanged="treeObjects_SelectedItemChanged"/>
+		</Border>
+
+		<Border Style="{StaticResource borderFilterControl}" Grid.Column="1" Grid.Row="0">
+			<StackPanel>
+				<toolkit:DataForm Grid.Row="0" HorizontalAlignment="Stretch" Name="objectForm" 
+								VerticalAlignment="Stretch" AutoGenerateFields="False"
+								CommandButtonsVisibility="None">
+					<StackPanel>
+						<toolkit:DataField Name="ObjectName" Label="Наименование">
+							<TextBox Name="txtName" Text="{Binding ObjectName, Mode=TwoWay}"
+										IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
+						</toolkit:DataField>
+						<toolkit:DataField Name="ParentObjectID" Label="Родитель">
+							<StackPanel>
+								<TextBox Name="txtParentID" Text="{Binding ParentObjectID, Mode=TwoWay}" IsEnabled="False" />
+							</StackPanel>
+						</toolkit:DataField>
+						<TextBox Name="txtParent" Text="{Binding SelParentOrderObjectName, Mode=TwoWay}" IsEnabled="False"/>
+						<Button Name="btnFirstLevel" Content="На верхний уровень" Click="btnFirstLevel_Click"
+							IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
+					</StackPanel>
+				</toolkit:DataForm>			
+				
+			</StackPanel>
+		</Border>
+
+		<StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="1" Grid.Column="1">
+			<Button Name="btnSave" Content="Сохранить" Click="btnSave_Click"
+							  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
+			<Button Name="btnCancel" Content="Отменить" Click="btnCancel_Click" 
+							  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
+		</StackPanel>
+		
+		<StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="1" Grid.Column="0">
+			<Button Name="btnRefresh" Content="Обновить" Click="btnRefresh_Click"
+							  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>			
+		</StackPanel>
+	</Grid>
+
+</navigation:Page>

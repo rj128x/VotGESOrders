@@ -1,0 +1,34 @@
+﻿
+namespace VotGESOrders.Web.Services
+{
+	using System;
+	using System.Collections.Generic;
+	using System.ComponentModel;
+	using System.ComponentModel.DataAnnotations;
+	using System.Linq;
+	using System.ServiceModel.DomainServices.Hosting;
+	using System.ServiceModel.DomainServices.Server;
+	using VotGESOrders.Web.Logging;
+
+
+	// TODO: Create methods containing your application logic.
+	[EnableClientAccess()]
+	public class LoggerService : DomainService
+	{
+		public void info(string message) {
+			Logger.info(String.Format("Из клиента: {0}",message));
+		}
+
+		public void error(string message) {
+			Logger.error(String.Format("Из клиента: {0}", message));
+		}
+
+		public void debug(string message) {
+			Logger.debug(String.Format("Из клиента: {0}", message));
+		}
+
+		
+	}
+}
+
+

@@ -1,0 +1,199 @@
+﻿using System;
+using System.Net;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Documents;
+using System.Windows.Ink;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Animation;
+using System.Windows.Shapes;
+using VotGESOrders.Views;
+using VotGESOrders.Web.Models;
+
+namespace VotGESOrders
+{
+	public class OrderOperations
+	{
+		public static int OrderNumber=-1;
+		protected static OrderOperations current;
+
+		static OrderOperations(){
+			current=new OrderOperations();
+		}
+
+		protected OrderOperations() {
+			newOrderWindow = new NewOrderWindow();
+			acceptWindow = new AcceptWindow();
+			dateOperationWindow = new OrderDateOperationWindow();
+			newOrderWindow.Closed += new EventHandler(window_Closed);
+			acceptWindow.Closed += new EventHandler(window_Closed);
+			dateOperationWindow.Closed += new EventHandler(window_Closed);
+
+		}
+
+		void window_Closed(object sender, EventArgs e) {
+			GlobalStatus.Current.IsChangingOrder = false;
+		}
+
+		public static OrderOperations Current {
+			get {
+				return current;
+			}
+		}
+
+		private NewOrderWindow newOrderWindow;
+		private AcceptWindow acceptWindow;
+		private OrderDateOperationWindow dateOperationWindow;
+		
+		public Order CurrentOrder { get; set; }
+		
+		public void ApplyDataOperation(Order currentOrder,OrderOperation operation) {
+				switch (operation) {
+					case OrderOperation.open:
+						OrdersContext.Current.Context.RegisterOpenOrder(currentOrder,OrdersContext.Current.SessionGUID);
+						break;
+					case OrderOperation.close:
+						OrdersContext.Current.Context.RegisterCloseOrder(currentOrder, OrdersContext.Current.SessionGUID);
+						break;
+					case OrderOperation.enter:
+						OrdersContext.Current.Context.RegisterEnterOrder(currentOrder, OrdersContext.Current.SessionGUID);
+						break;
+				}
+				OrdersContext.Current.Context.SubmitChanges();
+		}
+
+		public void ApplyAccept(Order currentOrder,AcceptResult result) {
+				switch (result) {
+					case AcceptResult.accept:
+						currentOrder.AcceptText = currentOrder.NewComment;
+						OrdersContext.Current.Context.RegisterAcceptOrder(currentOrder, OrdersContext.Current.SessionGUID);
+						break;
+					case AcceptResult.ban:
+						currentOrder.BanText = currentOrder.NewComment;
+						OrdersContext.Current.Context.RegisterBanOrder(currentOrder, OrdersContext.Current.SessionGUID);
+						break;
+					case AcceptResult.cancel:
+						currentOrder.CancelText = currentOrder.NewComment;
+						OrdersContext.Current.Context.RegisterCancelOrder(currentOrder, OrdersContext.Current.SessionGUID);
+						break;
+				}
+				if ((currentOrder.OrderIsExtend)&&(currentOrder.ParentOrder!=null)) {
+					OrdersContext.Current.Context.ReloadOrder(currentOrder.ParentOrder, OrdersContext.Current.SessionGUID);
+				}
+				OrdersContext.Current.Context.SubmitChanges();
+		}
+
+		public void ApplyCreate(Order currentOrder,bool isNew,Order parentOrder) {
+				if (isNew) {
+					OrdersContext.Current.Context.Orders.Attach(currentOrder);
+					OrdersContext.Current.Context.RegisterNew(currentOrder, OrdersContext.Current.SessionGUID);
+
+					if (currentOrder.OrderIsExtend) {
+						parentOrder.ChildOrderNumber = currentOrder.OrderNumber;
+						parentOrder.OrderAskExtended = true;
+						OrdersContext.Current.Context.ReloadOrder(parentOrder, OrdersContext.Current.SessionGUID);
+					}
+
+					OrdersContext.Current.Context.SubmitChanges();
+				} else {
+					OrdersContext.Current.Context.RegisterChangeOrder(currentOrder, OrdersContext.Current.SessionGUID);
+					OrdersContext.Current.Context.SubmitChanges();
+				}
+				//context.Orders.Detach(newOrderWindow.CurrentOrder);
+		}
+
+		public void initCreate() {
+			GlobalStatus.Current.IsChangingOrder = true;
+			Order newOrder=new Order();
+			newOrder.OrderNumber = OrderNumber--;
+			newOrder.UserCreateOrderName = WebContext.Current.User.Name;
+			newOrder.OrderDateCreate = DateTime.Now;
+			newOrder.OrderIsExtend = false;
+			newOrder.OrderType = "ПЛ";
+			newOrderWindow.CurrentOrder = newOrder;
+			newOrderWindow.IsNewOrder = true;
+			newOrderWindow.Show();
+		}
+
+		public void initChange() {
+			GlobalStatus.Current.IsChangingOrder = true;
+			newOrderWindow.CurrentOrder = CurrentOrder;
+			newOrderWindow.IsNewOrder = false;
+			newOrderWindow.Show();
+		}
+
+		public void initAccept() {
+			GlobalStatus.Current.IsChangingOrder = true;
+			acceptWindow.CurrentOrder = CurrentOrder;
+			acceptWindow.isCancelWindow = false;
+			acceptWindow.Show();
+		}
+
+		public void initCancel() {
+			GlobalStatus.Current.IsChangingOrder = true;
+			acceptWindow.CurrentOrder = CurrentOrder;
+			acceptWindow.isCancelWindow = true;
+			acceptWindow.Show();
+		}
+
+		public void initOpen() {
+			GlobalStatus.Current.IsChangingOrder = true;
+			CurrentOrder.OrderState = OrderStateEnum.opened;
+			CurrentOrder.OrderOpened = true;
+			if (CurrentOrder.OrderIsExtend) {
+				CurrentOrder.FaktStartDate = CurrentOrder.PlanStartDate;
+			}
+			dateOperationWindow.CurrentOrder = CurrentOrder;
+			dateOperationWindow.Operation = OrderOperation.open;
+			dateOperationWindow.Show();
+		}
+
+		public void initClose() {
+			GlobalStatus.Current.IsChangingOrder = true;
+			CurrentOrder.OrderState = OrderStateEnum.closed;
+			CurrentOrder.OrderClosed = true;
+			dateOperationWindow.CurrentOrder = CurrentOrder;
+			dateOperationWindow.Operation = OrderOperation.close;
+			dateOperationWindow.Show();
+		}
+
+		public void initEnter() {
+			GlobalStatus.Current.IsChangingOrder = true;
+			CurrentOrder.OrderState = OrderStateEnum.entered;
+			CurrentOrder.OrderEntered = true;
+			dateOperationWindow.CurrentOrder = CurrentOrder;
+			dateOperationWindow.Operation = OrderOperation.enter;
+			dateOperationWindow.Show();
+		}
+
+	
+		public void initExtend() {
+			GlobalStatus.Current.IsChangingOrder = true;
+			Order newOrder=new Order();
+			newOrder.OrderNumber = OrderNumber--;
+			newOrder.OrderType = CurrentOrder.OrderType;
+			newOrder.ParentOrderNumber = CurrentOrder.OrderNumber;
+			newOrder.UserCreateOrderName = WebContext.Current.User.Name;
+			newOrder.OrderIsExtend = true;
+			newOrder.SelOrderObject = CurrentOrder.SelOrderObject;
+			newOrder.SelOrderObjectText = CurrentOrder.SelOrderObjectText;
+			newOrder.SelOrderObjectID = CurrentOrder.SelOrderObjectID;
+			newOrder.OrderObjectAddInfo = CurrentOrder.OrderObjectAddInfo;
+			newOrder.PlanStartDate = CurrentOrder.PlanStopDate;
+			newOrder.PlanStopDate = CurrentOrder.PlanStopDate.AddDays(1);
+			newOrder.OrderText = CurrentOrder.OrderText;
+			newOrder.SoglasText = CurrentOrder.SoglasText;
+			newOrder.CreateText = "Работы не завершены";
+			newOrder.OrderDateCreate = DateTime.Now;
+
+
+			newOrderWindow.CurrentOrder = newOrder;
+			newOrderWindow.ParentOrder = CurrentOrder;
+			newOrderWindow.IsNewOrder = true;
+			newOrderWindow.Show();
+		}
+
+
+	}
+}

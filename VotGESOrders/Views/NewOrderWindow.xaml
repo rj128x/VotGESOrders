@@ -1,0 +1,76 @@
+﻿<controls:ChildWindow xmlns:sdk="http://schemas.microsoft.com/winfx/2006/xaml/presentation/sdk"  xmlns:toolkit="http://schemas.microsoft.com/winfx/2006/xaml/presentation/toolkit"  x:Class="VotGESOrders.Views.NewOrderWindow"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+           xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+           xmlns:controls="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls"
+			xmlns:usr="clr-namespace:VotGESOrders.Views"
+           MinHeight="450" MaxHeight="550" Height="450"
+           Title="Создание заявки">
+
+	<Grid x:Name="LayoutRoot" Margin="2">
+		<Grid.RowDefinitions>
+			<RowDefinition />
+			<RowDefinition Height="Auto" />
+		</Grid.RowDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="420"/>
+			<ColumnDefinition Width="Auto"/>
+		</Grid.ColumnDefinitions>
+
+		<toolkit:DataForm Grid.Row="0" HorizontalAlignment="Stretch" Name="orderForm" 
+								VerticalAlignment="Stretch" AutoGenerateFields="False"
+								CommandButtonsVisibility="None">
+			<StackPanel>				
+				<StackPanel Grid.Column="0">
+					<toolkit:DataField Name="OrderType" Label="Тип заявки">
+						<StackPanel>
+							<ComboBox Name="cmbOrderTypes" SelectedValue="{Binding OrderType,Mode=TwoWay}" DisplayMemberPath="Value" 
+										 SelectedValuePath="Key"
+									 Visibility="{Binding OrderIsExtend, Converter={StaticResource visibilityNotConverter} }"/>
+							<TextBox Text="{Binding OrderType,Mode=TwoWay}"
+									 Visibility="{Binding OrderIsExtend, Converter={StaticResource visibilityConverter} }"
+									IsEnabled="{Binding OrderIsExtend, Converter={StaticResource logicNotConverter}}"/>
+						</StackPanel>
+					</toolkit:DataField>
+
+					<toolkit:DataField Name="SelOrderObjectText" Label="Оборудование">
+							<TextBox Text="{Binding SelOrderObjectText,Mode=TwoWay}" TextWrapping="Wrap" IsEnabled="False"/>
+					</toolkit:DataField>
+					<toolkit:DataField Name="OrderObjectAddInfo" Label="Дополнительно">
+							<TextBox Text="{Binding OrderObjectAddInfo,Mode=TwoWay}" 
+										IsEnabled="{Binding OrderIsExtend, Converter={StaticResource logicNotConverter}}"/>
+					</toolkit:DataField>
+					<StackPanel Orientation="Vertical">
+						<toolkit:DataField Name="PlanStartDate" Label="План старт">
+							<usr:DateTimePicker SelectedDateTime="{Binding PlanStartDate, Mode=TwoWay}"
+													  Enabled="{Binding OrderIsExtend, Converter={StaticResource logicNotConverter}}"/>
+						</toolkit:DataField>
+						<toolkit:DataField Name="PlanStopDate" Label="План стоп">
+							<usr:DateTimePicker SelectedDateTime="{Binding PlanStopDate, Mode=TwoWay}"/>
+						</toolkit:DataField>
+						<toolkit:DataField Name="OrderText" Label="Текст">
+							<TextBox Text="{Binding OrderText, Mode=TwoWay}" Height="50"  AcceptsReturn="True" TextWrapping="Wrap"
+									IsEnabled="{Binding OrderIsExtend, Converter={StaticResource logicNotConverter}}"/>
+						</toolkit:DataField>
+						<toolkit:DataField Name="SoglasText" Label="Согласовано">
+							<TextBox Text="{Binding SoglasText, Mode=TwoWay}" Height="50"  AcceptsReturn="True" TextWrapping="Wrap"/>
+						</toolkit:DataField>
+						<toolkit:DataField Name="CreateText" Label="Комментарий">
+							<TextBox Text="{Binding CreateText, Mode=TwoWay}" Height="50"  AcceptsReturn="True" TextWrapping="Wrap"/>
+						</toolkit:DataField>
+					</StackPanel>
+				</StackPanel>				
+			</StackPanel>
+		</toolkit:DataForm>
+			<sdk:TreeView Name="treeObjects" ItemTemplate="{StaticResource treeTemplate}" Grid.Column="1" Grid.Row="0"
+										  VerticalAlignment="Stretch" 
+										  SelectedItemChanged="treeObjects_SelectedItemChanged" VerticalContentAlignment="Stretch"/>
+
+
+
+		<StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+			<Button x:Name="CancelButton" Content="Отмена" Click="CancelButton_Click" Width="75" Height="23" HorizontalAlignment="Right" Margin="0,12,0,0" Grid.Row="1" />
+			<Button x:Name="OKButton" Content="ОК" Click="OKButton_Click" Width="75" Height="23" HorizontalAlignment="Right" Margin="0,12,79,0" Grid.Row="1" />
+		</StackPanel>
+
+	</Grid>
+</controls:ChildWindow>

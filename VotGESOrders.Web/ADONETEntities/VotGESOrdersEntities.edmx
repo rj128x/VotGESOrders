@@ -1,0 +1,570 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="VotGESOrdersModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="VotGESOrdersModelStoreContainer">
+          <EntitySet Name="OrderObjects" EntityType="VotGESOrdersModel.Store.OrderObjects" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Orders" EntityType="VotGESOrdersModel.Store.Orders" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Users" EntityType="VotGESOrdersModel.Store.Users" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_Orders_OrderObjects" Association="VotGESOrdersModel.Store.FK_Orders_OrderObjects">
+            <End Role="OrderObjects" EntitySet="OrderObjects" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_UsersAccept" Association="VotGESOrdersModel.Store.FK_Orders_UsersAccept">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_UsersBan" Association="VotGESOrdersModel.Store.FK_Orders_UsersBan">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_UsersCancel" Association="VotGESOrdersModel.Store.FK_Orders_UsersCancel">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_UsersClose" Association="VotGESOrdersModel.Store.FK_Orders_UsersClose">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_UsersCreate" Association="VotGESOrdersModel.Store.FK_Orders_UsersCreate">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_UsersEnter" Association="VotGESOrdersModel.Store.FK_Orders_UsersEnter">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_UsersOpen" Association="VotGESOrdersModel.Store.FK_Orders_UsersOpen">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="OrderObjects">
+          <Key>
+            <PropertyRef Name="objectID" />
+          </Key>
+          <Property Name="objectID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="parentID" Type="int" Nullable="false" />
+          <Property Name="objectName" Type="varchar" Nullable="false" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="orderNumber" />
+          </Key>
+          <Property Name="parentOrderNumber" Type="int" />
+          <Property Name="childOrderNumber" Type="int" />
+          <Property Name="orderNumber" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="userCreateOrderName" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="userAcceptOrderName" Type="varchar" MaxLength="50" />
+          <Property Name="userBanOrderName" Type="varchar" MaxLength="50" />
+          <Property Name="userCloseOrderName" Type="varchar" MaxLength="50" />
+          <Property Name="userEnterOrderName" Type="varchar" MaxLength="50" />
+          <Property Name="userOpenOrderName" Type="varchar" MaxLength="50" />
+          <Property Name="userCancelOrderName" Type="varchar" MaxLength="50" />
+          <Property Name="orderDateCreate" Type="datetime2" Nullable="false" />
+          <Property Name="orderDateAccept" Type="datetime2" />
+          <Property Name="orderDateBan" Type="datetime2" />
+          <Property Name="orderDateClose" Type="datetime2" />
+          <Property Name="orderDateOpen" Type="datetime2" />
+          <Property Name="orderDateEnter" Type="datetime2" />
+          <Property Name="orderDateCancel" Type="datetime2" />
+          <Property Name="orderLastUpdate" Type="datetime2" Nullable="false" />
+          <Property Name="acceptText" Type="varchar" MaxLength="250" />
+          <Property Name="banText" Type="varchar" MaxLength="250" />
+          <Property Name="openText" Type="varchar" MaxLength="250" />
+          <Property Name="closeText" Type="varchar" MaxLength="250" />
+          <Property Name="enterText" Type="varchar" MaxLength="250" />
+          <Property Name="cancelText" Type="varchar" MaxLength="250" />
+          <Property Name="createText" Type="varchar" MaxLength="250" />
+          <Property Name="planStartDate" Type="datetime2" Nullable="false" />
+          <Property Name="planStopDate" Type="datetime2" Nullable="false" />
+          <Property Name="faktStartDate" Type="datetime2" />
+          <Property Name="faktStopDate" Type="datetime2" />
+          <Property Name="faktEnterDate" Type="datetime2" />
+          <Property Name="orderText" Type="varchar" Nullable="false" MaxLength="250" />
+          <Property Name="orderType" Type="varchar" Nullable="false" MaxLength="5" />
+          <Property Name="soglasText" Type="varchar" MaxLength="250" />
+          <Property Name="orderObjectID" Type="int" Nullable="false" />
+          <Property Name="orderObjectAddInfo" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="orderCreated" Type="bit" Nullable="false" />
+          <Property Name="orderAccepted" Type="bit" Nullable="false" />
+          <Property Name="orderBanned" Type="bit" Nullable="false" />
+          <Property Name="orderOpened" Type="bit" Nullable="false" />
+          <Property Name="orderClosed" Type="bit" Nullable="false" />
+          <Property Name="orderCanceled" Type="bit" Nullable="false" />
+          <Property Name="orderEntered" Type="bit" Nullable="false" />
+          <Property Name="orderExtended" Type="bit" Nullable="false" />
+          <Property Name="orderAskExtended" Type="bit" Nullable="false" />
+          <Property Name="orderIsExtend" Type="bit" Nullable="false" />
+          <Property Name="orderState" Type="varchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="name" />
+          </Key>
+          <Property Name="name" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="fullName" Type="varchar" MaxLength="250" />
+          <Property Name="allowCreateOrder" Type="bit" />
+          <Property Name="allowAcceptOrder" Type="bit" />
+          <Property Name="allowOpenOrder" Type="bit" />
+          <Property Name="allowCancelOrder" Type="bit" />
+          <Property Name="allowCloseOrder" Type="bit" />
+          <Property Name="allowEnterOrder" Type="bit" />
+          <Property Name="allowExtendOrder" Type="bit" />
+        </EntityType>
+        <Association Name="FK_Orders_OrderObjects">
+          <End Role="OrderObjects" Type="VotGESOrdersModel.Store.OrderObjects" Multiplicity="1" />
+          <End Role="Orders" Type="VotGESOrdersModel.Store.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrderObjects">
+              <PropertyRef Name="objectID" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="orderObjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_UsersAccept">
+          <End Role="Users" Type="VotGESOrdersModel.Store.Users" Multiplicity="0..1" />
+          <End Role="Orders" Type="VotGESOrdersModel.Store.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="name" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="userAcceptOrderName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_UsersBan">
+          <End Role="Users" Type="VotGESOrdersModel.Store.Users" Multiplicity="0..1" />
+          <End Role="Orders" Type="VotGESOrdersModel.Store.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="name" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="userBanOrderName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_UsersCancel">
+          <End Role="Users" Type="VotGESOrdersModel.Store.Users" Multiplicity="0..1" />
+          <End Role="Orders" Type="VotGESOrdersModel.Store.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="name" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="userCancelOrderName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_UsersClose">
+          <End Role="Users" Type="VotGESOrdersModel.Store.Users" Multiplicity="0..1" />
+          <End Role="Orders" Type="VotGESOrdersModel.Store.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="name" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="userCloseOrderName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_UsersCreate">
+          <End Role="Users" Type="VotGESOrdersModel.Store.Users" Multiplicity="1" />
+          <End Role="Orders" Type="VotGESOrdersModel.Store.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="name" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="userCreateOrderName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_UsersEnter">
+          <End Role="Users" Type="VotGESOrdersModel.Store.Users" Multiplicity="0..1" />
+          <End Role="Orders" Type="VotGESOrdersModel.Store.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="name" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="userEnterOrderName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_UsersOpen">
+          <End Role="Users" Type="VotGESOrdersModel.Store.Users" Multiplicity="0..1" />
+          <End Role="Orders" Type="VotGESOrdersModel.Store.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="name" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="userOpenOrderName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="VotGESOrdersModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="VotGESOrdersEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="OrderObjects" EntityType="VotGESOrdersModel.OrderObjects" />
+          <EntitySet Name="Orders" EntityType="VotGESOrdersModel.Orders" />
+          <EntitySet Name="Users" EntityType="VotGESOrdersModel.Users" />
+          <AssociationSet Name="FK_Orders_OrderObjects" Association="VotGESOrdersModel.FK_Orders_OrderObjects">
+            <End Role="OrderObjects" EntitySet="OrderObjects" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_UsersAccept" Association="VotGESOrdersModel.FK_Orders_UsersAccept">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_UsersBan" Association="VotGESOrdersModel.FK_Orders_UsersBan">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_UsersCancel" Association="VotGESOrdersModel.FK_Orders_UsersCancel">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_UsersClose" Association="VotGESOrdersModel.FK_Orders_UsersClose">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_UsersCreate" Association="VotGESOrdersModel.FK_Orders_UsersCreate">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_UsersEnter" Association="VotGESOrdersModel.FK_Orders_UsersEnter">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_UsersOpen" Association="VotGESOrdersModel.FK_Orders_UsersOpen">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="OrderObjects">
+          <Key>
+            <PropertyRef Name="objectID" />
+          </Key>
+          <Property Name="objectID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="parentID" Type="Int32" Nullable="false" />
+          <Property Name="objectName" Type="String" Nullable="false" MaxLength="250" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Orders" Relationship="VotGESOrdersModel.FK_Orders_OrderObjects" FromRole="OrderObjects" ToRole="Orders" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="orderNumber" />
+          </Key>
+          <Property Name="parentOrderNumber" Type="Int32" />
+          <Property Name="childOrderNumber" Type="Int32" />
+          <Property Name="orderNumber" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userCreateOrderName" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="userAcceptOrderName" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="userBanOrderName" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="userCloseOrderName" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="userEnterOrderName" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="userOpenOrderName" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="userCancelOrderName" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="orderDateCreate" Type="DateTime" Nullable="false" />
+          <Property Name="orderDateAccept" Type="DateTime" />
+          <Property Name="orderDateBan" Type="DateTime" />
+          <Property Name="orderDateClose" Type="DateTime" />
+          <Property Name="orderDateOpen" Type="DateTime" />
+          <Property Name="orderDateEnter" Type="DateTime" />
+          <Property Name="orderDateCancel" Type="DateTime" />
+          <Property Name="orderLastUpdate" Type="DateTime" Nullable="false" />
+          <Property Name="acceptText" Type="String" MaxLength="250" Unicode="false" FixedLength="false" />
+          <Property Name="banText" Type="String" MaxLength="250" Unicode="false" FixedLength="false" />
+          <Property Name="openText" Type="String" MaxLength="250" Unicode="false" FixedLength="false" />
+          <Property Name="closeText" Type="String" MaxLength="250" Unicode="false" FixedLength="false" />
+          <Property Name="enterText" Type="String" MaxLength="250" Unicode="false" FixedLength="false" />
+          <Property Name="cancelText" Type="String" MaxLength="250" Unicode="false" FixedLength="false" />
+          <Property Name="createText" Type="String" MaxLength="250" Unicode="false" FixedLength="false" />
+          <Property Name="planStartDate" Type="DateTime" Nullable="false" />
+          <Property Name="planStopDate" Type="DateTime" Nullable="false" />
+          <Property Name="faktStartDate" Type="DateTime" />
+          <Property Name="faktStopDate" Type="DateTime" />
+          <Property Name="faktEnterDate" Type="DateTime" />
+          <Property Name="orderText" Type="String" Nullable="false" MaxLength="250" Unicode="false" FixedLength="false" />
+          <Property Name="orderType" Type="String" Nullable="false" MaxLength="5" Unicode="false" FixedLength="false" />
+          <Property Name="soglasText" Type="String" MaxLength="250" Unicode="false" FixedLength="false" />
+          <Property Name="orderObjectID" Type="Int32" Nullable="false" />
+          <Property Name="orderObjectAddInfo" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="orderCreated" Type="Boolean" Nullable="false" />
+          <Property Name="orderAccepted" Type="Boolean" Nullable="false" />
+          <Property Name="orderBanned" Type="Boolean" Nullable="false" />
+          <Property Name="orderOpened" Type="Boolean" Nullable="false" />
+          <Property Name="orderClosed" Type="Boolean" Nullable="false" />
+          <Property Name="orderCanceled" Type="Boolean" Nullable="false" />
+          <Property Name="orderEntered" Type="Boolean" Nullable="false" />
+          <Property Name="orderExtended" Type="Boolean" Nullable="false" />
+          <Property Name="orderAskExtended" Type="Boolean" Nullable="false" />
+          <Property Name="orderIsExtend" Type="Boolean" Nullable="false" />
+          <Property Name="orderState" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="OrderObjects" Relationship="VotGESOrdersModel.FK_Orders_OrderObjects" FromRole="Orders" ToRole="OrderObjects" />
+          <NavigationProperty Name="Users" Relationship="VotGESOrdersModel.FK_Orders_UsersAccept" FromRole="Orders" ToRole="Users" />
+          <NavigationProperty Name="Users1" Relationship="VotGESOrdersModel.FK_Orders_UsersBan" FromRole="Orders" ToRole="Users" />
+          <NavigationProperty Name="Users2" Relationship="VotGESOrdersModel.FK_Orders_UsersCancel" FromRole="Orders" ToRole="Users" />
+          <NavigationProperty Name="Users3" Relationship="VotGESOrdersModel.FK_Orders_UsersClose" FromRole="Orders" ToRole="Users" />
+          <NavigationProperty Name="Users4" Relationship="VotGESOrdersModel.FK_Orders_UsersCreate" FromRole="Orders" ToRole="Users" />
+          <NavigationProperty Name="Users5" Relationship="VotGESOrdersModel.FK_Orders_UsersEnter" FromRole="Orders" ToRole="Users" />
+          <NavigationProperty Name="Users6" Relationship="VotGESOrdersModel.FK_Orders_UsersOpen" FromRole="Orders" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="name" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="fullName" Type="String" MaxLength="250" Unicode="false" FixedLength="false" />
+          <Property Name="allowCreateOrder" Type="Boolean" />
+          <Property Name="allowAcceptOrder" Type="Boolean" />
+          <Property Name="allowOpenOrder" Type="Boolean" />
+          <Property Name="allowCancelOrder" Type="Boolean" />
+          <Property Name="allowCloseOrder" Type="Boolean" />
+          <Property Name="allowEnterOrder" Type="Boolean" />
+          <Property Name="allowExtendOrder" Type="Boolean" />
+          <NavigationProperty Name="Orders" Relationship="VotGESOrdersModel.FK_Orders_UsersAccept" FromRole="Users" ToRole="Orders" />
+          <NavigationProperty Name="Orders1" Relationship="VotGESOrdersModel.FK_Orders_UsersBan" FromRole="Users" ToRole="Orders" />
+          <NavigationProperty Name="Orders2" Relationship="VotGESOrdersModel.FK_Orders_UsersCancel" FromRole="Users" ToRole="Orders" />
+          <NavigationProperty Name="Orders3" Relationship="VotGESOrdersModel.FK_Orders_UsersClose" FromRole="Users" ToRole="Orders" />
+          <NavigationProperty Name="Orders4" Relationship="VotGESOrdersModel.FK_Orders_UsersCreate" FromRole="Users" ToRole="Orders" />
+          <NavigationProperty Name="Orders5" Relationship="VotGESOrdersModel.FK_Orders_UsersEnter" FromRole="Users" ToRole="Orders" />
+          <NavigationProperty Name="Orders6" Relationship="VotGESOrdersModel.FK_Orders_UsersOpen" FromRole="Users" ToRole="Orders" />
+        </EntityType>
+        <Association Name="FK_Orders_OrderObjects">
+          <End Role="OrderObjects" Type="VotGESOrdersModel.OrderObjects" Multiplicity="1" />
+          <End Role="Orders" Type="VotGESOrdersModel.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrderObjects">
+              <PropertyRef Name="objectID" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="orderObjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_UsersAccept">
+          <End Role="Users" Type="VotGESOrdersModel.Users" Multiplicity="0..1" />
+          <End Role="Orders" Type="VotGESOrdersModel.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="name" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="userAcceptOrderName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_UsersBan">
+          <End Role="Users" Type="VotGESOrdersModel.Users" Multiplicity="0..1" />
+          <End Role="Orders" Type="VotGESOrdersModel.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="name" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="userBanOrderName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_UsersCancel">
+          <End Role="Users" Type="VotGESOrdersModel.Users" Multiplicity="0..1" />
+          <End Role="Orders" Type="VotGESOrdersModel.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="name" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="userCancelOrderName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_UsersClose">
+          <End Role="Users" Type="VotGESOrdersModel.Users" Multiplicity="0..1" />
+          <End Role="Orders" Type="VotGESOrdersModel.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="name" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="userCloseOrderName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_UsersCreate">
+          <End Role="Users" Type="VotGESOrdersModel.Users" Multiplicity="1" />
+          <End Role="Orders" Type="VotGESOrdersModel.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="name" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="userCreateOrderName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_UsersEnter">
+          <End Role="Users" Type="VotGESOrdersModel.Users" Multiplicity="0..1" />
+          <End Role="Orders" Type="VotGESOrdersModel.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="name" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="userEnterOrderName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_UsersOpen">
+          <End Role="Users" Type="VotGESOrdersModel.Users" Multiplicity="0..1" />
+          <End Role="Orders" Type="VotGESOrdersModel.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="name" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="userOpenOrderName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="VotGESOrdersModelStoreContainer" CdmEntityContainer="VotGESOrdersEntities">
+          <EntitySetMapping Name="OrderObjects"><EntityTypeMapping TypeName="VotGESOrdersModel.OrderObjects"><MappingFragment StoreEntitySet="OrderObjects">
+            <ScalarProperty Name="objectID" ColumnName="objectID" />
+            <ScalarProperty Name="parentID" ColumnName="parentID" />
+            <ScalarProperty Name="objectName" ColumnName="objectName" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Orders"><EntityTypeMapping TypeName="VotGESOrdersModel.Orders"><MappingFragment StoreEntitySet="Orders">
+            <ScalarProperty Name="parentOrderNumber" ColumnName="parentOrderNumber" />
+            <ScalarProperty Name="childOrderNumber" ColumnName="childOrderNumber" />
+            <ScalarProperty Name="orderNumber" ColumnName="orderNumber" />
+            <ScalarProperty Name="userCreateOrderName" ColumnName="userCreateOrderName" />
+            <ScalarProperty Name="userAcceptOrderName" ColumnName="userAcceptOrderName" />
+            <ScalarProperty Name="userBanOrderName" ColumnName="userBanOrderName" />
+            <ScalarProperty Name="userCloseOrderName" ColumnName="userCloseOrderName" />
+            <ScalarProperty Name="userEnterOrderName" ColumnName="userEnterOrderName" />
+            <ScalarProperty Name="userOpenOrderName" ColumnName="userOpenOrderName" />
+            <ScalarProperty Name="userCancelOrderName" ColumnName="userCancelOrderName" />
+            <ScalarProperty Name="orderDateCreate" ColumnName="orderDateCreate" />
+            <ScalarProperty Name="orderDateAccept" ColumnName="orderDateAccept" />
+            <ScalarProperty Name="orderDateBan" ColumnName="orderDateBan" />
+            <ScalarProperty Name="orderDateClose" ColumnName="orderDateClose" />
+            <ScalarProperty Name="orderDateOpen" ColumnName="orderDateOpen" />
+            <ScalarProperty Name="orderDateEnter" ColumnName="orderDateEnter" />
+            <ScalarProperty Name="orderDateCancel" ColumnName="orderDateCancel" />
+            <ScalarProperty Name="orderLastUpdate" ColumnName="orderLastUpdate" />
+            <ScalarProperty Name="acceptText" ColumnName="acceptText" />
+            <ScalarProperty Name="banText" ColumnName="banText" />
+            <ScalarProperty Name="openText" ColumnName="openText" />
+            <ScalarProperty Name="closeText" ColumnName="closeText" />
+            <ScalarProperty Name="enterText" ColumnName="enterText" />
+            <ScalarProperty Name="cancelText" ColumnName="cancelText" />
+            <ScalarProperty Name="createText" ColumnName="createText" />
+            <ScalarProperty Name="planStartDate" ColumnName="planStartDate" />
+            <ScalarProperty Name="planStopDate" ColumnName="planStopDate" />
+            <ScalarProperty Name="faktStartDate" ColumnName="faktStartDate" />
+            <ScalarProperty Name="faktStopDate" ColumnName="faktStopDate" />
+            <ScalarProperty Name="faktEnterDate" ColumnName="faktEnterDate" />
+            <ScalarProperty Name="orderText" ColumnName="orderText" />
+            <ScalarProperty Name="orderType" ColumnName="orderType" />
+            <ScalarProperty Name="soglasText" ColumnName="soglasText" />
+            <ScalarProperty Name="orderObjectID" ColumnName="orderObjectID" />
+            <ScalarProperty Name="orderObjectAddInfo" ColumnName="orderObjectAddInfo" />
+            <ScalarProperty Name="orderCreated" ColumnName="orderCreated" />
+            <ScalarProperty Name="orderAccepted" ColumnName="orderAccepted" />
+            <ScalarProperty Name="orderBanned" ColumnName="orderBanned" />
+            <ScalarProperty Name="orderOpened" ColumnName="orderOpened" />
+            <ScalarProperty Name="orderClosed" ColumnName="orderClosed" />
+            <ScalarProperty Name="orderCanceled" ColumnName="orderCanceled" />
+            <ScalarProperty Name="orderEntered" ColumnName="orderEntered" />
+            <ScalarProperty Name="orderExtended" ColumnName="orderExtended" />
+            <ScalarProperty Name="orderAskExtended" ColumnName="orderAskExtended" />
+            <ScalarProperty Name="orderIsExtend" ColumnName="orderIsExtend" />
+            <ScalarProperty Name="orderState" ColumnName="orderState" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Users"><EntityTypeMapping TypeName="VotGESOrdersModel.Users"><MappingFragment StoreEntitySet="Users">
+            <ScalarProperty Name="name" ColumnName="name" />
+            <ScalarProperty Name="fullName" ColumnName="fullName" />
+            <ScalarProperty Name="allowCreateOrder" ColumnName="allowCreateOrder" />
+            <ScalarProperty Name="allowAcceptOrder" ColumnName="allowAcceptOrder" />
+            <ScalarProperty Name="allowOpenOrder" ColumnName="allowOpenOrder" />
+            <ScalarProperty Name="allowCancelOrder" ColumnName="allowCancelOrder" />
+            <ScalarProperty Name="allowCloseOrder" ColumnName="allowCloseOrder" />
+            <ScalarProperty Name="allowEnterOrder" ColumnName="allowEnterOrder" />
+            <ScalarProperty Name="allowExtendOrder" ColumnName="allowExtendOrder" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="VotGESOrdersEntities">
+        <EntityTypeShape EntityType="VotGESOrdersModel.OrderObjects" Width="1.5" PointX="0.75" PointY="2.25" Height="1.7879850260416674" IsExpanded="true" />
+        <EntityTypeShape EntityType="VotGESOrdersModel.Orders" Width="1.5" PointX="3" PointY="1.375" Height="11.403056640625" IsExpanded="true" />
+        <EntityTypeShape EntityType="VotGESOrdersModel.Users" Width="1.5" PointX="0.75" PointY="5" Height="4.0956022135416648" IsExpanded="true" />
+        <AssociationConnector Association="VotGESOrdersModel.FK_Orders_OrderObjects" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="3.1439925130208337" />
+          <ConnectorPoint PointX="3" PointY="3.1439925130208337" />
+        </AssociationConnector>
+        <AssociationConnector Association="VotGESOrdersModel.FK_Orders_UsersAccept" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="7.0478011067708319" />
+          <ConnectorPoint PointX="3" PointY="7.0478011067708319" />
+        </AssociationConnector>
+        <AssociationConnector Association="VotGESOrdersModel.FK_Orders_UsersBan" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="5.961400553385416" />
+          <ConnectorPoint PointX="3" PointY="5.961400553385416" />
+        </AssociationConnector>
+        <AssociationConnector Association="VotGESOrdersModel.FK_Orders_UsersCancel" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="8.134201660156247" />
+          <ConnectorPoint PointX="3" PointY="8.134201660156247" />
+        </AssociationConnector>
+        <AssociationConnector Association="VotGESOrdersModel.FK_Orders_UsersClose" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="7.5910013834635395" />
+          <ConnectorPoint PointX="3" PointY="7.5910013834635395" />
+        </AssociationConnector>
+        <AssociationConnector Association="VotGESOrdersModel.FK_Orders_UsersCreate" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="6.5046008300781235" />
+          <ConnectorPoint PointX="3" PointY="6.5046008300781235" />
+        </AssociationConnector>
+        <AssociationConnector Association="VotGESOrdersModel.FK_Orders_UsersEnter" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="5.4182002766927084" />
+          <ConnectorPoint PointX="3" PointY="5.4182002766927084" />
+        </AssociationConnector>
+        <AssociationConnector Association="VotGESOrdersModel.FK_Orders_UsersOpen" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="8.6774019368489554" />
+          <ConnectorPoint PointX="3" PointY="8.6774019368489554" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

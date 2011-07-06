@@ -1,0 +1,89 @@
+﻿<UserControl
+    x:Class="VotGESOrders.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:navigation="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Navigation" 
+    xmlns:uriMapper="clr-namespace:System.Windows.Navigation;assembly=System.Windows.Controls.Navigation"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+	 xmlns:conv="clr-namespace:VotGESOrders.Converters"
+    mc:Ignorable="d" d:DesignWidth="640" d:DesignHeight="480" >
+	
+
+	<Grid x:Name="LayoutRoot" Style="{StaticResource LayoutRootGridStyle}">
+
+		<Border x:Name="ContentBorder" Style="{StaticResource ContentBorderStyle}">
+
+			<navigation:Frame x:Name="ContentFrame" Style="{StaticResource ContentFrameStyle}" 
+                              Source="/Home" Navigated="ContentFrame_Navigated" NavigationFailed="ContentFrame_NavigationFailed">
+				<navigation:Frame.UriMapper>
+					<uriMapper:UriMapper>
+						<uriMapper:UriMapping Uri="" MappedUri="/Views/Home.xaml"/>
+						<uriMapper:UriMapping Uri="/{pageName}" MappedUri="/Views/{pageName}.xaml"/>
+					</uriMapper:UriMapper>
+				</navigation:Frame.UriMapper>
+			</navigation:Frame>
+		</Border>
+
+		<Grid x:Name="NavigationGrid" Style="{StaticResource NavigationGridStyle}">
+
+			<Border x:Name="BrandingBorder" Style="{StaticResource BrandingBorderStyle}">
+				<StackPanel x:Name="BrandingStackPanel" Style="{StaticResource BrandingStackPanelStyle}">
+
+					<ContentControl Style="{StaticResource LogoIcon}"/>
+					<TextBlock x:Name="ApplicationNameTextBlock" Style="{StaticResource ApplicationNameStyle}" 
+                               Text="Заявки"/>
+
+				</StackPanel>
+			</Border>
+
+			<Border x:Name="LinksBorder" Style="{StaticResource LinksBorderStyle}">
+				<StackPanel x:Name="LinksStackPanel" Style="{StaticResource LinksStackPanelStyle}">
+					<HyperlinkButton x:Name="Link10" Style="{StaticResource LinkStyle}" 
+                                     NavigateUri="/EditTree" TargetName="ContentFrame" Content="Редактор оборудования"/>
+
+					<Rectangle x:Name="Divider1" Style="{StaticResource DividerStyle}"/>
+					<HyperlinkButton x:Name="Link1" Style="{StaticResource LinkStyle}" 
+                                     NavigateUri="/Home" TargetName="ContentFrame" Content="Последние заявки"/>
+
+					<Rectangle x:Name="Divider2" Style="{StaticResource DividerStyle}"/>
+
+					<HyperlinkButton x:Name="Link2" Style="{StaticResource LinkStyle}" 
+                                     NavigateUri="/About" TargetName="ContentFrame" Content="о программе"/>
+
+				</StackPanel>
+			</Border>
+
+
+
+		</Grid>
+		<Border x:Name="loginContainer" Style="{StaticResource LoginContainerStyle}">
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="1*"/>
+					<ColumnDefinition Width="Auto"/>
+				</Grid.ColumnDefinitions>
+				<StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="2">
+					<TextBlock x:Name="LoginText" Text="Вы вошли как: "/>
+					<TextBlock x:Name="LoginName" Text="{Binding FullName}"/>					
+				</StackPanel>
+				<StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Grid.Column="0">
+					<TextBlock x:Name="StatusLabel" Text="Статус: "/>
+					<TextBlock x:Name="StatusText" Text="{Binding Status, Source={StaticResource globalStatus}}"/>
+					<StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="10,0,0,0">
+						<TextBlock x:Name="LastUpdateLabel" Text="Последнее обновление: "/>
+						<TextBlock x:Name="LastUpdateText" 
+								  Text="{Binding LastUpdate, Source={StaticResource globalStatus},
+						Converter={StaticResource dateTimeConverter},ConverterParameter='HH:mm:ss'}"/>
+						<TextBlock x:Name="NeedRefreshText" Text=" [Ожидается обновление]" 
+								  Visibility="{Binding NeedRefresh,  Source={StaticResource globalStatus},
+									Converter={StaticResource visibilityConverter}}"/>
+					</StackPanel>
+				</StackPanel>
+			</Grid>
+
+		</Border>
+
+
+	</Grid>
+
+</UserControl>
