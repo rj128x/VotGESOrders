@@ -220,6 +220,7 @@ namespace VotGESOrders.Web.Models
 			} catch (Exception e) {
 
 				Logger.error(String.Format("Ошибка при создании заявки: {0}", e));
+				throw new OrderException(order, ExceptionOperation.create);
 			}
 		}
 
@@ -239,6 +240,7 @@ namespace VotGESOrders.Web.Models
 				order.refreshOrderFromDB(orderDB, currentUser);
 			} catch (Exception e) {
 				Logger.error(String.Format("Ошибка при изменении заявки №{1}: {0}", e, order.OrderNumber));
+				throw new OrderException(order, ExceptionOperation.change);
 			}
 		}
 
@@ -273,6 +275,7 @@ namespace VotGESOrders.Web.Models
 				order.refreshOrderFromDB(orderDB, currentUser);
 			} catch (Exception e) {
 				Logger.error(String.Format("Ошибка при разрешении заявки №{1}: {0}", e, order.OrderNumber));
+				throw new OrderException(order, ExceptionOperation.accept);
 			}
 		}
 
@@ -312,6 +315,7 @@ namespace VotGESOrders.Web.Models
 				order.refreshOrderFromDB(orderDB, currentUser);
 			} catch (Exception e) {
 				Logger.error(String.Format("Ошибка при запрещении заявки №{1}: {0}", e, order.OrderNumber));
+				throw new OrderException(order, ExceptionOperation.ban);
 			}
 		}
 
@@ -339,6 +343,7 @@ namespace VotGESOrders.Web.Models
 				order.refreshOrderFromDB(orderDB, currentUser);
 			} catch (Exception e) {
 				Logger.error(String.Format("Ошибка при открытии заявки №{1}: {0}", e, order.OrderNumber));
+				throw new OrderException(order, ExceptionOperation.open);
 			}
 		}
 
@@ -364,6 +369,7 @@ namespace VotGESOrders.Web.Models
 				order.refreshOrderFromDB(orderDB, currentUser);
 			} catch (Exception e) {
 				Logger.error(String.Format("Ошибка при закрытии заявки №{1}: {0}", e, order.OrderNumber));
+				throw new OrderException(order, ExceptionOperation.close);
 			}
 		}
 
@@ -398,6 +404,7 @@ namespace VotGESOrders.Web.Models
 				order.refreshOrderFromDB(orderDB, currentUser);
 			} catch (Exception e) {
 				Logger.error(String.Format("Ошибка при снятии заявки №{1}: {0}", e, order.OrderNumber));
+				throw new OrderException(order, ExceptionOperation.cancel);
 			}
 		}
 
@@ -423,6 +430,7 @@ namespace VotGESOrders.Web.Models
 				order.refreshOrderFromDB(orderDB, currentUser);
 			} catch (Exception e) {
 				Logger.error(String.Format("Ошибка при вводе оборудования №{1}: {0}", e, order.OrderNumber));
+				throw new OrderException(order, ExceptionOperation.enter);
 			}
 		}
 
@@ -434,20 +442,9 @@ namespace VotGESOrders.Web.Models
 				Logger.info("Заявка обновлена. Заявка №" + order.OrderNumber);
 				order.refreshOrderFromDB(orderDB, currentUser);
 			} catch (Exception e) {
-				Logger.error(String.Format("Ошибка при обновлении заявки №{1}: {0}", e, order.OrderNumber));
+				Logger.error(String.Format("Ошибка при обновлении заявки №{1}: {0}", e, order.OrderNumber));				
 			}
 		}
-
-		public void UpdateOrder(Order order) {
-			Logger.info("Пользователь Update заявку №" + order.OrderNumber);
-			try {
-				VotGESOrdersEntities context=new VotGESOrdersEntities();
-				Orders orderDB=context.Orders.First(o => o.orderNumber == order.OrderNumber);
-				Logger.info("Заявка Update. Заявка №" + order.OrderNumber);
-				order.checkPremissions(orderDB, currentUser);
-			} catch (Exception e) {
-				Logger.error(String.Format("Ошибка при Update заявки №{1}: {0}", e, order.OrderNumber));
-			}
-		}
+				
 	}
 }

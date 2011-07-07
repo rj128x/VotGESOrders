@@ -20,13 +20,16 @@
 				<StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="1" >
 						<Button Name="btnChangeItem" Content="Изменить"   VerticalAlignment="Center" HorizontalAlignment="Center"  
 									  FontSize="14" Foreground="Blue" Margin="0,0,0,0" Padding="0,0,0,0"
-								  Width="100" Height="20" Click="btnChangeItem_Click"/>
+								  Width="100" Height="20" Click="btnChangeItem_Click"
+								  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
 						<Button Name="btnDeleteItem" Content="Удалить"   VerticalAlignment="Center" HorizontalAlignment="Center" 
 									  FontSize="14" Foreground="Red" Margin="0,0,0,0" Padding="0,0,0,0"
-								  Width="100" Height="20" Click="btnDeleteItem_Click"/>
+								  Width="100" Height="20" Click="btnDeleteItem_Click"
+								  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
 						<Button Name="btnAddItem" Content="Добавить"   VerticalAlignment="Center"  HorizontalAlignment="Center" 
 									  FontSize="14" Foreground="Green" Margin="0,0,0,0" Padding="0,0,0,0"
-								  Width="100" Height="20" Click="btnAddItem_Click"/>
+								  Width="100" Height="20" Click="btnAddItem_Click"
+								  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
 				</StackPanel>
 			</Grid>			
 		</sdk:HierarchicalDataTemplate>
@@ -55,33 +58,32 @@
 								VerticalAlignment="Stretch" AutoGenerateFields="False"
 								CommandButtonsVisibility="None">
 					<StackPanel>
-						<toolkit:DataField Name="ObjectName" Label="Наименование">
+						<TextBlock Style="{StaticResource Label}" Text="Наименование оборудования"/>
 							<TextBox Name="txtName" Text="{Binding ObjectName, Mode=TwoWay}"
 										IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
-						</toolkit:DataField>
-						<toolkit:DataField Name="ParentObjectID" Label="Родитель">
-							<StackPanel>
-								<TextBox Name="txtParentID" Text="{Binding ParentObjectID, Mode=TwoWay}" IsEnabled="False" />
-							</StackPanel>
-						</toolkit:DataField>
-						<TextBox Name="txtParent" Text="{Binding SelParentOrderObjectName, Mode=TwoWay}" IsEnabled="False"/>
-						<Button Name="btnFirstLevel" Content="На верхний уровень" Click="btnFirstLevel_Click"
-							IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
+						<TextBlock Style="{StaticResource Label}" Text="Родительское оборудование"/>
+						<Grid>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="*"/>
+								<ColumnDefinition Width="100"/>
+							</Grid.ColumnDefinitions>
+							<TextBox Name="txtParent" Text="{Binding SelParentOrderObjectName, Mode=TwoWay}" IsEnabled="False" Width="Auto" Grid.Column="0"/>
+							<Button Name="btnFirstLevel" Content="1 уровень" Click="btnFirstLevel_Click" Grid.Column="1"
+								IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
+						</Grid>						
 					</StackPanel>
-				</toolkit:DataForm>			
-				
+				</toolkit:DataForm>
+				<StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="1" Grid.Column="1">
+					<Button Name="btnSave" Content="Сохранить" Click="btnSave_Click"
+							  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
+					<Button Name="btnCancel" Content="Отменить" Click="btnCancel_Click" 
+							  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
+				</StackPanel>
 			</StackPanel>
-		</Border>
-
-		<StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="1" Grid.Column="1">
-			<Button Name="btnSave" Content="Сохранить" Click="btnSave_Click"
-							  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
-			<Button Name="btnCancel" Content="Отменить" Click="btnCancel_Click" 
-							  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
-		</StackPanel>
+		</Border>		
 		
 		<StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="1" Grid.Column="0">
-			<Button Name="btnRefresh" Content="Обновить" Click="btnRefresh_Click"
+			<Button Name="btnRefresh" Content="Обновить (с сервера)" Click="btnRefresh_Click"
 							  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>			
 		</StackPanel>
 	</Grid>

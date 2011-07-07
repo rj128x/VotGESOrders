@@ -48,6 +48,7 @@ namespace VotGESOrders
 			cntrlFilter.DataContext = OrdersContext.Current.Filter;
 			cmbFilterType.ItemsSource = OrderFilter.FilterTypes;
 			cmbFilterType.DataContext = OrdersContext.Current.Filter;
+			
 		}
 
 		void View_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e) {
@@ -59,20 +60,22 @@ namespace VotGESOrders
 
 		void timerExistChanges_Tick(object sender, EventArgs e) {
 				InvokeOperation<bool> oper=
-					OrdersContext.Current.Context.ExistsChanges(OrdersContext.Current.LastUpdate, OrdersContext.Current.SessionGUID);				
-				oper.Completed += new EventHandler(oper_Completed);
+					OrdersContext.Current.Context.ExistsChanges(OrdersContext.Current.LastUpdate, OrdersContext.Current.SessionGUID);
+				oper.Completed += new EventHandler(oper_Completed);									
 		}
 
 		void oper_Completed(object sender, EventArgs e) {
-			InvokeOperation<bool> oper=sender as InvokeOperation<bool>;
-			if (OrdersContext.Current.LastUpdate.AddMinutes(10) < DateTime.Now) {
-				GlobalStatus.Current.NeedRefresh= true;
-			}
-			if (oper.Value || GlobalStatus.Current.NeedRefresh) {
-				if (GlobalStatus.Current.CanRefresh) {
-					OrdersContext.Current.RefreshOrders(true);
-				} else {
+			InvokeOperation<bool> oper=sender as InvokeOperation<bool>;			
+			if (!oper.HasError) {
+				if (OrdersContext.Current.LastUpdate.AddMinutes(10) < DateTime.Now) {
 					GlobalStatus.Current.NeedRefresh = true;
+				}
+				if (oper.Value || GlobalStatus.Current.NeedRefresh) {
+					if (GlobalStatus.Current.CanRefresh) {
+						OrdersContext.Current.RefreshOrders(true);
+					} else {
+						GlobalStatus.Current.NeedRefresh = true;
+					}
 				}
 			}
 			

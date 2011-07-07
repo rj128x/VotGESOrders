@@ -40,10 +40,12 @@
 							<StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="1" >
 								<Button Name="btnChangeItem" Content="Изменить"   VerticalAlignment="Center" HorizontalAlignment="Center"  
 									  FontSize="14" Foreground="Blue" Margin="0,0,0,0" Padding="0,0,0,0"
-								  Width="100" Height="20" Click="btnChangeItem_Click"/>
+								  Width="100" Height="20" Click="btnChangeItem_Click"
+										  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
 								<Button Name="btnDeleteItem" Content="Удалить"   VerticalAlignment="Center" HorizontalAlignment="Center" 
 									  FontSize="14" Foreground="Red" Margin="0,0,0,0" Padding="0,0,0,0"
-								  Width="100" Height="20" Click="btnDeleteItem_Click"/>								
+								  Width="100" Height="20" Click="btnDeleteItem_Click"
+										  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>								
 							</StackPanel>
 						</DataTemplate>
 					</sdk:DataGridTemplateColumn.CellTemplate>
@@ -62,52 +64,52 @@
 						<toolkit:DataField Name="FullName" Label="Имя">
 								<TextBox Name="txtFullName" Text="{Binding FullName, Mode=TwoWay}"/>
 						</toolkit:DataField>
-						<toolkit:DataField Name="AllowCreateOrder" Label="Может создавать заявки">
-							<CheckBox Content="Да" IsChecked="{Binding AllowCreateOrder,Mode=TwoWay}"/>
+						<toolkit:DataField Name="AllowCreateOrder" Label="">
+							<CheckBox Content="Может создавать заявки" IsChecked="{Binding AllowCreateOrder,Mode=TwoWay}"/>
 						</toolkit:DataField>
-						<toolkit:DataField Name="AllowOpenOrder" Label="Может открывать заявки">
-							<CheckBox Content="Да" IsChecked="{Binding AllowOpenOrder,Mode=TwoWay}"/>
+						<toolkit:DataField Name="AllowOpenOrder" Label="">
+							<CheckBox Content="Может открывать заявки" IsChecked="{Binding AllowOpenOrder,Mode=TwoWay}"/>
 						</toolkit:DataField>
-						<toolkit:DataField Name="AllowCloseOrder" Label="Может разрешать ввод оборудования (чужая заявка)">
-							<CheckBox Content="Да" IsChecked="{Binding AllowCloseOrder,Mode=TwoWay}"/>
+						<toolkit:DataField Name="AllowCloseOrder" Label="">
+							<CheckBox Content="Может разрешать ввод оборудования (чужая заявка)" IsChecked="{Binding AllowCloseOrder,Mode=TwoWay}"/>
 						</toolkit:DataField>
-						<toolkit:DataField Name="AllowAcceptOrder" Label="Может рассматривать заявки">
-							<CheckBox Content="Да" IsChecked="{Binding AllowAcceptOrder,Mode=TwoWay}"/>
+						<toolkit:DataField Name="AllowAcceptOrder" Label="">
+							<CheckBox Content="Может рассматривать заявки" IsChecked="{Binding AllowAcceptOrder,Mode=TwoWay}"/>
 						</toolkit:DataField>
-						<toolkit:DataField Name="AllowEnterOrder" Label="Может вводить оборудование">
-							<CheckBox Content="Да" IsChecked="{Binding AllowEnterOrder,Mode=TwoWay}"/>
+						<toolkit:DataField Name="AllowEnterOrder" Label="">
+							<CheckBox Content="Может вводить оборудование" IsChecked="{Binding AllowEnterOrder,Mode=TwoWay}"/>
 						</toolkit:DataField>
-						<toolkit:DataField Name="AllowExtendOrder" Label="Может продлять заявки">
-							<CheckBox Content="Да" IsChecked="{Binding AllowExtendOrder,Mode=TwoWay}"/>
+						<toolkit:DataField Name="AllowExtendOrder" Label="">
+							<CheckBox Content="Может продлять заявки (чужая заявка)" IsChecked="{Binding AllowExtendOrder,Mode=TwoWay}"/>
 						</toolkit:DataField>
-						<toolkit:DataField Name="AllowCancelOrder" Label="Может снимать заявки">
-							<CheckBox Content="Да" IsChecked="{Binding AllowCancelOrder,Mode=TwoWay}"/>
+						<toolkit:DataField Name="AllowCancelOrder" Label="">
+							<CheckBox Content="Может снимать заявки (после разрешения)" IsChecked="{Binding AllowCancelOrder,Mode=TwoWay}"/>
 						</toolkit:DataField>
-						<toolkit:DataField Name="AllowEditTree" Label="Может редактировать оборудование">
-							<CheckBox Content="Да" IsChecked="{Binding AllowEditTree,Mode=TwoWay}"/>
+						<toolkit:DataField Name="AllowEditTree" Label="">
+							<CheckBox Content="Может редактировать оборудование" IsChecked="{Binding AllowEditTree,Mode=TwoWay}"/>
 						</toolkit:DataField>
-						<toolkit:DataField Name="AllowEditUsers" Label="Может редактировать пользователей">
-							<CheckBox Content="Да" IsChecked="{Binding AllowEditUsers,Mode=TwoWay}"/>
+						<toolkit:DataField Name="AllowEditUsers" Label="">
+							<CheckBox Content="Может редактировать пользователей" IsChecked="{Binding AllowEditUsers,Mode=TwoWay}"/>
 						</toolkit:DataField>
-						<toolkit:DataField Name="AllowEditOrders" Label="Может редактировать заявки">
-							<CheckBox Content="Да" IsChecked="{Binding AllowEditOrders,Mode=TwoWay}"/>
+						<toolkit:DataField Name="AllowEditOrders" Label="" Visibility="Collapsed" >
+							<CheckBox Content="Может редактировать заявки" IsChecked="{Binding AllowEditOrders,Mode=TwoWay}"/>
 						</toolkit:DataField>
 					</StackPanel>
 				</toolkit:DataForm>
+				<StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="1" Grid.Column="1">
+					<Button Name="btnSave" Content="Сохранить" Click="btnSave_Click"
+							  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
+					<Button Name="btnCancel" Content="Отменить" Click="btnCancel_Click" 
+							  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
+				</StackPanel>
 			</StackPanel>
 		</Border>
-		<StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="1" Grid.Column="1">
-			<Button Name="btnSave" Content="Сохранить" Click="btnSave_Click"
-							  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
-			<Button Name="btnCancel" Content="Отменить" Click="btnCancel_Click" 
-							  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
-		</StackPanel>
+		
 
 		<StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="1" Grid.Column="0">
-			<Button Name="btnAddItem" Content="Добавить"   VerticalAlignment="Center"  HorizontalAlignment="Center" 
-									  FontSize="14" Foreground="Green" Margin="0,0,0,0" Padding="0,0,0,0"
-								  Width="100" Height="20" Click="btnAddItem_Click"/>
-			<Button Name="btnRefresh" Content="Обновить" Click="btnRefresh_Click"
+			<Button Name="btnAddItem" Content="Добавить пользователя"   VerticalAlignment="Center"  HorizontalAlignment="Center" 
+									  Click="btnAddItem_Click" IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
+			<Button Name="btnRefresh" Content="Обновить список (с сервера)" Click="btnRefresh_Click"
 							  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
 		</StackPanel>
 	</Grid>

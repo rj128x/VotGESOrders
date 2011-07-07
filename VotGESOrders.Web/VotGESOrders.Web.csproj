@@ -94,7 +94,7 @@
     <Compile Include="Logging\Logger.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\LastUpdate.cs" />
-    <Compile Include="Models\OrderException.cs" />
+    <Compile Include="Models\OrderException.shared.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\OrderFilter.shared.cs" />
     <Compile Include="Models\OrderObject.cs" />

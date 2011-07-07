@@ -47,7 +47,7 @@ namespace VotGESOrders
 			get { return selParentOrderObject; }
 			set { 
 				selParentOrderObject = value;
-				SelParentOrderObjectName = value == null ? "" : value.FullName;
+				SelParentOrderObjectName = value == null ? "1 уровень" : value.FullName;
 				NotifyChanged("SelParentOrderObject");
 			}
 		}
@@ -102,13 +102,12 @@ namespace VotGESOrders
 		protected void saveEdit() {
 			if (SelObject != null) {
 				SelObject.ParentObject = SelParentOrderObject;
+				SelObject.ParentObjectID = SelParentOrderObject==null?0:SelParentOrderObject.ObjectID;
 				if (isNew) {
 					OrdersContext.Current.Context.OrderObjects.Attach(SelObject);
 				}
-				objectForm.CommitEdit();
-				
-				OrdersContext.Current.Context.RegisterChangeObject(SelObject);
-		
+				objectForm.CommitEdit();				
+				OrdersContext.Current.Context.RegisterChangeObject(SelObject);		
 				OrdersContext.Current.Context.SubmitChanges();
 			}
 		}
@@ -169,7 +168,6 @@ namespace VotGESOrders
 
 		private void btnFirstLevel_Click(object sender, RoutedEventArgs e) {
 			if (SelObject != null) {
-				SelObject.ParentObjectID = 0;
 				SelParentOrderObject = null;
 			}
 		}
@@ -189,13 +187,11 @@ namespace VotGESOrders
 						if (parent.ObjectID == SelObject.ObjectID) {
 							log = false;
 						}
-						if (log) {
-							parent = parent.ParentObject;
-						}
+						parent = parent.ParentObject;						
 					}
-					//SelObject.ParentObject = selectedObject;
-					SelObject.ParentObjectID = selectedObject.ObjectID;
-					SelParentOrderObject = selectedObject;
+					if (log) {
+						SelParentOrderObject = selectedObject;
+					}
 				}
 
 			}

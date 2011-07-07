@@ -19,14 +19,25 @@ namespace VotGESOrders.Web.Models
 		public int ObjectID{get; set;}
 		public int ParentObjectID{get; set;}
 
+
+		private OrderObject parentObject;
 		[Include]
 		[Association("Order_OrderObject1", "ParentObjectID", "ObjectID")]
-		public OrderObject ParentObject { get;  set; }
+		public OrderObject ParentObject {
+			get {
+				return parentObject;
+			}
+			set {
+				parentObject = value;
+				ParentObjectID = value==null?0:value.ObjectID;
+			}
+		}
 
 		[Include]
 		[Association("Order_OrderObject2", "ObjectID", "ParentObjectID")]
 		public List<OrderObject> ChildObjects { get;  set; }
-		public static List<OrderObject> FirstLevel { get;  set; }
+
+
 
 		protected static VotGESOrdersEntities context;
 		protected static Dictionary<int,OrderObject> allObjects;
@@ -71,7 +82,6 @@ namespace VotGESOrders.Web.Models
 				OrderObject obj=de.Value;
 				obj.ChildObjects = new List<OrderObject>((from o in allObjects.Values where o.ParentObjectID == obj.ObjectID select o));
 			}
-			FirstLevel = new List<OrderObject>((from o in allObjects.Values where o.ParentObjectID==0 orderby o.ObjectName select o));
 		}
 
 		protected static void createNames() {
@@ -88,7 +98,6 @@ namespace VotGESOrders.Web.Models
 				names.Reverse();
 				obj.FullName = String.Join(" => ", names); ;
 			}
-			FirstLevel = new List<OrderObject>((from o in allObjects.Values where o.ParentObjectID == 0 orderby o.ObjectName select o));
 		}
 
 		public static List<int> getObjectIDSByFullName(string fullName) {

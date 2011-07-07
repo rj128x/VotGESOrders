@@ -208,6 +208,7 @@ GO
 
 				
 insert into users values('CORP\chekunovamv','Чекунова М.В',1,1,1,1,1,1,1,1,1,1);
+insert into users values('RJ128X-PC\rj128x','ДГЩУ',1,1,1,1,1,1,1,1,1,1);
 insert into users values('SR-VOTGES-PI\dgshu','ДГЩУ',1,1,1,1,1,1,1,1,1,1);
 insert into users values('SR-VOTGES-PI\nss','НСС',1,1,1,1,1,1,1,0,0,0);
 insert into users values('SR-VOTGES-PI\author1','Автор1',1,0,0,0,0,0,0,0,0,0);

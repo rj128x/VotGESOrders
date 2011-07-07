@@ -12,6 +12,7 @@ using System.Windows.Shapes;
 using VotGESOrders.Web.Services;
 using System.ServiceModel.DomainServices.Client.ApplicationServices;
 using VotGESOrders.Logging;
+using VotGESOrders.Web.Models;
 
 
 namespace VotGESOrders
@@ -52,10 +53,36 @@ namespace VotGESOrders
 				// но не было обработано. 
 				// Для рабочих приложений такую обработку ошибок следует заменить на код, 
 				// оповещающий веб-сайт об ошибке и останавливающий работу приложения.
+
 				e.Handled = true;
-				Logger.info(e.ExceptionObject.ToString());
-				ChildWindow errorWin = new ErrorWindow(e.ExceptionObject);
-				errorWin.Show();
+								
+				if (e.ExceptionObject.GetType()==typeof(System.ServiceModel.DomainServices.Client.DomainOperationException)){
+					GlobalStatus.Current.Status="Ошибка:";
+					Exception inner=e.ExceptionObject.InnerException;
+					if (inner!=null){
+						if (inner.GetType() == typeof(System.ServiceModel.CommunicationException)) {
+							GlobalStatus.Current.Status += "Соединение с сервером";
+						}
+						if (inner.GetType() == typeof(VotGESOrders.Web.Models.OrderException)) {
+							ChildWindow errorWin = new ErrorWindow(inner);
+							errorWin.Show();
+						}
+					} else {
+						ChildWindow errorWin = new ErrorWindow(e.ExceptionObject);
+						Logger.logMessage(e.ExceptionObject.ToString());
+						errorWin.Show();
+					}
+				}
+				else{
+					ChildWindow errorWin = new ErrorWindow(e.ExceptionObject);
+					Logger.logMessage(e.ExceptionObject.ToString());
+					errorWin.Show();
+				}				
+				
+				
+
+				
+				
 			}
 		}
 	}

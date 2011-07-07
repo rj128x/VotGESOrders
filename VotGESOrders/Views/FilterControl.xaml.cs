@@ -38,7 +38,6 @@ namespace VotGESOrders.Views
 					filter.SelectedUsers.Add(user);
 			} catch {
 			}
-			Logger.info(filter.SelectedUsers.Count.ToString());
 		}
 
 		private void lstSelUsers_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) {

@@ -28,7 +28,7 @@ namespace VotGESOrders.Logging
 			logger.loggerContext = context;
 		}
 
-		public static void info(string message) {
+		public static void info(string message) {			
 			logger.loggerContext.info(message);
 		}
 
