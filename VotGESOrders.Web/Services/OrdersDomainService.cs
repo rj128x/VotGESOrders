@@ -18,6 +18,7 @@ namespace VotGESOrders.Web.Services
 	{
 		private OrdersContext context= new OrdersContext();
 		private OrderObjectContext objContext=new OrderObjectContext();
+		private OrdersUserContext usrContext=new OrdersUserContext();
 		public IQueryable<Order> LoadOrders() {
 			return context.Orders;
 		}
@@ -29,9 +30,9 @@ namespace VotGESOrders.Web.Services
 			return context.getOrders(filter);
 		}
 
-		public IQueryable<OrdersUser> LoadUsers() {
+		public IQueryable<OrdersUser> LoadOrdersUsers() {
 			Logger.info("Сервис: Получение списка пользователей (LoadUsers)");
-			return OrdersUser.getAllUsers();
+			return OrdersUser.getAllUsers().AsQueryable();
 		}
 
 		public IQueryable<OrderObject> LoadOrderObjects() {
@@ -110,6 +111,22 @@ namespace VotGESOrders.Web.Services
 		public void RegisterDeleteObject(OrderObject newObject) {
 			Logger.info("Сервис: удаление оборудования " + newObject.ObjectName);
 			objContext.RegisterDeleteOrderObject(newObject);
+		}
+
+		public void UpdateOrdersUser(OrdersUser obj) {
+			Logger.info("Сервис: Update " + obj.FullName);
+			//context.UpdateOrder(order);
+		}
+
+
+		public void RegisterChangeUser(OrdersUser newObject) {
+			Logger.info("Сервис: изменение пользователя " + newObject.FullName);
+			usrContext.RegisterChangeUser(newObject);
+		}
+
+		public void RegisterDeleteUser(OrdersUser newObject) {
+			Logger.info("Сервис: удаление пользователя " + newObject.FullName);
+			usrContext.RegisterDeleteUser(newObject);
 		}
 	}
 }

@@ -17,19 +17,23 @@ SET ANSI_PADDING ON
 GO
 
 CREATE TABLE [dbo].[Users](
+	[userID] [int] identity(1,1) NOT NULL, 
 	[name] [varchar](50) NOT NULL, /*имя пользователя (CORP\xxx, SR-VOTGES-PI\xxx)*/
-	[fullName] [varchar](250) NULL,/*полное имя пользователя*/
-	[allowCreateOrder] [bit] NULL, /*пользователь может создавать заявки*/
-	[allowAcceptOrder] [bit] NULL,/*пользователь может разрешить/отклонить заявку*/
-	[allowOpenOrder] [bit] NULL,/*пользователь может открыть заявку*/
-	[allowCancelOrder] [bit] NULL,/*пользователь может снять чужую заявку*/
-	[allowCloseOrder] [bit] NULL,/*пользователь может закрыть чужую заявку (разрешить ввод)*/
-	[allowEnterOrder] [bit] NULL,/*пользователь может ввести оборудование (полностью завершить заявку)*/
-	[allowExtendOrder] [bit] NULL,/*пользователь может продить чужую заявку*/
+	[fullName] [varchar](250) NOT NULL,/*полное имя пользователя*/
+	[allowCreateOrder] [bit] NOT NULL, /*пользователь может создавать заявки*/
+	[allowAcceptOrder] [bit] NOT NULL,/*пользователь может разрешить/отклонить заявку*/
+	[allowOpenOrder] [bit] NOT NULL,/*пользователь может открыть заявку*/
+	[allowCancelOrder] [bit] NOT NULL,/*пользователь может снять чужую заявку*/
+	[allowCloseOrder] [bit] NOT NULL,/*пользователь может закрыть чужую заявку (разрешить ввод)*/
+	[allowEnterOrder] [bit] NOT NULL,/*пользователь может ввести оборудование (полностью завершить заявку)*/
+	[allowExtendOrder] [bit] NOT NULL,/*пользователь может продить чужую заявку*/
+	[allowEditTree] [bit] NOT NULL,/*пользователь может редактировать дерево оборудования*/
+	[allowEditUsers][bit] NOT NULL,/*пользователь может редактировать дерево список пользователей*/
+	[allowEditOrders][bit] NOT NULL,/*пользователь может редактировать заявку*/
 	
  CONSTRAINT [PK_Users] PRIMARY KEY CLUSTERED 
 (
-	[name] ASC
+	[userID] ASC
 )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
@@ -41,9 +45,9 @@ GO
 
 
 CREATE TABLE [dbo].[OrderObjects](
-	[objectID] [int] identity(1,1) NOT NULL, /**/
-	[parentID] [int] not NULL,/**/
-	[objectName] [varchar](250) NOT NULL, /**/
+	[objectID] [int] identity(1,1) NOT NULL, /*код оборудования*/
+	[parentID] [int] not NULL,/* код родительского оборудования*/
+	[objectName] [varchar](250) NOT NULL, /*наименование оборудования*/
 	
  CONSTRAINT [PK_OrderObjects] PRIMARY KEY CLUSTERED 
 (
@@ -79,13 +83,13 @@ CREATE TABLE [dbo].[Orders](
 	
 	[orderNumber] [int] identity(1,1) NOT NULL, /*Номер заявки (автоинкремент)*/
 	
-	[userCreateOrderName] [varchar](50) NOT NULL, /*Имя пользователя, создавшего заявку*/
-	[userAcceptOrderName] [varchar](50) NULL, /*Имя пользователя, разрешившего заявку*/
-	[userBanOrderName] [varchar](50) NULL, /*Имя пользователя, отклонившего заявку*/
-	[userCloseOrderName] [varchar](50) NULL, /*Имя пользователя, закрывшего заявку (разрешение ввода оборудования)*/
-	[userEnterOrderName] [varchar](50) NULL, /*Имя пользователя, который ввел оборудование в работу (полное завершение заявки)*/
-	[userOpenOrderName] [varchar](50) NULL, /*Имя пользователя, открывшего заявку*/
-	[userCancelOrderName] [varchar](50) NULL, /*Имя пользователя, снявшего заявку*/
+	[userCreateOrderID] [int] NOT NULL, /*Имя пользователя, создавшего заявку*/
+	[userAcceptOrderID] [int] NULL, /*Имя пользователя, разрешившего заявку*/
+	[userBanOrderID] [int] NULL, /*Имя пользователя, отклонившего заявку*/
+	[userCloseOrderID] [int] NULL, /*Имя пользователя, закрывшего заявку (разрешение ввода оборудования)*/
+	[userEnterOrderID] [int] NULL, /*Имя пользователя, который ввел оборудование в работу (полное завершение заявки)*/
+	[userOpenOrderID] [int] NULL, /*Имя пользователя, открывшего заявку*/
+	[userCancelOrderID] [int] NULL, /*Имя пользователя, снявшего заявку*/
 	
 	[orderDateCreate] [datetime2](7) NOT NULL, /*Дата создания заявки - устанавливается временем сервера в момент создания*/
 	[orderDateAccept] [datetime2](7) NULL, /*Дата разрешения заявки - устанавливается временем сервера*/
@@ -140,50 +144,50 @@ GO
 SET ANSI_PADDING OFF
 GO
 
-ALTER TABLE [dbo].[Orders]  WITH CHECK ADD  CONSTRAINT [FK_Orders_UsersCreate] FOREIGN KEY([userCreateOrderName])
-REFERENCES [dbo].[Users] ([name])
+ALTER TABLE [dbo].[Orders]  WITH CHECK ADD  CONSTRAINT [FK_Orders_UsersCreate] FOREIGN KEY([userCreateOrderID])
+REFERENCES [dbo].[Users] ([userID])
 GO
 
 ALTER TABLE [dbo].[Orders] CHECK CONSTRAINT [FK_Orders_UsersCreate]
 GO
 
-ALTER TABLE [dbo].[Orders]  WITH CHECK ADD  CONSTRAINT [FK_Orders_UsersAccept] FOREIGN KEY([userAcceptOrderName])
-REFERENCES [dbo].[Users] ([name])
+ALTER TABLE [dbo].[Orders]  WITH CHECK ADD  CONSTRAINT [FK_Orders_UsersAccept] FOREIGN KEY([userAcceptOrderID])
+REFERENCES [dbo].[Users] ([userID])
 GO
 
 ALTER TABLE [dbo].[Orders] CHECK CONSTRAINT [FK_Orders_UsersAccept]
 GO
 
-ALTER TABLE [dbo].[Orders]  WITH CHECK ADD  CONSTRAINT [FK_Orders_UsersClose] FOREIGN KEY([userCloseOrderName])
-REFERENCES [dbo].[Users] ([name])
+ALTER TABLE [dbo].[Orders]  WITH CHECK ADD  CONSTRAINT [FK_Orders_UsersClose] FOREIGN KEY([userCloseOrderID])
+REFERENCES [dbo].[Users] ([userID])
 GO
 
 ALTER TABLE [dbo].[Orders] CHECK CONSTRAINT [FK_Orders_UsersClose]
 GO
 
-ALTER TABLE [dbo].[Orders]  WITH CHECK ADD  CONSTRAINT [FK_Orders_UsersOpen] FOREIGN KEY([userOpenOrderName])
-REFERENCES [dbo].[Users] ([name])
+ALTER TABLE [dbo].[Orders]  WITH CHECK ADD  CONSTRAINT [FK_Orders_UsersOpen] FOREIGN KEY([userOpenOrderID])
+REFERENCES [dbo].[Users] ([userID])
 GO
 
 ALTER TABLE [dbo].[Orders] CHECK CONSTRAINT [FK_Orders_UsersOpen]
 GO
 
-ALTER TABLE [dbo].[Orders]  WITH CHECK ADD  CONSTRAINT [FK_Orders_UsersBan] FOREIGN KEY([userBanOrderName])
-REFERENCES [dbo].[Users] ([name])
+ALTER TABLE [dbo].[Orders]  WITH CHECK ADD  CONSTRAINT [FK_Orders_UsersBan] FOREIGN KEY([userBanOrderID])
+REFERENCES [dbo].[Users] ([userID])
 GO
 
 ALTER TABLE [dbo].[Orders] CHECK CONSTRAINT [FK_Orders_UsersBan]
 GO
 
-ALTER TABLE [dbo].[Orders]  WITH CHECK ADD  CONSTRAINT [FK_Orders_UsersEnter] FOREIGN KEY([userEnterOrderName])
-REFERENCES [dbo].[Users] ([name])
+ALTER TABLE [dbo].[Orders]  WITH CHECK ADD  CONSTRAINT [FK_Orders_UsersEnter] FOREIGN KEY([userEnterOrderID])
+REFERENCES [dbo].[Users] ([userID])
 GO
 
 ALTER TABLE [dbo].[Orders] CHECK CONSTRAINT [FK_Orders_UsersEnter]
 GO
 
-ALTER TABLE [dbo].[Orders]  WITH CHECK ADD  CONSTRAINT [FK_Orders_UsersCancel] FOREIGN KEY([userCancelOrderName])
-REFERENCES [dbo].[Users] ([name])
+ALTER TABLE [dbo].[Orders]  WITH CHECK ADD  CONSTRAINT [FK_Orders_UsersCancel] FOREIGN KEY([userCancelOrderID])
+REFERENCES [dbo].[Users] ([userID])
 GO
 
 ALTER TABLE [dbo].[Orders] CHECK CONSTRAINT [FK_Orders_UsersCancel]
@@ -202,13 +206,12 @@ GO
 
 
 
-					
-
-insert into users values('CORP\chekunovamv','Чекунова М.В',1,1,1,1,1,1,1);
-insert into users values('SR-VOTGES-PI\dgshu','ДГЩУ',1,1,1,1,1,1,1);
-insert into users values('SR-VOTGES-PI\nss','НСС',1,1,1,1,1,1,1);
-insert into users values('SR-VOTGES-PI\author1','Автор1',1,0,0,0,0,0,0);
-insert into users values('SR-VOTGES-PI\author2','Автор2',1,0,0,0,0,0,0);
-insert into users values('SR-VOTGES-PI\gi','ГИ',0,1,0,0,0,0,0);
-insert into users values('SR-VOTGES-PI\spuser','Чекунова М.В.',1,1,1,1,1,1,1);
-insert into users values('SR-VOTGES-PI\Administrator','Администратор',1,1,1,1,1,1,1);
+				
+insert into users values('CORP\chekunovamv','Чекунова М.В',1,1,1,1,1,1,1,1,1,1);
+insert into users values('SR-VOTGES-PI\dgshu','ДГЩУ',1,1,1,1,1,1,1,1,1,1);
+insert into users values('SR-VOTGES-PI\nss','НСС',1,1,1,1,1,1,1,0,0,0);
+insert into users values('SR-VOTGES-PI\author1','Автор1',1,0,0,0,0,0,0,0,0,0);
+insert into users values('SR-VOTGES-PI\author2','Автор2',1,0,0,0,0,0,0,0,0,0);
+insert into users values('SR-VOTGES-PI\gi','ГИ',0,1,0,0,0,0,0,0,0,0);
+insert into users values('SR-VOTGES-PI\spuser','Чекунова М.В.',1,1,1,1,1,1,1,1,1,1);
+insert into users values('SR-VOTGES-PI\Administrator','Администратор',1,1,1,1,1,1,1,1,1,1);

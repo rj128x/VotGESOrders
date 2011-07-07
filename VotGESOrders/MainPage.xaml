@@ -38,8 +38,12 @@
 
 			<Border x:Name="LinksBorder" Style="{StaticResource LinksBorderStyle}">
 				<StackPanel x:Name="LinksStackPanel" Style="{StaticResource LinksStackPanelStyle}">
-					<HyperlinkButton x:Name="Link10" Style="{StaticResource LinkStyle}" 
-                                     NavigateUri="/EditTree" TargetName="ContentFrame" Content="Редактор оборудования"/>
+					<HyperlinkButton x:Name="LinkEditUsers" Style="{StaticResource LinkStyle}" 
+                                     NavigateUri="/EditUsers" TargetName="ContentFrame" Content="Пользователи"/>
+
+					<Rectangle x:Name="Divider11" Style="{StaticResource DividerStyle}"/>
+					<HyperlinkButton x:Name="LinkEditTree" Style="{StaticResource LinkStyle}" 
+                                     NavigateUri="/EditTree" TargetName="ContentFrame" Content="Оборудование"/>
 
 					<Rectangle x:Name="Divider1" Style="{StaticResource DividerStyle}"/>
 					<HyperlinkButton x:Name="Link1" Style="{StaticResource LinkStyle}" 

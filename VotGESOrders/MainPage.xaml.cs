@@ -21,7 +21,9 @@ namespace VotGESOrders
 		public MainPage() {
 			Logger.info("Старт главной страницы");
 			InitializeComponent();
-			LoginName.DataContext = WebContext.Current.User;			
+			LoginName.DataContext = WebContext.Current.User;
+			LinkEditTree.Visibility = WebContext.Current.User.AllowEditTree ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
+			LinkEditUsers.Visibility = WebContext.Current.User.AllowEditUsers ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;	
 		}
 
 		// После перехода в фрейме убедиться, что выбрана кнопка HyperlinkButton, представляющая текущую страницу

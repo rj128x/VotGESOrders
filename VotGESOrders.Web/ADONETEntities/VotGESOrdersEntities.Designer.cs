@@ -306,7 +306,7 @@ namespace VotGESOrders.Web.ADONETEntities
         /// Создание нового объекта Orders.
         /// </summary>
         /// <param name="orderNumber">Исходное значение свойства orderNumber.</param>
-        /// <param name="userCreateOrderName">Исходное значение свойства userCreateOrderName.</param>
+        /// <param name="userCreateOrderID">Исходное значение свойства userCreateOrderID.</param>
         /// <param name="orderDateCreate">Исходное значение свойства orderDateCreate.</param>
         /// <param name="orderLastUpdate">Исходное значение свойства orderLastUpdate.</param>
         /// <param name="planStartDate">Исходное значение свойства planStartDate.</param>
@@ -326,11 +326,11 @@ namespace VotGESOrders.Web.ADONETEntities
         /// <param name="orderAskExtended">Исходное значение свойства orderAskExtended.</param>
         /// <param name="orderIsExtend">Исходное значение свойства orderIsExtend.</param>
         /// <param name="orderState">Исходное значение свойства orderState.</param>
-        public static Orders CreateOrders(global::System.Int32 orderNumber, global::System.String userCreateOrderName, global::System.DateTime orderDateCreate, global::System.DateTime orderLastUpdate, global::System.DateTime planStartDate, global::System.DateTime planStopDate, global::System.String orderText, global::System.String orderType, global::System.Int32 orderObjectID, global::System.String orderObjectAddInfo, global::System.Boolean orderCreated, global::System.Boolean orderAccepted, global::System.Boolean orderBanned, global::System.Boolean orderOpened, global::System.Boolean orderClosed, global::System.Boolean orderCanceled, global::System.Boolean orderEntered, global::System.Boolean orderExtended, global::System.Boolean orderAskExtended, global::System.Boolean orderIsExtend, global::System.String orderState)
+        public static Orders CreateOrders(global::System.Int32 orderNumber, global::System.Int32 userCreateOrderID, global::System.DateTime orderDateCreate, global::System.DateTime orderLastUpdate, global::System.DateTime planStartDate, global::System.DateTime planStopDate, global::System.String orderText, global::System.String orderType, global::System.Int32 orderObjectID, global::System.String orderObjectAddInfo, global::System.Boolean orderCreated, global::System.Boolean orderAccepted, global::System.Boolean orderBanned, global::System.Boolean orderOpened, global::System.Boolean orderClosed, global::System.Boolean orderCanceled, global::System.Boolean orderEntered, global::System.Boolean orderExtended, global::System.Boolean orderAskExtended, global::System.Boolean orderIsExtend, global::System.String orderState)
         {
             Orders orders = new Orders();
             orders.orderNumber = orderNumber;
-            orders.userCreateOrderName = userCreateOrderName;
+            orders.userCreateOrderID = userCreateOrderID;
             orders.orderDateCreate = orderDateCreate;
             orders.orderLastUpdate = orderLastUpdate;
             orders.planStartDate = planStartDate;
@@ -436,168 +436,168 @@ namespace VotGESOrders.Web.ADONETEntities
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.String userCreateOrderName
+        public global::System.Int32 userCreateOrderID
         {
             get
             {
-                return _userCreateOrderName;
+                return _userCreateOrderID;
             }
             set
             {
-                OnuserCreateOrderNameChanging(value);
-                ReportPropertyChanging("userCreateOrderName");
-                _userCreateOrderName = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("userCreateOrderName");
-                OnuserCreateOrderNameChanged();
+                OnuserCreateOrderIDChanging(value);
+                ReportPropertyChanging("userCreateOrderID");
+                _userCreateOrderID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("userCreateOrderID");
+                OnuserCreateOrderIDChanged();
             }
         }
-        private global::System.String _userCreateOrderName;
-        partial void OnuserCreateOrderNameChanging(global::System.String value);
-        partial void OnuserCreateOrderNameChanged();
+        private global::System.Int32 _userCreateOrderID;
+        partial void OnuserCreateOrderIDChanging(global::System.Int32 value);
+        partial void OnuserCreateOrderIDChanged();
     
         /// <summary>
         /// Нет доступной документации по метаданным.
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.String userAcceptOrderName
+        public Nullable<global::System.Int32> userAcceptOrderID
         {
             get
             {
-                return _userAcceptOrderName;
+                return _userAcceptOrderID;
             }
             set
             {
-                OnuserAcceptOrderNameChanging(value);
-                ReportPropertyChanging("userAcceptOrderName");
-                _userAcceptOrderName = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("userAcceptOrderName");
-                OnuserAcceptOrderNameChanged();
+                OnuserAcceptOrderIDChanging(value);
+                ReportPropertyChanging("userAcceptOrderID");
+                _userAcceptOrderID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("userAcceptOrderID");
+                OnuserAcceptOrderIDChanged();
             }
         }
-        private global::System.String _userAcceptOrderName;
-        partial void OnuserAcceptOrderNameChanging(global::System.String value);
-        partial void OnuserAcceptOrderNameChanged();
+        private Nullable<global::System.Int32> _userAcceptOrderID;
+        partial void OnuserAcceptOrderIDChanging(Nullable<global::System.Int32> value);
+        partial void OnuserAcceptOrderIDChanged();
     
         /// <summary>
         /// Нет доступной документации по метаданным.
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.String userBanOrderName
+        public Nullable<global::System.Int32> userBanOrderID
         {
             get
             {
-                return _userBanOrderName;
+                return _userBanOrderID;
             }
             set
             {
-                OnuserBanOrderNameChanging(value);
-                ReportPropertyChanging("userBanOrderName");
-                _userBanOrderName = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("userBanOrderName");
-                OnuserBanOrderNameChanged();
+                OnuserBanOrderIDChanging(value);
+                ReportPropertyChanging("userBanOrderID");
+                _userBanOrderID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("userBanOrderID");
+                OnuserBanOrderIDChanged();
             }
         }
-        private global::System.String _userBanOrderName;
-        partial void OnuserBanOrderNameChanging(global::System.String value);
-        partial void OnuserBanOrderNameChanged();
+        private Nullable<global::System.Int32> _userBanOrderID;
+        partial void OnuserBanOrderIDChanging(Nullable<global::System.Int32> value);
+        partial void OnuserBanOrderIDChanged();
     
         /// <summary>
         /// Нет доступной документации по метаданным.
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.String userCloseOrderName
+        public Nullable<global::System.Int32> userCloseOrderID
         {
             get
             {
-                return _userCloseOrderName;
+                return _userCloseOrderID;
             }
             set
             {
-                OnuserCloseOrderNameChanging(value);
-                ReportPropertyChanging("userCloseOrderName");
-                _userCloseOrderName = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("userCloseOrderName");
-                OnuserCloseOrderNameChanged();
+                OnuserCloseOrderIDChanging(value);
+                ReportPropertyChanging("userCloseOrderID");
+                _userCloseOrderID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("userCloseOrderID");
+                OnuserCloseOrderIDChanged();
             }
         }
-        private global::System.String _userCloseOrderName;
-        partial void OnuserCloseOrderNameChanging(global::System.String value);
-        partial void OnuserCloseOrderNameChanged();
+        private Nullable<global::System.Int32> _userCloseOrderID;
+        partial void OnuserCloseOrderIDChanging(Nullable<global::System.Int32> value);
+        partial void OnuserCloseOrderIDChanged();
     
         /// <summary>
         /// Нет доступной документации по метаданным.
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.String userEnterOrderName
+        public Nullable<global::System.Int32> userEnterOrderID
         {
             get
             {
-                return _userEnterOrderName;
+                return _userEnterOrderID;
             }
             set
             {
-                OnuserEnterOrderNameChanging(value);
-                ReportPropertyChanging("userEnterOrderName");
-                _userEnterOrderName = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("userEnterOrderName");
-                OnuserEnterOrderNameChanged();
+                OnuserEnterOrderIDChanging(value);
+                ReportPropertyChanging("userEnterOrderID");
+                _userEnterOrderID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("userEnterOrderID");
+                OnuserEnterOrderIDChanged();
             }
         }
-        private global::System.String _userEnterOrderName;
-        partial void OnuserEnterOrderNameChanging(global::System.String value);
-        partial void OnuserEnterOrderNameChanged();
+        private Nullable<global::System.Int32> _userEnterOrderID;
+        partial void OnuserEnterOrderIDChanging(Nullable<global::System.Int32> value);
+        partial void OnuserEnterOrderIDChanged();
     
         /// <summary>
         /// Нет доступной документации по метаданным.
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.String userOpenOrderName
+        public Nullable<global::System.Int32> userOpenOrderID
         {
             get
             {
-                return _userOpenOrderName;
+                return _userOpenOrderID;
             }
             set
             {
-                OnuserOpenOrderNameChanging(value);
-                ReportPropertyChanging("userOpenOrderName");
-                _userOpenOrderName = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("userOpenOrderName");
-                OnuserOpenOrderNameChanged();
+                OnuserOpenOrderIDChanging(value);
+                ReportPropertyChanging("userOpenOrderID");
+                _userOpenOrderID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("userOpenOrderID");
+                OnuserOpenOrderIDChanged();
             }
         }
-        private global::System.String _userOpenOrderName;
-        partial void OnuserOpenOrderNameChanging(global::System.String value);
-        partial void OnuserOpenOrderNameChanged();
+        private Nullable<global::System.Int32> _userOpenOrderID;
+        partial void OnuserOpenOrderIDChanging(Nullable<global::System.Int32> value);
+        partial void OnuserOpenOrderIDChanged();
     
         /// <summary>
         /// Нет доступной документации по метаданным.
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.String userCancelOrderName
+        public Nullable<global::System.Int32> userCancelOrderID
         {
             get
             {
-                return _userCancelOrderName;
+                return _userCancelOrderID;
             }
             set
             {
-                OnuserCancelOrderNameChanging(value);
-                ReportPropertyChanging("userCancelOrderName");
-                _userCancelOrderName = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("userCancelOrderName");
-                OnuserCancelOrderNameChanged();
+                OnuserCancelOrderIDChanging(value);
+                ReportPropertyChanging("userCancelOrderID");
+                _userCancelOrderID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("userCancelOrderID");
+                OnuserCancelOrderIDChanged();
             }
         }
-        private global::System.String _userCancelOrderName;
-        partial void OnuserCancelOrderNameChanging(global::System.String value);
-        partial void OnuserCancelOrderNameChanged();
+        private Nullable<global::System.Int32> _userCancelOrderID;
+        partial void OnuserCancelOrderIDChanging(Nullable<global::System.Int32> value);
+        partial void OnuserCancelOrderIDChanged();
     
         /// <summary>
         /// Нет доступной документации по метаданным.
@@ -1787,11 +1787,35 @@ namespace VotGESOrders.Web.ADONETEntities
         /// <summary>
         /// Создание нового объекта Users.
         /// </summary>
+        /// <param name="userID">Исходное значение свойства userID.</param>
         /// <param name="name">Исходное значение свойства name.</param>
-        public static Users CreateUsers(global::System.String name)
+        /// <param name="fullName">Исходное значение свойства fullName.</param>
+        /// <param name="allowCreateOrder">Исходное значение свойства allowCreateOrder.</param>
+        /// <param name="allowAcceptOrder">Исходное значение свойства allowAcceptOrder.</param>
+        /// <param name="allowOpenOrder">Исходное значение свойства allowOpenOrder.</param>
+        /// <param name="allowCancelOrder">Исходное значение свойства allowCancelOrder.</param>
+        /// <param name="allowCloseOrder">Исходное значение свойства allowCloseOrder.</param>
+        /// <param name="allowEnterOrder">Исходное значение свойства allowEnterOrder.</param>
+        /// <param name="allowExtendOrder">Исходное значение свойства allowExtendOrder.</param>
+        /// <param name="allowEditTree">Исходное значение свойства allowEditTree.</param>
+        /// <param name="allowEditUsers">Исходное значение свойства allowEditUsers.</param>
+        /// <param name="allowEditOrders">Исходное значение свойства allowEditOrders.</param>
+        public static Users CreateUsers(global::System.Int32 userID, global::System.String name, global::System.String fullName, global::System.Boolean allowCreateOrder, global::System.Boolean allowAcceptOrder, global::System.Boolean allowOpenOrder, global::System.Boolean allowCancelOrder, global::System.Boolean allowCloseOrder, global::System.Boolean allowEnterOrder, global::System.Boolean allowExtendOrder, global::System.Boolean allowEditTree, global::System.Boolean allowEditUsers, global::System.Boolean allowEditOrders)
         {
             Users users = new Users();
+            users.userID = userID;
             users.name = name;
+            users.fullName = fullName;
+            users.allowCreateOrder = allowCreateOrder;
+            users.allowAcceptOrder = allowAcceptOrder;
+            users.allowOpenOrder = allowOpenOrder;
+            users.allowCancelOrder = allowCancelOrder;
+            users.allowCloseOrder = allowCloseOrder;
+            users.allowEnterOrder = allowEnterOrder;
+            users.allowExtendOrder = allowExtendOrder;
+            users.allowEditTree = allowEditTree;
+            users.allowEditUsers = allowEditUsers;
+            users.allowEditOrders = allowEditOrders;
             return users;
         }
 
@@ -1803,6 +1827,33 @@ namespace VotGESOrders.Web.ADONETEntities
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
+        public global::System.Int32 userID
+        {
+            get
+            {
+                return _userID;
+            }
+            set
+            {
+                if (_userID != value)
+                {
+                    OnuserIDChanging(value);
+                    ReportPropertyChanging("userID");
+                    _userID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("userID");
+                    OnuserIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _userID;
+        partial void OnuserIDChanging(global::System.Int32 value);
+        partial void OnuserIDChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
         public global::System.String name
         {
             get
@@ -1811,14 +1862,11 @@ namespace VotGESOrders.Web.ADONETEntities
             }
             set
             {
-                if (_name != value)
-                {
-                    OnnameChanging(value);
-                    ReportPropertyChanging("name");
-                    _name = StructuralObject.SetValidValue(value, false);
-                    ReportPropertyChanged("name");
-                    OnnameChanged();
-                }
+                OnnameChanging(value);
+                ReportPropertyChanging("name");
+                _name = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("name");
+                OnnameChanged();
             }
         }
         private global::System.String _name;
@@ -1828,7 +1876,7 @@ namespace VotGESOrders.Web.ADONETEntities
         /// <summary>
         /// Нет доступной документации по метаданным.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.String fullName
         {
@@ -1840,7 +1888,7 @@ namespace VotGESOrders.Web.ADONETEntities
             {
                 OnfullNameChanging(value);
                 ReportPropertyChanging("fullName");
-                _fullName = StructuralObject.SetValidValue(value, true);
+                _fullName = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("fullName");
                 OnfullNameChanged();
             }
@@ -1852,9 +1900,9 @@ namespace VotGESOrders.Web.ADONETEntities
         /// <summary>
         /// Нет доступной документации по метаданным.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Boolean> allowCreateOrder
+        public global::System.Boolean allowCreateOrder
         {
             get
             {
@@ -1869,16 +1917,16 @@ namespace VotGESOrders.Web.ADONETEntities
                 OnallowCreateOrderChanged();
             }
         }
-        private Nullable<global::System.Boolean> _allowCreateOrder;
-        partial void OnallowCreateOrderChanging(Nullable<global::System.Boolean> value);
+        private global::System.Boolean _allowCreateOrder;
+        partial void OnallowCreateOrderChanging(global::System.Boolean value);
         partial void OnallowCreateOrderChanged();
     
         /// <summary>
         /// Нет доступной документации по метаданным.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Boolean> allowAcceptOrder
+        public global::System.Boolean allowAcceptOrder
         {
             get
             {
@@ -1893,16 +1941,16 @@ namespace VotGESOrders.Web.ADONETEntities
                 OnallowAcceptOrderChanged();
             }
         }
-        private Nullable<global::System.Boolean> _allowAcceptOrder;
-        partial void OnallowAcceptOrderChanging(Nullable<global::System.Boolean> value);
+        private global::System.Boolean _allowAcceptOrder;
+        partial void OnallowAcceptOrderChanging(global::System.Boolean value);
         partial void OnallowAcceptOrderChanged();
     
         /// <summary>
         /// Нет доступной документации по метаданным.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Boolean> allowOpenOrder
+        public global::System.Boolean allowOpenOrder
         {
             get
             {
@@ -1917,16 +1965,16 @@ namespace VotGESOrders.Web.ADONETEntities
                 OnallowOpenOrderChanged();
             }
         }
-        private Nullable<global::System.Boolean> _allowOpenOrder;
-        partial void OnallowOpenOrderChanging(Nullable<global::System.Boolean> value);
+        private global::System.Boolean _allowOpenOrder;
+        partial void OnallowOpenOrderChanging(global::System.Boolean value);
         partial void OnallowOpenOrderChanged();
     
         /// <summary>
         /// Нет доступной документации по метаданным.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Boolean> allowCancelOrder
+        public global::System.Boolean allowCancelOrder
         {
             get
             {
@@ -1941,16 +1989,16 @@ namespace VotGESOrders.Web.ADONETEntities
                 OnallowCancelOrderChanged();
             }
         }
-        private Nullable<global::System.Boolean> _allowCancelOrder;
-        partial void OnallowCancelOrderChanging(Nullable<global::System.Boolean> value);
+        private global::System.Boolean _allowCancelOrder;
+        partial void OnallowCancelOrderChanging(global::System.Boolean value);
         partial void OnallowCancelOrderChanged();
     
         /// <summary>
         /// Нет доступной документации по метаданным.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Boolean> allowCloseOrder
+        public global::System.Boolean allowCloseOrder
         {
             get
             {
@@ -1965,16 +2013,16 @@ namespace VotGESOrders.Web.ADONETEntities
                 OnallowCloseOrderChanged();
             }
         }
-        private Nullable<global::System.Boolean> _allowCloseOrder;
-        partial void OnallowCloseOrderChanging(Nullable<global::System.Boolean> value);
+        private global::System.Boolean _allowCloseOrder;
+        partial void OnallowCloseOrderChanging(global::System.Boolean value);
         partial void OnallowCloseOrderChanged();
     
         /// <summary>
         /// Нет доступной документации по метаданным.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Boolean> allowEnterOrder
+        public global::System.Boolean allowEnterOrder
         {
             get
             {
@@ -1989,16 +2037,16 @@ namespace VotGESOrders.Web.ADONETEntities
                 OnallowEnterOrderChanged();
             }
         }
-        private Nullable<global::System.Boolean> _allowEnterOrder;
-        partial void OnallowEnterOrderChanging(Nullable<global::System.Boolean> value);
+        private global::System.Boolean _allowEnterOrder;
+        partial void OnallowEnterOrderChanging(global::System.Boolean value);
         partial void OnallowEnterOrderChanged();
     
         /// <summary>
         /// Нет доступной документации по метаданным.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Boolean> allowExtendOrder
+        public global::System.Boolean allowExtendOrder
         {
             get
             {
@@ -2013,9 +2061,81 @@ namespace VotGESOrders.Web.ADONETEntities
                 OnallowExtendOrderChanged();
             }
         }
-        private Nullable<global::System.Boolean> _allowExtendOrder;
-        partial void OnallowExtendOrderChanging(Nullable<global::System.Boolean> value);
+        private global::System.Boolean _allowExtendOrder;
+        partial void OnallowExtendOrderChanging(global::System.Boolean value);
         partial void OnallowExtendOrderChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean allowEditTree
+        {
+            get
+            {
+                return _allowEditTree;
+            }
+            set
+            {
+                OnallowEditTreeChanging(value);
+                ReportPropertyChanging("allowEditTree");
+                _allowEditTree = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("allowEditTree");
+                OnallowEditTreeChanged();
+            }
+        }
+        private global::System.Boolean _allowEditTree;
+        partial void OnallowEditTreeChanging(global::System.Boolean value);
+        partial void OnallowEditTreeChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean allowEditUsers
+        {
+            get
+            {
+                return _allowEditUsers;
+            }
+            set
+            {
+                OnallowEditUsersChanging(value);
+                ReportPropertyChanging("allowEditUsers");
+                _allowEditUsers = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("allowEditUsers");
+                OnallowEditUsersChanged();
+            }
+        }
+        private global::System.Boolean _allowEditUsers;
+        partial void OnallowEditUsersChanging(global::System.Boolean value);
+        partial void OnallowEditUsersChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean allowEditOrders
+        {
+            get
+            {
+                return _allowEditOrders;
+            }
+            set
+            {
+                OnallowEditOrdersChanging(value);
+                ReportPropertyChanging("allowEditOrders");
+                _allowEditOrders = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("allowEditOrders");
+                OnallowEditOrdersChanged();
+            }
+        }
+        private global::System.Boolean _allowEditOrders;
+        partial void OnallowEditOrdersChanging(global::System.Boolean value);
+        partial void OnallowEditOrdersChanged();
 
         #endregion
     

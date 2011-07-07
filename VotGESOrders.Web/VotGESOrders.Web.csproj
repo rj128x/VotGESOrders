@@ -103,6 +103,7 @@
     <Compile Include="Models\OrdersUser.cs" />
     <Compile Include="Models\OrderValidator.shared.cs" />
     <Compile Include="Models\XMLStringSerializer.shared.cs" />
+    <Compile Include="Models\UserContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AuthenticationDomainService.cs" />
     <Compile Include="Services\LoggerService.cs" />

@@ -107,7 +107,7 @@ namespace VotGESOrders
 			GlobalStatus.Current.IsChangingOrder = true;
 			Order newOrder=new Order();
 			newOrder.OrderNumber = OrderNumber--;
-			newOrder.UserCreateOrderName = WebContext.Current.User.Name;
+			newOrder.UserCreateOrderID = WebContext.Current.User.UserID;
 			newOrder.OrderDateCreate = DateTime.Now;
 			newOrder.OrderIsExtend = false;
 			newOrder.OrderType = "ПЛ";
@@ -174,7 +174,7 @@ namespace VotGESOrders
 			newOrder.OrderNumber = OrderNumber--;
 			newOrder.OrderType = CurrentOrder.OrderType;
 			newOrder.ParentOrderNumber = CurrentOrder.OrderNumber;
-			newOrder.UserCreateOrderName = WebContext.Current.User.Name;
+			newOrder.UserCreateOrderID = WebContext.Current.User.UserID;
 			newOrder.OrderIsExtend = true;
 			newOrder.SelOrderObject = CurrentOrder.SelOrderObject;
 			newOrder.SelOrderObjectText = CurrentOrder.SelOrderObjectText;

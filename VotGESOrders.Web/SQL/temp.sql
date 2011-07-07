@@ -1,1 +1,1 @@
-﻿select * from orderobjects
+﻿select * from users

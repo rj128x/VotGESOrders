@@ -85,30 +85,31 @@ namespace VotGESOrders.Web.Models
 
 		public IQueryable<Order> getOrdersUserFilter(OrderFilter filter) {
 			Logger.info("Получение списка заказов (фильтр)");
-			OrdersUser currentUser=OrdersUser.loadFromCache(HttpContext.Current.User.Identity.Name);
-			VotGESOrdersEntities context=new VotGESOrdersEntities();
+			try {
+				OrdersUser currentUser=OrdersUser.loadFromCache(HttpContext.Current.User.Identity.Name);
+				VotGESOrdersEntities context=new VotGESOrdersEntities();
 
-			List<String> states=filter.OrderStates;
-			List<String> users=filter.SelectedUsersArray;
-			List<String> orderTypes=filter.OrderTypes;
+				List<String> states=filter.OrderStates;
+				List<int> users=filter.SelectedUsersArray;
+				List<String> orderTypes=filter.OrderTypes;
 
-			List<int> ids=filter.SelectedObjectsArray;
-			if (!filter.ShowAllObjectIDs && filter.ShowChildObjects) {
-				List<OrderObject> objects=new List<OrderObject>();
-				foreach (int id in ids) {
-					objects.Add(VotGESOrders.Web.Models.OrderObject.getByID(id));
+				List<int> ids=filter.SelectedObjectsArray;
+				if (!filter.ShowAllObjectIDs && filter.ShowChildObjects) {
+					List<OrderObject> objects=new List<OrderObject>();
+					foreach (int id in ids) {
+						objects.Add(VotGESOrders.Web.Models.OrderObject.getByID(id));
+					}
+					foreach (OrderObject obj in objects) {
+						obj.appendObjectIDSChildIDS(ids);
+					}
 				}
-				foreach (OrderObject obj in objects) {
-					obj.appendObjectIDSChildIDS(ids);
+
+				List<int> objectsByName=new List<int>();
+				if (!filter.ShowAllObjects) {
+					objectsByName = OrderObject.getObjectIDSByFullName(filter.OrderObject);
 				}
-			}
 
-			List<int> objectsByName=new List<int>();
-			if (!filter.ShowAllObjects) {
-				objectsByName = OrderObject.getObjectIDSByFullName(filter.OrderObject);
-			}
-
-			IQueryable<Orders> orders= 
+				IQueryable<Orders> orders= 
 				from o in context.Orders
 				where
 					(filter.ShowAllStates || states.Contains(o.orderState))
@@ -123,13 +124,13 @@ namespace VotGESOrders.Web.Models
 						(filter.FilterDate == FilterDateType.planStart && o.planStartDate >= filter.DateStart && o.planStartDate <= filter.DateEnd) ||
 						(filter.FilterDate == FilterDateType.planStop && o.planStopDate >= filter.DateStart && o.planStopDate <= filter.DateEnd))
 					&& (filter.ShowAllUsers ||
-						(filter.FilterUser == FilterUserType.create && users.Contains(o.userCreateOrderName)) ||
-						(filter.FilterUser == FilterUserType.accept && users.Contains(o.userAcceptOrderName)) ||
-						(filter.FilterUser == FilterUserType.ban && users.Contains(o.userBanOrderName)) ||
-						(filter.FilterUser == FilterUserType.cancel && users.Contains(o.userCancelOrderName)) ||
-						(filter.FilterUser == FilterUserType.open && users.Contains(o.userOpenOrderName)) ||
-						(filter.FilterUser == FilterUserType.close && users.Contains(o.userCloseOrderName)) ||
-						(filter.FilterUser == FilterUserType.enter && users.Contains(o.userEnterOrderName)))
+						(filter.FilterUser == FilterUserType.create && users.Contains(o.userCreateOrderID)) ||
+						(filter.FilterUser == FilterUserType.accept && users.Contains(o.userAcceptOrderID.Value)) ||
+						(filter.FilterUser == FilterUserType.ban && users.Contains(o.userBanOrderID.Value)) ||
+						(filter.FilterUser == FilterUserType.cancel && users.Contains(o.userCancelOrderID.Value)) ||
+						(filter.FilterUser == FilterUserType.open && users.Contains(o.userOpenOrderID.Value)) ||
+						(filter.FilterUser == FilterUserType.close && users.Contains(o.userCloseOrderID.Value)) ||
+						(filter.FilterUser == FilterUserType.enter && users.Contains(o.userEnterOrderID.Value)))
 					&& (filter.ShowAllObjectIDs || ids.Contains(o.orderObjectID))
 					&& (filter.ShowAllTypes || orderTypes.Contains(o.orderType))
 					&& (filter.ShowAllObjects || objectsByName.Contains(o.orderObjectID) || o.orderObjectAddInfo.Contains(filter.OrderObject))
@@ -137,16 +138,21 @@ namespace VotGESOrders.Web.Models
 					&& (filter.ShowAllNumbers ||
 						(o.orderNumber >= filter.StartNumber || filter.StartNumber == 0) &&
 						(o.orderNumber <= filter.StopNumber || filter.StopNumber == 0))
-					&& (!filter.ShowExpiredOnly||
-						 o.orderClosed&&o.planStopDate<o.faktStopDate||
-						 o.orderEntered&&o.planStopDate<o.faktEnterDate)
+					&& (!filter.ShowExpiredOnly ||
+						 o.orderClosed && o.planStopDate < o.faktStopDate ||
+						 o.orderEntered && o.planStopDate < o.faktEnterDate)
 				select o;
 
-			List<Order> resultOrders=new List<Order>();
-			foreach (Orders orderDB in orders) {
-				resultOrders.Add(new Order(orderDB, currentUser, filter.ShowRelatedOrders, filter.ShowRelatedOrders));
+				List<Order> resultOrders=new List<Order>();
+				foreach (Orders orderDB in orders) {
+					resultOrders.Add(new Order(orderDB, currentUser, filter.ShowRelatedOrders, filter.ShowRelatedOrders));
+				}
+				return resultOrders.AsQueryable();
+			} catch (Exception e) {
+				Logger.info(e.ToString());
+				return null;
+				
 			}
-			return resultOrders.AsQueryable();
 		}
 
 		#endregion
@@ -182,7 +188,7 @@ namespace VotGESOrders.Web.Models
 				orderDB.orderDateCreate = DateTime.Now;
 				orderDB.orderCreated = true;
 				orderDB.orderState = OrderStateEnum.created.ToString();
-				orderDB.userCreateOrderName = currentUser.Name;
+				orderDB.userCreateOrderID = currentUser.UserID;
 				orderDB.orderNumber = 5;
 
 				writeOrderToOrderDB(order, orderDB);				
@@ -246,7 +252,7 @@ namespace VotGESOrders.Web.Models
 				if (order.AllowAcceptOrder) {
 					orderDB.orderLastUpdate = DateTime.Now;
 					orderDB.orderDateAccept = DateTime.Now;
-					orderDB.userAcceptOrderName = currentUser.Name;
+					orderDB.userAcceptOrderID = currentUser.UserID;
 					orderDB.acceptText = order.AcceptText;
 					orderDB.orderAccepted = true;
 					orderDB.orderBanned = false;
@@ -279,7 +285,7 @@ namespace VotGESOrders.Web.Models
 				if (order.AllowAcceptOrder) {
 					orderDB.orderLastUpdate = DateTime.Now;
 					orderDB.orderDateBan = DateTime.Now;
-					orderDB.userBanOrderName = currentUser.Name;
+					orderDB.userBanOrderID = currentUser.UserID;
 					orderDB.banText = order.BanText;
 					orderDB.orderBanned = true;
 					orderDB.orderAccepted = false;
@@ -321,7 +327,7 @@ namespace VotGESOrders.Web.Models
 					orderDB.orderLastUpdate = DateTime.Now;
 					orderDB.orderDateOpen = DateTime.Now;
 					orderDB.faktStartDate = order.FaktStartDate;
-					orderDB.userOpenOrderName = currentUser.Name;
+					orderDB.userOpenOrderID = currentUser.UserID;
 					orderDB.openText = order.OpenText;
 					orderDB.orderOpened = true;
 					orderDB.orderState = OrderStateEnum.opened.ToString();
@@ -349,7 +355,7 @@ namespace VotGESOrders.Web.Models
 					orderDB.orderClosed = true;
 					orderDB.orderState = OrderStateEnum.closed.ToString();
 					orderDB.closeText = order.CloseText;
-					orderDB.userCloseOrderName = currentUser.Name;
+					orderDB.userCloseOrderID = currentUser.UserID;
 
 					context.SaveChanges();
 					LastUpdate.save(guid);
@@ -370,7 +376,7 @@ namespace VotGESOrders.Web.Models
 				if (order.AllowCancelOrder) {
 					orderDB.orderLastUpdate = DateTime.Now;
 					orderDB.orderDateCancel = DateTime.Now;
-					orderDB.userCancelOrderName = currentUser.Name;
+					orderDB.userCancelOrderID = currentUser.UserID;
 					orderDB.cancelText = order.CancelText;
 					orderDB.orderCanceled = true;
 					orderDB.orderState = OrderStateEnum.canceled.ToString();
@@ -408,7 +414,7 @@ namespace VotGESOrders.Web.Models
 					orderDB.orderEntered = true;
 					orderDB.orderState = OrderStateEnum.entered.ToString();
 					orderDB.enterText = order.EnterText;
-					orderDB.userEnterOrderName = currentUser.Name;
+					orderDB.userEnterOrderID = currentUser.UserID;
 					orderDB.faktEnterDate = order.FaktEnterDate;
 					context.SaveChanges();
 					LastUpdate.save(guid);

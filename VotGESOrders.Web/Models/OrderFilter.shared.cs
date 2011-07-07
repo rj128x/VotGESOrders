@@ -23,7 +23,7 @@ namespace VotGESOrders.Web.Models
 			if (PropertyChanged != null)
 				PropertyChanged(this, new PropertyChangedEventArgs(propName));
 		}
-		
+
 		public static Dictionary<FilterDateType, string> DateFilterTypes;
 		public static Dictionary<FilterUserType,string> UserFilterTypes;
 		public static Dictionary<OrderFilterEnum, string> FilterTypes;
@@ -83,7 +83,7 @@ namespace VotGESOrders.Web.Models
 		[XmlIgnore]
 		public string SelectedUsersJoinStr {
 			get {
-				return String.Join("~", from u in SelectedUsers select u.Name);
+				return String.Join("~", from u in SelectedUsers select u.UserID);
 			}
 		}
 
@@ -371,25 +371,38 @@ namespace VotGESOrders.Web.Models
 		}
 
 		[XmlIgnore]
-		public List<String> SelectedUsersArray {
+		public List<int> SelectedUsersArray {
 			get {
-				return new List<String>(SelectedUsersStr.Split('~'));
+				try {
+					List<String> lst=new List<String>(SelectedUsersStr.Split('~'));
+					List<int> ids=new List<int>();
+					foreach (string id in lst) {
+						ids.Add(Int32.Parse(id));
+					}
+					return ids;
+				} catch {
+					return new List<int>();
+				}
 			}
 		}
 
 		[XmlIgnore]
 		public List<int> SelectedObjectsArray {
 			get {
-				List<String> lst=new List<String>(SelectedObjectsStr.Split('~'));
-				List<int> ids=new List<int>();
-				foreach (string id in lst) {
-					ids.Add(Int32.Parse(id));
+				try {
+					List<String> lst=new List<String>(SelectedObjectsStr.Split('~'));
+					List<int> ids=new List<int>();
+					foreach (string id in lst) {
+						ids.Add(Int32.Parse(id));
+					}
+					return ids;
+				} catch {
+					return new List<int>();
 				}
-				return ids;
 			}
 		}
 
-	
+
 
 
 	}

@@ -38,6 +38,10 @@ namespace VotGESOrders.Web.Services
 			ordersUser = OrdersUser.loadFromCache(userName);
 			FullName = ordersUser.FullName;
 			AllowCreateOrder = ordersUser.AllowCreateOrder;
+			AllowEditTree = ordersUser.AllowEditTree;
+			AllowEditOrders = ordersUser.AllowEditOrders;
+			AllowEditUsers = ordersUser.AllowEditUsers;
+			UserID = ordersUser.UserID;
 		}
 
 		[ProfileUsage(IsExcluded = true)]
@@ -45,6 +49,14 @@ namespace VotGESOrders.Web.Services
 
 		[ProfileUsage(IsExcluded = true)]
 		public bool AllowCreateOrder { get; set; }
+		[ProfileUsage(IsExcluded = true)]
+		public bool AllowEditTree { get; set; }
+		[ProfileUsage(IsExcluded = true)]
+		public bool AllowEditOrders { get; set; }
+		[ProfileUsage(IsExcluded = true)]
+		public bool AllowEditUsers { get; set; }
+		[ProfileUsage(IsExcluded = true)]
+		public int UserID { get; set; }
 
 
 		public override string ToString() {

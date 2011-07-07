@@ -18,18 +18,15 @@
 				</Grid.ColumnDefinitions>
 				<TextBlock Text="{Binding ObjectName}" FontWeight="Normal" FontFamily="Courier New" VerticalAlignment="Center" Grid.Column="0"/>
 				<StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="1" >
-					<Border Style="{StaticResource borderFilterControl}"  Width="100" Height="20" MouseLeftButtonUp="btnChangeItem_Click">
-						<TextBlock Name="btnChangeItem" Text="Изменить"   VerticalAlignment="Center" HorizontalAlignment="Center"  
-									  FontSize="14" Foreground="Blue" Margin="0,0,0,0" Padding="0,0,0,0"/>
-					</Border>
-					<Border Style="{StaticResource borderFilterControl}" Width="100" Height="20" MouseLeftButtonUp="btnDeleteItem_Click">
-						<TextBlock Name="btnDeleteItem" Text="Удалить"   VerticalAlignment="Center" HorizontalAlignment="Center" 
-									  FontSize="14" Foreground="Red" Margin="0,0,0,0" Padding="0,0,0,0"/>
-					</Border>
-					<Border Style="{StaticResource borderFilterControl}" Width="100" Height="20" MouseLeftButtonUp="btnAddItem_Click">
-						<TextBlock Name="btnAddItem" Text="Добавить"   VerticalAlignment="Center"  HorizontalAlignment="Center" 
-									  FontSize="14" Foreground="Green" Margin="0,0,0,0" Padding="0,0,0,0"/>
-					</Border>
+						<Button Name="btnChangeItem" Content="Изменить"   VerticalAlignment="Center" HorizontalAlignment="Center"  
+									  FontSize="14" Foreground="Blue" Margin="0,0,0,0" Padding="0,0,0,0"
+								  Width="100" Height="20" Click="btnChangeItem_Click"/>
+						<Button Name="btnDeleteItem" Content="Удалить"   VerticalAlignment="Center" HorizontalAlignment="Center" 
+									  FontSize="14" Foreground="Red" Margin="0,0,0,0" Padding="0,0,0,0"
+								  Width="100" Height="20" Click="btnDeleteItem_Click"/>
+						<Button Name="btnAddItem" Content="Добавить"   VerticalAlignment="Center"  HorizontalAlignment="Center" 
+									  FontSize="14" Foreground="Green" Margin="0,0,0,0" Padding="0,0,0,0"
+								  Width="100" Height="20" Click="btnAddItem_Click"/>
 				</StackPanel>
 			</Grid>			
 		</sdk:HierarchicalDataTemplate>

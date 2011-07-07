@@ -71,99 +71,99 @@ namespace VotGESOrders.Web.Models
 		}
 
 
-		public string UserCreateOrderName { get; set; }
+		public int UserCreateOrderID { get; set; }
 		private OrdersUser userCreateOrder;
 		[Include]
-		[Association("Order_UserCreate", "UserCreateOrderName", "Name")]
+		[Association("Order_UserCreate", "UserCreateOrderID", "UserID")]
 		public OrdersUser UserCreateOrder {
 			get { return userCreateOrder; }
 			set {
 				userCreateOrder = value;
-				UserCreateOrderName = value.Name;
+				UserCreateOrderID = value.UserID;
 			}
 		}
 
-		public string UserAcceptOrderName { get; set; }
+		public int UserAcceptOrderID { get; set; }
 		private OrdersUser userAcceptOrder;
 		[Include]
-		[Association("Order_UserAccept", "UserAcceptOrderName", "Name")]
+		[Association("Order_UserAccept", "UserAcceptOrderID", "UserID")]
 		public OrdersUser UserAcceptOrder {
 			get { return userAcceptOrder; }
 			set {
 				userAcceptOrder = value;
-				UserAcceptOrderName = value.Name;
+				UserAcceptOrderID = value.UserID;
 			}
 		}
 
-		public string UserBanOrderName { get; set; }
+		public int UserBanOrderID { get; set; }
 		private OrdersUser userBanOrder;
 		[Include]
-		[Association("Order_UserBan", "UserBanOrderName", "Name")]
+		[Association("Order_UserBan", "UserBanOrderID", "UserID")]
 		public OrdersUser UserBanOrder {
 			get { return userBanOrder; }
 			set {
 				userBanOrder = value;
-				UserBanOrderName = value.Name;
+				UserBanOrderID = value.UserID;
 			}
 		}
 
-		public string UserAcceptBanOrderName { get; set; }
+		public int UserAcceptBanOrderID { get; set; }
 		private OrdersUser userAcceptBanOrder;
 		[Include]
-		[Association("Order_UserAcceptBan", "UserAcceptBanOrderName", "Name")]
+		[Association("Order_UserAcceptBan", "UserAcceptBanOrderID", "UserID")]
 		public OrdersUser UserAcceptBanOrder {
 			get { return userAcceptBanOrder; }
 			set {
 				userAcceptBanOrder = value;
-				UserAcceptBanOrderName = value.Name;
+				UserAcceptBanOrderID = value.UserID;
 			}
 		}
 
-		public string UserCloseOrderName { get; set; }
+		public int UserCloseOrderID { get; set; }
 		private OrdersUser userCloseOrder;
 		[Include]
-		[Association("Order_UserClose", "UserCloseOrderName", "Name")]
+		[Association("Order_UserClose", "UserCloseOrderID", "UserID")]
 		public OrdersUser UserCloseOrder {
 			get { return userCloseOrder; }
 			set {
 				userCloseOrder = value;
-				UserCloseOrderName = value.Name;
+				UserCloseOrderID = value.UserID;
 			}
 		}
 
-		public string UserCancelOrderName { get; set; }
+		public int UserCancelOrderID { get; set; }
 		private OrdersUser userCancelOrder;
 		[Include]
-		[Association("Order_UserCancel", "UserCancelOrderName", "Name")]
+		[Association("Order_UserCancel", "UserCancelOrderID", "UserID")]
 		public OrdersUser UserCancelOrder {
 			get { return userCancelOrder; }
 			set {
 				userCancelOrder = value;
-				UserCancelOrderName = value.Name;
+				UserCancelOrderID = value.UserID;
 			}
 		}
 
-		public string UserEnterOrderName { get; set; }
+		public int UserEnterOrderID { get; set; }
 		private OrdersUser userEnterOrder;
 		[Include]
-		[Association("Order_UserEnter", "UserEnterOrderName", "Name")]
+		[Association("Order_UserEnter", "UserEnterOrderID", "UserID")]
 		public OrdersUser UserEnterOrder {
 			get { return userEnterOrder; }
 			set {
 				userEnterOrder = value;
-				UserEnterOrderName = value.Name;
+				UserEnterOrderID = value.UserID;
 			}
 		}
 
-		public string UserOpenOrderName { get; set; }
+		public int UserOpenOrderID { get; set; }
 		private OrdersUser userOpenOrder;
 		[Include]
-		[Association("Order_UserOpen", "UserOpenOrderName", "Name")]
+		[Association("Order_UserOpen", "UserOpenOrderID", "UserID")]
 		public OrdersUser UserOpenOrder {
 			get { return userOpenOrder; }
 			set {
 				userOpenOrder = value;
-				UserOpenOrderName = value.Name;
+				UserOpenOrderID = value.UserID;
 			}
 		}
 
@@ -505,7 +505,7 @@ namespace VotGESOrders.Web.Models
 		public Order() {
 			OrderNumber = -1;
 			OrderDateCreate = DateTime.Now;
-			UserCreateOrderName = HttpContext.Current.User.Identity.Name;
+			UserCreateOrderID = OrdersUser.loadFromCache(HttpContext.Current.User.Identity.Name).UserID;
 			ParentOrderNumber = 0;
 			ChildOrderNumber = 0;
 			OrderState = OrderStateEnum.created;
@@ -549,28 +549,28 @@ namespace VotGESOrders.Web.Models
 			OrderDateCancel = dbOrder.orderDateCancel;
 
 
-			if (dbOrder.userAcceptOrderName != null) {
-				UserAcceptOrder = OrdersUser.loadFromCache(dbOrder.userAcceptOrderName);
+			if (dbOrder.userAcceptOrderID != null) {
+				UserAcceptOrder = OrdersUser.loadFromCache(dbOrder.userAcceptOrderID.Value);
 				UserAcceptBanOrder = UserAcceptOrder;
 			}
-			if (dbOrder.userBanOrderName != null) {
-				UserBanOrder = OrdersUser.loadFromCache(dbOrder.userBanOrderName);
+			if (dbOrder.userBanOrderID != null) {
+				UserBanOrder = OrdersUser.loadFromCache(dbOrder.userBanOrderID.Value);
 				UserAcceptBanOrder = UserBanOrder;
 			}
-			if (dbOrder.userCreateOrderName != null) {
-				UserCreateOrder = OrdersUser.loadFromCache(dbOrder.userCreateOrderName);
+			if (dbOrder.userCreateOrderID != null) {
+				UserCreateOrder = OrdersUser.loadFromCache(dbOrder.userCreateOrderID);
 			}
-			if (dbOrder.userCloseOrderName != null) {
-				UserCloseOrder = OrdersUser.loadFromCache(dbOrder.userCloseOrderName);
+			if (dbOrder.userCloseOrderID != null) {
+				UserCloseOrder = OrdersUser.loadFromCache(dbOrder.userCloseOrderID.Value);
 			}
-			if (dbOrder.userCancelOrderName != null) {
-				UserCancelOrder = OrdersUser.loadFromCache(dbOrder.userCancelOrderName);
+			if (dbOrder.userCancelOrderID != null) {
+				UserCancelOrder = OrdersUser.loadFromCache(dbOrder.userCancelOrderID.Value);
 			}
-			if (dbOrder.userOpenOrderName != null) {
-				UserOpenOrder = OrdersUser.loadFromCache(dbOrder.userOpenOrderName);
+			if (dbOrder.userOpenOrderID != null) {
+				UserOpenOrder = OrdersUser.loadFromCache(dbOrder.userOpenOrderID.Value);
 			}
-			if (dbOrder.userEnterOrderName != null) {
-				UserEnterOrder = OrdersUser.loadFromCache(dbOrder.userEnterOrderName);
+			if (dbOrder.userEnterOrderID != null) {
+				UserEnterOrder = OrdersUser.loadFromCache(dbOrder.userEnterOrderID.Value);
 			}
 
 			if ((OrderExtended) || (OrderAskExtended)) {
@@ -611,16 +611,16 @@ namespace VotGESOrders.Web.Models
 			OrderState = (OrderStateEnum)Enum.Parse(typeof(OrderStateEnum), dbOrder.orderState, true);
 			OrderStateStr = getOrderStateStr();
 
-			string creator=dbOrder.userCreateOrderName.ToLower();
+			int creator=dbOrder.userCreateOrderID;			
 			AllowAcceptOrder = currentUser.AllowAcceptOrder && OrderState == OrderStateEnum.created;
 			AllowBanOrder = currentUser.AllowAcceptOrder && OrderState == OrderStateEnum.created;
 			AllowOpenOrder = currentUser.AllowOpenOrder && OrderState == OrderStateEnum.accepted;
-			AllowCloseOrder = (currentUser.Name.ToLower() == creator && OrderState == OrderStateEnum.opened) ||
+			AllowCloseOrder = (currentUser.UserID == creator && OrderState == OrderStateEnum.opened) ||
 				currentUser.AllowCloseOrder && OrderState == OrderStateEnum.opened;
 			AllowEnterOrder = currentUser.AllowEnterOrder && OrderState == OrderStateEnum.closed;
-			AllowChangeOrder = currentUser.Name.ToLower() == creator && OrderState == OrderStateEnum.created;
-			AllowExtendOrder = (currentUser.AllowExtendOrder || currentUser.Name.ToLower() == creator) && OrderState == OrderStateEnum.opened;
-			AllowCancelOrder = (currentUser.Name.ToLower() == creator && OrderState == OrderStateEnum.created) ||
+			AllowChangeOrder = currentUser.UserID == creator && OrderState == OrderStateEnum.created;
+			AllowExtendOrder = (currentUser.AllowExtendOrder || currentUser.UserID == creator) && OrderState == OrderStateEnum.opened;
+			AllowCancelOrder = (currentUser.UserID == creator && OrderState == OrderStateEnum.created) ||
 				(currentUser.AllowCancelOrder && (OrderState == OrderStateEnum.accepted));
 		}
 

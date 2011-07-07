@@ -81,7 +81,7 @@ namespace VotGESOrders
 
 		protected void loadData() {
 			context = new OrdersDomainContext();
-			context.Load(context.LoadUsersQuery());
+			context.Load(context.LoadOrdersUsersQuery());
 			context.Load(context.LoadOrderObjectsQuery());
 
 			filter = new OrderFilter();

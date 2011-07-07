@@ -70,8 +70,9 @@ namespace VotGESOrders
 				}
 			}
 			if (e.PropertyName == "IsSubmitting") {
-				if (!OrdersContext.Current.Context.IsSubmitting) {					
-
+				if (!OrdersContext.Current.Context.IsSubmitting) {
+					objectForm.CurrentItem = null;
+					treeObjects.ClearSelection();
 				}
 			}
 		}
@@ -86,7 +87,6 @@ namespace VotGESOrders
 				objectForm.CancelEdit();
 				OrdersContext.Current.Context.RejectChanges();
 			}
-
 		}
 
 		protected void refreshSelObject(){
@@ -120,6 +120,8 @@ namespace VotGESOrders
 
 		private void btnCancel_Click(object sender, RoutedEventArgs e) {
 			cancelEdit();
+			objectForm.CurrentItem = null;
+			treeObjects.ClearSelection();
 		}
 
 
@@ -181,6 +183,16 @@ namespace VotGESOrders
 			if (SelObject != null) {
 				OrderObject selectedObject=treeObjects.SelectedItem as OrderObject;
 				if ((selectedObject != null)&&(selectedObject!=SelObject)) {
+					OrderObject parent=selectedObject.ParentObject;
+					bool log=true;
+					while (parent != null) {
+						if (parent.ObjectID == SelObject.ObjectID) {
+							log = false;
+						}
+						if (log) {
+							parent = parent.ParentObject;
+						}
+					}
 					//SelObject.ParentObject = selectedObject;
 					SelObject.ParentObjectID = selectedObject.ObjectID;
 					SelParentOrderObject = selectedObject;
