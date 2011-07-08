@@ -56,32 +56,9 @@ namespace VotGESOrders
 
 				e.Handled = true;
 								
-				if (e.ExceptionObject.GetType()==typeof(System.ServiceModel.DomainServices.Client.DomainOperationException)){
-					GlobalStatus.Current.Status="Ошибка:";
-					Exception inner=e.ExceptionObject.InnerException;
-					if (inner!=null){
-						if (inner.GetType() == typeof(System.ServiceModel.CommunicationException)) {
-							GlobalStatus.Current.Status += "Соединение с сервером";
-						}
-						if (inner.GetType() == typeof(VotGESOrders.Web.Models.OrderException)) {
-							ChildWindow errorWin = new ErrorWindow(inner);
-							errorWin.Show();
-						}
-					} else {
-						ChildWindow errorWin = new ErrorWindow(e.ExceptionObject);
-						Logger.logMessage(e.ExceptionObject.ToString());
-						errorWin.Show();
-					}
-				}
-				else{
-					ChildWindow errorWin = new ErrorWindow(e.ExceptionObject);
-					Logger.logMessage(e.ExceptionObject.ToString());
-					errorWin.Show();
-				}				
-				
-				
-
-				
+				ChildWindow errorWin = new ErrorWindow(e.ExceptionObject);
+				Logger.info(e.ExceptionObject.ToString());
+				errorWin.Show();			
 				
 			}
 		}

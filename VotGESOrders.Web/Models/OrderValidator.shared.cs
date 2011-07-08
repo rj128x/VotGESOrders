@@ -49,7 +49,7 @@ namespace VotGESOrders.Web.Models
 			}
 			if (date < order.PlanStartDate)
 				return new ValidationResult(String.Format("Дата начала работ({0}) раньше даты планового начала({1})", date, order.PlanStartDate));
-			if (date < order.OrderDateAccept)
+			if (date < order.OrderDateAccept||order.OrderIsExtend)
 				return new ValidationResult(String.Format("Дата начала работ({0}) раньше даты разрешения({1})", date, order.OrderDateAccept));
 			return ValidationResult.Success;
 		}

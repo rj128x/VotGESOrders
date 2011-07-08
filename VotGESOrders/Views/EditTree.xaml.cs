@@ -107,8 +107,8 @@ namespace VotGESOrders
 					OrdersContext.Current.Context.OrderObjects.Attach(SelObject);
 				}
 				objectForm.CommitEdit();				
-				OrdersContext.Current.Context.RegisterChangeObject(SelObject);		
-				OrdersContext.Current.Context.SubmitChanges();
+				OrdersContext.Current.Context.RegisterChangeObject(SelObject);
+				OrdersContext.Current.SubmitChangesCallbackError();
 			}
 		}
 
@@ -141,8 +141,8 @@ namespace VotGESOrders
 			if (SelObject != null) {
 				
 				OrdersContext.Current.Context.RegisterDeleteObject(SelObject);
-				
-				OrdersContext.Current.Context.SubmitChanges();
+
+				OrdersContext.Current.SubmitChangesCallbackError();
 				deleteObject(SelObject);
 				OrdersContext.Current.Context.OrderObjects.Detach(SelObject);
 

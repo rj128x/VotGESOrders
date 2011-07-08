@@ -10,6 +10,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using VotGESOrders.Views;
 using VotGESOrders.Web.Models;
+using System.ServiceModel.DomainServices.Client;
 
 namespace VotGESOrders
 {
@@ -60,8 +61,10 @@ namespace VotGESOrders
 						OrdersContext.Current.Context.RegisterEnterOrder(currentOrder, OrdersContext.Current.SessionGUID);
 						break;
 				}
-				OrdersContext.Current.Context.SubmitChanges();
+				OrdersContext.Current.SubmitChangesCallbackError();
 		}
+
+
 
 		public void ApplyAccept(Order currentOrder,AcceptResult result) {
 				switch (result) {
@@ -81,7 +84,7 @@ namespace VotGESOrders
 				if ((currentOrder.OrderIsExtend)&&(currentOrder.ParentOrder!=null)) {
 					OrdersContext.Current.Context.ReloadOrder(currentOrder.ParentOrder, OrdersContext.Current.SessionGUID);
 				}
-				OrdersContext.Current.Context.SubmitChanges();
+				OrdersContext.Current.SubmitChangesCallbackError();
 		}
 
 		public void ApplyCreate(Order currentOrder,bool isNew,Order parentOrder) {
@@ -95,10 +98,10 @@ namespace VotGESOrders
 						OrdersContext.Current.Context.ReloadOrder(parentOrder, OrdersContext.Current.SessionGUID);
 					}
 
-					OrdersContext.Current.Context.SubmitChanges();
+					OrdersContext.Current.SubmitChangesCallbackError();
 				} else {
 					OrdersContext.Current.Context.RegisterChangeOrder(currentOrder, OrdersContext.Current.SessionGUID);
-					OrdersContext.Current.Context.SubmitChanges();
+					OrdersContext.Current.SubmitChangesCallbackError();
 				}
 				//context.Orders.Detach(newOrderWindow.CurrentOrder);
 		}

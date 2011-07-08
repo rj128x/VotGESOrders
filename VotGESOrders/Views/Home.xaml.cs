@@ -65,7 +65,7 @@ namespace VotGESOrders
 		}
 
 		void oper_Completed(object sender, EventArgs e) {
-			InvokeOperation<bool> oper=sender as InvokeOperation<bool>;			
+			InvokeOperation<bool> oper=sender as InvokeOperation<bool>;
 			if (!oper.HasError) {
 				if (OrdersContext.Current.LastUpdate.AddMinutes(10) < DateTime.Now) {
 					GlobalStatus.Current.NeedRefresh = true;
@@ -77,6 +77,9 @@ namespace VotGESOrders
 						GlobalStatus.Current.NeedRefresh = true;
 					}
 				}
+			} else {
+				GlobalStatus.Current.Status = "Ошибка при соединении с сервером";
+				oper.MarkErrorAsHandled();
 			}
 			
 		}
@@ -133,40 +136,85 @@ namespace VotGESOrders
 		}
 
 
-		private void btnPrint_Click(object sender, RoutedEventArgs e) {
-			PrintDocument multidoc = new PrintDocument();
-			int index = 0;
-
-
-			multidoc.PrintPage += (s, arg) => {
-				StackPanel host = new StackPanel();
+		private List<StackPanel> getPrintPages(double width, double height) {
+			List<StackPanel> pages=new List<StackPanel>();
+			bool finish=false;
+			int index=0;			
+			while (!finish) {
+				StackPanel host = new StackPanel();				
 				bool isFirst=true;
 				while (index < OrdersContext.Current.View.Count) {
-					//OrderPrintControl cntrl = new OrderPrintControl();
 					OrderPrintBriefControl cntrl = new OrderPrintBriefControl();
 					cntrl.DataContext = OrdersContext.Current.View.GetItemAt(index); ;
 					cntrl.UpdateLayout();
-
 					host.Children.Add(cntrl);
-					//cntrl.updateVisibility();
+					
 					if (!isFirst) {
 						cntrl.hideHeader();
-						cntrl.InvalidateArrange();						
+						cntrl.InvalidateArrange();
 					}
 					isFirst = false;
-					//host.UpdateLayout();
 
-					host.Measure(new Size(arg.PrintableArea.Width, double.PositiveInfinity));
+					host.Measure(new Size(width, double.PositiveInfinity));
 
-					if (host.DesiredSize.Height > arg.PrintableArea.Height && host.Children.Count > 1) {
+					if (host.DesiredSize.Height + 80 > height && host.Children.Count > 1) {
 						host.Children.Remove(cntrl);
-						arg.HasMorePages = true;
 						break;
 					}
 					index++;
+					finish = OrdersContext.Current.View.Count==index;					
 				}
-				arg.PageVisual = host;
+				pages.Add(host);
+			}
+			return pages;
+		}
 
+		private void btnPrint_Click(object sender, RoutedEventArgs e) {
+			PrintDocument multidoc = new PrintDocument();
+			int index = 0;
+			List<StackPanel> pages=null;
+
+			multidoc.PrintPage += (s, arg) => {
+				if (pages == null) {
+					pages = getPrintPages(arg.PrintableArea.Width, arg.PrintableArea.Height);
+				}
+				if (index < pages.Count) {
+					StackPanel host=pages[index];
+
+					TextBlock header=new TextBlock();
+					header.Text = String.Format("{0} на {1}", GlobalStatus.Current.HomeHeader,DateTime.Now.ToString("dd.MM.yy HH:mm"));
+					header.HorizontalAlignment = System.Windows.HorizontalAlignment.Center;
+					header.Margin = new Thickness(0, 0, 0, 10);
+					header.FontSize = 13;					
+					host.Children.Insert(0, header);
+
+					host.Measure(new Size(arg.PrintableArea.Width, double.PositiveInfinity));
+
+					StackPanel footerPnl=new StackPanel();
+					footerPnl.Width = arg.PrintableArea.Width;
+					footerPnl.Orientation = Orientation.Horizontal;
+					
+					TextBlock page=new TextBlock();
+					page.Text = String.Format("Cтраница {0} из {1}", index+1, pages.Count); ;
+					page.HorizontalAlignment = System.Windows.HorizontalAlignment.Center;
+					page.FontSize = 12;
+					page.Width = 200;
+					footerPnl.Children.Add(page);
+
+					TextBlock footer=new TextBlock();
+					footer.Text = String.Format(" Начальник ОС ________________/{0}/",DateTime.Now.ToString("dd.MM.yy"));
+					footer.TextAlignment = TextAlignment.Right;
+					footer.FontSize = 12;
+					footer.Width = arg.PrintableArea.Width - page.Width;
+					footerPnl.Children.Add(footer);
+
+					footerPnl.Margin = new Thickness(0, arg.PrintableArea.Height - host.DesiredSize.Height - 30, 0, 0);
+
+					host.Children.Add(footerPnl);
+					arg.PageVisual = host;
+				}				
+				index++;
+				arg.HasMorePages = index < pages.Count;
 			};
 
 			multidoc.BeginPrint += (s, arg) => {

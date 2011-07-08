@@ -81,7 +81,7 @@ namespace VotGESOrders
 				}
 				userForm.CommitEdit();
 				OrdersContext.Current.Context.RegisterChangeUser(CurrentUser);
-				OrdersContext.Current.Context.SubmitChanges();
+				OrdersContext.Current.SubmitChangesCallbackError();
 			}
 		}
 
@@ -100,7 +100,7 @@ namespace VotGESOrders
 			if (CurrentUser != null) {
 				OrdersContext.Current.Context.RegisterDeleteUser(CurrentUser);
 
-				OrdersContext.Current.Context.SubmitChanges();
+				OrdersContext.Current.SubmitChangesCallbackError();
 				OrdersContext.Current.Context.OrdersUsers.Detach(CurrentUser);
 
 			}

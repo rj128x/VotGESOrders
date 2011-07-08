@@ -216,6 +216,7 @@ namespace VotGESOrders.Web.Models
 				}
 				LastUpdate.save(guid);
 				order.refreshOrderFromDB(orderDB, currentUser);
+				throw new OrderException(order, ExceptionOperation.create);
 				
 			} catch (Exception e) {
 

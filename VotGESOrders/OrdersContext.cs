@@ -14,6 +14,7 @@ using System.ComponentModel;
 using VotGESOrders.Logging;
 using System.Windows.Data;
 using VotGESOrders.Views;
+using System.ServiceModel.DomainServices.Client;
 
 namespace VotGESOrders
 {
@@ -89,8 +90,20 @@ namespace VotGESOrders
 
 			LastUpdate = DateTime.Now;
 		}
-				
 
+		public void SubmitChangesCallbackError() {
+			context.SubmitChanges(submit, null);
+		}
+
+		protected void submit(SubmitOperation oper) {
+			if (oper.HasError) {				
+				GlobalStatus.Current.Status = "Ошибка при выполнении операции на сервере";
+				Logger.info(oper.Error.ToString());
+				oper.MarkErrorAsHandled();
+			} else {
+				GlobalStatus.Current.Status = "Готово";
+			}
+		}
 		
 
 		protected void RefreshOrdersFilterXML(bool clear) {

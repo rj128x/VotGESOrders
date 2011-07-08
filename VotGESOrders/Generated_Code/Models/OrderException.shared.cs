@@ -45,7 +45,7 @@ namespace VotGESOrders.Web.Models
 					str = "Изменение заявки";
 					break;
 			}
-			str = String.Format("{0}: Ошибка\n {1}", str, InnerException);
+			str = String.Format("Ошибка:{0}. Заявка №{1}", str, SourceOrder.OrderNumber);
 			return str;
 		}
 	}

@@ -28,8 +28,13 @@ namespace VotGESOrders.Logging
 			logger.loggerContext = context;
 		}
 
-		public static void info(string message) {			
-			logger.loggerContext.info(message);
+		public static void info(string message) {
+			logger.loggerContext.info(message,
+				oper => {
+					if (oper.HasError) {
+						oper.MarkErrorAsHandled();
+					}
+				}, null);
 		}
 
 		public static void showMessage(string message) {

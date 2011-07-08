@@ -128,6 +128,7 @@ namespace VotGESOrders.Web.Services
 			Logger.info("Сервис: удаление пользователя " + newObject.FullName);
 			usrContext.RegisterDeleteUser(newObject);
 		}
+
 	}
 }
 
