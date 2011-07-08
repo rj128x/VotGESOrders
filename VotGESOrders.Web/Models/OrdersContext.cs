@@ -6,6 +6,7 @@ using VotGESOrders.Web.Services;
 using VotGESOrders.Web.Logging;
 using VotGESOrders.Web.ADONETEntities;
 using System.Data.Objects;
+using System.ServiceModel.DomainServices.Server;
 
 namespace VotGESOrders.Web.Models
 {
@@ -216,12 +217,10 @@ namespace VotGESOrders.Web.Models
 				}
 				LastUpdate.save(guid);
 				order.refreshOrderFromDB(orderDB, currentUser);
-				throw new OrderException(order, ExceptionOperation.create);
-				
 			} catch (Exception e) {
 
 				Logger.error(String.Format("Ошибка при создании заявки: {0}", e));
-				throw new OrderException(order, ExceptionOperation.create);
+				throw new DomainException("Ошибка при создании заявки");
 			}
 		}
 
@@ -241,7 +240,7 @@ namespace VotGESOrders.Web.Models
 				order.refreshOrderFromDB(orderDB, currentUser);
 			} catch (Exception e) {
 				Logger.error(String.Format("Ошибка при изменении заявки №{1}: {0}", e, order.OrderNumber));
-				throw new OrderException(order, ExceptionOperation.change);
+				throw new DomainException(String.Format("Ошибка при изменении заявки №{0}", order.OrderNumber));
 			}
 		}
 
@@ -276,7 +275,7 @@ namespace VotGESOrders.Web.Models
 				order.refreshOrderFromDB(orderDB, currentUser);
 			} catch (Exception e) {
 				Logger.error(String.Format("Ошибка при разрешении заявки №{1}: {0}", e, order.OrderNumber));
-				throw new OrderException(order, ExceptionOperation.accept);
+				throw new DomainException(String.Format("Ошибка при разрешении заявки №{0}", order.OrderNumber));
 			}
 		}
 
@@ -316,7 +315,7 @@ namespace VotGESOrders.Web.Models
 				order.refreshOrderFromDB(orderDB, currentUser);
 			} catch (Exception e) {
 				Logger.error(String.Format("Ошибка при запрещении заявки №{1}: {0}", e, order.OrderNumber));
-				throw new OrderException(order, ExceptionOperation.ban);
+				throw new DomainException(String.Format("Ошибка при запрете заявки №{0}", order.OrderNumber));
 			}
 		}
 
@@ -344,7 +343,7 @@ namespace VotGESOrders.Web.Models
 				order.refreshOrderFromDB(orderDB, currentUser);
 			} catch (Exception e) {
 				Logger.error(String.Format("Ошибка при открытии заявки №{1}: {0}", e, order.OrderNumber));
-				throw new OrderException(order, ExceptionOperation.open);
+				throw new DomainException(String.Format("Ошибка при открытии заявки №{0}", order.OrderNumber));
 			}
 		}
 
@@ -370,7 +369,7 @@ namespace VotGESOrders.Web.Models
 				order.refreshOrderFromDB(orderDB, currentUser);
 			} catch (Exception e) {
 				Logger.error(String.Format("Ошибка при закрытии заявки №{1}: {0}", e, order.OrderNumber));
-				throw new OrderException(order, ExceptionOperation.close);
+				throw new DomainException(String.Format("Ошибка при закрытии заявки №{0}", order.OrderNumber));
 			}
 		}
 
@@ -405,7 +404,7 @@ namespace VotGESOrders.Web.Models
 				order.refreshOrderFromDB(orderDB, currentUser);
 			} catch (Exception e) {
 				Logger.error(String.Format("Ошибка при снятии заявки №{1}: {0}", e, order.OrderNumber));
-				throw new OrderException(order, ExceptionOperation.cancel);
+				throw new DomainException(String.Format("Ошибка при отмене заявки №{0}", order.OrderNumber));
 			}
 		}
 
@@ -431,7 +430,7 @@ namespace VotGESOrders.Web.Models
 				order.refreshOrderFromDB(orderDB, currentUser);
 			} catch (Exception e) {
 				Logger.error(String.Format("Ошибка при вводе оборудования №{1}: {0}", e, order.OrderNumber));
-				throw new OrderException(order, ExceptionOperation.enter);
+				throw new DomainException(String.Format("Ошибка при вводе оборудования по заявке №{0}", order.OrderNumber));
 			}
 		}
 
@@ -443,9 +442,11 @@ namespace VotGESOrders.Web.Models
 				Logger.info("Заявка обновлена. Заявка №" + order.OrderNumber);
 				order.refreshOrderFromDB(orderDB, currentUser);
 			} catch (Exception e) {
-				Logger.error(String.Format("Ошибка при обновлении заявки №{1}: {0}", e, order.OrderNumber));				
+				Logger.error(String.Format("Ошибка при обновлении заявки №{1}: {0}", e, order.OrderNumber));
+				throw new DomainException(String.Format("Ошибка при обновлении заявки №{0}", order.OrderNumber));
 			}
 		}
-				
+		
+		
 	}
 }

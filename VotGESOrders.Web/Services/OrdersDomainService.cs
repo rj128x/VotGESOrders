@@ -39,9 +39,9 @@ namespace VotGESOrders.Web.Services
 			return OrderObject.getAllObjects().AsQueryable();
 		}
 
-		public void RegisterNew(Order order,Guid guid) {			
+		public void RegisterNew(Order order,Guid guid) {
 			Logger.info("Сервис: создание заявки");
-			context.RegisterOrder(order,guid);			
+			context.RegisterOrder(order, guid);
 		}
 
 		public void UpdateOrder(Order order) {
