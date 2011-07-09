@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using VotGESOrders.Web.Logging;
 using VotGESOrders.Web.ADONETEntities;
+using System.ServiceModel.DomainServices.Server;
 
 namespace VotGESOrders.Web.Models
 {
@@ -46,8 +47,8 @@ namespace VotGESOrders.Web.Models
 				Logger.info("Сохранено");
 
 			} catch (Exception e) {
-
-				Logger.error(String.Format("Ошибка при изменении оборудования: {0}", e));
+				Logger.error(String.Format("Ошибка при изменении пользователя: {0}", e));
+				throw new DomainException("Ошибка при изменении пользователя");
 			}
 		}
 
@@ -69,6 +70,7 @@ namespace VotGESOrders.Web.Models
 
 			} catch (Exception e) {
 				Logger.error(String.Format("Ошибка при удалении пользователя: {0}", e));
+				throw new DomainException("Ошибка при удалении пользователя. Возможно на пользователя ссылаются заявки");
 			}
 		}
 	}

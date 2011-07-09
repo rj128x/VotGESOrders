@@ -20,7 +20,7 @@ namespace VotGESOrders.Views
 		protected List<OrderObject> prevSel;
 		public ChooseObjectsWindow() {
 			InitializeComponent();
-			treeObjects.ItemsSource = from OrderObject o in OrdersContext.Current.Context.OrderObjects where o.ParentObject == null select o;
+			treeObjects.ItemsSource=from OrderObject o in OrdersContext.Current.Context.OrderObjects where o.ObjectID==0 select o;
 			
 		}
 

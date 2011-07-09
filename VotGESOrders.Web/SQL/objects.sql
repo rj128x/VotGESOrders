@@ -1,6 +1,7 @@
 ﻿delete from orders
 delete from OrderObjects 
 set identity_insert OrderObjects on
+insert into orderObjects (objectID,parentID,objectName) values('0','-1','ВотГЭС')
 insert into orderObjects (objectID,parentID,objectName) values('1','0','Щиты СН')
 insert into orderObjects (objectID,parentID,objectName) values('2','1','1Н')
 insert into orderObjects (objectID,parentID,objectName) values('3','2','1 Секция')

@@ -12,7 +12,7 @@ namespace VotGESOrders.Web.Models
 {
 	public class OrdersContext
 	{
-		protected List<Order> orders;
+		protected List<Order> orders;		
 
 		public OrdersContext() {
 			CurrentUser = OrdersUser.loadFromCache(HttpContext.Current.User.Identity.Name);
@@ -21,7 +21,7 @@ namespace VotGESOrders.Web.Models
 		public IQueryable<Order> getOrders(OrderFilter filter) {
 			switch (filter.FilterType) {
 				case OrderFilterEnum.userFilter:
-					return getOrdersUserFilter(filter);				
+					return getOrdersUserFilter(filter);
 				case OrderFilterEnum.active:
 					return OrdersActive;
 				default:
@@ -33,55 +33,66 @@ namespace VotGESOrders.Web.Models
 		#region Queries
 		public IQueryable<Order> Orders {
 			get {
-				Logger.info("Получение списка заказов (по умолчанию)");
-				OrdersUser currentUser=OrdersUser.loadFromCache(HttpContext.Current.User.Identity.Name);
-				VotGESOrdersEntities context=new VotGESOrdersEntities();
-				DateTime lastDate=DateTime.Now.AddDays(-1);
+				try {
+					Logger.info("Получение списка заказов (по умолчанию)");
+					OrdersUser currentUser=OrdersUser.loadFromCache(HttpContext.Current.User.Identity.Name);
+					VotGESOrdersEntities context=new VotGESOrdersEntities();
+					DateTime lastDate=DateTime.Now.AddDays(-1);
 
-				List<string> states=new List<string>();
-				states.Add(OrderStateEnum.accepted.ToString());
-				states.Add(OrderStateEnum.created.ToString());
-				states.Add(OrderStateEnum.closed.ToString());
-				states.Add(OrderStateEnum.opened.ToString());
-				states.Add(OrderStateEnum.askExtended.ToString());
+					List<string> states=new List<string>();
+					states.Add(OrderStateEnum.accepted.ToString());
+					states.Add(OrderStateEnum.created.ToString());
+					states.Add(OrderStateEnum.closed.ToString());
+					states.Add(OrderStateEnum.opened.ToString());
+					states.Add(OrderStateEnum.askExtended.ToString());
 
-				//IQueryable<Orders> orders=context.Orders.Where(order => (!order.faktStopDate.HasValue)||(order.faktStopDate.HasValue&&order.faktStopDate.Value>lastDate));
-				IQueryable<Orders> orders=context.Orders.Where(order => states.Contains(order.orderState) ||
-					(order.orderLastUpdate > lastDate));
-				List<Order> resultOrders=new List<Order>();
-				foreach (Orders orderDB in orders) {
-					resultOrders.Add(new Order(orderDB, currentUser));
+					//IQueryable<Orders> orders=context.Orders.Where(order => (!order.faktStopDate.HasValue)||(order.faktStopDate.HasValue&&order.faktStopDate.Value>lastDate));
+					IQueryable<Orders> orders=context.Orders.Where(order => states.Contains(order.orderState) ||
+						(order.orderLastUpdate > lastDate));
+					List<Order> resultOrders=new List<Order>();
+					foreach (Orders orderDB in orders) {
+						resultOrders.Add(new Order(orderDB, currentUser));
+					}
+					return resultOrders.AsQueryable();
+				} catch (Exception e) {
+					Logger.info("Ошибка при получении списка заказов (по умолчанию)"+ e.ToString());
+					throw new DomainException(String.Format("Ошибка при получении списка заказов (по умолчанию)"));
 				}
-				return resultOrders.AsQueryable();
 			}
 		}
 
 		public IQueryable<Order> OrdersActive {
 			get {
-				Logger.info("Получение списка активных заказов");
-				OrdersUser currentUser=OrdersUser.loadFromCache(HttpContext.Current.User.Identity.Name);
-				VotGESOrdersEntities context=new VotGESOrdersEntities();
+				try {
+					Logger.info("Получение списка активных заказов");
+					OrdersUser currentUser=OrdersUser.loadFromCache(HttpContext.Current.User.Identity.Name);
+					VotGESOrdersEntities context=new VotGESOrdersEntities();
 
-				List<string> states=new List<string>();
-				states.Add(OrderStateEnum.accepted.ToString());
-				states.Add(OrderStateEnum.created.ToString());
-				states.Add(OrderStateEnum.closed.ToString());
-				states.Add(OrderStateEnum.opened.ToString());
-				states.Add(OrderStateEnum.askExtended.ToString());
+					List<string> states=new List<string>();
+					states.Add(OrderStateEnum.accepted.ToString());
+					states.Add(OrderStateEnum.created.ToString());
+					states.Add(OrderStateEnum.closed.ToString());
+					states.Add(OrderStateEnum.opened.ToString());
+					states.Add(OrderStateEnum.askExtended.ToString());
 
-				//IQueryable<Orders> orders=context.Orders.Where(order => (!order.faktStopDate.HasValue)||(order.faktStopDate.HasValue&&order.faktStopDate.Value>lastDate));
-				IQueryable<Orders> orders=
+					//IQueryable<Orders> orders=context.Orders.Where(order => (!order.faktStopDate.HasValue)||(order.faktStopDate.HasValue&&order.faktStopDate.Value>lastDate));
+					IQueryable<Orders> orders=
 					from Orders o in context.Orders
 					where
 						states.Contains(o.orderState)
 					select o;
-				List<Order> resultOrders=new List<Order>();
-				foreach (Orders orderDB in orders) {
-					resultOrders.Add(new Order(orderDB, currentUser));
+					List<Order> resultOrders=new List<Order>();
+					foreach (Orders orderDB in orders) {
+						resultOrders.Add(new Order(orderDB, currentUser));
+					}
+					return resultOrders.AsQueryable();
+				} catch (Exception e) {
+					Logger.info("Ошибка при получении списка заказов (активные)" + e.ToString());
+					throw new DomainException(String.Format("Ошибка при получении списка заказов (активные)"));
 				}
-				return resultOrders.AsQueryable();
+
 			}
-		}		
+		}
 
 
 		public IQueryable<Order> getOrdersUserFilter(OrderFilter filter) {
@@ -150,9 +161,8 @@ namespace VotGESOrders.Web.Models
 				}
 				return resultOrders.AsQueryable();
 			} catch (Exception e) {
-				Logger.info(e.ToString());
-				return null;
-				
+				Logger.info("Ошибка при получении списка заказов (фильтр) "+e.ToString());
+				throw new DomainException(String.Format("Ошибка при получении списка заказов (фильтр)"));
 			}
 		}
 
@@ -192,11 +202,11 @@ namespace VotGESOrders.Web.Models
 				orderDB.userCreateOrderID = currentUser.UserID;
 				orderDB.orderNumber = 5;
 
-				writeOrderToOrderDB(order, orderDB);				
+				writeOrderToOrderDB(order, orderDB);
 
 				context.Orders.AddObject(orderDB);
 				context.SaveChanges();
-				
+
 				Logger.info("Сохранено");
 
 
@@ -218,7 +228,6 @@ namespace VotGESOrders.Web.Models
 				LastUpdate.save(guid);
 				order.refreshOrderFromDB(orderDB, currentUser);
 			} catch (Exception e) {
-
 				Logger.error(String.Format("Ошибка при создании заявки: {0}", e));
 				throw new DomainException("Ошибка при создании заявки");
 			}
@@ -446,7 +455,7 @@ namespace VotGESOrders.Web.Models
 				throw new DomainException(String.Format("Ошибка при обновлении заявки №{0}", order.OrderNumber));
 			}
 		}
-		
-		
+
+
 	}
 }

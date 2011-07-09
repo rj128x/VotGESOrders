@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using VotGESOrders.Web.Logging;
 using VotGESOrders.Web.ADONETEntities;
+using System.ServiceModel.DomainServices.Server;
 
 namespace VotGESOrders.Web.Models
 {
@@ -32,11 +33,12 @@ namespace VotGESOrders.Web.Models
 				newObj.ObjectID = objDB.objectID;
 				newObj.ObjectName = objDB.objectName;
 				OrderObject.init();
+				newObj.FullName = OrderObject.getByID(newObj.ObjectID).getFullName();
 				Logger.info("Сохранено");
 
 			} catch (Exception e) {
-
 				Logger.error(String.Format("Ошибка при изменении оборудования: {0}", e));
+				throw new DomainException("Ошибка при изменении/создании оборудования");
 			}
 		}
 
@@ -65,6 +67,7 @@ namespace VotGESOrders.Web.Models
 
 			} catch (Exception e) {
 				Logger.error(String.Format("Ошибка при удалении оборудования: {0}", e));
+				throw new DomainException("Ошибка при удалении оборудования, возможно на оборудование (или дочернее оборудование) ссылаются заявки");
 			}
 		}
 	}

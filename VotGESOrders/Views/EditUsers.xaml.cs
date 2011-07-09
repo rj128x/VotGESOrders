@@ -37,26 +37,24 @@ namespace VotGESOrders
 		protected OrdersUser CurrentUser;
 		protected bool isNew=false;
 		
-		public EditUsers() {
-			
+		public EditUsers() {			
 			InitializeComponent();
 			gridUsers.ItemsSource = OrdersContext.Current.Context.OrdersUsers;
-			OrdersContext.Current.Context.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(Context_PropertyChanged);
 		}
 
-		void Context_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e) {
-			if (e.PropertyName == "IsLoading") {
-				if (!OrdersContext.Current.Context.IsLoading) {
-					userForm.CurrentItem = null;
-					gridUsers.SelectedItem=null;
-				}
+
+		protected void submit(SubmitOperation oper) {
+			if (oper.HasError) {
+				GlobalStatus.Current.Status = "Ошибка при выполнении операции на сервере: " + oper.Error.Message;
+				MessageBox.Show(oper.Error.Message, "Ошибка при выполнении операции на сервере", MessageBoxButton.OK);
+				refresh();
+				Logger.info(oper.Error.ToString());
+				oper.MarkErrorAsHandled();
+			} else {
+				GlobalStatus.Current.Status = "Готово";
 			}
-			if (e.PropertyName == "IsSubmitting") {
-				if (!OrdersContext.Current.Context.IsSubmitting) {
-					userForm.CurrentItem = null;
-					gridUsers.SelectedItem = null;
-				}
-			}
+			userForm.CurrentItem = null;
+			gridUsers.SelectedItem = null;
 		}
 
 		protected void cancelEdit() {
@@ -81,7 +79,7 @@ namespace VotGESOrders
 				}
 				userForm.CommitEdit();
 				OrdersContext.Current.Context.RegisterChangeUser(CurrentUser);
-				OrdersContext.Current.SubmitChangesCallbackError();
+				OrdersContext.Current.Context.SubmitChanges(submit,null);
 			}
 		}
 
@@ -100,7 +98,7 @@ namespace VotGESOrders
 			if (CurrentUser != null) {
 				OrdersContext.Current.Context.RegisterDeleteUser(CurrentUser);
 
-				OrdersContext.Current.SubmitChangesCallbackError();
+				OrdersContext.Current.Context.SubmitChanges(submit, null);
 				OrdersContext.Current.Context.OrdersUsers.Detach(CurrentUser);
 
 			}
@@ -126,9 +124,17 @@ namespace VotGESOrders
 			userForm.CurrentItem = null;
 		}
 
-		private void btnRefresh_Click(object sender, RoutedEventArgs e) {
+		private void refresh() {
 			OrdersContext.Current.Context.OrdersUsers.Clear();
-			OrdersContext.Current.Context.Load(OrdersContext.Current.Context.LoadOrdersUsersQuery());
+			OrdersContext.Current.Context.Load(OrdersContext.Current.Context.LoadOrdersUsersQuery(), LoadBehavior.RefreshCurrent,
+				oper => {
+					userForm.CurrentItem = null;
+					gridUsers.SelectedItem = null;
+				}, null);
+		}
+
+		private void btnRefresh_Click(object sender, RoutedEventArgs e) {
+			refresh();
 		}
 
 

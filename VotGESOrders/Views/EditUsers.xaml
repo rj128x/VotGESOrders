@@ -56,7 +56,7 @@
 			<StackPanel>
 				<toolkit:DataForm Grid.Row="0" HorizontalAlignment="Stretch" Name="userForm" 
 								VerticalAlignment="Stretch" AutoGenerateFields="False"
-								CommandButtonsVisibility="None">
+								CommandButtonsVisibility="None" IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}">
 					<StackPanel>
 						<toolkit:DataField Name="Login" Label="Логин">
 							<TextBox Name="txtName" Text="{Binding Name, Mode=TwoWay}"/>

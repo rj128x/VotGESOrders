@@ -11,13 +11,19 @@ namespace VotGESOrders.Web.Models
 {
 	public class OrderObject
 	{
-		
-		public string ObjectName { get;  set; }
-		public string FullName { get; set; }
+
+		public string ObjectName { get; set; }
+
+		private string fullName;
+
+		public string FullName {
+			get { return fullName; }
+			set { fullName = value; }
+		}
 
 		[Key]
-		public int ObjectID{get; set;}
-		public int ParentObjectID{get; set;}
+		public int ObjectID { get; set; }
+		public int ParentObjectID { get; set; }
 
 
 		private OrderObject parentObject;
@@ -29,13 +35,13 @@ namespace VotGESOrders.Web.Models
 			}
 			set {
 				parentObject = value;
-				ParentObjectID = value==null?0:value.ObjectID;
+				ParentObjectID = value == null ? -1 : value.ObjectID;
 			}
 		}
 
 		[Include]
 		[Association("Order_OrderObject2", "ObjectID", "ParentObjectID")]
-		public List<OrderObject> ChildObjects { get;  set; }
+		public List<OrderObject> ChildObjects { get; set; }
 
 
 
@@ -48,55 +54,36 @@ namespace VotGESOrders.Web.Models
 			context = new VotGESOrdersEntities();
 
 			VotGESOrdersEntities ctx = new VotGESOrdersEntities();
-			IQueryable<OrderObjects> dbObjects=from oo in ctx.OrderObjects orderby oo.objectName select oo ;
+			IQueryable<OrderObjects> dbObjects=from oo in ctx.OrderObjects orderby oo.objectName select oo;
 			foreach (OrderObjects dbObject in dbObjects) {
 				allObjects.Add(dbObject.objectID, getFromDB(dbObject));
 			}
-			Logger.info("Чтение родительских объектов из БД");
-			createParentObjects();
-			Logger.info("создание дерева");
-			createTree();
 			createNames();
 			Logger.info("Чтение списка объектов из БД завершено");
 		}
 
 		static OrderObject() {
-			
+
 		}
 
-		protected static void createParentObjects() {
-			foreach (KeyValuePair<int,OrderObject> de in allObjects) {
-				OrderObject obj=de.Value;
-				int parentID=obj.ParentObjectID;
-				if ((parentID!=0)&&(allObjects.ContainsKey(parentID))) {
-					obj.ParentObject = allObjects[parentID];
-				} else {
-					obj.ParentObject = null;
-				}
-					
-			}
-		}
 
-		protected static void createTree() {
-			foreach (KeyValuePair<int,OrderObject> de in allObjects) {
-				OrderObject obj=de.Value;
-				obj.ChildObjects = new List<OrderObject>((from o in allObjects.Values where o.ParentObjectID == obj.ObjectID select o));
+		public string getFullName() {
+			OrderObject parent=getByID(ParentObjectID);
+			List<string> names=new List<string>();
+			names.Add(ObjectName);
+			while (parent != null) {
+				names.Add(parent.ObjectName);
+				parent = getByID(parent.ParentObjectID);
 			}
+			names.Reverse();
+			return String.Join(" => ", names);
 		}
 
 		protected static void createNames() {
 			foreach (KeyValuePair<int,OrderObject> de in allObjects) {
 				OrderObject obj=de.Value;
-				
-				OrderObject parent=obj.ParentObject;
-				List<string> names=new List<string>();
-				names.Add(obj.ObjectName);
-				while (parent != null) {
-					names.Add(parent.ObjectName);
-					parent = parent.ParentObject;
-				}
-				names.Reverse();
-				obj.FullName = String.Join(" => ", names); ;
+
+				obj.FullName = obj.getFullName();
 			}
 		}
 
@@ -105,7 +92,8 @@ namespace VotGESOrders.Web.Models
 		}
 
 		public void appendObjectIDSChildIDS(List<int> ObjectIDS) {
-			foreach (OrderObject obj in ChildObjects) {
+			IEnumerable<OrderObject> children=from OrderObject o in allObjects.Values where o.ParentObjectID==ObjectID select o;
+			foreach (OrderObject obj in children) {
 				if (!ObjectIDS.Contains(obj.ObjectID)) {
 					ObjectIDS.Add(obj.ObjectID);
 					obj.appendObjectIDSChildIDS(ObjectIDS);
@@ -121,7 +109,7 @@ namespace VotGESOrders.Web.Models
 		public static OrderObject getFromDB(OrderObjects objectDB) {
 			try {
 				OrderObject obj=new OrderObject();
-				obj.ObjectName=objectDB.objectName;
+				obj.ObjectName = objectDB.objectName;
 				obj.ObjectID = objectDB.objectID;
 				obj.ParentObjectID = objectDB.parentID;
 				return obj;
@@ -141,7 +129,7 @@ namespace VotGESOrders.Web.Models
 
 		public override string ToString() {
 			return string.Format("ID: {0}, ParentID: {1}, Name: {2}",
-				ObjectID,ParentObjectID,ObjectName);
+				ObjectID, ParentObjectID, ObjectName);
 		}
 	}
 }

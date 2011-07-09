@@ -141,30 +141,21 @@ namespace VotGESOrders
 		}
 
 		public void initOpen() {
-			GlobalStatus.Current.IsChangingOrder = true;
-			CurrentOrder.OrderState = OrderStateEnum.opened;
-			CurrentOrder.OrderOpened = true;
-			if (CurrentOrder.OrderIsExtend) {
-				CurrentOrder.FaktStartDate = CurrentOrder.PlanStartDate;
-			}
+			GlobalStatus.Current.IsChangingOrder = true;						
 			dateOperationWindow.CurrentOrder = CurrentOrder;
 			dateOperationWindow.Operation = OrderOperation.open;
 			dateOperationWindow.Show();
 		}
 
 		public void initClose() {
-			GlobalStatus.Current.IsChangingOrder = true;
-			CurrentOrder.OrderState = OrderStateEnum.closed;
-			CurrentOrder.OrderClosed = true;
+			GlobalStatus.Current.IsChangingOrder = true;			
 			dateOperationWindow.CurrentOrder = CurrentOrder;
 			dateOperationWindow.Operation = OrderOperation.close;
 			dateOperationWindow.Show();
 		}
 
 		public void initEnter() {
-			GlobalStatus.Current.IsChangingOrder = true;
-			CurrentOrder.OrderState = OrderStateEnum.entered;
-			CurrentOrder.OrderEntered = true;
+			GlobalStatus.Current.IsChangingOrder = true;			
 			dateOperationWindow.CurrentOrder = CurrentOrder;
 			dateOperationWindow.Operation = OrderOperation.enter;
 			dateOperationWindow.Show();

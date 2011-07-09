@@ -22,6 +22,9 @@ namespace VotGESOrders.Views
 		public bool isCancelWindow { get; set; }
 		public AcceptWindow() {
 			InitializeComponent();
+			orderForm.AutoCommit = false;
+			orderForm.AutoEdit = false;
+			this.HasCloseButton = false;
 		}
 
 
@@ -47,10 +50,9 @@ namespace VotGESOrders.Views
 
 		protected override void OnOpened() {
 			base.OnOpened();
-			orderForm.CancelEdit();
 			CurrentOrder.NewComment = "";
 			orderForm.CurrentItem = CurrentOrder;
-
+			orderForm.BeginEdit();
 			if (isCancelWindow) {
 				CancelOrderButton.Visibility = System.Windows.Visibility.Visible;
 				AcceptButton.Visibility = System.Windows.Visibility.Collapsed;

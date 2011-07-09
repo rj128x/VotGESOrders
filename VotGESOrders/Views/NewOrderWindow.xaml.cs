@@ -33,15 +33,17 @@ namespace VotGESOrders.Views
 			OrderTypes.Add("НО", "Неотложная");
 			OrderTypes.Add("АВ", "Аварийная");
 			cmbOrderTypes.ItemsSource = OrderTypes;
-			treeObjects.ItemsSource = from OrderObject o in OrdersContext.Current.Context.OrderObjects where o.ParentObject == null select o;
+			treeObjects.ItemsSource = from OrderObject o in OrdersContext.Current.Context.OrderObjects where o.ObjectID == 0 select o;
+			orderForm.AutoCommit = false;
+			orderForm.AutoEdit = false;
+			this.HasCloseButton = false;
 		}
 
 
 		private void OKButton_Click(object sender, RoutedEventArgs e) {
-			bool ok=orderForm.ValidateItem();
 			orderForm.CommitEdit();
 
-			if (!CurrentOrder.HasValidationErrors&&ok) {				
+			if (!CurrentOrder.HasValidationErrors) {				
 				OrderOperations.Current.ApplyCreate(CurrentOrder, IsNewOrder, ParentOrder);
 				this.DialogResult = true;
 			}
@@ -57,6 +59,7 @@ namespace VotGESOrders.Views
 			base.OnOpened();
 			orderForm.CancelEdit();
 			orderForm.CurrentItem = CurrentOrder;
+			orderForm.BeginEdit();
 
 			if (IsNewOrder && !CurrentOrder.OrderIsExtend) {
 				CurrentOrder.PlanStartDate = DateTime.Now.Date.AddDays(1).AddHours(8);
