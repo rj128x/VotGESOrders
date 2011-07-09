@@ -157,7 +157,7 @@ namespace VotGESOrders
 
 					host.Measure(new Size(width, double.PositiveInfinity));
 
-					if (host.DesiredSize.Height + 80 > height && host.Children.Count > 1) {
+					if (host.DesiredSize.Height + 65 > height && host.Children.Count > 1) {
 						host.Children.Remove(cntrl);
 						break;
 					}
@@ -181,12 +181,21 @@ namespace VotGESOrders
 				if (index < pages.Count) {
 					StackPanel host=pages[index];
 
+					Grid grid=new Grid();
+					grid.RowDefinitions.Add(new RowDefinition());
+					grid.RowDefinitions.Add(new RowDefinition());
+					grid.RowDefinitions.Add(new RowDefinition());
+					grid.RowDefinitions[0].Height = new GridLength(30);
+					grid.RowDefinitions[2].Height = new GridLength(35);
+					grid.RowDefinitions[1].Height = new GridLength(1, GridUnitType.Star);
+
 					TextBlock header=new TextBlock();
 					header.Text = String.Format("{0} на {1}", GlobalStatus.Current.HomeHeader,DateTime.Now.ToString("dd.MM.yy HH:mm"));
 					header.HorizontalAlignment = System.Windows.HorizontalAlignment.Center;
 					header.Margin = new Thickness(0, 0, 0, 10);
-					header.FontSize = 13;					
-					host.Children.Insert(0, header);
+					header.FontSize = 13;
+					grid.Children.Add(header);
+					header.SetValue(Grid.RowProperty, 0);
 
 					host.Measure(new Size(arg.PrintableArea.Width, double.PositiveInfinity));
 
@@ -207,11 +216,15 @@ namespace VotGESOrders
 					footer.FontSize = 12;
 					footer.Width = arg.PrintableArea.Width - page.Width;
 					footerPnl.Children.Add(footer);
+					
+					grid.Children.Add(footerPnl);
+					footerPnl.SetValue(Grid.RowProperty, 2);
+					footerPnl.Margin = new Thickness(0, 15, 0, 0);
 
-					footerPnl.Margin = new Thickness(0, arg.PrintableArea.Height - host.DesiredSize.Height - 30, 0, 0);
+					grid.Children.Add(host);
+					host.SetValue(Grid.RowProperty, 1);
 
-					host.Children.Add(footerPnl);
-					arg.PageVisual = host;
+					arg.PageVisual = grid;
 				}				
 				index++;
 				arg.HasMorePages = index < pages.Count;
