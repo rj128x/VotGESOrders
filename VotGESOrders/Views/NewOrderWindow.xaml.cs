@@ -36,6 +36,7 @@ namespace VotGESOrders.Views
 			treeObjects.ItemsSource = from OrderObject o in OrdersContext.Current.Context.OrderObjects where o.ObjectID == 0 select o;
 			orderForm.AutoCommit = false;
 			orderForm.AutoEdit = false;
+			
 			this.HasCloseButton = false;
 		}
 

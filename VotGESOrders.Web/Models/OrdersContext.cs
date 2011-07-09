@@ -51,7 +51,7 @@ namespace VotGESOrders.Web.Models
 						(order.orderLastUpdate > lastDate));
 					List<Order> resultOrders=new List<Order>();
 					foreach (Orders orderDB in orders) {
-						resultOrders.Add(new Order(orderDB, currentUser));
+						resultOrders.Add(new Order(orderDB, currentUser, false, false));
 					}
 					return resultOrders.AsQueryable();
 				} catch (Exception e) {
@@ -83,7 +83,7 @@ namespace VotGESOrders.Web.Models
 					select o;
 					List<Order> resultOrders=new List<Order>();
 					foreach (Orders orderDB in orders) {
-						resultOrders.Add(new Order(orderDB, currentUser));
+						resultOrders.Add(new Order(orderDB, currentUser,false,false));
 					}
 					return resultOrders.AsQueryable();
 				} catch (Exception e) {

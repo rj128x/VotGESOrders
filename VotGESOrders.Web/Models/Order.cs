@@ -258,20 +258,20 @@ namespace VotGESOrders.Web.Models
 
 
 		private string orderText;
-		[RegularExpression(".{5,}", ErrorMessage = "Минимум 5 символов")]
+		[RegularExpression(".{5,}", ErrorMessage = "Текст заявки - Минимум 5 символов")]
 		[Display(Description = "Введите текст заявки (минимум 5 символов)",ShortName="Текст заявки")]
-		[StringLength(250, ErrorMessage = "Максимум 250 символов")]
-		[Required(ErrorMessage = "Обязательное поле")]
+		[StringLength(250, ErrorMessage = "Текст заявки - Максимум 250 символов")]
+		[Required(ErrorMessage = "Текст заявки - обязательное поле")]
 		public string OrderText {
 			get { return orderText; }
 			set { orderText = value; }
 		}
 
 		private string soglasText;
-		[RegularExpression(".{5,}", ErrorMessage = "Минимум 5 символов")]
+		[RegularExpression(".{5,}", ErrorMessage = "Согласование - Минимум 5 символов")]
 		[Display(Description = "С кем согласованна заявка (минимум 5 символов)", ShortName = "Согласование")]
-		[StringLength(250, ErrorMessage = "Максимум 250 символов")]
-		[Required(ErrorMessage = "Обязательное поле")]
+		[StringLength(250, ErrorMessage = "Согласование - Максимум 250 символов")]
+		[Required(ErrorMessage = "Согласование - обязательное поле")]
 		public string SoglasText {
 			get { return soglasText; }
 			set { soglasText = value; }
@@ -279,7 +279,7 @@ namespace VotGESOrders.Web.Models
 
 		private string createText;
 		[Display(Description = "Дополнительный комментарий к заявке", ShortName = "Комментарий")]
-		[StringLength(250, ErrorMessage = "Максимум 250 символов")]
+		[StringLength(250, ErrorMessage = "Комментарий - Максимум 250 символов")]
 		public string CreateText {
 			get { return createText; }
 			set { createText = value; }
@@ -288,7 +288,7 @@ namespace VotGESOrders.Web.Models
 
 		private string acceptText;
 		[Display(Description = "Комментарий к разрешению (не обязательно)", ShortName = "Комментарий")]
-		[StringLength(250, ErrorMessage = "Максимум 250 символов")]
+		[StringLength(250, ErrorMessage = "Комментарий - Максимум 250 символов")]
 		public string AcceptText {
 			get { return acceptText; }
 			set { acceptText = value; }
@@ -296,7 +296,7 @@ namespace VotGESOrders.Web.Models
 
 		private string banText;
 		[Display(Description = "Комментарий к запрету (не обязательно)", ShortName = "Комментарий")]
-		[StringLength(250, ErrorMessage = "Максимум 250 символов")]
+		[StringLength(250, ErrorMessage = "Комментарий - Максимум 250 символов")]
 		public string BanText {
 			get { return banText; }
 			set { banText = value; }
@@ -305,7 +305,7 @@ namespace VotGESOrders.Web.Models
 
 		private string openText;
 		[Display(Description = "Комментарий к выводу оборудования (не обязательно)", ShortName = "Комментарий")]
-		[StringLength(250, ErrorMessage = "Максимум 250 символов")]
+		[StringLength(250, ErrorMessage = "Комментарий - Максимум 250 символов")]
 		public string OpenText {
 			get { return openText; }
 			set { openText = value; }
@@ -314,7 +314,7 @@ namespace VotGESOrders.Web.Models
 
 		private string closeText;
 		[Display(Description = "Комментарий к разрешению на ввод (не обязательно)", ShortName = "Комментарий")]
-		[StringLength(250, ErrorMessage = "Максимум 250 символов")]
+		[StringLength(250, ErrorMessage = "Комментарий - Максимум 250 символов")]
 		public string CloseText {
 			get { return closeText; }
 			set { closeText = value; }
@@ -322,7 +322,7 @@ namespace VotGESOrders.Web.Models
 
 		private string cancelText;
 		[Display(Description = "Комментарий к отмене заявки (не обязательно)", ShortName = "Комментарий")]
-		[StringLength(250, ErrorMessage = "Максимум 250 символов")]
+		[StringLength(250, ErrorMessage = "Комментарий - Максимум 250 символов")]
 		public string CancelText {
 			get { return cancelText; }
 			set { cancelText = value; }
@@ -330,7 +330,7 @@ namespace VotGESOrders.Web.Models
 
 		private string enterText;
 		[Display(Description = "Комментарий к вводу в работу (не обязательно)", ShortName = "Комментарий")]
-		[StringLength(250, ErrorMessage = "Максимум 250 символов")]
+		[StringLength(250, ErrorMessage = "Комментарий - Максимум 250 символов")]
 		public string EnterText {
 			get { return enterText; }
 			set { enterText = value; }
@@ -341,7 +341,7 @@ namespace VotGESOrders.Web.Models
 
 		private string orderObjectAddInfo;
 		[Display(Description = "Детализация оборудования (если отсутствует в дереве)", ShortName = "Оборудование")]
-		[StringLength(100, ErrorMessage = "Максимум 100 символов")]
+		[StringLength(100, ErrorMessage = "Оборудование - Максимум 100 символов")]
 		public string OrderObjectAddInfo {
 			get { return orderObjectAddInfo; }
 			set {
@@ -361,7 +361,7 @@ namespace VotGESOrders.Web.Models
 		private string selOrderObjectText;
 		[RegularExpression(".{1,}", ErrorMessage = "Выберите оборудование")]
 		[Display(Description = "Объект оборудования (выбирается из дерева)", ShortName = "Оборудование")]
-		[Required(ErrorMessage = "Обязательное поле")]
+		[Required(ErrorMessage = "Оборудование - Обязательное поле")]
 		public string SelOrderObjectText {
 			get { return selOrderObjectText; }
 			set { selOrderObjectText = value; }
