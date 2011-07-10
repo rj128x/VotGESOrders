@@ -45,7 +45,7 @@ namespace VotGESOrders.Converters
 							color = Colors.LightGray;
 							break;
 						case OrderStateEnum.closed:
-							color = Color.FromArgb(255, 204, 255, 255);
+							color = Color.FromArgb(255, 204, 204, 255);
 							break;
 						case OrderStateEnum.created:
 							color = Colors.White;

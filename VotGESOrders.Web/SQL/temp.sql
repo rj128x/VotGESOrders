@@ -1,1 +1,1 @@
-﻿select * from users
+﻿insert into orderObjects (objectID,parentID,objectName) values('0','-1','ВотГЭС')

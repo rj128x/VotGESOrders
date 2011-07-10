@@ -60,7 +60,8 @@
 			<StackPanel Style="{StaticResource pnlCellOrderRow}"
 							Background="{Binding OrderState, Converter={StaticResource backgroundColorConverter}, ConverterParameter='State',Mode=OneWay}">
 				<TextBlock Style="{StaticResource txtCellOrderRow}" Text="{TemplateBinding Content}"
-							 Foreground="{Binding OrderState, Converter={StaticResource foregroundColorConverter},Mode=OneWay}" TextWrapping="Wrap"/>
+							 Foreground="{Binding OrderState, Converter={StaticResource foregroundColorConverter},Mode=OneWay}" TextWrapping="Wrap" TextAlignment="Center"
+							  FontWeight="Bold"/>
 			</StackPanel>
 	</ControlTemplate>
 
@@ -110,7 +111,7 @@
 
 	<ControlTemplate x:Key="OrderCellDef" TargetType="ContentControl">
 			<StackPanel Style="{StaticResource pnlCellOrderRow}">
-				<TextBlock Style="{StaticResource txtCellOrderRow}" Text="{TemplateBinding Content}" TextWrapping="Wrap"/>
+				<TextBlock Style="{StaticResource txtCellOrderRow}" Text="{TemplateBinding Content}" TextWrapping="Wrap" TextAlignment="Center"/>
 			</StackPanel>
 	</ControlTemplate>
 

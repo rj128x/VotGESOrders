@@ -31,7 +31,7 @@ namespace VotGESOrders.Converters
 				Color color=Colors.White;
 				switch (state) {
 					case OrderStateEnum.accepted:
-						color = Colors.Green;
+						color = Colors.Black;
 						break;
 					case OrderStateEnum.askExtended:
 						color = Colors.Black;
@@ -40,7 +40,7 @@ namespace VotGESOrders.Converters
 						color = Colors.Red;
 						break;
 					case OrderStateEnum.canceled:
-						color = Colors.Black;
+						color = Colors.Blue;
 						break;
 					case OrderStateEnum.closed:
 						color = Colors.Black;
@@ -55,7 +55,7 @@ namespace VotGESOrders.Converters
 						color = Colors.Green;
 						break;
 					case OrderStateEnum.opened:
-						color = Colors.Blue;
+						color = Colors.Black;
 						break;
 				}
 				return new SolidColorBrush(color);
