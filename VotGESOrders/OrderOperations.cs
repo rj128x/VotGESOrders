@@ -16,7 +16,7 @@ namespace VotGESOrders
 {
 	public class OrderOperations
 	{
-		public static int OrderNumber=-1;
+		public static int OrderNumber=-2;
 		protected static OrderOperations current;
 
 		static OrderOperations(){

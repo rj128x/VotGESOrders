@@ -32,7 +32,7 @@ namespace VotGESOrders
 				PropertyChanged(this, new PropertyChangedEventArgs(propName));
 		}
 
-		protected static int CurrentObjectNumber=-1;
+		protected static int CurrentObjectNumber=-2;
 		public OrderObject SelObject { get; protected set; }
 
 		private string selParentOrderObjectName;

@@ -25,7 +25,7 @@ namespace VotGESOrders
 {
 	public partial class EditUsers : Page,INotifyPropertyChanged
 	{
-		protected static int UserID=-1;
+		protected static int UserID=-2;
 		public event PropertyChangedEventHandler PropertyChanged;
 
 		public void NotifyChanged(string propName) {
