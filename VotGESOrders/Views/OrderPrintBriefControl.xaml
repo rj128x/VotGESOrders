@@ -72,14 +72,14 @@
 							</StackPanel>
 							<Grid>
 								<Grid.ColumnDefinitions>
-									<ColumnDefinition Width="60"/>
+									<ColumnDefinition Width="30"/>
 									<ColumnDefinition/>
 								</Grid.ColumnDefinitions>
 								<Grid.RowDefinitions>
 									<RowDefinition/>
 									<RowDefinition Height="Auto"/>
 								</Grid.RowDefinitions>
-								<TextBlock Text="Автор: " Style="{StaticResource LabelPrint}" 
+								<TextBlock Text="Созд:" Style="{StaticResource LabelPrint}" 
 											  HorizontalAlignment="Right" Grid.Column="0"/>
 								<TextBlock Text="{Binding UserCreateOrder.FullName}" Grid.Column="1" 
 										  Style="{StaticResource ValuePrint}" HorizontalAlignment="Right"/>
@@ -88,14 +88,14 @@
 							</Grid>
 							<Grid Visibility="{Binding OrderAccepted, Converter={StaticResource visibilityConverter}}">
 								<Grid.ColumnDefinitions>
-									<ColumnDefinition Width="60"/>
+									<ColumnDefinition Width="30"/>
 									<ColumnDefinition/>
 								</Grid.ColumnDefinitions>
 								<Grid.RowDefinitions>
 									<RowDefinition/>
 									<RowDefinition Height="Auto"/>
 								</Grid.RowDefinitions>
-								<TextBlock Text="Разрешил:" Style="{StaticResource LabelPrint}" 
+								<TextBlock Text="Разр:" Style="{StaticResource LabelPrint}" 
 											  HorizontalAlignment="Right" Grid.Column="0"/>
 								<TextBlock Text="{Binding UserAcceptOrder.FullName}" Grid.Column="1" 
 										  Style="{StaticResource ValuePrint}" HorizontalAlignment="Right"/>
@@ -104,14 +104,14 @@
 							</Grid>
 							<Grid Visibility="{Binding OrderBanned, Converter={StaticResource visibilityConverter}}">
 								<Grid.ColumnDefinitions>
-									<ColumnDefinition Width="60"/>
+									<ColumnDefinition Width="30"/>
 									<ColumnDefinition/>
 								</Grid.ColumnDefinitions>
 								<Grid.RowDefinitions>
 									<RowDefinition/>
 									<RowDefinition Height="Auto"/>
 								</Grid.RowDefinitions>
-								<TextBlock Text="Запретил: " Style="{StaticResource LabelPrint}" 
+								<TextBlock Text="Запр:" Style="{StaticResource LabelPrint}" 
 											  HorizontalAlignment="Right" Grid.Column="0"/>
 								<TextBlock Text="{Binding UserBanOrder.FullName}" Grid.Column="1" 
 										  Style="{StaticResource ValuePrint}" HorizontalAlignment="Right"/>
@@ -120,14 +120,14 @@
 							</Grid>
 							<Grid Visibility="{Binding OrderCanceled, Converter={StaticResource visibilityConverter}}">
 								<Grid.ColumnDefinitions>
-									<ColumnDefinition Width="60"/>
+									<ColumnDefinition Width="30"/>
 									<ColumnDefinition/>
 								</Grid.ColumnDefinitions>
 								<Grid.RowDefinitions>
 									<RowDefinition/>
 									<RowDefinition Height="Auto"/>
 								</Grid.RowDefinitions>
-								<TextBlock Text="Снял: " Style="{StaticResource LabelPrint}" 
+								<TextBlock Text="Снял:" Style="{StaticResource LabelPrint}" 
 											  HorizontalAlignment="Right" Grid.Column="0"/>
 								<TextBlock Text="{Binding UserCancelOrder.FullName}" Grid.Column="1" 
 										  Style="{StaticResource ValuePrint}" HorizontalAlignment="Right"/>

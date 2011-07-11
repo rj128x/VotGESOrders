@@ -245,7 +245,7 @@ namespace VotGESOrders.Web.Models
 					context.SaveChanges();
 					LastUpdate.save(guid);
 					Logger.info("Изменения сохранены. Заявка №" + order.OrderNumber);
-				}
+				} 
 				order.refreshOrderFromDB(orderDB, currentUser);
 			} catch (Exception e) {
 				Logger.error(String.Format("Ошибка при изменении заявки №{1}: {0}", e, order.OrderNumber));
