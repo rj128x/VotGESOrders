@@ -208,7 +208,7 @@ namespace VotGESOrders.Web.Models
 				context.SaveChanges();
 
 				Logger.info("Сохранено");
-
+				
 
 				if (order.OrderIsExtend) {
 					Logger.info("Продленная заявка");
@@ -227,6 +227,7 @@ namespace VotGESOrders.Web.Models
 				}
 				LastUpdate.save(guid);
 				order.refreshOrderFromDB(orderDB, currentUser);
+				//MailContext.sendMail("Создана новая заявка", order);
 			} catch (Exception e) {
 				Logger.error(String.Format("Ошибка при создании заявки: {0}", e));
 				throw new DomainException("Ошибка при создании заявки");
