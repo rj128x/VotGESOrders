@@ -3215,7 +3215,15 @@ namespace VotGESOrders.Web.Models
         
         private string _fullName;
         
+        private string _mail;
+        
         private string _name;
+        
+        private bool _sendAgreeMail;
+        
+        private bool _sendAllMail;
+        
+        private bool _sendCreateMail;
         
         private int _userID;
         
@@ -3250,8 +3258,16 @@ namespace VotGESOrders.Web.Models
         partial void OnAllowOpenOrderChanged();
         partial void OnFullNameChanging(string value);
         partial void OnFullNameChanged();
+        partial void OnMailChanging(string value);
+        partial void OnMailChanged();
         partial void OnNameChanging(string value);
         partial void OnNameChanged();
+        partial void OnSendAgreeMailChanging(bool value);
+        partial void OnSendAgreeMailChanged();
+        partial void OnSendAllMailChanging(bool value);
+        partial void OnSendAllMailChanged();
+        partial void OnSendCreateMailChanging(bool value);
+        partial void OnSendCreateMailChanged();
         partial void OnUserIDChanging(int value);
         partial void OnUserIDChanged();
         partial void OnRegisterChangeUserInvoking();
@@ -3559,6 +3575,30 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
+        /// Gets or sets the 'Mail' value.
+        /// </summary>
+        [DataMember()]
+        public string Mail
+        {
+            get
+            {
+                return this._mail;
+            }
+            set
+            {
+                if ((this._mail != value))
+                {
+                    this.OnMailChanging(value);
+                    this.RaiseDataMemberChanging("Mail");
+                    this.ValidateProperty("Mail", value);
+                    this._mail = value;
+                    this.RaiseDataMemberChanged("Mail");
+                    this.OnMailChanged();
+                }
+            }
+        }
+        
+        /// <summary>
         /// Gets or sets the 'Name' value.
         /// </summary>
         [DataMember()]
@@ -3578,6 +3618,78 @@ namespace VotGESOrders.Web.Models
                     this._name = value;
                     this.RaiseDataMemberChanged("Name");
                     this.OnNameChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Gets or sets the 'SendAgreeMail' value.
+        /// </summary>
+        [DataMember()]
+        public bool SendAgreeMail
+        {
+            get
+            {
+                return this._sendAgreeMail;
+            }
+            set
+            {
+                if ((this._sendAgreeMail != value))
+                {
+                    this.OnSendAgreeMailChanging(value);
+                    this.RaiseDataMemberChanging("SendAgreeMail");
+                    this.ValidateProperty("SendAgreeMail", value);
+                    this._sendAgreeMail = value;
+                    this.RaiseDataMemberChanged("SendAgreeMail");
+                    this.OnSendAgreeMailChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Gets or sets the 'SendAllMail' value.
+        /// </summary>
+        [DataMember()]
+        public bool SendAllMail
+        {
+            get
+            {
+                return this._sendAllMail;
+            }
+            set
+            {
+                if ((this._sendAllMail != value))
+                {
+                    this.OnSendAllMailChanging(value);
+                    this.RaiseDataMemberChanging("SendAllMail");
+                    this.ValidateProperty("SendAllMail", value);
+                    this._sendAllMail = value;
+                    this.RaiseDataMemberChanged("SendAllMail");
+                    this.OnSendAllMailChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Gets or sets the 'SendCreateMail' value.
+        /// </summary>
+        [DataMember()]
+        public bool SendCreateMail
+        {
+            get
+            {
+                return this._sendCreateMail;
+            }
+            set
+            {
+                if ((this._sendCreateMail != value))
+                {
+                    this.OnSendCreateMailChanging(value);
+                    this.RaiseDataMemberChanging("SendCreateMail");
+                    this.ValidateProperty("SendCreateMail", value);
+                    this._sendCreateMail = value;
+                    this.RaiseDataMemberChanged("SendCreateMail");
+                    this.OnSendCreateMailChanged();
                 }
             }
         }

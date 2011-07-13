@@ -157,7 +157,7 @@
 							<TextBlock Text="Согласованно:  " Style="{StaticResource LabelPrint}"  HorizontalAlignment="Center"/>
 							<TextBlock Text="{Binding AgreeText}" Style="{StaticResource ValuePrintText}" />
 							<StackPanel Orientation="Horizontal">
-								<TextBlock Text="Ав. готов.:  " Style="{StaticResource LabelPrint}"  HorizontalAlignment="Center"/>
+								<TextBlock Text="Аварийная готовность:  " Style="{StaticResource LabelPrint}"  HorizontalAlignment="Center"/>
 								<TextBlock Text="{Binding ReadyTime}" Style="{StaticResource ValuePrintText}" />
 							</StackPanel>
 													

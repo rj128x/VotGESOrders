@@ -28,6 +28,10 @@ namespace VotGESOrders.Web.Models
 				}
 
 				user.fullName = newUser.FullName;
+				user.mail = newUser.Mail;
+				user.sendAgreeMail = newUser.SendAgreeMail;
+				user.sendAllMail = newUser.SendAllMail;
+				user.sendCreateMail = newUser.SendCreateMail;
 				user.allowAcceptOrder = newUser.AllowAcceptOrder;
 				user.allowCancelOrder = newUser.AllowCancelOrder;
 				user.allowCloseOrder = newUser.AllowCloseOrder;
@@ -39,6 +43,7 @@ namespace VotGESOrders.Web.Models
 				user.allowExtendOrder = newUser.AllowExtendOrder;
 				user.allowOpenOrder = newUser.AllowOpenOrder;
 				user.allowAgreeOrders = newUser.AllowAgreeOrders;
+
 				
 				context.SaveChanges();
 

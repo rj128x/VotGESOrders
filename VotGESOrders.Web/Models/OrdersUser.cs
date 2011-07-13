@@ -17,6 +17,10 @@ namespace VotGESOrders.Web.Models
 		public int UserID { get; set; }
 		public string Name { get; set; }
 		public string FullName { get; set; }
+		public string Mail { get; set; }
+		public bool SendAllMail { get; set; }
+		public bool SendAgreeMail { get; set; }
+		public bool SendCreateMail { get; set; }
 		public bool AllowCreateOrder { get; set; }
 		public bool AllowOpenOrder { get; set; }
 		public bool AllowAcceptOrder { get; set; }
@@ -90,6 +94,10 @@ namespace VotGESOrders.Web.Models
 				user.UserID = userDB.userID;
 				user.Name = userDB.name;
 				user.FullName = userDB.fullName;
+				user.Mail = userDB.mail;
+				user.SendAgreeMail = userDB.sendAgreeMail;
+				user.SendAllMail = userDB.sendAllMail;
+				user.SendCreateMail = userDB.sendCreateMail;
 				user.AllowCreateOrder = userDB.allowCreateOrder;
 				user.AllowOpenOrder = userDB.allowOpenOrder;
 				user.AllowCloseOrder = userDB.allowCloseOrder;

@@ -110,6 +110,10 @@
           <Property Name="userID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="name" Type="varchar" Nullable="false" MaxLength="50" />
           <Property Name="fullName" Type="varchar" Nullable="false" MaxLength="250" />
+          <Property Name="mail" Type="varchar" Nullable="false" MaxLength="250" />
+          <Property Name="sendAllMail" Type="bit" Nullable="false" />
+          <Property Name="sendAgreeMail" Type="bit" Nullable="false" />
+          <Property Name="sendCreateMail" Type="bit" Nullable="false" />
           <Property Name="allowCreateOrder" Type="bit" Nullable="false" />
           <Property Name="allowAcceptOrder" Type="bit" Nullable="false" />
           <Property Name="allowOpenOrder" Type="bit" Nullable="false" />
@@ -337,6 +341,10 @@
           <Property Name="userID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="name" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
           <Property Name="fullName" Type="String" Nullable="false" MaxLength="250" Unicode="false" FixedLength="false" />
+          <Property Name="mail" Type="String" Nullable="false" MaxLength="250" Unicode="false" FixedLength="false" />
+          <Property Name="sendAllMail" Type="Boolean" Nullable="false" />
+          <Property Name="sendAgreeMail" Type="Boolean" Nullable="false" />
+          <Property Name="sendCreateMail" Type="Boolean" Nullable="false" />
           <Property Name="allowCreateOrder" Type="Boolean" Nullable="false" />
           <Property Name="allowAcceptOrder" Type="Boolean" Nullable="false" />
           <Property Name="allowOpenOrder" Type="Boolean" Nullable="false" />
@@ -517,6 +525,10 @@
             <ScalarProperty Name="userID" ColumnName="userID" />
             <ScalarProperty Name="name" ColumnName="name" />
             <ScalarProperty Name="fullName" ColumnName="fullName" />
+            <ScalarProperty Name="mail" ColumnName="mail" />
+            <ScalarProperty Name="sendAllMail" ColumnName="sendAllMail" />
+            <ScalarProperty Name="sendAgreeMail" ColumnName="sendAgreeMail" />
+            <ScalarProperty Name="sendCreateMail" ColumnName="sendCreateMail" />
             <ScalarProperty Name="allowCreateOrder" ColumnName="allowCreateOrder" />
             <ScalarProperty Name="allowAcceptOrder" ColumnName="allowAcceptOrder" />
             <ScalarProperty Name="allowOpenOrder" ColumnName="allowOpenOrder" />
@@ -552,38 +564,38 @@
       <Diagram Name="VotGESOrdersEntities">
         <EntityTypeShape EntityType="VotGESOrdersModel.OrderObjects" Width="1.5" PointX="0.75" PointY="1.375" Height="1.7879850260416672" IsExpanded="true" />
         <EntityTypeShape EntityType="VotGESOrdersModel.Orders" Width="1.5" PointX="3" PointY="1.375" Height="11.787659505208335" IsExpanded="true" />
-        <EntityTypeShape EntityType="VotGESOrdersModel.Users" Width="1.5" PointX="0.75" PointY="4.75" Height="5.057109375" IsExpanded="true" />
+        <EntityTypeShape EntityType="VotGESOrdersModel.Users" Width="1.5" PointX="0.75" PointY="4.375" Height="5.8263151041666648" IsExpanded="true" />
         <AssociationConnector Association="VotGESOrdersModel.FK_Orders_OrderObjects" ManuallyRouted="false">
           <ConnectorPoint PointX="2.25" PointY="2.2689925130208337" />
           <ConnectorPoint PointX="3" PointY="2.2689925130208337" />
         </AssociationConnector>
         <AssociationConnector Association="VotGESOrdersModel.FK_Orders_UsersAccept" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="7.2785546875" />
-          <ConnectorPoint PointX="3" PointY="7.2785546875" />
+          <ConnectorPoint PointX="2.25" PointY="7.2881575520833319" />
+          <ConnectorPoint PointX="3" PointY="7.2881575520833319" />
         </AssociationConnector>
         <AssociationConnector Association="VotGESOrdersModel.FK_Orders_UsersBan" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="5.95177734375" />
-          <ConnectorPoint PointX="3" PointY="5.95177734375" />
+          <ConnectorPoint PointX="2.25" PointY="5.769078776041666" />
+          <ConnectorPoint PointX="3" PointY="5.769078776041666" />
         </AssociationConnector>
         <AssociationConnector Association="VotGESOrdersModel.FK_Orders_UsersCancel" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="8.60533203125" />
-          <ConnectorPoint PointX="3" PointY="8.60533203125" />
+          <ConnectorPoint PointX="2.25" PointY="8.807236328124997" />
+          <ConnectorPoint PointX="3" PointY="8.807236328124997" />
         </AssociationConnector>
         <AssociationConnector Association="VotGESOrdersModel.FK_Orders_UsersClose" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="7.941943359375" />
-          <ConnectorPoint PointX="3" PointY="7.941943359375" />
+          <ConnectorPoint PointX="2.25" PointY="8.0476969401041636" />
+          <ConnectorPoint PointX="3" PointY="8.0476969401041636" />
         </AssociationConnector>
         <AssociationConnector Association="VotGESOrdersModel.FK_Orders_UsersComplete" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="6.615166015625" />
-          <ConnectorPoint PointX="3" PointY="6.615166015625" />
+          <ConnectorPoint PointX="2.25" PointY="6.5286181640624985" />
+          <ConnectorPoint PointX="3" PointY="6.5286181640624985" />
         </AssociationConnector>
         <AssociationConnector Association="VotGESOrdersModel.FK_Orders_UsersCreate" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="5.2883886718749995" />
-          <ConnectorPoint PointX="3" PointY="5.2883886718749995" />
+          <ConnectorPoint PointX="2.25" PointY="5.0095393880208334" />
+          <ConnectorPoint PointX="3" PointY="5.0095393880208334" />
         </AssociationConnector>
         <AssociationConnector Association="VotGESOrdersModel.FK_Orders_UsersOpen" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="9.268720703125" />
-          <ConnectorPoint PointX="3" PointY="9.268720703125" />
+          <ConnectorPoint PointX="2.25" PointY="9.56677571614583" />
+          <ConnectorPoint PointX="3" PointY="9.56677571614583" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>

@@ -34,6 +34,13 @@
 						</DataTemplate>
 					</sdk:DataGridTemplateColumn.CellTemplate>
 				</sdk:DataGridTemplateColumn>
+				<sdk:DataGridTemplateColumn Header="Почта" SortMemberPath="Mail">
+					<sdk:DataGridTemplateColumn.CellTemplate>
+						<DataTemplate>
+							<TextBlock Text="{Binding Mail}"/>
+						</DataTemplate>
+					</sdk:DataGridTemplateColumn.CellTemplate>
+				</sdk:DataGridTemplateColumn>
 				<sdk:DataGridTemplateColumn Header="Операции">
 					<sdk:DataGridTemplateColumn.CellTemplate>
 						<DataTemplate>
@@ -63,6 +70,18 @@
 						</toolkit:DataField>
 						<toolkit:DataField Name="FullName" Label="Имя">
 								<TextBox Name="txtFullName" Text="{Binding FullName, Mode=TwoWay}"/>
+						</toolkit:DataField>
+						<toolkit:DataField Name="Mail" Label="Почта">
+							<TextBox Name="txtMail" Text="{Binding Mail, Mode=TwoWay}"/>
+						</toolkit:DataField>
+						<toolkit:DataField Name="SendAllMail" Label="">
+							<CheckBox Content="Оповещать о всех событиях" IsChecked="{Binding SendAllMail,Mode=TwoWay}"/>
+						</toolkit:DataField>
+						<toolkit:DataField Name="SendCreateMail" Label="">
+							<CheckBox Content="Оповещать о своих заявках" IsChecked="{Binding SendCreateMail,Mode=TwoWay}"/>
+						</toolkit:DataField>
+						<toolkit:DataField Name="SendAgreeMail" Label="">
+							<CheckBox Content="Оповещать о согласованных заявках" IsChecked="{Binding SendAgreeMail,Mode=TwoWay}"/>
 						</toolkit:DataField>
 						<toolkit:DataField Name="AllowCreateOrder" Label="">
 							<CheckBox Content="Может создавать заявки" IsChecked="{Binding AllowCreateOrder,Mode=TwoWay}"/>

@@ -1844,6 +1844,10 @@ namespace VotGESOrders.Web.ADONETEntities
         /// <param name="userID">Исходное значение свойства userID.</param>
         /// <param name="name">Исходное значение свойства name.</param>
         /// <param name="fullName">Исходное значение свойства fullName.</param>
+        /// <param name="mail">Исходное значение свойства mail.</param>
+        /// <param name="sendAllMail">Исходное значение свойства sendAllMail.</param>
+        /// <param name="sendAgreeMail">Исходное значение свойства sendAgreeMail.</param>
+        /// <param name="sendCreateMail">Исходное значение свойства sendCreateMail.</param>
         /// <param name="allowCreateOrder">Исходное значение свойства allowCreateOrder.</param>
         /// <param name="allowAcceptOrder">Исходное значение свойства allowAcceptOrder.</param>
         /// <param name="allowOpenOrder">Исходное значение свойства allowOpenOrder.</param>
@@ -1855,12 +1859,16 @@ namespace VotGESOrders.Web.ADONETEntities
         /// <param name="allowEditUsers">Исходное значение свойства allowEditUsers.</param>
         /// <param name="allowEditOrders">Исходное значение свойства allowEditOrders.</param>
         /// <param name="allowAgreeOrders">Исходное значение свойства allowAgreeOrders.</param>
-        public static Users CreateUsers(global::System.Int32 userID, global::System.String name, global::System.String fullName, global::System.Boolean allowCreateOrder, global::System.Boolean allowAcceptOrder, global::System.Boolean allowOpenOrder, global::System.Boolean allowCancelOrder, global::System.Boolean allowCloseOrder, global::System.Boolean allowCompleteOrder, global::System.Boolean allowExtendOrder, global::System.Boolean allowEditTree, global::System.Boolean allowEditUsers, global::System.Boolean allowEditOrders, global::System.Boolean allowAgreeOrders)
+        public static Users CreateUsers(global::System.Int32 userID, global::System.String name, global::System.String fullName, global::System.String mail, global::System.Boolean sendAllMail, global::System.Boolean sendAgreeMail, global::System.Boolean sendCreateMail, global::System.Boolean allowCreateOrder, global::System.Boolean allowAcceptOrder, global::System.Boolean allowOpenOrder, global::System.Boolean allowCancelOrder, global::System.Boolean allowCloseOrder, global::System.Boolean allowCompleteOrder, global::System.Boolean allowExtendOrder, global::System.Boolean allowEditTree, global::System.Boolean allowEditUsers, global::System.Boolean allowEditOrders, global::System.Boolean allowAgreeOrders)
         {
             Users users = new Users();
             users.userID = userID;
             users.name = name;
             users.fullName = fullName;
+            users.mail = mail;
+            users.sendAllMail = sendAllMail;
+            users.sendAgreeMail = sendAgreeMail;
+            users.sendCreateMail = sendCreateMail;
             users.allowCreateOrder = allowCreateOrder;
             users.allowAcceptOrder = allowAcceptOrder;
             users.allowOpenOrder = allowOpenOrder;
@@ -1952,6 +1960,102 @@ namespace VotGESOrders.Web.ADONETEntities
         private global::System.String _fullName;
         partial void OnfullNameChanging(global::System.String value);
         partial void OnfullNameChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String mail
+        {
+            get
+            {
+                return _mail;
+            }
+            set
+            {
+                OnmailChanging(value);
+                ReportPropertyChanging("mail");
+                _mail = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("mail");
+                OnmailChanged();
+            }
+        }
+        private global::System.String _mail;
+        partial void OnmailChanging(global::System.String value);
+        partial void OnmailChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean sendAllMail
+        {
+            get
+            {
+                return _sendAllMail;
+            }
+            set
+            {
+                OnsendAllMailChanging(value);
+                ReportPropertyChanging("sendAllMail");
+                _sendAllMail = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("sendAllMail");
+                OnsendAllMailChanged();
+            }
+        }
+        private global::System.Boolean _sendAllMail;
+        partial void OnsendAllMailChanging(global::System.Boolean value);
+        partial void OnsendAllMailChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean sendAgreeMail
+        {
+            get
+            {
+                return _sendAgreeMail;
+            }
+            set
+            {
+                OnsendAgreeMailChanging(value);
+                ReportPropertyChanging("sendAgreeMail");
+                _sendAgreeMail = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("sendAgreeMail");
+                OnsendAgreeMailChanged();
+            }
+        }
+        private global::System.Boolean _sendAgreeMail;
+        partial void OnsendAgreeMailChanging(global::System.Boolean value);
+        partial void OnsendAgreeMailChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean sendCreateMail
+        {
+            get
+            {
+                return _sendCreateMail;
+            }
+            set
+            {
+                OnsendCreateMailChanging(value);
+                ReportPropertyChanging("sendCreateMail");
+                _sendCreateMail = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("sendCreateMail");
+                OnsendCreateMailChanged();
+            }
+        }
+        private global::System.Boolean _sendCreateMail;
+        partial void OnsendCreateMailChanging(global::System.Boolean value);
+        partial void OnsendCreateMailChanged();
     
         /// <summary>
         /// Нет доступной документации по метаданным.

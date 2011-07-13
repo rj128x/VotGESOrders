@@ -20,6 +20,10 @@ CREATE TABLE [dbo].[Users](
 	[userID] [int] identity(1,1) NOT NULL, 
 	[name] [varchar](50) NOT NULL, /*имя пользователя (CORP\xxx, SR-VOTGES-PI\xxx)*/
 	[fullName] [varchar](250) NOT NULL,/*полное имя пользователя*/
+	[mail] [varchar](250) NOT NULL,/*полное имя пользователя*/
+	[sendAllMail] [bit] NOT NULL,
+	[sendAgreeMail] [bit] NOT NULL,
+	[sendCreateMail] [bit] NOT NULL,
 	[allowCreateOrder] [bit] NOT NULL, /*пользователь может создавать заявки*/
 	[allowAcceptOrder] [bit] NOT NULL,/*пользователь может разрешить/отклонить заявку*/
 	[allowOpenOrder] [bit] NOT NULL,/*пользователь может открыть заявку*/
@@ -210,12 +214,16 @@ GO
 
 
 				
-insert into users values('CORP\chekunovamv','Чекунова М.В',1,1,1,1,1,1,1,1,1,1,1);
-insert into users values('RJ128X-PC\rj128x','Чекунова М.В',1,1,1,1,1,1,1,1,1,1,1);
-insert into users values('SR-VOTGES-PI\dgshu','ДГЩУ',1,1,1,1,1,1,1,1,1,1,1);
-insert into users values('SR-VOTGES-PI\nss','НСС',1,1,1,1,1,1,1,0,0,0,1);
-insert into users values('SR-VOTGES-PI\author1','Автор1',1,0,0,0,0,0,0,0,0,0,1);
-insert into users values('SR-VOTGES-PI\author2','Автор2',1,0,0,0,0,0,0,0,0,0,1);
-insert into users values('SR-VOTGES-PI\gi','ГИ',0,1,0,0,0,0,0,0,0,0,1);
-insert into users values('SR-VOTGES-PI\spuser','Чекунова М.В.',1,1,1,1,1,1,1,1,1,1,1);
-insert into users values('SR-VOTGES-PI\Administrator','Администратор',1,1,1,1,1,1,1,1,1,1,1);
+insert into users values('CORP\chekunovamv','Чекунова М.В','chekunovamv@votges.rushydro.ru',1,1,1,1,1,1,1,1,1,1,1,1,1,1);
+insert into users values('SR-VOTGES-PI\dgshu','ДГЩУ','',1,1,1,1,1,1,1,1,1,1,1,1,1,1);
+insert into users values('SR-VOTGES-PI\nss','НСС','',1,1,1,1,1,1,1,1,1,1,0,0,0,1);
+insert into users values('SR-VOTGES-PI\author1','Автор1','',1,1,1,1,0,0,0,0,0,0,0,0,0,1);
+insert into users values('SR-VOTGES-PI\author2','Автор2','',1,1,1,1,0,0,0,0,0,0,0,0,0,1);
+insert into users values('SR-VOTGES-PI\gi','ГИ','',1,1,1,0,1,0,0,0,0,0,0,0,0,1);
+insert into users values('','Зыков','',1,1,1,1,0,0,0,0,0,0,0,0,0,1);
+insert into users values('','Никонов','',1,1,1,1,0,0,0,0,0,0,0,0,0,1);
+insert into users values('','Лазарев','',1,1,1,1,0,0,0,0,0,0,0,0,0,1);
+insert into users values('','Сидоров','',1,1,1,1,0,0,0,0,0,0,0,0,0,1);
+insert into users values('','Турборемонт','',1,1,1,0,0,0,0,0,0,0,0,0,0,1);
+insert into users values('','Гидроремонт','',1,1,1,0,0,0,0,0,0,0,0,0,0,1);
+

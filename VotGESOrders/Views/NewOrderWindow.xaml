@@ -48,8 +48,10 @@
 						<toolkit:DataField Name="PlanStopDate" Label="План стоп">
 							<usr:DateTimePicker SelectedDateTime="{Binding PlanStopDate, Mode=TwoWay}"/>
 						</toolkit:DataField>
-						<toolkit:DataField Name="ReadyTime" Label="Ав. готовность">
-							<TextBox Text="{Binding ReadyTime, Mode=TwoWay}" AcceptsReturn="False" />
+						<toolkit:DataField Name="ReadyTime" Label="Ав. готовность" >
+							<sdk:AutoCompleteBox Name="cmbReadyTime" Text="{Binding ReadyTime, Mode=TwoWay}">
+								
+							</sdk:AutoCompleteBox>
 						</toolkit:DataField>
 						<toolkit:DataField Name="OrderText" Label="Текст">
 							<TextBox Text="{Binding OrderText, Mode=TwoWay}" Height="50"  AcceptsReturn="True" TextWrapping="Wrap"
