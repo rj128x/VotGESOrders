@@ -26,6 +26,7 @@
 						<Grid>
 							<Grid.ColumnDefinitions>
 								<ColumnDefinition Width="250"/>
+								<ColumnDefinition Width="250"/>
 								<ColumnDefinition Width="*"/>
 							</Grid.ColumnDefinitions>
 							<StackPanel Orientation="Horizontal" Grid.Column="0" HorizontalAlignment="Left">
@@ -39,7 +40,15 @@
 											 Style="{StaticResource Value}"/>
 							</StackPanel>
 
-							<StackPanel  Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right">						
+							<StackPanel  Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right">
+
+								<StackPanel  Orientation="Horizontal" Margin="10,00,0,0">
+									<TextBlock Text="Аварийная готовность: " Style="{StaticResource Label}" />
+									<TextBlock Text="{Binding ReadyTime}" Style="{StaticResource Value}"/>
+								</StackPanel>
+							</StackPanel>
+
+							<StackPanel  Orientation="Horizontal" Grid.Column="2" HorizontalAlignment="Right">						
 
 								<StackPanel  Orientation="Horizontal" Margin="10,00,0,0">
 									<TextBlock Text="Состояние: " Style="{StaticResource Label}" />
@@ -69,7 +78,7 @@
 							</StackPanel>
 							<StackPanel Orientation="Vertical" Grid.Column="2">
 								<TextBlock Text="Согласованно:  " Style="{StaticResource Label}" HorizontalAlignment="Center"/>
-								<TextBlock Text="{Binding SoglasText}" Style="{StaticResource ValueText}"/>
+								<TextBlock Text="{Binding AgreeText}" Style="{StaticResource ValueText}"/>
 							</StackPanel>
 						</Grid>
 					</Border>
@@ -113,7 +122,7 @@
                                Style="{StaticResource Value}"  Grid.Row="1" Grid.Column="2"/>
 								<TextBlock Text="{Binding FaktStartDate, Converter={StaticResource dateTimeConverter}}"
                                Style="{StaticResource Value}" Grid.Row="2" Grid.Column="1"/>
-								<TextBlock Text="{Binding FaktEnterDate, Converter={StaticResource dateTimeConverter}}"
+								<TextBlock Text="{Binding FaktCompleteDate, Converter={StaticResource dateTimeConverter}}"
                                Style="{StaticResource Value}" Grid.Row="2" Grid.Column="2"/>
 								<TextBlock Text="{Binding FaktStopDate, Converter={StaticResource dateTimeConverter}}"
                            Style="{StaticResource Value}" Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="2"/>
@@ -138,7 +147,7 @@
 									<RowDefinition Height="{Binding OrderBanned, Converter={StaticResource heightConverter}}"/>
 									<RowDefinition Height="{Binding OrderOpened, Converter={StaticResource heightConverter}}"/>
 									<RowDefinition Height="{Binding OrderClosed, Converter={StaticResource heightConverter}}"/>
-									<RowDefinition Height="{Binding OrderEntered, Converter={StaticResource heightConverter}}"/>
+									<RowDefinition Height="{Binding OrderCompleted, Converter={StaticResource heightConverter}}"/>
 									<RowDefinition Height="{Binding OrderCanceled, Converter={StaticResource heightConverter}}"/>
 								</Grid.RowDefinitions>
 
@@ -189,11 +198,11 @@
 								<TextBlock Text="{Binding CloseText}" 
 							  Grid.Column="3" Grid.Row="5"  Style="{StaticResource ValueText}" />
 
-								<TextBlock Text="{Binding UserEnterOrder.FullName}" Style="{StaticResource Value}" 
+								<TextBlock Text="{Binding UserCompleteOrder.FullName}" Style="{StaticResource Value}" 
 							  Grid.Column="1" Grid.Row="6"  />
-								<TextBlock Text="{Binding OrderDateEnter, Converter={StaticResource dateTimeConverter}}" 
+								<TextBlock Text="{Binding OrderDateComplete, Converter={StaticResource dateTimeConverter}}" 
 							  Grid.Column="2" Grid.Row="6"   Style="{StaticResource Value}"/>
-								<TextBlock Text="{Binding EnterText}" 
+								<TextBlock Text="{Binding CompleteText}" 
 							  Grid.Column="3" Grid.Row="6"   Style="{StaticResource ValueText}" />
 
 								<TextBlock Text="{Binding UserCancelOrder.FullName}" Style="{StaticResource Value}" 
@@ -225,10 +234,10 @@
 				<Button Name="btnCancel" Click="btnCancel_Click"  Content="Снять заявку"
 					  Visibility="{Binding AllowCancelOrder, Converter={StaticResource visibilityConverter}}" 					  
 					  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
-				<Button Name="btnEnter" Click="btnEnter_Click" Content="Ввести в работу"
-					  Visibility="{Binding AllowEnterOrder, Converter={StaticResource visibilityConverter}}"
+				<Button Name="btnComplete" Click="btnComplete_Click" Content="Закрыть заявку"
+					  Visibility="{Binding AllowCompleteOrder, Converter={StaticResource visibilityConverter}}"
 					  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
-				<Button Name="btnLongate" Click="btnLongate_Click" Content="Продлить"
+				<Button Name="btnLongate" Click="btnExtend_Click" Content="Продлить"
 					  Visibility="{Binding AllowExtendOrder, Converter={StaticResource visibilityConverter}}"
 					  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
 

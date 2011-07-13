@@ -7,7 +7,7 @@
 				 ShowOrdersOpened="false"
 				 ShowOrdersCanceled="false"
 				 ShowOrdersClosed="false"
-				 ShowOrdersEntered="false"
+				 ShowOrdersCompleted="false"
 				 ShowOrdersExtended="false"
 				 ShowOrdersAskExtended="false"
 				 ShowOrdersIsExtend="false"

@@ -132,7 +132,7 @@ namespace VotGESOrders.Web.Models
 						(filter.FilterDate == FilterDateType.cancel && o.orderDateCancel >= filter.DateStart && o.orderDateCancel <= filter.DateEnd) ||
 						(filter.FilterDate == FilterDateType.faktStart && o.faktStartDate >= filter.DateStart && o.faktStartDate <= filter.DateEnd) ||
 						(filter.FilterDate == FilterDateType.faktStop && o.faktStopDate >= filter.DateStart && o.faktStopDate <= filter.DateEnd) ||
-						(filter.FilterDate == FilterDateType.faktEnter && o.faktEnterDate >= filter.DateStart && o.faktEnterDate <= filter.DateEnd) ||
+						(filter.FilterDate == FilterDateType.faktEnter && o.faktCompleteDate >= filter.DateStart && o.faktCompleteDate <= filter.DateEnd) ||
 						(filter.FilterDate == FilterDateType.planStart && o.planStartDate >= filter.DateStart && o.planStartDate <= filter.DateEnd) ||
 						(filter.FilterDate == FilterDateType.planStop && o.planStopDate >= filter.DateStart && o.planStopDate <= filter.DateEnd))
 					&& (filter.ShowAllUsers ||
@@ -142,7 +142,7 @@ namespace VotGESOrders.Web.Models
 						(filter.FilterUser == FilterUserType.cancel && users.Contains(o.userCancelOrderID.Value)) ||
 						(filter.FilterUser == FilterUserType.open && users.Contains(o.userOpenOrderID.Value)) ||
 						(filter.FilterUser == FilterUserType.close && users.Contains(o.userCloseOrderID.Value)) ||
-						(filter.FilterUser == FilterUserType.enter && users.Contains(o.userEnterOrderID.Value)))
+						(filter.FilterUser == FilterUserType.enter && users.Contains(o.userCompleteOrderID.Value)))
 					&& (filter.ShowAllObjectIDs || ids.Contains(o.orderObjectID))
 					&& (filter.ShowAllTypes || orderTypes.Contains(o.orderType))
 					&& (filter.ShowAllObjects || objectsByName.Contains(o.orderObjectID) || o.orderObjectAddInfo.Contains(filter.OrderObject))
@@ -152,7 +152,7 @@ namespace VotGESOrders.Web.Models
 						(o.orderNumber <= filter.StopNumber || filter.StopNumber == 0))
 					&& (!filter.ShowExpiredOnly ||
 						 o.orderClosed && o.planStopDate < o.faktStopDate ||
-						 o.orderEntered && o.planStopDate < o.faktEnterDate)
+						 o.orderCompleted && o.planStopDate < o.faktCompleteDate)
 				select o;
 
 				List<Order> resultOrders=new List<Order>();
@@ -180,13 +180,15 @@ namespace VotGESOrders.Web.Models
 
 		protected void writeOrderToOrderDB(Order order, Orders orderDB) {
 			orderDB.orderText = order.OrderText;
-			orderDB.soglasText = order.SoglasText;
+			orderDB.agreeText = order.AgreeText;
 			orderDB.createText = order.CreateText;
 			orderDB.planStartDate = order.PlanStartDate;
 			orderDB.planStopDate = order.PlanStopDate;
 			orderDB.orderType = order.OrderType;
 			orderDB.orderObjectID = order.SelOrderObjectID;
 			orderDB.orderObjectAddInfo = order.OrderObjectAddInfo;
+			orderDB.readyTime = order.ReadyTime;
+			orderDB.agreeUsersIDS = order.AgreeUsersIDSText;
 		}
 
 
@@ -436,21 +438,21 @@ namespace VotGESOrders.Web.Models
 			}
 		}
 
-		public void EnterOrder(Order order, Guid guid) {
+		public void CompleteOrder(Order order, Guid guid) {
 			Logger.info("Пользователь ввел оборудование. Заявка №" + order.OrderNumber);
 			try {
 				VotGESOrdersEntities context=new VotGESOrdersEntities();
 				Orders orderDB=context.Orders.First(o => o.orderNumber == order.OrderNumber);
 				order.checkPremissions(orderDB, currentUser);
-				if (order.AllowEnterOrder) {
+				if (order.AllowCompleteOrder) {
 					orderDB.orderLastUpdate = DateTime.Now;
-					orderDB.orderDateEnter = DateTime.Now;
+					orderDB.orderDateComplete = DateTime.Now;
 					//orderDB.faktStopDate = order.FaktStopDate;
-					orderDB.orderEntered = true;
-					orderDB.orderState = OrderStateEnum.entered.ToString();
-					orderDB.enterText = order.EnterText;
-					orderDB.userEnterOrderID = currentUser.UserID;
-					orderDB.faktEnterDate = order.FaktEnterDate;
+					orderDB.orderCompleted = true;
+					orderDB.orderState = OrderStateEnum.completed.ToString();
+					orderDB.completeText = order.CompleteText;
+					orderDB.userCompleteOrderID = currentUser.UserID;
+					orderDB.faktCompleteDate = order.FaktCompleteDate;
 					context.SaveChanges();
 					LastUpdate.save(guid);
 					Logger.info("Оборудование введено. Заявка №" + order.OrderNumber);

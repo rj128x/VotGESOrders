@@ -33,12 +33,12 @@
 							<TextBox Text="{Binding CloseText, Mode=TwoWay}" Height="50"  AcceptsReturn="true" TextWrapping="Wrap"/>
 						</toolkit:DataField>
 					</StackPanel>
-					<StackPanel  Name="FaktEnterDate">
+					<StackPanel  Name="FaktCompleteDate">
 						<toolkit:DataField Label="Ввод оборудования"  LabelVisibility="Collapsed">
-							<usr:DateTimePicker SelectedDateTime="{Binding FaktEnterDate, Mode=TwoWay}"/>
+							<usr:DateTimePicker SelectedDateTime="{Binding FaktCompleteDate, Mode=TwoWay}"/>
 						</toolkit:DataField>
-						<toolkit:DataField Name="EnterText" Label="Текст">
-							<TextBox Text="{Binding EnterText, Mode=TwoWay}" Height="50"  AcceptsReturn="true" TextWrapping="Wrap"/>
+						<toolkit:DataField Name="CompleteText" Label="Текст">
+							<TextBox Text="{Binding CompleteText, Mode=TwoWay}" Height="50"  AcceptsReturn="true" TextWrapping="Wrap"/>
 						</toolkit:DataField>
 					</StackPanel>
 

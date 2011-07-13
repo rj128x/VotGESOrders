@@ -34,6 +34,7 @@ namespace VotGESOrders.Views
 			OrderTypes.Add("АВ", "Аварийная");
 			cmbOrderTypes.ItemsSource = OrderTypes;
 			treeObjects.ItemsSource = from OrderObject o in OrdersContext.Current.Context.OrderObjects where o.ObjectID == 0 select o;
+			lstUsers.ItemsSource = from OrdersUser u in OrdersContext.Current.Context.OrdersUsers where u.AllowAgreeOrders select u;
 			orderForm.AutoCommit = false;
 			orderForm.AutoEdit = false;
 			
@@ -65,6 +66,7 @@ namespace VotGESOrders.Views
 			if (IsNewOrder && !CurrentOrder.OrderIsExtend) {
 				CurrentOrder.PlanStartDate = DateTime.Now.Date.AddDays(1).AddHours(8);
 				CurrentOrder.PlanStopDate = DateTime.Now.Date.AddDays(1).AddHours(17);
+				CurrentOrder.AgreeUsersDict = new Dictionary<int, string>();
 
 			}
 			if (CurrentOrder.OrderIsExtend) {
@@ -97,6 +99,23 @@ namespace VotGESOrders.Views
 				//CurrentOrder.SelOrderObject = obj;
 				CurrentOrder.SelOrderObjectID = obj.ObjectID;
 				CurrentOrder.SelOrderObjectText = obj.FullName;
+			}
+		}
+
+
+		private void lstUsers_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) {
+			OrdersUser user=lstUsers.SelectedItem as OrdersUser;
+			if (CurrentOrder.AgreeText == null) {
+				CurrentOrder.AgreeText = "";
+			}
+			if (user != null) {
+				if (CurrentOrder.AgreeUsersDict.Keys.Contains(user.UserID)) {
+					CurrentOrder.AgreeUsersDict.Remove(user.UserID);
+				} else {
+					CurrentOrder.AgreeUsersDict.Add(user.UserID,user.FullName);
+				}
+				CurrentOrder.AgreeText = string.Join(";", from string name in CurrentOrder.AgreeUsersDict.Values select name);
+				CurrentOrder.AgreeUsersIDSText = string.Join(";", from int key in CurrentOrder.AgreeUsersDict.Keys select key.ToString());
 			}
 		}
 

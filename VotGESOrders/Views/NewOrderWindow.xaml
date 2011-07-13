@@ -3,7 +3,7 @@
            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
            xmlns:controls="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls"
 			xmlns:usr="clr-namespace:VotGESOrders.Views"
-           MinHeight="450" MaxHeight="550" Height="450"
+           MinHeight="500" MaxHeight="600" Height="500"
            Title="Создание заявки">
 
 	<Grid x:Name="LayoutRoot" Margin="2">
@@ -12,15 +12,16 @@
 			<RowDefinition Height="Auto" />
 		</Grid.RowDefinitions>
 		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="420"/>
+			<ColumnDefinition MaxWidth="150" Width="Auto"/>
+			<ColumnDefinition Width="420"/>			
 			<ColumnDefinition Width="Auto"/>
 		</Grid.ColumnDefinitions>
 
-		<toolkit:DataForm Grid.Row="0" HorizontalAlignment="Stretch" Name="orderForm" 
+		<toolkit:DataForm Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" Name="orderForm" 
 								VerticalAlignment="Stretch" AutoGenerateFields="False"
 								CommandButtonsVisibility="None">
 			<StackPanel>				
-				<StackPanel Grid.Column="0">
+				<StackPanel >
 					<toolkit:DataField Name="OrderType" Label="Тип заявки">
 						<StackPanel>
 							<ComboBox Name="cmbOrderTypes" SelectedValue="{Binding OrderType,Mode=TwoWay}" DisplayMemberPath="Value" 
@@ -47,12 +48,15 @@
 						<toolkit:DataField Name="PlanStopDate" Label="План стоп">
 							<usr:DateTimePicker SelectedDateTime="{Binding PlanStopDate, Mode=TwoWay}"/>
 						</toolkit:DataField>
+						<toolkit:DataField Name="ReadyTime" Label="Ав. готовность">
+							<TextBox Text="{Binding ReadyTime, Mode=TwoWay}" AcceptsReturn="False" />
+						</toolkit:DataField>
 						<toolkit:DataField Name="OrderText" Label="Текст">
 							<TextBox Text="{Binding OrderText, Mode=TwoWay}" Height="50"  AcceptsReturn="True" TextWrapping="Wrap"
 									IsEnabled="{Binding OrderIsExtend, Converter={StaticResource logicNotConverter}}"/>
 						</toolkit:DataField>
-						<toolkit:DataField Name="SoglasText" Label="Согласовано">
-							<TextBox Text="{Binding SoglasText, Mode=TwoWay}" Height="50"  AcceptsReturn="True" TextWrapping="Wrap"/>
+						<toolkit:DataField Name="AgreeText" Label="Согласовано">
+							<TextBox Text="{Binding AgreeText, Mode=TwoWay}" Height="50"  AcceptsReturn="True" TextWrapping="Wrap" IsEnabled="false"/>
 						</toolkit:DataField>
 						<toolkit:DataField Name="CreateText" Label="Комментарий">
 							<TextBox Text="{Binding CreateText, Mode=TwoWay}" Height="50"  AcceptsReturn="True" TextWrapping="Wrap"/>
@@ -61,9 +65,11 @@
 				</StackPanel>				
 			</StackPanel>
 		</toolkit:DataForm>
-			<sdk:TreeView Name="treeObjects" ItemTemplate="{StaticResource treeTemplate}" Grid.Column="1" Grid.Row="0"
+			<sdk:TreeView Name="treeObjects" ItemTemplate="{StaticResource treeTemplate}" Grid.Column="2" Grid.Row="0"
 										  VerticalAlignment="Stretch" 
 										  SelectedItemChanged="treeObjects_SelectedItemChanged" VerticalContentAlignment="Stretch"/>
+		<ListBox Name="lstUsers" Grid.Column="0" Grid.Row="0" DisplayMemberPath="FullName" 
+					VerticalAlignment="Stretch" MouseLeftButtonUp="lstUsers_MouseLeftButtonUp"/>
 
 
 

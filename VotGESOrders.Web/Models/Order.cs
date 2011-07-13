@@ -15,7 +15,7 @@ using System.ComponentModel;
 namespace VotGESOrders.Web.Models
 {
 
-	public enum OrderStateEnum { created, accepted, banned, opened, canceled, closed, entered, extended, askExtended }
+	public enum OrderStateEnum { created, accepted, banned, opened, canceled, closed, completed, extended, askExtended }
 
 	/*[CustomValidation(typeof(OrderValidator), "Validate")]*/
 	public class Order : INotifyPropertyChanged
@@ -143,15 +143,15 @@ namespace VotGESOrders.Web.Models
 			}
 		}
 
-		public int UserEnterOrderID { get; set; }
-		private OrdersUser userEnterOrder;
+		public int UserCompleteOrderID { get; set; }
+		private OrdersUser userCompleteOrder;
 		[Include]
-		[Association("Order_UserEnter", "UserEnterOrderID", "UserID")]
-		public OrdersUser UserEnterOrder {
-			get { return userEnterOrder; }
+		[Association("Order_UserEnter", "UserCompleteOrderID", "UserID")]
+		public OrdersUser UserCompleteOrder {
+			get { return userCompleteOrder; }
 			set {
-				userEnterOrder = value;
-				UserEnterOrderID = value.UserID;
+				userCompleteOrder = value;
+				UserCompleteOrderID = value.UserID;
 			}
 		}
 
@@ -203,10 +203,10 @@ namespace VotGESOrders.Web.Models
 			set { orderDateCancel = value; }
 		}
 
-		private DateTime? orderDateEnter;
-		public DateTime? OrderDateEnter {
-			get { return orderDateEnter; }
-			set { orderDateEnter = value; }
+		private DateTime? orderDateComplete;
+		public DateTime? OrderDateComplete {
+			get { return orderDateComplete; }
+			set { orderDateComplete = value; }
 		}
 
 
@@ -247,13 +247,13 @@ namespace VotGESOrders.Web.Models
 			set { faktStopDate = value; }
 		}
 
-		private DateTime? faktEnterDate;
-		[CustomValidation(typeof(OrderValidator), "ValidateFaktEnterDate", ErrorMessage = "Ошибка")]
+		private DateTime? faktCompleteDate;
+		[CustomValidation(typeof(OrderValidator), "ValidateFaktCompleteDate", ErrorMessage = "Ошибка")]
 		[CustomValidation(typeof(OrderValidator), "ValidateFutureDate", ErrorMessage = "Ошибка")]
 		[Display(ShortName = "Ввод в работу")]
-		public DateTime? FaktEnterDate {
-			get { return faktEnterDate; }
-			set { faktEnterDate = value; }
+		public DateTime? FaktCompleteDate {
+			get { return faktCompleteDate; }
+			set { faktCompleteDate = value; }
 		}
 
 
@@ -267,15 +267,52 @@ namespace VotGESOrders.Web.Models
 			set { orderText = value; }
 		}
 
-		private string soglasText;
+		private string agreeText;
 		[RegularExpression(".{5,}", ErrorMessage = "Согласование - Минимум 5 символов")]
 		[Display(Description = "С кем согласованна заявка (минимум 5 символов)", ShortName = "Согласование")]
 		[StringLength(250, ErrorMessage = "Согласование - Максимум 250 символов")]
 		[Required(ErrorMessage = "Согласование - обязательное поле")]
-		public string SoglasText {
-			get { return soglasText; }
-			set { soglasText = value; }
+		public string AgreeText {
+			get { return agreeText; }
+			set { agreeText = value; }
 		}
+
+		
+		private List<OrdersUser> agreeUsers;
+		public List<OrdersUser> AgreeUsers {
+			get { return agreeUsers; }
+			set { agreeUsers = value; }
+		}
+
+		private Dictionary<int,string>agreeUsersDict;
+		[DataMember]
+		public Dictionary<int, string> AgreeUsersDict {
+			get { return agreeUsersDict; }
+			set { agreeUsersDict = value; }
+		}
+
+		private string agreeUsersIDSText;
+		public string AgreeUsersIDSText {
+			get { return agreeUsersIDSText; }
+			set { agreeUsersIDSText = value; }
+		}
+
+		private void refreshAgreeUsers() {
+			AgreeUsers = new List<OrdersUser>();
+			AgreeUsersDict = new Dictionary<int, string>();
+			try {
+				string[] ids=AgreeUsersIDSText.Split(';');
+				foreach (string id in ids) {
+					try {
+						OrdersUser user=OrdersUser.loadFromCache(Int32.Parse(id));
+						AgreeUsers.Add(user);
+						AgreeUsersDict.Add(user.UserID, user.FullName);
+					} catch { }
+				}
+			} catch { }
+		}
+
+
 
 		private string createText;
 		[Display(Description = "Дополнительный комментарий к заявке", ShortName = "Комментарий")]
@@ -328,12 +365,12 @@ namespace VotGESOrders.Web.Models
 			set { cancelText = value; }
 		}
 
-		private string enterText;
+		private string completeText;
 		[Display(Description = "Комментарий к вводу в работу (не обязательно)", ShortName = "Комментарий")]
 		[StringLength(250, ErrorMessage = "Комментарий - Максимум 250 символов")]
-		public string EnterText {
-			get { return enterText; }
-			set { enterText = value; }
+		public string CompleteText {
+			get { return completeText; }
+			set { completeText = value; }
 		}
 		
 		public string FullOrderObjectInfo { get; set; }
@@ -381,6 +418,17 @@ namespace VotGESOrders.Web.Models
 			}
 		}
 
+
+		private string readyTime;
+		[Display(Description = "Аварийная готовность", ShortName = "Аварийная готовность")]
+		[StringLength(50, ErrorMessage = "Аварийная готовность - Максимум 50 символов")]
+		[RegularExpression(".{5,}", ErrorMessage = "Аварийная готовность - Минимум 5 символов")]
+		[Required(ErrorMessage = "Аварийная готовность - Обязательное поле")]
+		public string ReadyTime {
+			get { return readyTime; }
+			set {	readyTime = value;}
+		}
+
 		private bool orderCreated;
 		public bool OrderCreated {
 			get { return orderCreated; }
@@ -418,10 +466,10 @@ namespace VotGESOrders.Web.Models
 			set { orderCanceled = value; }
 		}
 
-		private bool orderEntered;
-		public bool OrderEntered {
-			get { return orderEntered; }
-			set { orderEntered = value; }
+		private bool orderCompleted;
+		public bool OrderCompleted {
+			get { return orderCompleted; }
+			set { orderCompleted = value; }
 		}
 
 		private bool orderExtended;
@@ -524,7 +572,7 @@ namespace VotGESOrders.Web.Models
 			ParentOrderNumber = 0;
 			ChildOrderNumber = 0;
 			OrderState = OrderStateEnum.created;
-			OrderCreated = true;
+			OrderCreated = true;			
 		}
 
 		public void refreshOrderFromDB(Orders dbOrder, OrdersUser currentUser, bool readParent = true, bool readChild = true) {
@@ -534,24 +582,27 @@ namespace VotGESOrders.Web.Models
 
 			OrderNumber = dbOrder.orderNumber;
 			OrderType = dbOrder.orderType;
+			ReadyTime = dbOrder.readyTime;
 
 			CreateText = dbOrder.createText;
 			AcceptText = dbOrder.acceptText;
 			BanText = dbOrder.banText;
 			OpenText = dbOrder.openText;
 			CloseText = dbOrder.closeText;
-			EnterText = dbOrder.enterText;
+			CompleteText = dbOrder.completeText;
 			CancelText = dbOrder.cancelText;
 			OrderObjectAddInfo = dbOrder.orderObjectAddInfo;
 
 			OrderText = dbOrder.orderText;
-			SoglasText = dbOrder.soglasText;
+			AgreeText = dbOrder.agreeText;
+			AgreeUsersIDSText = dbOrder.agreeUsersIDS;
+			refreshAgreeUsers();
 
 			OrderHasComments = OrderAccepted || OrderBanned || OrderCanceled;
 
 			FaktStartDate = dbOrder.faktStartDate;
 			FaktStopDate = dbOrder.faktStopDate;
-			FaktEnterDate = dbOrder.faktEnterDate;
+			FaktCompleteDate = dbOrder.faktCompleteDate;
 			PlanStartDate = dbOrder.planStartDate;
 			PlanStopDate = dbOrder.planStopDate;
 
@@ -560,7 +611,7 @@ namespace VotGESOrders.Web.Models
 			OrderDateOpen = dbOrder.orderDateOpen;
 			OrderDateCreate = dbOrder.orderDateCreate;
 			OrderDateBan = dbOrder.orderDateBan;
-			OrderDateEnter = dbOrder.orderDateEnter;
+			OrderDateComplete = dbOrder.orderDateComplete;
 			OrderDateCancel = dbOrder.orderDateCancel;
 
 			UserCreateOrder = OrdersUser.loadFromCache(dbOrder.userCreateOrderID);
@@ -582,8 +633,8 @@ namespace VotGESOrders.Web.Models
 			if (dbOrder.userOpenOrderID != null) {
 				UserOpenOrder = OrdersUser.loadFromCache(dbOrder.userOpenOrderID.Value);
 			}
-			if (dbOrder.userEnterOrderID != null) {
-				UserEnterOrder = OrdersUser.loadFromCache(dbOrder.userEnterOrderID.Value);
+			if (dbOrder.userCompleteOrderID != null) {
+				UserCompleteOrder = OrdersUser.loadFromCache(dbOrder.userCompleteOrderID.Value);
 			}
 
 			if ((OrderExtended) || (OrderAskExtended)) {
@@ -615,7 +666,7 @@ namespace VotGESOrders.Web.Models
 			OrderOpened = dbOrder.orderOpened;
 			OrderClosed = dbOrder.orderClosed;
 			OrderCanceled = dbOrder.orderCanceled;
-			OrderEntered = dbOrder.orderEntered;
+			OrderCompleted = dbOrder.orderCompleted;
 			OrderBanned = dbOrder.orderBanned;
 			OrderExtended = dbOrder.orderExtended;
 			OrderAskExtended = dbOrder.orderAskExtended;
@@ -630,7 +681,7 @@ namespace VotGESOrders.Web.Models
 			AllowOpenOrder = currentUser.AllowOpenOrder && OrderState == OrderStateEnum.accepted;
 			AllowCloseOrder = (currentUser.UserID == creator && OrderState == OrderStateEnum.opened) ||
 				currentUser.AllowCloseOrder && OrderState == OrderStateEnum.opened;
-			AllowEnterOrder = currentUser.AllowEnterOrder && OrderState == OrderStateEnum.closed;
+			AllowCompleteOrder = currentUser.AllowCompleteOrder && OrderState == OrderStateEnum.closed;
 			AllowChangeOrder = currentUser.UserID == creator && OrderState == OrderStateEnum.created;
 			AllowExtendOrder = (currentUser.AllowExtendOrder || currentUser.UserID == creator) && OrderState == OrderStateEnum.opened;
 			AllowCancelOrder = (currentUser.UserID == creator && OrderState == OrderStateEnum.created) ||
@@ -668,9 +719,9 @@ namespace VotGESOrders.Web.Models
 				OrderIsExpiredClose = PlanStopDate < FaktStopDate;
 				ExpiredCloseHours = (FaktStopDate.Value.Ticks - PlanStopDate.Ticks) / koef;
 			}
-			if (OrderEntered) {
-				OrderIsExpriredEnter = PlanStopDate < FaktEnterDate;
-				ExpiredEnterHours = (FaktEnterDate.Value.Ticks - PlanStopDate.Ticks) / koef;
+			if (OrderCompleted) {
+				OrderIsExpriredEnter = PlanStopDate < FaktCompleteDate;
+				ExpiredEnterHours = (FaktCompleteDate.Value.Ticks - PlanStopDate.Ticks) / koef;
 			}
 		}
 
@@ -703,7 +754,7 @@ namespace VotGESOrders.Web.Models
 				case OrderStateEnum.created:
 					state = "Создана";
 					break;
-				case OrderStateEnum.entered:
+				case OrderStateEnum.completed:
 					state = "Закрыта";
 					break;
 				case OrderStateEnum.extended:
@@ -726,7 +777,7 @@ namespace VotGESOrders.Web.Models
 		public bool AllowOpenOrder { get; protected set; }
 		public bool AllowChangeOrder { get; protected set; }
 		public bool AllowAcceptOrder { get; protected set; }
-		public bool AllowEnterOrder { get; protected set; }
+		public bool AllowCompleteOrder { get; protected set; }
 		public bool AllowBanOrder { get; protected set; }
 		public bool AllowExtendOrder { get; protected set; }
 		public bool AllowCancelOrder { get; protected set; }

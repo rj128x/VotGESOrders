@@ -48,7 +48,7 @@ namespace VotGESOrders.Converters
 					case OrderStateEnum.created:
 						color = Colors.Black;
 						break;
-					case OrderStateEnum.entered:
+					case OrderStateEnum.completed:
 						color = Colors.Black;
 						break;
 					case OrderStateEnum.extended:

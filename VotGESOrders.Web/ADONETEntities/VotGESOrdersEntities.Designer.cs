@@ -23,8 +23,8 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("VotGESOrdersModel", "FK_Orders_UsersBan", "Users", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(VotGESOrders.Web.ADONETEntities.Users), "Orders", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(VotGESOrders.Web.ADONETEntities.Orders), true)]
 [assembly: EdmRelationshipAttribute("VotGESOrdersModel", "FK_Orders_UsersCancel", "Users", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(VotGESOrders.Web.ADONETEntities.Users), "Orders", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(VotGESOrders.Web.ADONETEntities.Orders), true)]
 [assembly: EdmRelationshipAttribute("VotGESOrdersModel", "FK_Orders_UsersClose", "Users", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(VotGESOrders.Web.ADONETEntities.Users), "Orders", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(VotGESOrders.Web.ADONETEntities.Orders), true)]
+[assembly: EdmRelationshipAttribute("VotGESOrdersModel", "FK_Orders_UsersComplete", "Users", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(VotGESOrders.Web.ADONETEntities.Users), "Orders", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(VotGESOrders.Web.ADONETEntities.Orders), true)]
 [assembly: EdmRelationshipAttribute("VotGESOrdersModel", "FK_Orders_UsersCreate", "Users", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(VotGESOrders.Web.ADONETEntities.Users), "Orders", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(VotGESOrders.Web.ADONETEntities.Orders), true)]
-[assembly: EdmRelationshipAttribute("VotGESOrdersModel", "FK_Orders_UsersEnter", "Users", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(VotGESOrders.Web.ADONETEntities.Users), "Orders", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(VotGESOrders.Web.ADONETEntities.Orders), true)]
 [assembly: EdmRelationshipAttribute("VotGESOrdersModel", "FK_Orders_UsersOpen", "Users", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(VotGESOrders.Web.ADONETEntities.Users), "Orders", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(VotGESOrders.Web.ADONETEntities.Orders), true)]
 
 #endregion
@@ -313,6 +313,9 @@ namespace VotGESOrders.Web.ADONETEntities
         /// <param name="planStopDate">Исходное значение свойства planStopDate.</param>
         /// <param name="orderText">Исходное значение свойства orderText.</param>
         /// <param name="orderType">Исходное значение свойства orderType.</param>
+        /// <param name="agreeText">Исходное значение свойства agreeText.</param>
+        /// <param name="agreeUsersIDS">Исходное значение свойства agreeUsersIDS.</param>
+        /// <param name="readyTime">Исходное значение свойства readyTime.</param>
         /// <param name="orderObjectID">Исходное значение свойства orderObjectID.</param>
         /// <param name="orderObjectAddInfo">Исходное значение свойства orderObjectAddInfo.</param>
         /// <param name="orderCreated">Исходное значение свойства orderCreated.</param>
@@ -321,12 +324,12 @@ namespace VotGESOrders.Web.ADONETEntities
         /// <param name="orderOpened">Исходное значение свойства orderOpened.</param>
         /// <param name="orderClosed">Исходное значение свойства orderClosed.</param>
         /// <param name="orderCanceled">Исходное значение свойства orderCanceled.</param>
-        /// <param name="orderEntered">Исходное значение свойства orderEntered.</param>
+        /// <param name="orderCompleted">Исходное значение свойства orderCompleted.</param>
         /// <param name="orderExtended">Исходное значение свойства orderExtended.</param>
         /// <param name="orderAskExtended">Исходное значение свойства orderAskExtended.</param>
         /// <param name="orderIsExtend">Исходное значение свойства orderIsExtend.</param>
         /// <param name="orderState">Исходное значение свойства orderState.</param>
-        public static Orders CreateOrders(global::System.Int32 orderNumber, global::System.Int32 userCreateOrderID, global::System.DateTime orderDateCreate, global::System.DateTime orderLastUpdate, global::System.DateTime planStartDate, global::System.DateTime planStopDate, global::System.String orderText, global::System.String orderType, global::System.Int32 orderObjectID, global::System.String orderObjectAddInfo, global::System.Boolean orderCreated, global::System.Boolean orderAccepted, global::System.Boolean orderBanned, global::System.Boolean orderOpened, global::System.Boolean orderClosed, global::System.Boolean orderCanceled, global::System.Boolean orderEntered, global::System.Boolean orderExtended, global::System.Boolean orderAskExtended, global::System.Boolean orderIsExtend, global::System.String orderState)
+        public static Orders CreateOrders(global::System.Int32 orderNumber, global::System.Int32 userCreateOrderID, global::System.DateTime orderDateCreate, global::System.DateTime orderLastUpdate, global::System.DateTime planStartDate, global::System.DateTime planStopDate, global::System.String orderText, global::System.String orderType, global::System.String agreeText, global::System.String agreeUsersIDS, global::System.String readyTime, global::System.Int32 orderObjectID, global::System.String orderObjectAddInfo, global::System.Boolean orderCreated, global::System.Boolean orderAccepted, global::System.Boolean orderBanned, global::System.Boolean orderOpened, global::System.Boolean orderClosed, global::System.Boolean orderCanceled, global::System.Boolean orderCompleted, global::System.Boolean orderExtended, global::System.Boolean orderAskExtended, global::System.Boolean orderIsExtend, global::System.String orderState)
         {
             Orders orders = new Orders();
             orders.orderNumber = orderNumber;
@@ -337,6 +340,9 @@ namespace VotGESOrders.Web.ADONETEntities
             orders.planStopDate = planStopDate;
             orders.orderText = orderText;
             orders.orderType = orderType;
+            orders.agreeText = agreeText;
+            orders.agreeUsersIDS = agreeUsersIDS;
+            orders.readyTime = readyTime;
             orders.orderObjectID = orderObjectID;
             orders.orderObjectAddInfo = orderObjectAddInfo;
             orders.orderCreated = orderCreated;
@@ -345,7 +351,7 @@ namespace VotGESOrders.Web.ADONETEntities
             orders.orderOpened = orderOpened;
             orders.orderClosed = orderClosed;
             orders.orderCanceled = orderCanceled;
-            orders.orderEntered = orderEntered;
+            orders.orderCompleted = orderCompleted;
             orders.orderExtended = orderExtended;
             orders.orderAskExtended = orderAskExtended;
             orders.orderIsExtend = orderIsExtend;
@@ -532,24 +538,24 @@ namespace VotGESOrders.Web.ADONETEntities
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int32> userEnterOrderID
+        public Nullable<global::System.Int32> userCompleteOrderID
         {
             get
             {
-                return _userEnterOrderID;
+                return _userCompleteOrderID;
             }
             set
             {
-                OnuserEnterOrderIDChanging(value);
-                ReportPropertyChanging("userEnterOrderID");
-                _userEnterOrderID = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("userEnterOrderID");
-                OnuserEnterOrderIDChanged();
+                OnuserCompleteOrderIDChanging(value);
+                ReportPropertyChanging("userCompleteOrderID");
+                _userCompleteOrderID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("userCompleteOrderID");
+                OnuserCompleteOrderIDChanged();
             }
         }
-        private Nullable<global::System.Int32> _userEnterOrderID;
-        partial void OnuserEnterOrderIDChanging(Nullable<global::System.Int32> value);
-        partial void OnuserEnterOrderIDChanged();
+        private Nullable<global::System.Int32> _userCompleteOrderID;
+        partial void OnuserCompleteOrderIDChanging(Nullable<global::System.Int32> value);
+        partial void OnuserCompleteOrderIDChanged();
     
         /// <summary>
         /// Нет доступной документации по метаданным.
@@ -724,24 +730,24 @@ namespace VotGESOrders.Web.ADONETEntities
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.DateTime> orderDateEnter
+        public Nullable<global::System.DateTime> orderDateComplete
         {
             get
             {
-                return _orderDateEnter;
+                return _orderDateComplete;
             }
             set
             {
-                OnorderDateEnterChanging(value);
-                ReportPropertyChanging("orderDateEnter");
-                _orderDateEnter = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("orderDateEnter");
-                OnorderDateEnterChanged();
+                OnorderDateCompleteChanging(value);
+                ReportPropertyChanging("orderDateComplete");
+                _orderDateComplete = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("orderDateComplete");
+                OnorderDateCompleteChanged();
             }
         }
-        private Nullable<global::System.DateTime> _orderDateEnter;
-        partial void OnorderDateEnterChanging(Nullable<global::System.DateTime> value);
-        partial void OnorderDateEnterChanged();
+        private Nullable<global::System.DateTime> _orderDateComplete;
+        partial void OnorderDateCompleteChanging(Nullable<global::System.DateTime> value);
+        partial void OnorderDateCompleteChanged();
     
         /// <summary>
         /// Нет доступной документации по метаданным.
@@ -892,24 +898,24 @@ namespace VotGESOrders.Web.ADONETEntities
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.String enterText
+        public global::System.String completeText
         {
             get
             {
-                return _enterText;
+                return _completeText;
             }
             set
             {
-                OnenterTextChanging(value);
-                ReportPropertyChanging("enterText");
-                _enterText = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("enterText");
-                OnenterTextChanged();
+                OncompleteTextChanging(value);
+                ReportPropertyChanging("completeText");
+                _completeText = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("completeText");
+                OncompleteTextChanged();
             }
         }
-        private global::System.String _enterText;
-        partial void OnenterTextChanging(global::System.String value);
-        partial void OnenterTextChanged();
+        private global::System.String _completeText;
+        partial void OncompleteTextChanging(global::System.String value);
+        partial void OncompleteTextChanged();
     
         /// <summary>
         /// Нет доступной документации по метаданным.
@@ -1060,24 +1066,24 @@ namespace VotGESOrders.Web.ADONETEntities
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.DateTime> faktEnterDate
+        public Nullable<global::System.DateTime> faktCompleteDate
         {
             get
             {
-                return _faktEnterDate;
+                return _faktCompleteDate;
             }
             set
             {
-                OnfaktEnterDateChanging(value);
-                ReportPropertyChanging("faktEnterDate");
-                _faktEnterDate = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("faktEnterDate");
-                OnfaktEnterDateChanged();
+                OnfaktCompleteDateChanging(value);
+                ReportPropertyChanging("faktCompleteDate");
+                _faktCompleteDate = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("faktCompleteDate");
+                OnfaktCompleteDateChanged();
             }
         }
-        private Nullable<global::System.DateTime> _faktEnterDate;
-        partial void OnfaktEnterDateChanging(Nullable<global::System.DateTime> value);
-        partial void OnfaktEnterDateChanged();
+        private Nullable<global::System.DateTime> _faktCompleteDate;
+        partial void OnfaktCompleteDateChanging(Nullable<global::System.DateTime> value);
+        partial void OnfaktCompleteDateChanged();
     
         /// <summary>
         /// Нет доступной документации по метаданным.
@@ -1130,26 +1136,74 @@ namespace VotGESOrders.Web.ADONETEntities
         /// <summary>
         /// Нет доступной документации по метаданным.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.String soglasText
+        public global::System.String agreeText
         {
             get
             {
-                return _soglasText;
+                return _agreeText;
             }
             set
             {
-                OnsoglasTextChanging(value);
-                ReportPropertyChanging("soglasText");
-                _soglasText = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("soglasText");
-                OnsoglasTextChanged();
+                OnagreeTextChanging(value);
+                ReportPropertyChanging("agreeText");
+                _agreeText = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("agreeText");
+                OnagreeTextChanged();
             }
         }
-        private global::System.String _soglasText;
-        partial void OnsoglasTextChanging(global::System.String value);
-        partial void OnsoglasTextChanged();
+        private global::System.String _agreeText;
+        partial void OnagreeTextChanging(global::System.String value);
+        partial void OnagreeTextChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String agreeUsersIDS
+        {
+            get
+            {
+                return _agreeUsersIDS;
+            }
+            set
+            {
+                OnagreeUsersIDSChanging(value);
+                ReportPropertyChanging("agreeUsersIDS");
+                _agreeUsersIDS = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("agreeUsersIDS");
+                OnagreeUsersIDSChanged();
+            }
+        }
+        private global::System.String _agreeUsersIDS;
+        partial void OnagreeUsersIDSChanging(global::System.String value);
+        partial void OnagreeUsersIDSChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String readyTime
+        {
+            get
+            {
+                return _readyTime;
+            }
+            set
+            {
+                OnreadyTimeChanging(value);
+                ReportPropertyChanging("readyTime");
+                _readyTime = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("readyTime");
+                OnreadyTimeChanged();
+            }
+        }
+        private global::System.String _readyTime;
+        partial void OnreadyTimeChanging(global::System.String value);
+        partial void OnreadyTimeChanged();
     
         /// <summary>
         /// Нет доступной документации по метаданным.
@@ -1348,24 +1402,24 @@ namespace VotGESOrders.Web.ADONETEntities
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Boolean orderEntered
+        public global::System.Boolean orderCompleted
         {
             get
             {
-                return _orderEntered;
+                return _orderCompleted;
             }
             set
             {
-                OnorderEnteredChanging(value);
-                ReportPropertyChanging("orderEntered");
-                _orderEntered = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("orderEntered");
-                OnorderEnteredChanged();
+                OnorderCompletedChanging(value);
+                ReportPropertyChanging("orderCompleted");
+                _orderCompleted = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("orderCompleted");
+                OnorderCompletedChanged();
             }
         }
-        private global::System.Boolean _orderEntered;
-        partial void OnorderEnteredChanging(global::System.Boolean value);
-        partial void OnorderEnteredChanged();
+        private global::System.Boolean _orderCompleted;
+        partial void OnorderCompletedChanging(global::System.Boolean value);
+        partial void OnorderCompletedChanged();
     
         /// <summary>
         /// Нет доступной документации по метаданным.
@@ -1663,8 +1717,46 @@ namespace VotGESOrders.Web.ADONETEntities
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("VotGESOrdersModel", "FK_Orders_UsersCreate", "Users")]
+        [EdmRelationshipNavigationPropertyAttribute("VotGESOrdersModel", "FK_Orders_UsersComplete", "Users")]
         public Users Users4
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Users>("VotGESOrdersModel.FK_Orders_UsersComplete", "Users").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Users>("VotGESOrdersModel.FK_Orders_UsersComplete", "Users").Value = value;
+            }
+        }
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Users> Users4Reference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Users>("VotGESOrdersModel.FK_Orders_UsersComplete", "Users");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Users>("VotGESOrdersModel.FK_Orders_UsersComplete", "Users", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("VotGESOrdersModel", "FK_Orders_UsersCreate", "Users")]
+        public Users Users5
         {
             get
             {
@@ -1680,7 +1772,7 @@ namespace VotGESOrders.Web.ADONETEntities
         /// </summary>
         [BrowsableAttribute(false)]
         [DataMemberAttribute()]
-        public EntityReference<Users> Users4Reference
+        public EntityReference<Users> Users5Reference
         {
             get
             {
@@ -1691,44 +1783,6 @@ namespace VotGESOrders.Web.ADONETEntities
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Users>("VotGESOrdersModel.FK_Orders_UsersCreate", "Users", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// Нет доступной документации по метаданным.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("VotGESOrdersModel", "FK_Orders_UsersEnter", "Users")]
-        public Users Users5
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Users>("VotGESOrdersModel.FK_Orders_UsersEnter", "Users").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Users>("VotGESOrdersModel.FK_Orders_UsersEnter", "Users").Value = value;
-            }
-        }
-        /// <summary>
-        /// Нет доступной документации по метаданным.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<Users> Users5Reference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Users>("VotGESOrdersModel.FK_Orders_UsersEnter", "Users");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Users>("VotGESOrdersModel.FK_Orders_UsersEnter", "Users", value);
                 }
             }
         }
@@ -1795,12 +1849,13 @@ namespace VotGESOrders.Web.ADONETEntities
         /// <param name="allowOpenOrder">Исходное значение свойства allowOpenOrder.</param>
         /// <param name="allowCancelOrder">Исходное значение свойства allowCancelOrder.</param>
         /// <param name="allowCloseOrder">Исходное значение свойства allowCloseOrder.</param>
-        /// <param name="allowEnterOrder">Исходное значение свойства allowEnterOrder.</param>
+        /// <param name="allowCompleteOrder">Исходное значение свойства allowCompleteOrder.</param>
         /// <param name="allowExtendOrder">Исходное значение свойства allowExtendOrder.</param>
         /// <param name="allowEditTree">Исходное значение свойства allowEditTree.</param>
         /// <param name="allowEditUsers">Исходное значение свойства allowEditUsers.</param>
         /// <param name="allowEditOrders">Исходное значение свойства allowEditOrders.</param>
-        public static Users CreateUsers(global::System.Int32 userID, global::System.String name, global::System.String fullName, global::System.Boolean allowCreateOrder, global::System.Boolean allowAcceptOrder, global::System.Boolean allowOpenOrder, global::System.Boolean allowCancelOrder, global::System.Boolean allowCloseOrder, global::System.Boolean allowEnterOrder, global::System.Boolean allowExtendOrder, global::System.Boolean allowEditTree, global::System.Boolean allowEditUsers, global::System.Boolean allowEditOrders)
+        /// <param name="allowAgreeOrders">Исходное значение свойства allowAgreeOrders.</param>
+        public static Users CreateUsers(global::System.Int32 userID, global::System.String name, global::System.String fullName, global::System.Boolean allowCreateOrder, global::System.Boolean allowAcceptOrder, global::System.Boolean allowOpenOrder, global::System.Boolean allowCancelOrder, global::System.Boolean allowCloseOrder, global::System.Boolean allowCompleteOrder, global::System.Boolean allowExtendOrder, global::System.Boolean allowEditTree, global::System.Boolean allowEditUsers, global::System.Boolean allowEditOrders, global::System.Boolean allowAgreeOrders)
         {
             Users users = new Users();
             users.userID = userID;
@@ -1811,11 +1866,12 @@ namespace VotGESOrders.Web.ADONETEntities
             users.allowOpenOrder = allowOpenOrder;
             users.allowCancelOrder = allowCancelOrder;
             users.allowCloseOrder = allowCloseOrder;
-            users.allowEnterOrder = allowEnterOrder;
+            users.allowCompleteOrder = allowCompleteOrder;
             users.allowExtendOrder = allowExtendOrder;
             users.allowEditTree = allowEditTree;
             users.allowEditUsers = allowEditUsers;
             users.allowEditOrders = allowEditOrders;
+            users.allowAgreeOrders = allowAgreeOrders;
             return users;
         }
 
@@ -2022,24 +2078,24 @@ namespace VotGESOrders.Web.ADONETEntities
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Boolean allowEnterOrder
+        public global::System.Boolean allowCompleteOrder
         {
             get
             {
-                return _allowEnterOrder;
+                return _allowCompleteOrder;
             }
             set
             {
-                OnallowEnterOrderChanging(value);
-                ReportPropertyChanging("allowEnterOrder");
-                _allowEnterOrder = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("allowEnterOrder");
-                OnallowEnterOrderChanged();
+                OnallowCompleteOrderChanging(value);
+                ReportPropertyChanging("allowCompleteOrder");
+                _allowCompleteOrder = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("allowCompleteOrder");
+                OnallowCompleteOrderChanged();
             }
         }
-        private global::System.Boolean _allowEnterOrder;
-        partial void OnallowEnterOrderChanging(global::System.Boolean value);
-        partial void OnallowEnterOrderChanged();
+        private global::System.Boolean _allowCompleteOrder;
+        partial void OnallowCompleteOrderChanging(global::System.Boolean value);
+        partial void OnallowCompleteOrderChanged();
     
         /// <summary>
         /// Нет доступной документации по метаданным.
@@ -2136,6 +2192,30 @@ namespace VotGESOrders.Web.ADONETEntities
         private global::System.Boolean _allowEditOrders;
         partial void OnallowEditOrdersChanging(global::System.Boolean value);
         partial void OnallowEditOrdersChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean allowAgreeOrders
+        {
+            get
+            {
+                return _allowAgreeOrders;
+            }
+            set
+            {
+                OnallowAgreeOrdersChanging(value);
+                ReportPropertyChanging("allowAgreeOrders");
+                _allowAgreeOrders = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("allowAgreeOrders");
+                OnallowAgreeOrdersChanged();
+            }
+        }
+        private global::System.Boolean _allowAgreeOrders;
+        partial void OnallowAgreeOrdersChanging(global::System.Boolean value);
+        partial void OnallowAgreeOrdersChanged();
 
         #endregion
     
@@ -2235,18 +2315,18 @@ namespace VotGESOrders.Web.ADONETEntities
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("VotGESOrdersModel", "FK_Orders_UsersCreate", "Orders")]
+        [EdmRelationshipNavigationPropertyAttribute("VotGESOrdersModel", "FK_Orders_UsersComplete", "Orders")]
         public EntityCollection<Orders> Orders4
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Orders>("VotGESOrdersModel.FK_Orders_UsersCreate", "Orders");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Orders>("VotGESOrdersModel.FK_Orders_UsersComplete", "Orders");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Orders>("VotGESOrdersModel.FK_Orders_UsersCreate", "Orders", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Orders>("VotGESOrdersModel.FK_Orders_UsersComplete", "Orders", value);
                 }
             }
         }
@@ -2257,18 +2337,18 @@ namespace VotGESOrders.Web.ADONETEntities
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("VotGESOrdersModel", "FK_Orders_UsersEnter", "Orders")]
+        [EdmRelationshipNavigationPropertyAttribute("VotGESOrdersModel", "FK_Orders_UsersCreate", "Orders")]
         public EntityCollection<Orders> Orders5
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Orders>("VotGESOrdersModel.FK_Orders_UsersEnter", "Orders");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Orders>("VotGESOrdersModel.FK_Orders_UsersCreate", "Orders");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Orders>("VotGESOrdersModel.FK_Orders_UsersEnter", "Orders", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Orders>("VotGESOrdersModel.FK_Orders_UsersCreate", "Orders", value);
                 }
             }
         }

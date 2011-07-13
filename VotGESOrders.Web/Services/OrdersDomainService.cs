@@ -81,9 +81,9 @@ namespace VotGESOrders.Web.Services
 			context.CloseOrder(order, guid);
 		}
 
-		public void RegisterEnterOrder(Order order, Guid guid) {
+		public void RegisterCompleteOrder(Order order, Guid guid) {
 			Logger.info("Сервис: ввод оборудования " + order.OrderNumber.ToString());
-			context.EnterOrder(order, guid);
+			context.CompleteOrder(order, guid);
 		}
 
 		public void ReloadOrder(Order order, Guid guid) {

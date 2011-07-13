@@ -41,11 +41,11 @@ namespace VotGESOrders.Views
 			OrderOperations.Current.initClose();
 		}
 
-		private void btnEnter_Click(object sender, RoutedEventArgs e) {
-			OrderOperations.Current.initEnter();
+		private void btnComplete_Click(object sender, RoutedEventArgs e) {
+			OrderOperations.Current.initComplete();
 		}
 
-		private void btnLongate_Click(object sender, RoutedEventArgs e) {
+		private void btnExtend_Click(object sender, RoutedEventArgs e) {
 			OrderOperations.Current.initExtend();
 		}		
 		

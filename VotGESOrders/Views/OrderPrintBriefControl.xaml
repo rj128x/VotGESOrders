@@ -33,7 +33,7 @@
 					<TextBlock Text="Разрешение на ввод"  HorizontalAlignment="Center" FontSize="10"/>
 				</StackPanel>
 				<StackPanel Grid.Row="0" Grid.Column="4">
-					<TextBlock Text="Окончание работ"  HorizontalAlignment="Center" FontSize="10"/>
+					<TextBlock Text="Завершение"  HorizontalAlignment="Center" FontSize="10"/>
 				</StackPanel>
 
 
@@ -155,7 +155,11 @@
 							<TextBlock Text="Текст заявки:  " Style="{StaticResource LabelPrint}"  HorizontalAlignment="Center"/>
 							<TextBlock Text="{Binding OrderText}" Style="{StaticResource ValuePrintText}" />
 							<TextBlock Text="Согласованно:  " Style="{StaticResource LabelPrint}"  HorizontalAlignment="Center"/>
-							<TextBlock Text="{Binding SoglasText}" Style="{StaticResource ValuePrintText}" />
+							<TextBlock Text="{Binding AgreeText}" Style="{StaticResource ValuePrintText}" />
+							<StackPanel Orientation="Horizontal">
+								<TextBlock Text="Ав. готов.:  " Style="{StaticResource LabelPrint}"  HorizontalAlignment="Center"/>
+								<TextBlock Text="{Binding ReadyTime}" Style="{StaticResource ValuePrintText}" />
+							</StackPanel>
 													
 						</StackPanel>
 						<StackPanel Orientation="Horizontal" Grid.Row="1" VerticalAlignment="Bottom">
@@ -210,13 +214,13 @@
 							<RowDefinition Height="20"/>
 						</Grid.RowDefinitions>
 						<StackPanel Grid.Row="0">
-							<TextBlock Text="{Binding FaktEnterDate, Converter={StaticResource dateTimeConverter}}"
+							<TextBlock Text="{Binding FaktCompleteDate, Converter={StaticResource dateTimeConverter}}"
                                Style="{StaticResource ValuePrint}" />
-							<TextBlock Text="{Binding EnterText}" TextWrapping="Wrap"  Margin="0,10,0,0"
+							<TextBlock Text="{Binding CompleteText}" TextWrapping="Wrap"  Margin="0,10,0,0"
 										  Style="{StaticResource LabelPrint}" HorizontalAlignment="Center" TextAlignment="Center" />
 
 						</StackPanel>
-						<TextBlock  Grid.Row="1" Text="{Binding UserEnterOrder.FullName}" 
+						<TextBlock  Grid.Row="1" Text="{Binding UserCompleteOrder.FullName}" 
 										Style="{StaticResource ValuePrint}" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
 					</Grid>
 				</Border>

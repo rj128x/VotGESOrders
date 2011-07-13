@@ -133,11 +133,11 @@ namespace VotGESOrders.Web.Models
 			get { return showOrdersClosed; }
 			set { showOrdersClosed = value; NotifyChanged("ShowOrdersClosed"); }
 		}
-		private bool showOrdersEntered;
+		private bool showOrdersCompleted;
 		[XmlAttribute]
-		public bool ShowOrdersEntered {
-			get { return showOrdersEntered; }
-			set { showOrdersEntered = value; NotifyChanged("ShowOrdersEntered"); }
+		public bool ShowOrdersCompleted {
+			get { return showOrdersCompleted; }
+			set { showOrdersCompleted = value; NotifyChanged("ShowOrdersCompleted"); }
 		}
 		private bool showOrdersExtended;
 		[XmlAttribute]
@@ -342,8 +342,8 @@ namespace VotGESOrders.Web.Models
 					orderStates.Add(OrderStateEnum.canceled.ToString());
 				if (ShowOrdersClosed)
 					orderStates.Add(OrderStateEnum.closed.ToString());
-				if (ShowOrdersEntered)
-					orderStates.Add(OrderStateEnum.entered.ToString());
+				if (ShowOrdersCompleted)
+					orderStates.Add(OrderStateEnum.completed.ToString());
 				if (ShowOrdersExtended)
 					orderStates.Add(OrderStateEnum.extended.ToString());
 				if (ShowOrdersAskExtended)

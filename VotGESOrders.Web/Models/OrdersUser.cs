@@ -21,12 +21,13 @@ namespace VotGESOrders.Web.Models
 		public bool AllowOpenOrder { get; set; }
 		public bool AllowAcceptOrder { get; set; }
 		public bool AllowCloseOrder { get; set; }
-		public bool AllowEnterOrder { get; set; }
+		public bool AllowCompleteOrder { get; set; }
 		public bool AllowExtendOrder { get; set; }
 		public bool AllowCancelOrder { get; set; }
 		public bool AllowEditTree { get; set; }
 		public bool AllowEditOrders { get; set; }
 		public bool AllowEditUsers { get; set; }
+		public bool AllowAgreeOrders { get; set; }
 
 		protected static VotGESOrdersEntities context;
 		protected static List<OrdersUser> allUsers;
@@ -93,12 +94,13 @@ namespace VotGESOrders.Web.Models
 				user.AllowOpenOrder = userDB.allowOpenOrder;
 				user.AllowCloseOrder = userDB.allowCloseOrder;
 				user.AllowAcceptOrder = userDB.allowAcceptOrder;
-				user.AllowEnterOrder = userDB.allowEnterOrder;
+				user.AllowCompleteOrder = userDB.allowCompleteOrder;
 				user.AllowExtendOrder = userDB.allowExtendOrder;
 				user.AllowCancelOrder = userDB.allowCancelOrder;
 				user.AllowEditTree = userDB.allowEditTree;
 				user.AllowEditUsers = userDB.allowEditUsers;
 				user.AllowEditOrders = userDB.allowEditOrders;
+				user.AllowAgreeOrders = userDB.allowAgreeOrders;
 				return user;
 			} catch (Exception e) {
 				Logger.error(String.Format("Ошибка при получении краткой информации о пользователе: {0}", e));
@@ -107,8 +109,8 @@ namespace VotGESOrders.Web.Models
 		}
 
 		public override string ToString() {
-			return string.Format("Name: {0}, FullName: {1}, AllowCreateOrder: {2}, AllowOpenOrder: {3}, AllowAcceptOrder: {4}, AllowCancelOrder: {5},AllowEnterOrder: {6}, AllowExtendOrder: {7}",
-				Name, FullName, AllowCreateOrder, AllowOpenOrder, AllowAcceptOrder, AllowCancelOrder, AllowEnterOrder, AllowExtendOrder);
+			return string.Format("Name: {0}, FullName: {1}, AllowCreateOrder: {2}, AllowOpenOrder: {3}, AllowAcceptOrder: {4}, AllowCancelOrder: {5},AllowCompleteOrder: {6}, AllowExtendOrder: {7}",
+				Name, FullName, AllowCreateOrder, AllowOpenOrder, AllowAcceptOrder, AllowCancelOrder, AllowCompleteOrder, AllowExtendOrder);
 		}
 	}
 }

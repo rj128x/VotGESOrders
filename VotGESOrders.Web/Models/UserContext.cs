@@ -35,9 +35,10 @@ namespace VotGESOrders.Web.Models
 				user.allowEditOrders = newUser.AllowEditOrders;
 				user.allowEditUsers = newUser.AllowEditUsers;
 				user.allowEditTree = newUser.AllowEditTree;
-				user.allowEnterOrder = newUser.AllowEnterOrder;
+				user.allowCompleteOrder = newUser.AllowCompleteOrder;
 				user.allowExtendOrder = newUser.AllowExtendOrder;
 				user.allowOpenOrder = newUser.AllowOpenOrder;
+				user.allowAgreeOrders = newUser.AllowAgreeOrders;
 				
 				context.SaveChanges();
 

@@ -111,10 +111,10 @@
 						</DataTemplate>
 					</sdk:DataGridTemplateColumn.CellTemplate>
 				</sdk:DataGridTemplateColumn>
-				<sdk:DataGridTemplateColumn Header="Ввод в работу"   SortMemberPath="FaktEnterDate"  Width="100">
+				<sdk:DataGridTemplateColumn Header="Факт завершение"   SortMemberPath="FaktCompleteDate"  Width="100">
 					<sdk:DataGridTemplateColumn.CellTemplate>
 						<DataTemplate>
-							<ContentControl Content="{Binding FaktEnterDate, Converter={StaticResource dateTimeConverter}}"  
+							<ContentControl Content="{Binding FaktCompleteDate, Converter={StaticResource dateTimeConverter}}"  
 												   Template="{StaticResource OrderCellTimeEnter}"/>
 						</DataTemplate>
 					</sdk:DataGridTemplateColumn.CellTemplate>

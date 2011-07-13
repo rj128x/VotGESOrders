@@ -16,7 +16,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace VotGESOrders.Views
 {
-	public enum OrderOperation { open, close, enter }
+	public enum OrderOperation { open, close, complete }
 	public partial class OrderDateOperationWindow : ChildWindow
 	{
 		public OrderOperation Operation { get; set; }
@@ -56,7 +56,7 @@ namespace VotGESOrders.Views
 
 			switch (Operation) {
 				case OrderOperation.close:
-					Title = String.Format("Закрытие заявки №{0} от {1}", CurrentOrder.OrderNumber, CurrentOrder.OrderDateCreate.ToShortDateString());
+					Title = String.Format("Разрешение на ввод. Заявка №{0} от {1}", CurrentOrder.OrderNumber, CurrentOrder.OrderDateCreate.ToShortDateString());
 					CurrentOrder.OrderState = OrderStateEnum.closed;
 					CurrentOrder.OrderClosed = true;
 
@@ -65,19 +65,19 @@ namespace VotGESOrders.Views
 					
 					FaktStopDate.Visibility = System.Windows.Visibility.Visible;
 					FaktStartDate.Visibility = System.Windows.Visibility.Collapsed;
-					FaktEnterDate.Visibility = System.Windows.Visibility.Collapsed;
+					FaktCompleteDate.Visibility = System.Windows.Visibility.Collapsed;
 					
 					break;
-				case OrderOperation.enter:
-					Title = String.Format("Ввод оборудования. заявка №{0} от {1}", CurrentOrder.OrderNumber, CurrentOrder.OrderDateCreate.ToShortDateString());
-					CurrentOrder.OrderState = OrderStateEnum.entered;
-					CurrentOrder.OrderEntered = true;
-					CurrentOrder.FaktEnterDate = DateTime.Now;
-					CurrentOrder.EnterText = "Оборудование введено в работу";
+				case OrderOperation.complete:
+					Title = String.Format("Закрытие заявки. Заявка №{0} от {1}", CurrentOrder.OrderNumber, CurrentOrder.OrderDateCreate.ToShortDateString());
+					CurrentOrder.OrderState = OrderStateEnum.completed;
+					CurrentOrder.OrderCompleted = true;
+					CurrentOrder.FaktCompleteDate = DateTime.Now;
+					CurrentOrder.CompleteText = "Оборудование введено в работу";
 					
 					FaktStopDate.Visibility = System.Windows.Visibility.Collapsed;
 					FaktStartDate.Visibility = System.Windows.Visibility.Collapsed;
-					FaktEnterDate.Visibility = System.Windows.Visibility.Visible;
+					FaktCompleteDate.Visibility = System.Windows.Visibility.Visible;
 
 					break;
 				case OrderOperation.open:
@@ -93,7 +93,7 @@ namespace VotGESOrders.Views
 	
 					FaktStopDate.Visibility = System.Windows.Visibility.Collapsed;
 					FaktStartDate.Visibility = System.Windows.Visibility.Visible;
-					FaktEnterDate.Visibility = System.Windows.Visibility.Collapsed;
+					FaktCompleteDate.Visibility = System.Windows.Visibility.Collapsed;
 
 					break;
 			}

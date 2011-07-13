@@ -14,7 +14,7 @@
 				<Grid >
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition  Width="420"/>
-						<ColumnDefinition Width="*"/>		
+						<ColumnDefinition Width="*"/>
 					</Grid.ColumnDefinitions>
 					<Grid.RowDefinitions>
 						<RowDefinition/>
@@ -23,28 +23,29 @@
 					</Grid.RowDefinitions>
 
 					<Border Style="{StaticResource borderFilterControl}" Grid.ColumnSpan="2" Grid.Row="0">
-							<Grid>
+						<Grid>
 							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="250"/>
 								<ColumnDefinition Width="250"/>
 								<ColumnDefinition/>
 							</Grid.ColumnDefinitions>
-								<StackPanel Orientation="Horizontal" Grid.Column="0" HorizontalAlignment="Left">
-									<TextBlock Text="Заявка " Style="{StaticResource Label}"/>
-									<TextBlock Text="{Binding OrderType}" Style="{StaticResource Value}"/>
-									<TextBlock Text=" № " Style="{StaticResource Label}"/>
-									<TextBlock Text="{Binding OrderNumber}" 
+							<StackPanel Orientation="Horizontal" Grid.Column="0" HorizontalAlignment="Left">
+								<TextBlock Text="Заявка " Style="{StaticResource Label}"/>
+								<TextBlock Text="{Binding OrderType}" Style="{StaticResource Value}"/>
+								<TextBlock Text=" № " Style="{StaticResource Label}"/>
+								<TextBlock Text="{Binding OrderNumber}" 
 											 Style="{StaticResource Value}"/>
-									<TextBlock Text=" от " Style="{StaticResource Label}" />
-									<TextBlock Text="{Binding OrderDateCreate, Converter={StaticResource dateTimeConverter}, ConverterParameter='dd.MM.yyyy'}"
+								<TextBlock Text=" от " Style="{StaticResource Label}" />
+								<TextBlock Text="{Binding OrderDateCreate, Converter={StaticResource dateTimeConverter}, ConverterParameter='dd.MM.yyyy'}"
 											 Style="{StaticResource Value}"/>
-								</StackPanel>
+							</StackPanel>
 
-							<StackPanel  Orientation="Horizontal" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Right">
-								<StackPanel Orientation="Horizontal" Margin="0,0,0,0">
-									<TextBlock Text="Оборудование:  " Style="{StaticResource Label}"/>
-									<TextBlock Text="{Binding FullOrderObjectInfo}" Style="{StaticResource ValueText}"/>
-								</StackPanel>
+							<StackPanel  Orientation="Horizontal" Grid.Column="1" Grid.Row="1">
+								<TextBlock Text="Аварийная готовность: " Style="{StaticResource Label}" />
+								<TextBlock Text="{Binding ReadyTime}" Style="{StaticResource Value}"/>
+							</StackPanel>
 
+							<StackPanel  Orientation="Horizontal" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Right">
 								<StackPanel  Orientation="Horizontal" Margin="10,00,0,0">
 									<TextBlock Text="Состояние: " Style="{StaticResource Label}" />
 									<TextBlock Text="{Binding OrderStateStr}"
@@ -55,14 +56,18 @@
 					</Border>
 
 					<Border Style="{StaticResource borderFilterControl}" Grid.Column="1" Grid.Row="1">
-						<StackPanel >	
+						<StackPanel >
+							<StackPanel Orientation="Vertical" Grid.Column="0">
+								<TextBlock Text="Оборудование:  " Style="{StaticResource Label}"  HorizontalAlignment="Center"/>
+								<TextBlock Text="{Binding FullOrderObjectInfo}" Style="{StaticResource ValueText}" />
+							</StackPanel>
 							<StackPanel Orientation="Vertical" Grid.Column="0">
 								<TextBlock Text="Текст заявки:  " Style="{StaticResource Label}"  HorizontalAlignment="Center"/>
 								<TextBlock Text="{Binding OrderText}" Style="{StaticResource ValueText}" />
 							</StackPanel>
 							<StackPanel Orientation="Vertical" Grid.Column="1">
 								<TextBlock Text="Согласованно:  " Style="{StaticResource Label}" HorizontalAlignment="Center"/>
-								<TextBlock Text="{Binding SoglasText}" Style="{StaticResource ValueText}"/>
+								<TextBlock Text="{Binding AgreeText}" Style="{StaticResource ValueText}"/>
 							</StackPanel>
 						</StackPanel>
 					</Border>
@@ -81,7 +86,7 @@
 								<TextBlock Style="{StaticResource Label}" Text="ЗАЯВКА ПРОДЛЕНА. ДОЧЕРНЯЯ ЗАЯВКА №"/>
 								<TextBlock Style="{StaticResource Value}" Text="{Binding ChildOrderNumber}"/>
 							</StackPanel>
-							
+
 							<Grid  Margin="0,15,0,0" >
 								<Grid.ColumnDefinitions>
 									<ColumnDefinition Width="120"/>
@@ -106,7 +111,7 @@
                                Style="{StaticResource Value}"  Grid.Row="1" Grid.Column="2"/>
 								<TextBlock Text="{Binding FaktStartDate, Converter={StaticResource dateTimeConverter}}"
                                Style="{StaticResource Value}" Grid.Row="2" Grid.Column="1"/>
-								<TextBlock Text="{Binding FaktEnterDate, Converter={StaticResource dateTimeConverter}}"
+								<TextBlock Text="{Binding FaktCompleteDate, Converter={StaticResource dateTimeConverter}}"
                                Style="{StaticResource Value}" Grid.Row="2" Grid.Column="2"/>
 								<TextBlock Text="{Binding FaktStopDate, Converter={StaticResource dateTimeConverter}}"
                            Style="{StaticResource Value}" Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="2"/>
@@ -131,7 +136,7 @@
 									<RowDefinition Height="{Binding OrderBanned, Converter={StaticResource heightConverter}}"/>
 									<RowDefinition Height="{Binding OrderOpened, Converter={StaticResource heightConverter}}"/>
 									<RowDefinition Height="{Binding OrderClosed, Converter={StaticResource heightConverter}}"/>
-									<RowDefinition Height="{Binding OrderEntered, Converter={StaticResource heightConverter}}"/>
+									<RowDefinition Height="{Binding OrderCompleted, Converter={StaticResource heightConverter}}"/>
 									<RowDefinition Height="{Binding OrderCanceled, Converter={StaticResource heightConverter}}"/>
 								</Grid.RowDefinitions>
 
@@ -182,11 +187,11 @@
 								<TextBlock Text="{Binding CloseText}" 
 							  Grid.Column="3" Grid.Row="5"  Style="{StaticResource ValueText}" />
 
-								<TextBlock Text="{Binding UserEnterOrder.FullName}" Style="{StaticResource Value}" 
+								<TextBlock Text="{Binding UserCompleteOrder.FullName}" Style="{StaticResource Value}" 
 							  Grid.Column="1" Grid.Row="6"  />
-								<TextBlock Text="{Binding OrderDateEnter, Converter={StaticResource dateTimeConverter}}" 
+								<TextBlock Text="{Binding OrderDateComplete, Converter={StaticResource dateTimeConverter}}" 
 							  Grid.Column="2" Grid.Row="6"   Style="{StaticResource Value}"/>
-								<TextBlock Text="{Binding EnterText}" 
+								<TextBlock Text="{Binding CompleteText}" 
 							  Grid.Column="3" Grid.Row="6"   Style="{StaticResource ValueText}" />
 
 								<TextBlock Text="{Binding UserCancelOrder.FullName}" Style="{StaticResource Value}" 
@@ -201,7 +206,7 @@
 					</Border>
 				</Grid>
 			</StackPanel>
-			
+
 		</StackPanel>
 	</Grid>
 </UserControl>

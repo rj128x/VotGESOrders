@@ -11,6 +11,7 @@ using System.Windows.Shapes;
 using VotGESOrders.Views;
 using VotGESOrders.Web.Models;
 using System.ServiceModel.DomainServices.Client;
+using System.Collections.Generic;
 
 namespace VotGESOrders
 {
@@ -57,8 +58,8 @@ namespace VotGESOrders
 					case OrderOperation.close:
 						OrdersContext.Current.Context.RegisterCloseOrder(currentOrder, OrdersContext.Current.SessionGUID);
 						break;
-					case OrderOperation.enter:
-						OrdersContext.Current.Context.RegisterEnterOrder(currentOrder, OrdersContext.Current.SessionGUID);
+					case OrderOperation.complete:
+						OrdersContext.Current.Context.RegisterCompleteOrder(currentOrder, OrdersContext.Current.SessionGUID);
 						break;
 				}
 				OrdersContext.Current.SubmitChangesCallbackError();
@@ -113,7 +114,7 @@ namespace VotGESOrders
 			newOrder.UserCreateOrderID = WebContext.Current.User.UserID;
 			newOrder.OrderDateCreate = DateTime.Now;
 			newOrder.OrderIsExtend = false;
-			newOrder.OrderType = "ПЛ";
+			newOrder.OrderType = "ПЛ";			
 			newOrderWindow.CurrentOrder = newOrder;
 			newOrderWindow.IsNewOrder = true;
 			newOrderWindow.Show();
@@ -154,10 +155,10 @@ namespace VotGESOrders
 			dateOperationWindow.Show();
 		}
 
-		public void initEnter() {
+		public void initComplete() {
 			GlobalStatus.Current.IsChangingOrder = true;			
 			dateOperationWindow.CurrentOrder = CurrentOrder;
-			dateOperationWindow.Operation = OrderOperation.enter;
+			dateOperationWindow.Operation = OrderOperation.complete;
 			dateOperationWindow.Show();
 		}
 
@@ -177,7 +178,13 @@ namespace VotGESOrders
 			newOrder.PlanStartDate = CurrentOrder.PlanStopDate;
 			newOrder.PlanStopDate = CurrentOrder.PlanStopDate.AddDays(1);
 			newOrder.OrderText = CurrentOrder.OrderText;
-			newOrder.SoglasText = CurrentOrder.SoglasText;
+			newOrder.AgreeText = CurrentOrder.AgreeText;
+			newOrder.AgreeUsersIDSText = CurrentOrder.AgreeUsersIDSText;
+			newOrder.AgreeUsersDict = new Dictionary<int, string>();
+			foreach (KeyValuePair<int,string> de in CurrentOrder.AgreeUsersDict){
+				newOrder.AgreeUsersDict.Add(de.Key, de.Value);
+			}
+			newOrder.ReadyTime = CurrentOrder.ReadyTime;
 			newOrder.CreateText = "Работы не завершены";
 			newOrder.OrderDateCreate = DateTime.Now;
 
