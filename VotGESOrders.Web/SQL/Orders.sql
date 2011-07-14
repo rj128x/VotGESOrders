@@ -25,6 +25,7 @@ CREATE TABLE [dbo].[Users](
 	[sendAgreeMail] [bit] NOT NULL,
 	[sendCreateMail] [bit] NOT NULL,
 	[allowCreateOrder] [bit] NOT NULL, /*пользователь может создавать заявки*/
+	[allowCreateCrashOrder] [bit] NOT NULL, /*пользователь может создавать аварийные заявки*/
 	[allowAcceptOrder] [bit] NOT NULL,/*пользователь может разрешить/отклонить заявку*/
 	[allowOpenOrder] [bit] NOT NULL,/*пользователь может открыть заявку*/
 	[allowCancelOrder] [bit] NOT NULL,/*пользователь может снять чужую заявку*/
@@ -134,9 +135,11 @@ CREATE TABLE [dbo].[Orders](
 	[orderClosed] [bit] NOT  NULL,/*заявка закрыта (разрешен ввод оборудования)*/
 	[orderCanceled] [bit] NOT  NULL,/*заявка снята*/
 	[orderCompleted] [bit] NOT NULL,/*оборудование введено в работу (заявка полностью завершена)*/
+	[orderCompletedWithoutEnter] [bit] NOT NULL,/*оборудование введено в работу (заявка полностью завершена)*/
 	[orderExtended] [bit] NOT NULL,/*заявка продлена*/
 	[orderAskExtended] [bit] NOT NULL,/*подана заявка на продение текущей*/
 	[orderIsExtend] [bit] NOT NULL,/*зявка является продлением*/
+	[orderIsFixErrorEnter] [bit] NOT NULL,/*зявка является исправлением ошибки ввода*/
 
 	[orderState] [varchar](50) NOT NULL /*состояние заявки - created, accepted, banned, opened, canceled, closed, completed, extended, askExtended*/
 	
@@ -214,17 +217,17 @@ GO
 
 
 				
-insert into users values('CORP\chekunovamv','Чекунова М.В','chekunovamv@votges.rushydro.ru',1,1,1,1,1,1,1,1,1,1,1,1,1,1);
-insert into users values('SR-VOTGES-PI\dgshu','ДГЩУ','',1,1,1,1,1,1,1,1,1,1,1,1,1,1);
-insert into users values('SR-VOTGES-PI\nss','НСС','',1,1,1,1,1,1,1,1,1,1,0,0,0,1);
-insert into users values('SR-VOTGES-PI\author1','Автор1','',1,1,1,1,0,0,0,0,0,0,0,0,0,1);
-insert into users values('SR-VOTGES-PI\author2','Автор2','',1,1,1,1,0,0,0,0,0,0,0,0,0,1);
-insert into users values('SR-VOTGES-PI\gi','ГИ','',1,1,1,0,1,0,0,0,0,0,0,0,0,0);
-insert into users values('SR-VOTGES-PI\Administrator','Админ','',1,1,1,1,1,1,1,1,1,1,1,1,1,1);
-insert into users values('','Зыков С.Л.','',1,1,1,1,0,0,0,0,0,0,0,0,0,1);
-insert into users values('','Никонов А.А.','',1,1,1,1,0,0,0,0,0,0,0,0,0,1);
-insert into users values('','Лазарев А.И.','',1,1,1,1,0,0,0,0,0,0,0,0,0,1);
-insert into users values('','Сидоров В.Л.','',1,1,1,1,0,0,0,0,0,0,0,0,0,1);
-insert into users values('','Турборемонт','',1,1,1,0,0,0,0,0,0,0,0,0,0,1);
-insert into users values('','Гидроремонт','',1,1,1,0,0,0,0,0,0,0,0,0,0,1);
+insert into users values('CORP\chekunovamv','Чекунова М.В','chekunovamv@votges.rushydro.ru',1,1,1,1,1,1,1,1,1,1,1,1,1,1,1);
+insert into users values('SR-VOTGES-PI\dgshu','ДГЩУ','',1,1,1,1,1,1,1,1,1,1,1,1,1,1,1);
+insert into users values('SR-VOTGES-PI\nss','НСС','',1,1,1,1,1,1,1,1,1,1,1,0,0,0,1);
+insert into users values('SR-VOTGES-PI\author1','Автор1','',1,1,1,1,1,0,0,0,0,0,0,0,0,0,1);
+insert into users values('SR-VOTGES-PI\author2','Автор2','',1,1,1,1,1,0,0,0,0,0,0,0,0,0,1);
+insert into users values('SR-VOTGES-PI\gi','ГИ','',1,1,1,0,1,1,0,0,0,0,0,0,0,0,0);
+insert into users values('SR-VOTGES-PI\Administrator','Админ','',1,1,1,1,1,1,1,1,1,1,1,1,1,1,1);
+insert into users values('','Зыков С.Л.','',1,1,1,1,0,0,0,0,0,0,0,0,0,0,1);
+insert into users values('','Никонов А.А.','',1,1,1,1,0,0,0,0,0,0,0,0,0,0,1);
+insert into users values('','Лазарев А.И.','',1,1,1,1,0,0,0,0,0,0,0,0,0,0,1);
+insert into users values('','Сидоров В.Л.','',1,1,1,1,0,0,0,0,0,0,0,0,0,0,1);
+insert into users values('','Турборемонт','',1,1,1,0,0,0,0,0,0,0,0,0,0,0,1);
+insert into users values('','Гидроремонт','',1,1,1,0,0,0,0,0,0,0,0,0,0,0,1);
 

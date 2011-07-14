@@ -13,7 +13,7 @@ using System.Xml.Serialization;
 namespace VotGESOrders.Web.Models
 {
 	public enum FilterDateType { create, accept, ban, cancel, planStart, planStop, faktStart, faktStop, faktEnter }
-	public enum FilterUserType { create, accept, ban, cancel, open, close, enter }
+	public enum FilterUserType { create, accept, ban, cancel, open, close, complete }
 	public enum OrderFilterEnum { defaultFilter, active, userFilter }
 	public class OrderFilter : INotifyPropertyChanged
 	{
@@ -46,7 +46,7 @@ namespace VotGESOrders.Web.Models
 			UserFilterTypes.Add(FilterUserType.cancel, "Снял");
 			UserFilterTypes.Add(FilterUserType.create, "Создал");
 			UserFilterTypes.Add(FilterUserType.close, "Разрешил ввод");
-			UserFilterTypes.Add(FilterUserType.enter, "Закрыл");
+			UserFilterTypes.Add(FilterUserType.complete, "Закрыл");
 			UserFilterTypes.Add(FilterUserType.open, "Открыл");
 
 			FilterTypes = new Dictionary<OrderFilterEnum, string>();
@@ -138,6 +138,12 @@ namespace VotGESOrders.Web.Models
 		public bool ShowOrdersCompleted {
 			get { return showOrdersCompleted; }
 			set { showOrdersCompleted = value; NotifyChanged("ShowOrdersCompleted"); }
+		}
+		private bool showOrdersCompletedWithoutEnter;
+		[XmlAttribute]
+		public bool ShowOrdersCompletedWithoutEnter {
+			get { return showOrdersCompletedWithoutEnter; }
+			set { showOrdersCompletedWithoutEnter = value; NotifyChanged("ShowOrdersCompletedWithoutEnter"); }
 		}
 		private bool showOrdersExtended;
 		[XmlAttribute]
@@ -344,10 +350,13 @@ namespace VotGESOrders.Web.Models
 					orderStates.Add(OrderStateEnum.closed.ToString());
 				if (ShowOrdersCompleted)
 					orderStates.Add(OrderStateEnum.completed.ToString());
+				if (ShowOrdersCompletedWithoutEnter)
+					orderStates.Add(OrderStateEnum.completedWithoutEnter.ToString());
 				if (ShowOrdersExtended)
 					orderStates.Add(OrderStateEnum.extended.ToString());
 				if (ShowOrdersAskExtended)
 					orderStates.Add(OrderStateEnum.askExtended.ToString());
+				
 
 				return orderStates;
 			}
@@ -358,13 +367,13 @@ namespace VotGESOrders.Web.Models
 			get {
 				List<String> orderTypes=new List<string>();
 				if (ShowOrdersAV)
-					orderTypes.Add("АВ");
+					orderTypes.Add(OrderTypeEnum.crash.ToString());
 				if (ShowOrdersNO)
-					orderTypes.Add("НО");
+					orderTypes.Add(OrderTypeEnum.no.ToString());
 				if (ShowOrdersNPL)
-					orderTypes.Add("НПЛ");
+					orderTypes.Add(OrderTypeEnum.npl.ToString());
 				if (ShowOrdersPL)
-					orderTypes.Add("ПЛ");
+					orderTypes.Add(OrderTypeEnum.pl.ToString());
 
 				return orderTypes;
 			}

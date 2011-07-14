@@ -86,6 +86,9 @@
 						<toolkit:DataField Name="AllowCreateOrder" Label="">
 							<CheckBox Content="Может создавать заявки" IsChecked="{Binding AllowCreateOrder,Mode=TwoWay}"/>
 						</toolkit:DataField>
+						<toolkit:DataField Name="AllowCreateCrashOrder" Label="">
+							<CheckBox Content="Может создавать аварийные заявки" IsChecked="{Binding AllowCreateCrashOrder,Mode=TwoWay}"/>
+						</toolkit:DataField>
 						<toolkit:DataField Name="AllowOpenOrder" Label="">
 							<CheckBox Content="Может открывать заявки" IsChecked="{Binding AllowOpenOrder,Mode=TwoWay}"/>
 						</toolkit:DataField>

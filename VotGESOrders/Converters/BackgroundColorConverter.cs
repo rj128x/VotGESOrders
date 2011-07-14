@@ -53,6 +53,9 @@ namespace VotGESOrders.Converters
 						case OrderStateEnum.completed:
 							color = Colors.LightGray;
 							break;
+						case OrderStateEnum.completedWithoutEnter:
+							color = Colors.LightGray;
+							break;
 						case OrderStateEnum.extended:
 							color = Colors.LightGray;
 							break;

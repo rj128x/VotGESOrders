@@ -39,6 +39,9 @@ namespace VotGESOrders.Converters
 					case OrderStateEnum.banned:
 						color = Colors.Red;
 						break;
+					case OrderStateEnum.completedWithoutEnter:
+						color = Colors.Red;
+						break;
 					case OrderStateEnum.canceled:
 						color = Colors.Blue;
 						break;

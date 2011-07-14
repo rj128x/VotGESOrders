@@ -25,11 +25,8 @@
 					<toolkit:DataField Name="OrderType" Label="Тип заявки">
 						<StackPanel>
 							<ComboBox Name="cmbOrderTypes" SelectedValue="{Binding OrderType,Mode=TwoWay}" DisplayMemberPath="Value" 
-										 SelectedValuePath="Key"
-									 Visibility="{Binding OrderIsExtend, Converter={StaticResource visibilityNotConverter} }"/>
-							<TextBox Text="{Binding OrderType,Mode=TwoWay}"
-									 Visibility="{Binding OrderIsExtend, Converter={StaticResource visibilityConverter} }"
-									IsEnabled="{Binding OrderIsExtend, Converter={StaticResource logicNotConverter}}"/>
+										 SelectedValuePath="Key" SelectionChanged="cmbOrderTypes_SelectionChanged"/>
+							<TextBox Name="txtOrderType" Text="{Binding OrderTypeName,Mode=TwoWay}" IsEnabled="False"/>
 						</StackPanel>
 					</toolkit:DataField>
 
@@ -37,13 +34,11 @@
 							<TextBox Text="{Binding SelOrderObjectText,Mode=TwoWay}" TextWrapping="Wrap" IsEnabled="False"/>
 					</toolkit:DataField>
 					<toolkit:DataField Name="OrderObjectAddInfo" Label="Дополнительно">
-							<TextBox Text="{Binding OrderObjectAddInfo,Mode=TwoWay}" 
-										IsEnabled="{Binding OrderIsExtend, Converter={StaticResource logicNotConverter}}"/>
+							<TextBox x:Name="txtAddInfo" Text="{Binding OrderObjectAddInfo,Mode=TwoWay}" />
 					</toolkit:DataField>
 					<StackPanel Orientation="Vertical">
 						<toolkit:DataField Name="PlanStartDate" Label="План старт">
-							<usr:DateTimePicker SelectedDateTime="{Binding PlanStartDate, Mode=TwoWay}"
-													  Enabled="{Binding OrderIsExtend, Converter={StaticResource logicNotConverter}}"/>
+							<usr:DateTimePicker x:Name="PlanStartDatePicker" SelectedDateTime="{Binding PlanStartDate, Mode=TwoWay}"/>
 						</toolkit:DataField>
 						<toolkit:DataField Name="PlanStopDate" Label="План стоп">
 							<usr:DateTimePicker SelectedDateTime="{Binding PlanStopDate, Mode=TwoWay}"/>
@@ -54,8 +49,7 @@
 							</sdk:AutoCompleteBox>
 						</toolkit:DataField>
 						<toolkit:DataField Name="OrderText" Label="Текст">
-							<TextBox Text="{Binding OrderText, Mode=TwoWay}" Height="50"  AcceptsReturn="True" TextWrapping="Wrap"
-									IsEnabled="{Binding OrderIsExtend, Converter={StaticResource logicNotConverter}}"/>
+							<TextBox Text="{Binding OrderText, Mode=TwoWay}" Height="50"  AcceptsReturn="True" TextWrapping="Wrap"/>
 						</toolkit:DataField>
 						<toolkit:DataField Name="AgreeText" Label="Согласовано">
 							<TextBox Text="{Binding AgreeText, Mode=TwoWay}" Height="50"  AcceptsReturn="True" TextWrapping="Wrap" IsEnabled="false"/>

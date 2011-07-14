@@ -11,13 +11,11 @@
                     HorizontalAlignment="Left"
                     Name="DatePicker"
                     VerticalAlignment="Top"
-                    Width="120"  SelectedDate="{Binding SelDate,Mode=TwoWay}"
-							 IsEnabled="{Binding Enabled}"/>
+                    Width="120"  SelectedDate="{Binding SelDate,Mode=TwoWay}"/>
 		<toolkit:TimePicker Height="22"
                         HorizontalAlignment="Left"
                         Margin="126,0,0,0"
                         Name="TimePicker"
-                        VerticalAlignment="Top" Value="{Binding SelTime, Mode=TwoWay}"
-								  IsEnabled="{Binding Enabled}"/>
+                        VerticalAlignment="Top" Value="{Binding SelTime, Mode=TwoWay}"/>
 	</Grid>
 </UserControl>

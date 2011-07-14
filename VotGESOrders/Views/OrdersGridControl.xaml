@@ -19,22 +19,16 @@
 							<StackPanel>
 								<ContentControl Content="{Binding OrderNumber, Converter={StaticResource orderNumberConverter}, Mode=OneWay}" 
 													 Template="{StaticResource OrderCellDef}"/>								
-								<StackPanel Orientation="Horizontal" Visibility="{Binding OrderIsExtend, Converter={StaticResource visibilityConverter}}" 
+								<StackPanel Orientation="Horizontal" Visibility="{Binding OrderHasParentOrder, Converter={StaticResource visibilityConverter}}" 
 												HorizontalAlignment="Right">
 									<TextBlock Text="№ст=" Style="{StaticResource Label}"/>
 									<TextBlock Text="{Binding ParentOrderNumber, Converter={StaticResource orderNumberConverter}, Mode=OneWay}" 
 												  Style="{StaticResource Label}"/>
 								</StackPanel>
-								<StackPanel Orientation="Horizontal" Visibility="{Binding OrderExtended, Converter={StaticResource visibilityConverter}}"
+								<StackPanel Orientation="Horizontal" Visibility="{Binding OrderHasChildOrder, Converter={StaticResource visibilityConverter}}"
 												HorizontalAlignment="Right">
 									<TextBlock Text="№нов="  Style="{StaticResource Label}"/>
 									<TextBlock Text="{Binding ChildOrderNumber, Converter={StaticResource orderNumberConverter}, Mode=OneWay}" 
-												   Style="{StaticResource Label}"/>
-								</StackPanel>
-								<StackPanel Orientation="Horizontal" Visibility="{Binding OrderAskExtended, Converter={StaticResource visibilityConverter}}"
-												HorizontalAlignment="Right">
-									<TextBlock Text="№нов="  Style="{StaticResource Label}"/>
-									<TextBlock Text="{Binding ChildOrderNumber, Converter={StaticResource orderNumberConverter}, Mode=OneWay}"
 												   Style="{StaticResource Label}"/>
 								</StackPanel>
 							</StackPanel>
@@ -45,7 +39,7 @@
 				<sdk:DataGridTemplateColumn Header="Тип"  SortMemberPath="OrderType"  Width="50" >
 					<sdk:DataGridTemplateColumn.CellTemplate>
 						<DataTemplate>
-							<ContentControl Content="{Binding OrderType}"  Template="{StaticResource OrderCellDef}"/>
+							<ContentControl Content="{Binding OrderTypeShortName}"  Template="{StaticResource OrderCellDef}"/>
 						</DataTemplate>
 					</sdk:DataGridTemplateColumn.CellTemplate>
 				</sdk:DataGridTemplateColumn>

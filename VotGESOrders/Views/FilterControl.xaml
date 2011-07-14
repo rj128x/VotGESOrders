@@ -39,6 +39,8 @@
 									 IsEnabled="{Binding ShowAllStates, Converter={StaticResource logicNotConverter}}"/>
 						<CheckBox Content="Закрытые" IsChecked="{Binding ShowOrdersCompleted,Mode=TwoWay}"
 									 IsEnabled="{Binding ShowAllStates, Converter={StaticResource logicNotConverter}}"/>
+						<CheckBox Content="Закрытые без ввода" IsChecked="{Binding ShowOrdersCompletedWithoutEnter,Mode=TwoWay}"
+									 IsEnabled="{Binding ShowAllStates, Converter={StaticResource logicNotConverter}}"/>
 						<CheckBox Content="Продленные" IsChecked="{Binding ShowOrdersExtended,Mode=TwoWay}"
 									 IsEnabled="{Binding ShowAllStates, Converter={StaticResource logicNotConverter}}"/>
 						<CheckBox Content="Ожидающие продления" IsChecked="{Binding ShowOrdersAskExtended,Mode=TwoWay}"

@@ -36,6 +36,7 @@ namespace VotGESOrders.Web.Models
 				user.allowCancelOrder = newUser.AllowCancelOrder;
 				user.allowCloseOrder = newUser.AllowCloseOrder;
 				user.allowCreateOrder = newUser.AllowCreateOrder;
+				user.allowCreateCrashOrder = newUser.AllowCreateCrashOrder;
 				user.allowEditOrders = newUser.AllowEditOrders;
 				user.allowEditUsers = newUser.AllowEditUsers;
 				user.allowEditTree = newUser.AllowEditTree;

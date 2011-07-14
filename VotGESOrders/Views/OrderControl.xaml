@@ -31,7 +31,7 @@
 							</Grid.ColumnDefinitions>
 							<StackPanel Orientation="Horizontal" Grid.Column="0" HorizontalAlignment="Left">
 								<TextBlock Text="Заявка " Style="{StaticResource Label}"/>
-								<TextBlock Text="{Binding OrderType}" Style="{StaticResource Value}"/>
+								<TextBlock Text="{Binding OrderTypeShortName}" Style="{StaticResource Value}"/>
 								<TextBlock Text=" № " Style="{StaticResource Label}"/>
 								<TextBlock Text="{Binding OrderNumber}" 
 											 Style="{StaticResource Value}"/>
@@ -85,16 +85,12 @@
 
 					<Border Style="{StaticResource borderFilterControl}" Grid.Column="0" Grid.Row="2">
 						<StackPanel >
-							<StackPanel Orientation="Horizontal" Visibility="{Binding OrderIsExtend, Converter={StaticResource visibilityConverter}}">
-								<TextBlock Style="{StaticResource Label}" Text="ЗАЯВКА НА ПРОДЛЕНИЕ. РОДИТЕЛЬСКАЯ ЗАЯВКА №"/>
+							<StackPanel Orientation="Horizontal" Visibility="{Binding OrderHasParentOrder, Converter={StaticResource visibilityConverter}}">
+								<TextBlock Style="{StaticResource Label}" Text="СТАРАЯ ЗАЯВКА №"/>
 								<TextBlock Style="{StaticResource Value}" Text="{Binding ParentOrderNumber}"/>
 							</StackPanel>
-							<StackPanel Orientation="Horizontal" Visibility="{Binding OrderAskExtended, Converter={StaticResource visibilityConverter}}">
-								<TextBlock Style="{StaticResource Label}" Text="ОЖИДАНИЕ РАЗРЕШЕНИЯ НА ПРОДЛЕНИЕ. ДОЧЕРНЯЯ ЗАЯВКА №"/>
-								<TextBlock Style="{StaticResource Value}" Text="{Binding ChildOrderNumber}"/>
-							</StackPanel>
-							<StackPanel Orientation="Horizontal" Visibility="{Binding OrderExtended, Converter={StaticResource visibilityConverter}}">
-								<TextBlock Style="{StaticResource Label}" Text="ЗАЯВКА ПРОДЛЕНА. ДОЧЕРНЯЯ ЗАЯВКА №"/>
+							<StackPanel Orientation="Horizontal" Visibility="{Binding OrderHasChildOrder, Converter={StaticResource visibilityConverter}}">
+								<TextBlock Style="{StaticResource Label}" Text="НОВАЯ ЗАЯВКА №"/>
 								<TextBlock Style="{StaticResource Value}" Text="{Binding ChildOrderNumber}"/>
 							</StackPanel>
 
@@ -236,6 +232,9 @@
 					  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
 				<Button Name="btnComplete" Click="btnComplete_Click" Content="Закрыть заявку"
 					  Visibility="{Binding AllowCompleteOrder, Converter={StaticResource visibilityConverter}}"
+					  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
+				<Button Name="btnCompleteWithoutEnter" Click="btnCompleteWithoutEnter_Click" Content="Закрыть без ввода оборудования"
+					  Visibility="{Binding AllowCompleteWithoutEnterOrder, Converter={StaticResource visibilityConverter}}"
 					  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
 				<Button Name="btnLongate" Click="btnExtend_Click" Content="Продлить"
 					  Visibility="{Binding AllowExtendOrder, Converter={StaticResource visibilityConverter}}"

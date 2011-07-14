@@ -18,8 +18,7 @@
 				<StackPanel Orientation="Vertical">
 					<StackPanel Name="FaktStartDate">
 						<toolkit:DataField  Label="Факт старт">
-							<usr:DateTimePicker SelectedDateTime="{Binding FaktStartDate, Mode=TwoWay}"
-													  Enabled="{Binding OrderIsExtend, Converter={StaticResource logicNotConverter}}"/>
+							<usr:DateTimePicker x:Name="FaktStartDatePicker" SelectedDateTime="{Binding FaktStartDate, Mode=TwoWay}"/>
 						</toolkit:DataField>
 						<toolkit:DataField Name="OpenText" Label="Текст" LabelVisibility="Collapsed">
 							<TextBox Text="{Binding OpenText, Mode=TwoWay}" Height="50"  AcceptsReturn="true" TextWrapping="Wrap"/>

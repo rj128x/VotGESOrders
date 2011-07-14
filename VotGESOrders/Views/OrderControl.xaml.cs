@@ -47,6 +47,10 @@ namespace VotGESOrders.Views
 
 		private void btnExtend_Click(object sender, RoutedEventArgs e) {
 			OrderOperations.Current.initExtend();
+		}
+
+		private void btnCompleteWithoutEnter_Click(object sender, RoutedEventArgs e) {
+			OrderOperations.Current.initCompleteWithoutEnter();
 		}		
 		
 	}

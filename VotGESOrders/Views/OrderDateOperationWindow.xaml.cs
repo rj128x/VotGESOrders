@@ -84,16 +84,26 @@ namespace VotGESOrders.Views
 					Title = String.Format("Открытие заявки №{0} от {1}", CurrentOrder.OrderNumber, CurrentOrder.OrderDateCreate.ToShortDateString());
 					CurrentOrder.OrderState = OrderStateEnum.opened;	
 					CurrentOrder.OrderOpened = true;		
-					if (!CurrentOrder.OrderIsExtend) {
+					if (!CurrentOrder.OrderIsExtend&&CurrentOrder.OrderType!=OrderTypeEnum.crash) {
 						CurrentOrder.FaktStartDate = DateTime.Now;						
 					} else {
 						CurrentOrder.FaktStartDate = CurrentOrder.PlanStartDate;
 					}
-					CurrentOrder.OpenText = "Оборудование выведено. Можно начинать работу";
+					if (CurrentOrder.OrderIsExtend) {
+						CurrentOrder.OpenText = "Заявка продлена. Оборудование выведено.";
+					} else if (CurrentOrder.OrderType == OrderTypeEnum.crash) {
+						CurrentOrder.OpenText = "Аварийная заявка. Оборудование выведено.";
+					} else {
+						CurrentOrder.OpenText = "Оборудование выведено. Можно начинать работу";
+					}
 	
 					FaktStopDate.Visibility = System.Windows.Visibility.Collapsed;
 					FaktStartDate.Visibility = System.Windows.Visibility.Visible;
 					FaktCompleteDate.Visibility = System.Windows.Visibility.Collapsed;
+
+
+					bool canChange=(CurrentOrder.OrderType == OrderTypeEnum.crash || CurrentOrder.OrderIsExtend);
+					FaktStartDatePicker.Enabled = !canChange;
 
 					break;
 			}

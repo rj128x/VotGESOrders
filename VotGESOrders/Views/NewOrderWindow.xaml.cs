@@ -24,15 +24,15 @@ namespace VotGESOrders.Views
 		public bool IsNewOrder { get; set; }
 		public Order CurrentOrder { get; set; }
 		public Order ParentOrder { get; set; }
-		protected Dictionary<String, String> OrderTypes=new Dictionary<String, String>();
 
 		public NewOrderWindow() {
 			InitializeComponent();
-			OrderTypes.Add("ПЛ","Плановая");
-			OrderTypes.Add("НПЛ", "Неплановая");
-			OrderTypes.Add("НО", "Неотложная");
-			OrderTypes.Add("АВ", "Аварийная");
-			cmbOrderTypes.ItemsSource = OrderTypes;
+			if (!WebContext.Current.User.AllowCreateCrashOrder) {
+				OrderInfo.OrderTypes.Remove(OrderTypeEnum.crash);
+			}
+
+			cmbOrderTypes.ItemsSource = OrderInfo.OrderTypes;			
+
 			treeObjects.ItemsSource = from OrderObject o in OrdersContext.Current.Context.OrderObjects where o.ObjectID == 0 select o;
 			lstUsers.ItemsSource = from OrdersUser u in OrdersContext.Current.Context.OrdersUsers where u.AllowAgreeOrders select u;
 			cmbReadyTime.ItemsSource = new List<String> { "5 минут", "15 минут", "30 минут", "45 минут", "1 час", "2 часа", "4 часа", "6 часов", "8 часов", "Время заявки" };
@@ -64,16 +64,20 @@ namespace VotGESOrders.Views
 			orderForm.CurrentItem = CurrentOrder;
 			orderForm.BeginEdit();
 
-			if (IsNewOrder && !CurrentOrder.OrderIsExtend) {
+			if (IsNewOrder && !CurrentOrder.OrderIsExtend&&!CurrentOrder.OrderIsFixErrorEnter) {
 				CurrentOrder.PlanStartDate = DateTime.Now.Date.AddDays(1).AddHours(8);
 				CurrentOrder.PlanStopDate = DateTime.Now.Date.AddDays(1).AddHours(17);
 				CurrentOrder.AgreeUsersDict = new Dictionary<int, string>();
 
 			}
-			if (CurrentOrder.OrderIsExtend) {
+			if (CurrentOrder.OrderIsExtend||CurrentOrder.OrderIsFixErrorEnter) {
 				treeObjects.Visibility = System.Windows.Visibility.Collapsed;
+				cmbOrderTypes.Visibility = System.Windows.Visibility.Collapsed;
+				txtOrderType.Visibility = System.Windows.Visibility.Visible;
 			} else {
 				treeObjects.Visibility = System.Windows.Visibility.Visible;
+				cmbOrderTypes.Visibility = System.Windows.Visibility.Visible;
+				txtOrderType.Visibility = System.Windows.Visibility.Collapsed;
 			}
 
 			if (CurrentOrder.SelOrderObject != null) {
@@ -87,10 +91,9 @@ namespace VotGESOrders.Views
 
 			Title = IsNewOrder ? "Создание заявки" : String.Format("Заявка №{0} от {1}", CurrentOrder.OrderNumber, CurrentOrder.OrderDateCreate.ToShortDateString());
 
-			cmbOrderTypes.IsEnabled = !CurrentOrder.OrderIsExtend;
-
-			
-
+			PlanStartDatePicker.Enabled = !CurrentOrder.OrderIsExtend && !CurrentOrder.OrderIsFixErrorEnter;
+			OrderObjectAddInfo.IsEnabled = !CurrentOrder.OrderIsExtend && !CurrentOrder.OrderIsFixErrorEnter;
+			OrderText.IsEnabled = !CurrentOrder.OrderIsExtend && !CurrentOrder.OrderIsFixErrorEnter;
 		}
 		
 
@@ -117,6 +120,16 @@ namespace VotGESOrders.Views
 				}
 				CurrentOrder.AgreeText = string.Join("; ", from string name in CurrentOrder.AgreeUsersDict.Values select name);
 				CurrentOrder.AgreeUsersIDSText = string.Join(";", from int key in CurrentOrder.AgreeUsersDict.Keys select key.ToString());
+			}
+		}
+
+		private void cmbOrderTypes_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+			if (CurrentOrder.OrderType==OrderTypeEnum.crash && !CurrentOrder.OrderIsExtend&&!CurrentOrder.OrderIsFixErrorEnter) {
+				PlanStartDate.Label = "Факт вывод";
+				CurrentOrder.ReadyTime = "Время заявки";
+				CurrentOrder.PlanStartDate = DateTime.Now;
+			} else {
+				PlanStartDate.Label = "План старт";
 			}
 		}
 

@@ -62,7 +62,7 @@ namespace VotGESOrders
 						OrdersContext.Current.Context.RegisterCompleteOrder(currentOrder, OrdersContext.Current.SessionGUID);
 						break;
 				}
-				if ((currentOrder.OrderIsExtend) && (currentOrder.ParentOrder != null)) {
+				if ((currentOrder.OrderIsExtend||currentOrder.OrderIsFixErrorEnter) && (currentOrder.ParentOrder != null)) {
 					OrdersContext.Current.Context.ReloadOrder(currentOrder.ParentOrder, OrdersContext.Current.SessionGUID);
 				}
 				OrdersContext.Current.SubmitChangesCallbackError();
@@ -85,7 +85,7 @@ namespace VotGESOrders
 						OrdersContext.Current.Context.RegisterCancelOrder(currentOrder, OrdersContext.Current.SessionGUID);
 						break;
 				}
-				if ((currentOrder.OrderIsExtend)&&(currentOrder.ParentOrder!=null)) {
+				if ((currentOrder.OrderIsExtend || currentOrder.OrderIsFixErrorEnter) && (currentOrder.ParentOrder != null)) {
 					OrdersContext.Current.Context.ReloadOrder(currentOrder.ParentOrder, OrdersContext.Current.SessionGUID);
 				}
 				OrdersContext.Current.SubmitChangesCallbackError();
@@ -99,6 +99,9 @@ namespace VotGESOrders
 					if (currentOrder.OrderIsExtend) {
 						parentOrder.ChildOrderNumber = currentOrder.OrderNumber;
 						parentOrder.OrderAskExtended = true;
+						OrdersContext.Current.Context.ReloadOrder(parentOrder, OrdersContext.Current.SessionGUID);
+					} else if (currentOrder.OrderIsFixErrorEnter) {
+						parentOrder.ChildOrderNumber = currentOrder.OrderNumber;
 						OrdersContext.Current.Context.ReloadOrder(parentOrder, OrdersContext.Current.SessionGUID);
 					}
 
@@ -117,7 +120,8 @@ namespace VotGESOrders
 			newOrder.UserCreateOrderID = WebContext.Current.User.UserID;
 			newOrder.OrderDateCreate = DateTime.Now;
 			newOrder.OrderIsExtend = false;
-			newOrder.OrderType = "ПЛ";			
+			newOrder.OrderIsFixErrorEnter = false;
+			newOrder.OrderType = OrderTypeEnum.pl;			
 			newOrderWindow.CurrentOrder = newOrder;
 			newOrderWindow.IsNewOrder = true;
 			newOrderWindow.Show();
@@ -126,6 +130,9 @@ namespace VotGESOrders
 		public void initChange() {
 			GlobalStatus.Current.IsChangingOrder = true;
 			newOrderWindow.CurrentOrder = CurrentOrder;
+			if (CurrentOrder.ParentOrder != null) {
+				newOrderWindow.ParentOrder = CurrentOrder.ParentOrder;
+			}
 			newOrderWindow.IsNewOrder = false;
 			newOrderWindow.Show();
 		}
@@ -171,6 +178,8 @@ namespace VotGESOrders
 			Order newOrder=new Order();
 			newOrder.OrderNumber = OrderNumber--;
 			newOrder.OrderType = CurrentOrder.OrderType;
+			newOrder.OrderTypeName = CurrentOrder.OrderTypeName;
+			newOrder.OrderTypeShortName = CurrentOrder.OrderTypeShortName;
 			newOrder.ParentOrderNumber = CurrentOrder.OrderNumber;
 			newOrder.UserCreateOrderID = WebContext.Current.User.UserID;
 			newOrder.OrderIsExtend = true;
@@ -189,6 +198,42 @@ namespace VotGESOrders
 			}
 			newOrder.ReadyTime = CurrentOrder.ReadyTime;
 			newOrder.CreateText = "Работы не завершены";
+			newOrder.OrderDateCreate = DateTime.Now;
+
+
+			newOrderWindow.CurrentOrder = newOrder;
+			newOrderWindow.ParentOrder = CurrentOrder;
+			newOrderWindow.IsNewOrder = true;
+			newOrderWindow.Show();
+		}
+
+		public void initCompleteWithoutEnter() {
+			GlobalStatus.Current.IsChangingOrder = true;
+			Order newOrder=new Order();
+			newOrder.OrderNumber = OrderNumber--;
+			newOrder.OrderType = OrderTypeEnum.crash;
+			newOrder.OrderTypeName = OrderInfo.OrderTypes[OrderTypeEnum.crash];
+			newOrder.OrderTypeShortName = OrderInfo.OrderTypesShort[OrderTypeEnum.crash];
+			newOrder.ParentOrderNumber = CurrentOrder.OrderNumber;
+			newOrder.UserCreateOrderID = WebContext.Current.User.UserID;
+			newOrder.OrderIsExtend = false;
+			newOrder.OrderIsFixErrorEnter = true;
+			newOrder.SelOrderObject = CurrentOrder.SelOrderObject;
+			newOrder.SelOrderObjectText = CurrentOrder.SelOrderObjectText;
+			newOrder.SelOrderObjectID = CurrentOrder.SelOrderObjectID;
+			newOrder.OrderObjectAddInfo = CurrentOrder.OrderObjectAddInfo;
+			newOrder.PlanStartDate = CurrentOrder.PlanStopDate;
+			newOrder.PlanStopDate = CurrentOrder.PlanStopDate.AddDays(1);
+			newOrder.OrderText = CurrentOrder.OrderText;
+			newOrder.AgreeText = CurrentOrder.AgreeText;
+			newOrder.AgreeUsersIDSText = CurrentOrder.AgreeUsersIDSText;
+			newOrder.AgreeUsersDict = new Dictionary<int, string>();
+			foreach (KeyValuePair<int,string> de in CurrentOrder.AgreeUsersDict) {
+				newOrder.AgreeUsersDict.Add(de.Key, de.Value);
+			}
+			
+			newOrder.ReadyTime = "Время заявки";
+			newOrder.CreateText = "Ошибка при вводе оборудования";
 			newOrder.OrderDateCreate = DateTime.Now;
 
 

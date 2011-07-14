@@ -86,6 +86,7 @@ namespace VotGESOrders.Web.Services
 			context.CompleteOrder(order, guid);
 		}
 
+
 		public void ReloadOrder(Order order, Guid guid) {
 			Logger.info("Сервис: обновление заявки" + order.OrderNumber.ToString());
 			context.ReloadOrder(order);

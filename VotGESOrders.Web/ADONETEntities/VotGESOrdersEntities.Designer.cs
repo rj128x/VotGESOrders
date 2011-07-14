@@ -325,11 +325,13 @@ namespace VotGESOrders.Web.ADONETEntities
         /// <param name="orderClosed">Исходное значение свойства orderClosed.</param>
         /// <param name="orderCanceled">Исходное значение свойства orderCanceled.</param>
         /// <param name="orderCompleted">Исходное значение свойства orderCompleted.</param>
+        /// <param name="orderCompletedWithoutEnter">Исходное значение свойства orderCompletedWithoutEnter.</param>
         /// <param name="orderExtended">Исходное значение свойства orderExtended.</param>
         /// <param name="orderAskExtended">Исходное значение свойства orderAskExtended.</param>
         /// <param name="orderIsExtend">Исходное значение свойства orderIsExtend.</param>
+        /// <param name="orderIsFixErrorEnter">Исходное значение свойства orderIsFixErrorEnter.</param>
         /// <param name="orderState">Исходное значение свойства orderState.</param>
-        public static Orders CreateOrders(global::System.Int32 orderNumber, global::System.Int32 userCreateOrderID, global::System.DateTime orderDateCreate, global::System.DateTime orderLastUpdate, global::System.DateTime planStartDate, global::System.DateTime planStopDate, global::System.String orderText, global::System.String orderType, global::System.String agreeText, global::System.String agreeUsersIDS, global::System.String readyTime, global::System.Int32 orderObjectID, global::System.String orderObjectAddInfo, global::System.Boolean orderCreated, global::System.Boolean orderAccepted, global::System.Boolean orderBanned, global::System.Boolean orderOpened, global::System.Boolean orderClosed, global::System.Boolean orderCanceled, global::System.Boolean orderCompleted, global::System.Boolean orderExtended, global::System.Boolean orderAskExtended, global::System.Boolean orderIsExtend, global::System.String orderState)
+        public static Orders CreateOrders(global::System.Int32 orderNumber, global::System.Int32 userCreateOrderID, global::System.DateTime orderDateCreate, global::System.DateTime orderLastUpdate, global::System.DateTime planStartDate, global::System.DateTime planStopDate, global::System.String orderText, global::System.String orderType, global::System.String agreeText, global::System.String agreeUsersIDS, global::System.String readyTime, global::System.Int32 orderObjectID, global::System.String orderObjectAddInfo, global::System.Boolean orderCreated, global::System.Boolean orderAccepted, global::System.Boolean orderBanned, global::System.Boolean orderOpened, global::System.Boolean orderClosed, global::System.Boolean orderCanceled, global::System.Boolean orderCompleted, global::System.Boolean orderCompletedWithoutEnter, global::System.Boolean orderExtended, global::System.Boolean orderAskExtended, global::System.Boolean orderIsExtend, global::System.Boolean orderIsFixErrorEnter, global::System.String orderState)
         {
             Orders orders = new Orders();
             orders.orderNumber = orderNumber;
@@ -352,9 +354,11 @@ namespace VotGESOrders.Web.ADONETEntities
             orders.orderClosed = orderClosed;
             orders.orderCanceled = orderCanceled;
             orders.orderCompleted = orderCompleted;
+            orders.orderCompletedWithoutEnter = orderCompletedWithoutEnter;
             orders.orderExtended = orderExtended;
             orders.orderAskExtended = orderAskExtended;
             orders.orderIsExtend = orderIsExtend;
+            orders.orderIsFixErrorEnter = orderIsFixErrorEnter;
             orders.orderState = orderState;
             return orders;
         }
@@ -1426,6 +1430,30 @@ namespace VotGESOrders.Web.ADONETEntities
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
+        public global::System.Boolean orderCompletedWithoutEnter
+        {
+            get
+            {
+                return _orderCompletedWithoutEnter;
+            }
+            set
+            {
+                OnorderCompletedWithoutEnterChanging(value);
+                ReportPropertyChanging("orderCompletedWithoutEnter");
+                _orderCompletedWithoutEnter = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("orderCompletedWithoutEnter");
+                OnorderCompletedWithoutEnterChanged();
+            }
+        }
+        private global::System.Boolean _orderCompletedWithoutEnter;
+        partial void OnorderCompletedWithoutEnterChanging(global::System.Boolean value);
+        partial void OnorderCompletedWithoutEnterChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
         public global::System.Boolean orderExtended
         {
             get
@@ -1492,6 +1520,30 @@ namespace VotGESOrders.Web.ADONETEntities
         private global::System.Boolean _orderIsExtend;
         partial void OnorderIsExtendChanging(global::System.Boolean value);
         partial void OnorderIsExtendChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean orderIsFixErrorEnter
+        {
+            get
+            {
+                return _orderIsFixErrorEnter;
+            }
+            set
+            {
+                OnorderIsFixErrorEnterChanging(value);
+                ReportPropertyChanging("orderIsFixErrorEnter");
+                _orderIsFixErrorEnter = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("orderIsFixErrorEnter");
+                OnorderIsFixErrorEnterChanged();
+            }
+        }
+        private global::System.Boolean _orderIsFixErrorEnter;
+        partial void OnorderIsFixErrorEnterChanging(global::System.Boolean value);
+        partial void OnorderIsFixErrorEnterChanged();
     
         /// <summary>
         /// Нет доступной документации по метаданным.
@@ -1849,6 +1901,7 @@ namespace VotGESOrders.Web.ADONETEntities
         /// <param name="sendAgreeMail">Исходное значение свойства sendAgreeMail.</param>
         /// <param name="sendCreateMail">Исходное значение свойства sendCreateMail.</param>
         /// <param name="allowCreateOrder">Исходное значение свойства allowCreateOrder.</param>
+        /// <param name="allowCreateCrashOrder">Исходное значение свойства allowCreateCrashOrder.</param>
         /// <param name="allowAcceptOrder">Исходное значение свойства allowAcceptOrder.</param>
         /// <param name="allowOpenOrder">Исходное значение свойства allowOpenOrder.</param>
         /// <param name="allowCancelOrder">Исходное значение свойства allowCancelOrder.</param>
@@ -1859,7 +1912,7 @@ namespace VotGESOrders.Web.ADONETEntities
         /// <param name="allowEditUsers">Исходное значение свойства allowEditUsers.</param>
         /// <param name="allowEditOrders">Исходное значение свойства allowEditOrders.</param>
         /// <param name="allowAgreeOrders">Исходное значение свойства allowAgreeOrders.</param>
-        public static Users CreateUsers(global::System.Int32 userID, global::System.String name, global::System.String fullName, global::System.String mail, global::System.Boolean sendAllMail, global::System.Boolean sendAgreeMail, global::System.Boolean sendCreateMail, global::System.Boolean allowCreateOrder, global::System.Boolean allowAcceptOrder, global::System.Boolean allowOpenOrder, global::System.Boolean allowCancelOrder, global::System.Boolean allowCloseOrder, global::System.Boolean allowCompleteOrder, global::System.Boolean allowExtendOrder, global::System.Boolean allowEditTree, global::System.Boolean allowEditUsers, global::System.Boolean allowEditOrders, global::System.Boolean allowAgreeOrders)
+        public static Users CreateUsers(global::System.Int32 userID, global::System.String name, global::System.String fullName, global::System.String mail, global::System.Boolean sendAllMail, global::System.Boolean sendAgreeMail, global::System.Boolean sendCreateMail, global::System.Boolean allowCreateOrder, global::System.Boolean allowCreateCrashOrder, global::System.Boolean allowAcceptOrder, global::System.Boolean allowOpenOrder, global::System.Boolean allowCancelOrder, global::System.Boolean allowCloseOrder, global::System.Boolean allowCompleteOrder, global::System.Boolean allowExtendOrder, global::System.Boolean allowEditTree, global::System.Boolean allowEditUsers, global::System.Boolean allowEditOrders, global::System.Boolean allowAgreeOrders)
         {
             Users users = new Users();
             users.userID = userID;
@@ -1870,6 +1923,7 @@ namespace VotGESOrders.Web.ADONETEntities
             users.sendAgreeMail = sendAgreeMail;
             users.sendCreateMail = sendCreateMail;
             users.allowCreateOrder = allowCreateOrder;
+            users.allowCreateCrashOrder = allowCreateCrashOrder;
             users.allowAcceptOrder = allowAcceptOrder;
             users.allowOpenOrder = allowOpenOrder;
             users.allowCancelOrder = allowCancelOrder;
@@ -2080,6 +2134,30 @@ namespace VotGESOrders.Web.ADONETEntities
         private global::System.Boolean _allowCreateOrder;
         partial void OnallowCreateOrderChanging(global::System.Boolean value);
         partial void OnallowCreateOrderChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean allowCreateCrashOrder
+        {
+            get
+            {
+                return _allowCreateCrashOrder;
+            }
+            set
+            {
+                OnallowCreateCrashOrderChanging(value);
+                ReportPropertyChanging("allowCreateCrashOrder");
+                _allowCreateCrashOrder = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("allowCreateCrashOrder");
+                OnallowCreateCrashOrderChanged();
+            }
+        }
+        private global::System.Boolean _allowCreateCrashOrder;
+        partial void OnallowCreateCrashOrderChanging(global::System.Boolean value);
+        partial void OnallowCreateCrashOrderChanged();
     
         /// <summary>
         /// Нет доступной документации по метаданным.

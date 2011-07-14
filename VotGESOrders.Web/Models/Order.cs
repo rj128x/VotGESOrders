@@ -14,8 +14,9 @@ using System.ComponentModel;
 
 namespace VotGESOrders.Web.Models
 {
-
-	public enum OrderStateEnum { created, accepted, banned, opened, canceled, closed, completed, extended, askExtended }
+	public enum OrderStateEnum { created, accepted, banned, opened, canceled, closed, completed, completedWithoutEnter, extended, askExtended }
+	public enum OrderTypeEnum { pl, npl, no, crash }
+	
 
 	/*[CustomValidation(typeof(OrderValidator), "Validate")]*/
 	public class Order : INotifyPropertyChanged
@@ -25,6 +26,9 @@ namespace VotGESOrders.Web.Models
 			if (PropertyChanged != null)
 				PropertyChanged(this, new PropertyChangedEventArgs(propName));
 		}
+		
+
+
 
 		public int ParentOrderNumber { get; set; }
 		private Order parentOrder;
@@ -51,7 +55,7 @@ namespace VotGESOrders.Web.Models
 			}
 			set {
 				childOrder = value;
-				ChildOrderNumber = value.OrderNumber;
+				ChildOrderNumber = value.OrderNumber;				
 			}
 		}
 
@@ -64,10 +68,26 @@ namespace VotGESOrders.Web.Models
 		}
 
 
-		private string orderType;
-		public string OrderType {
+		private OrderTypeEnum orderType;
+		public OrderTypeEnum OrderType {
 			get { return orderType; }
-			set { orderType = value; }
+			set { 
+				orderType = value;
+				OrderTypeShortName = OrderInfo.OrderTypesShort[orderType];
+				OrderTypeName = OrderInfo.OrderTypes[orderType];
+			}
+		}
+
+		private string orderTypeShortName;
+		public string OrderTypeShortName {
+			get { return orderTypeShortName; }
+			set { orderTypeShortName = value; }
+		}
+
+		private string orderTypeName;
+		public string OrderTypeName {
+			get { return orderTypeName; }
+			set { orderTypeName = value; }
 		}
 
 
@@ -472,6 +492,12 @@ namespace VotGESOrders.Web.Models
 			set { orderCompleted = value; }
 		}
 
+		private bool orderCompletedWithoutEnter;
+		public bool OrderCompletedWithoutEnter {
+			get { return orderCompletedWithoutEnter; }
+			set { orderCompletedWithoutEnter = value; }
+		}
+
 		private bool orderExtended;
 		public bool OrderExtended {
 			get { return orderExtended; }
@@ -490,6 +516,25 @@ namespace VotGESOrders.Web.Models
 			set { orderIsExtend = value; }
 		}
 
+		private bool orderIsFixErrorEnter;
+		public bool OrderIsFixErrorEnter {
+			get { return orderIsFixErrorEnter; }
+			set { orderIsFixErrorEnter = value; }
+		}
+
+		private bool orderHasChildOrder;
+		public bool OrderHasChildOrder {
+			get { return orderHasChildOrder; }
+			set { orderHasChildOrder = value; }
+		}
+
+
+		private bool orderHasParentOrder;
+		public bool OrderHasParentOrder {
+			get { return orderHasParentOrder; }
+			set { orderHasParentOrder = value; }
+		}
+
 		private bool orderHasComments;
 
 		public bool OrderHasComments {
@@ -501,7 +546,10 @@ namespace VotGESOrders.Web.Models
 		private OrderStateEnum orderState;
 		public OrderStateEnum OrderState {
 			get { return orderState; }
-			set { orderState = value; }
+			set { 
+				orderState = value;
+				orderStateStr = OrderInfo.OrderStates[orderState];
+			}
 		}
 
 		private string orderStateStr;
@@ -581,7 +629,7 @@ namespace VotGESOrders.Web.Models
 			SelOrderObject = OrderObject.getByID(dbOrder.orderObjectID);
 
 			OrderNumber = dbOrder.orderNumber;
-			OrderType = dbOrder.orderType;
+			OrderType = (OrderTypeEnum)Enum.Parse(typeof(OrderTypeEnum), dbOrder.orderType, true);
 			ReadyTime = dbOrder.readyTime;
 
 			CreateText = dbOrder.createText;
@@ -637,7 +685,7 @@ namespace VotGESOrders.Web.Models
 				UserCompleteOrder = OrdersUser.loadFromCache(dbOrder.userCompleteOrderID.Value);
 			}
 
-			if ((OrderExtended) || (OrderAskExtended)) {
+			if (OrderExtended || OrderAskExtended ||OrderCompletedWithoutEnter) {
 				if (readChild) {
 					ChildOrder = new Order(dbOrder.childOrderNumber.Value, currentUser, false, true);
 				} else {
@@ -647,7 +695,7 @@ namespace VotGESOrders.Web.Models
 				ChildOrderNumber = 0;
 			}
 
-			if (OrderIsExtend) {
+			if (OrderIsExtend||OrderIsFixErrorEnter) {
 				if (readParent) {
 					ParentOrder = new Order(dbOrder.parentOrderNumber.Value, currentUser, true, false);
 				} else {
@@ -656,6 +704,9 @@ namespace VotGESOrders.Web.Models
 			} else {
 				ParentOrderNumber = 0;
 			}
+			OrderHasChildOrder = ChildOrderNumber > 0;
+			OrderHasParentOrder = ParentOrderNumber > 0;
+			
 			checkExpired();
 
 		}
@@ -667,13 +718,14 @@ namespace VotGESOrders.Web.Models
 			OrderClosed = dbOrder.orderClosed;
 			OrderCanceled = dbOrder.orderCanceled;
 			OrderCompleted = dbOrder.orderCompleted;
+			OrderCompletedWithoutEnter = dbOrder.orderCompletedWithoutEnter;
 			OrderBanned = dbOrder.orderBanned;
 			OrderExtended = dbOrder.orderExtended;
 			OrderAskExtended = dbOrder.orderAskExtended;
 			OrderIsExtend = dbOrder.orderIsExtend;
+			OrderIsFixErrorEnter = dbOrder.orderIsFixErrorEnter;
 
 			OrderState = (OrderStateEnum)Enum.Parse(typeof(OrderStateEnum), dbOrder.orderState, true);
-			OrderStateStr = getOrderStateStr();
 
 			int creator=dbOrder.userCreateOrderID;			
 			AllowAcceptOrder = currentUser.AllowAcceptOrder && OrderState == OrderStateEnum.created;
@@ -681,6 +733,7 @@ namespace VotGESOrders.Web.Models
 			AllowOpenOrder = currentUser.AllowOpenOrder && OrderState == OrderStateEnum.accepted;
 			AllowCloseOrder = (currentUser.UserID == creator && OrderState == OrderStateEnum.opened) ||
 				currentUser.AllowCloseOrder && OrderState == OrderStateEnum.opened;
+			AllowCompleteWithoutEnterOrder = currentUser.AllowCompleteOrder && currentUser.AllowCreateCrashOrder && OrderState == OrderStateEnum.closed;
 			AllowCompleteOrder = currentUser.AllowCompleteOrder && OrderState == OrderStateEnum.closed;
 			AllowChangeOrder = currentUser.UserID == creator && OrderState == OrderStateEnum.created;
 			AllowExtendOrder = (currentUser.AllowExtendOrder || currentUser.UserID == creator) && OrderState == OrderStateEnum.opened;
@@ -739,45 +792,12 @@ namespace VotGESOrders.Web.Models
 
 
 
-		private string getOrderStateStr() {
-			string state="";
-			switch (OrderState) {
-				case OrderStateEnum.accepted:
-					state = "Разрешена";
-					break;
-				case OrderStateEnum.banned:
-					state = "Отклонена";
-					break;
-				case OrderStateEnum.closed:
-					state = "Работы завершены";
-					break;
-				case OrderStateEnum.created:
-					state = "Создана";
-					break;
-				case OrderStateEnum.completed:
-					state = "Закрыта";
-					break;
-				case OrderStateEnum.extended:
-					state = "Продлена";
-					break;
-				case OrderStateEnum.askExtended:
-					state = "Заявка на продление";
-					break;
-				case OrderStateEnum.opened:
-					state = "Открыта";
-					break;
-				case OrderStateEnum.canceled:
-					state = "Снята";
-					break;
-			}
-			return state;
-		}
-
 		public bool AllowCloseOrder { get; protected set; }
 		public bool AllowOpenOrder { get; protected set; }
 		public bool AllowChangeOrder { get; protected set; }
 		public bool AllowAcceptOrder { get; protected set; }
 		public bool AllowCompleteOrder { get; protected set; }
+		public bool AllowCompleteWithoutEnterOrder { get; protected set; }
 		public bool AllowBanOrder { get; protected set; }
 		public bool AllowExtendOrder { get; protected set; }
 		public bool AllowCancelOrder { get; protected set; }

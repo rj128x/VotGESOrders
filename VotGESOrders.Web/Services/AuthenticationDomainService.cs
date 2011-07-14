@@ -38,6 +38,7 @@ namespace VotGESOrders.Web.Services
 			ordersUser = OrdersUser.loadFromCache(userName);
 			FullName = ordersUser.FullName;
 			AllowCreateOrder = ordersUser.AllowCreateOrder;
+			AllowCreateCrashOrder = ordersUser.AllowCreateCrashOrder;
 			AllowEditTree = ordersUser.AllowEditTree;
 			AllowEditOrders = ordersUser.AllowEditOrders;
 			AllowEditUsers = ordersUser.AllowEditUsers;
@@ -49,6 +50,8 @@ namespace VotGESOrders.Web.Services
 
 		[ProfileUsage(IsExcluded = true)]
 		public bool AllowCreateOrder { get; set; }
+		[ProfileUsage(IsExcluded = true)]
+		public bool AllowCreateCrashOrder { get; set; }
 		[ProfileUsage(IsExcluded = true)]
 		public bool AllowEditTree { get; set; }
 		[ProfileUsage(IsExcluded = true)]

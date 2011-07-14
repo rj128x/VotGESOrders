@@ -47,7 +47,7 @@
 						<StackPanel   HorizontalAlignment="Stretch" Grid.Row="0">
 
 							<StackPanel Orientation="Horizontal">
-								<TextBlock Text="{Binding OrderType}" Style="{StaticResource ValuePrint}"/>
+								<TextBlock Text="{Binding OrderTypeShortName}" Style="{StaticResource ValuePrint}"/>
 								<TextBlock Text=" № " Style="{StaticResource LabelPrint}"/>																
 								<TextBlock Text="{Binding OrderNumber}" 
 												 Style="{StaticResource ValuePrint}"/>
@@ -57,18 +57,14 @@
 							</StackPanel>
 
 							<StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-								<StackPanel Orientation="Horizontal" Visibility="{Binding OrderIsExtend, Converter={StaticResource visibilityConverter}}" HorizontalAlignment="Right">
+								<StackPanel Orientation="Horizontal" Visibility="{Binding OrderHasParentOrder, Converter={StaticResource visibilityConverter}}" HorizontalAlignment="Right">
 									<TextBlock Style="{StaticResource LabelPrint}" Text="№ст="/>
 									<TextBlock Style="{StaticResource LabelPrint}" Text="{Binding ParentOrderNumber}"/>
 								</StackPanel>
-								<StackPanel Orientation="Horizontal" Visibility="{Binding OrderAskExtended, Converter={StaticResource visibilityConverter}}" HorizontalAlignment="Right">
+								<StackPanel Orientation="Horizontal" Visibility="{Binding OrderHasChildOrder, Converter={StaticResource visibilityConverter}}" HorizontalAlignment="Right">
 									<TextBlock Style="{StaticResource LabelPrint}" Text=" №нов="/>
 									<TextBlock Style="{StaticResource LabelPrint}" Text="{Binding ChildOrderNumber}"/>
-								</StackPanel>
-								<StackPanel Orientation="Horizontal" Visibility="{Binding OrderExtended, Converter={StaticResource visibilityConverter}}" HorizontalAlignment="Right">
-									<TextBlock Style="{StaticResource LabelPrint}" Text=" №нов="/>
-									<TextBlock Style="{StaticResource LabelPrint}" Text="{Binding ChildOrderNumber}"/>
-								</StackPanel>
+								</StackPanel>								
 							</StackPanel>
 							<Grid>
 								<Grid.ColumnDefinitions>

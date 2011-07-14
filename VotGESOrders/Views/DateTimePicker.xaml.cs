@@ -36,6 +36,8 @@ namespace VotGESOrders.Views
 			get { return enabled; }
 			set {
 				enabled = value;
+				TimePicker.IsEnabled = value;
+				DatePicker.IsEnabled = value;
 				NotifyChanged("Enabled");
 			}
 		}

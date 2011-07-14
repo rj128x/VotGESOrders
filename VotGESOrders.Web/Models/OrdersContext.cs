@@ -142,7 +142,7 @@ namespace VotGESOrders.Web.Models
 						(filter.FilterUser == FilterUserType.cancel && users.Contains(o.userCancelOrderID.Value)) ||
 						(filter.FilterUser == FilterUserType.open && users.Contains(o.userOpenOrderID.Value)) ||
 						(filter.FilterUser == FilterUserType.close && users.Contains(o.userCloseOrderID.Value)) ||
-						(filter.FilterUser == FilterUserType.enter && users.Contains(o.userCompleteOrderID.Value)))
+						(filter.FilterUser == FilterUserType.complete && users.Contains(o.userCompleteOrderID.Value)))
 					&& (filter.ShowAllObjectIDs || ids.Contains(o.orderObjectID))
 					&& (filter.ShowAllTypes || orderTypes.Contains(o.orderType))
 					&& (filter.ShowAllObjects || objectsByName.Contains(o.orderObjectID) || o.orderObjectAddInfo.Contains(filter.OrderObject))
@@ -184,7 +184,7 @@ namespace VotGESOrders.Web.Models
 			orderDB.createText = order.CreateText;
 			orderDB.planStartDate = order.PlanStartDate;
 			orderDB.planStopDate = order.PlanStopDate;
-			orderDB.orderType = order.OrderType;
+			orderDB.orderType = order.OrderType.ToString();
 			orderDB.orderObjectID = order.SelOrderObjectID;
 			orderDB.orderObjectAddInfo = order.OrderObjectAddInfo;
 			orderDB.readyTime = order.ReadyTime;
@@ -206,10 +206,25 @@ namespace VotGESOrders.Web.Models
 
 				writeOrderToOrderDB(order, orderDB);
 
+				if (order.OrderType == OrderTypeEnum.crash && !order.OrderIsExtend) {
+					Logger.info("Аварийная заявка");
+					orderDB.orderAccepted = true;
+					orderDB.orderOpened = true;
+					orderDB.orderDateAccept = DateTime.Now;
+					orderDB.orderDateOpen = DateTime.Now;
+					orderDB.userAcceptOrderID = currentUser.UserID;
+					orderDB.userOpenOrderID = currentUser.UserID;
+					orderDB.acceptText = "Аварийная заявка";
+					orderDB.openText = "Аварийная заявка";
+					orderDB.faktStartDate = order.PlanStartDate;
+					orderDB.orderState = OrderStateEnum.opened.ToString();
+				}
+
 				context.Orders.AddObject(orderDB);
 				context.SaveChanges();
 
 				Logger.info("Сохранено");
+				
 				
 
 				if (order.OrderIsExtend) {
@@ -228,6 +243,26 @@ namespace VotGESOrders.Web.Models
 					Logger.info("Сохранена дочерняя заявка");
 					try {
 						MailContext.sendMail("Продление заявки №" + order.ParentOrderNumber, new Order(parentOrderDB, currentUser, false, false));
+					} catch (Exception e) { Logger.error("Ошибка приотправке почты " + e.ToString()); }
+				}
+
+				if (order.OrderIsFixErrorEnter) {
+					Logger.info("Ошибка при вводе оборудования");
+					Orders parentOrderDB=context.Orders.Where(o => o.orderNumber == order.ParentOrderNumber).First();
+
+					parentOrderDB.orderLastUpdate = DateTime.Now;
+					parentOrderDB.orderCompletedWithoutEnter = true;
+					parentOrderDB.orderState = OrderStateEnum.completedWithoutEnter.ToString();
+					parentOrderDB.faktStopDate = parentOrderDB.planStopDate;
+
+					orderDB.orderIsFixErrorEnter = true;
+
+					orderDB.parentOrderNumber = order.ParentOrderNumber;
+					parentOrderDB.childOrderNumber = orderDB.orderNumber;
+					context.SaveChanges();
+					Logger.info("Сохранена дочерняя заявка");
+					try {
+						MailContext.sendMail("Заявка закрыта без ввода оборудования. Заявка №" + order.ParentOrderNumber, new Order(parentOrderDB, currentUser, false, false));
 					} catch (Exception e) { Logger.error("Ошибка приотправке почты " + e.ToString()); }
 				}
 				LastUpdate.save(guid);

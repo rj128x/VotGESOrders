@@ -98,6 +98,7 @@
     <Compile Include="Models\OrderException.shared.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\OrderFilter.shared.cs" />
+    <Compile Include="Models\OrderInfo.shared.cs" />
     <Compile Include="Models\OrderObject.cs" />
     <Compile Include="Models\OrderObjectContext.cs" />
     <Compile Include="Models\OrdersContext.cs" />
