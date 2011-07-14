@@ -62,6 +62,9 @@ namespace VotGESOrders
 						OrdersContext.Current.Context.RegisterCompleteOrder(currentOrder, OrdersContext.Current.SessionGUID);
 						break;
 				}
+				if ((currentOrder.OrderIsExtend) && (currentOrder.ParentOrder != null)) {
+					OrdersContext.Current.Context.ReloadOrder(currentOrder.ParentOrder, OrdersContext.Current.SessionGUID);
+				}
 				OrdersContext.Current.SubmitChangesCallbackError();
 		}
 

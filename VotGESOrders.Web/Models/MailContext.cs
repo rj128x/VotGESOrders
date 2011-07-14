@@ -9,34 +9,27 @@ namespace VotGESOrders.Web.Models
 {
 	public class MailContext
 	{
-		public static void sendMail(string header, List<Order> orders) {
+		public static void sendMail(string header, Order order) {
 			return;
 			try {
 				IQueryable users=OrdersUser.getAllUsers();
 				List<string> mailToList=new List<string>();
-				/*foreach (OrdersUser user in users) {
-					string[]parts=user.Name.Split('\\');
-					string name=parts[1];
-					string mail=name + "@votges.rushydro.ru";
-					mailToList.Add(mail);
-				}*/
-				mailToList.Add("ChekunovaMV@votges.rushydro.ru");
-				string message="";
-				foreach (Order order in orders) {
-					message += OrderView.getOrderHTML(order) + "<br/>";
+				foreach (OrdersUser user in users) {
+					if (
+						user.SendAgreeMail && order.AgreeUsers.Contains(user) && !mailToList.Contains(user.Mail)||
+						user.SendAllMail && !mailToList.Contains(user.Mail) ||
+						user.SendCreateMail && order.UserCreateOrderID == user.UserID && !mailToList.Contains(user.Mail)
+						){
+						mailToList.Add(user.Mail);
+					}
 				}
+
+				mailToList.Add("ChekunovaMV@votges.rushydro.ru");
+				string message=OrderView.getOrderHTML(order);
 				SendMailLocal("mx-votges-121.corp.gidroogk.com", 25, "", "", "ChekunovaMV@votges.rushydro.ru", mailToList, header, message, true);
 			} catch (Exception e) {
 				Logger.error(String.Format("Ошибка при отправке почты: {0}", e.ToString()));
 			}
-		}
-
-		public static void sendMail(string header, Order order) {
-			sendMail(header, new List<Order> { order });
-		}
-
-		public static void sendMail(string header, Order order1, Order order2) {
-			sendMail(header, new List<Order> { order1, order2 });
 		}
 
 

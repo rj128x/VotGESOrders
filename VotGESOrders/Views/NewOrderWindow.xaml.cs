@@ -115,7 +115,7 @@ namespace VotGESOrders.Views
 				} else {
 					CurrentOrder.AgreeUsersDict.Add(user.UserID,user.FullName);
 				}
-				CurrentOrder.AgreeText = string.Join(";", from string name in CurrentOrder.AgreeUsersDict.Values select name);
+				CurrentOrder.AgreeText = string.Join("; ", from string name in CurrentOrder.AgreeUsersDict.Values select name);
 				CurrentOrder.AgreeUsersIDSText = string.Join(";", from int key in CurrentOrder.AgreeUsersDict.Keys select key.ToString());
 			}
 		}
