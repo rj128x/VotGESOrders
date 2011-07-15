@@ -211,7 +211,7 @@ namespace VotGESOrders
 					footerPnl.Children.Add(page);
 
 					TextBlock footer=new TextBlock();
-					footer.Text = String.Format(" Начальник ОС ________________/{0}/",DateTime.Now.ToString("dd.MM.yy"));
+					//footer.Text = String.Format(" Начальник ОС ________________/{0}/",DateTime.Now.ToString("dd.MM.yy"));
 					footer.TextAlignment = TextAlignment.Right;
 					footer.FontSize = 12;
 					footer.Width = arg.PrintableArea.Width - page.Width;
@@ -238,7 +238,7 @@ namespace VotGESOrders
 				GlobalStatus.Current.Status = "Готово";
 			};
 
-			multidoc.Print("Список какой-то фигни");
+			multidoc.Print("Список заявок");
 
 
 

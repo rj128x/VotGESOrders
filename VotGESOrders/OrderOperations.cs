@@ -222,7 +222,7 @@ namespace VotGESOrders
 			newOrder.SelOrderObjectText = CurrentOrder.SelOrderObjectText;
 			newOrder.SelOrderObjectID = CurrentOrder.SelOrderObjectID;
 			newOrder.OrderObjectAddInfo = CurrentOrder.OrderObjectAddInfo;
-			newOrder.PlanStartDate = CurrentOrder.PlanStopDate;
+			newOrder.PlanStartDate = DateTime.Now;
 			newOrder.PlanStopDate = CurrentOrder.PlanStopDate.AddDays(1);
 			newOrder.OrderText = CurrentOrder.OrderText;
 			newOrder.AgreeText = CurrentOrder.AgreeText;

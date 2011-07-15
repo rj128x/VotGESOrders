@@ -235,6 +235,12 @@ namespace VotGESOrders.Web.Models
 					parentOrderDB.orderAskExtended = true;
 					parentOrderDB.orderState = OrderStateEnum.askExtended.ToString();
 
+					parentOrderDB.orderCompleted = true;
+					parentOrderDB.orderDateComplete = DateTime.Now;
+					parentOrderDB.completeText = order.CreateText;
+					parentOrderDB.faktCompleteDate = order.PlanStartDate;
+					parentOrderDB.userCompleteOrderID = currentUser.UserID;
+
 					orderDB.orderIsExtend = true;
 
 					orderDB.parentOrderNumber = order.ParentOrderNumber;
@@ -252,8 +258,12 @@ namespace VotGESOrders.Web.Models
 
 					parentOrderDB.orderLastUpdate = DateTime.Now;
 					parentOrderDB.orderCompletedWithoutEnter = true;
+					parentOrderDB.orderCompleted = true;
+					parentOrderDB.orderDateComplete = DateTime.Now;
+					parentOrderDB.completeText = order.CreateText;
 					parentOrderDB.orderState = OrderStateEnum.completedWithoutEnter.ToString();
-					parentOrderDB.faktStopDate = parentOrderDB.planStopDate;
+					parentOrderDB.faktCompleteDate = order.PlanStartDate;
+					parentOrderDB.userCompleteOrderID = currentUser.UserID;
 
 					orderDB.orderIsFixErrorEnter = true;
 
@@ -317,7 +327,8 @@ namespace VotGESOrders.Web.Models
 						parentOrderDB.orderLastUpdate = DateTime.Now;
 						parentOrderDB.orderExtended = true;
 						parentOrderDB.orderAskExtended = false;
-						parentOrderDB.orderState = OrderStateEnum.extended.ToString();
+						parentOrderDB.orderState = OrderStateEnum.extended.ToString();						
+
 						try {
 							MailContext.sendMail("Продлена заявка №" + order.ParentOrderNumber, new Order(parentOrderDB, currentUser, false, false));
 						} catch { }
@@ -358,6 +369,12 @@ namespace VotGESOrders.Web.Models
 						parentOrderDB.orderOpened = true;
 						parentOrderDB.orderState = OrderStateEnum.opened.ToString();
 						parentOrderDB.childOrderNumber = null;
+
+						parentOrderDB.orderCompleted = false;
+						parentOrderDB.orderDateComplete = null;
+						parentOrderDB.completeText = null;
+						parentOrderDB.faktCompleteDate = null;
+						parentOrderDB.userCompleteOrderID = null;
 
 						try {
 							MailContext.sendMail("Продление заявки отклонено. Заявка №" + order.ParentOrderNumber, new Order(parentOrderDB, currentUser, false, false));
@@ -455,6 +472,12 @@ namespace VotGESOrders.Web.Models
 						parentOrderDB.orderAskExtended = false;
 						parentOrderDB.orderState = OrderStateEnum.opened.ToString();
 						parentOrderDB.childOrderNumber = null;
+
+						parentOrderDB.orderCompleted = false;
+						parentOrderDB.orderDateComplete = null;
+						parentOrderDB.completeText = null;
+						parentOrderDB.faktCompleteDate = null;
+						parentOrderDB.userCompleteOrderID = null;
 
 						try {
 							MailContext.sendMail("Снята заявка на продление. Заявка №" + order.ParentOrderNumber, new Order(parentOrderDB, currentUser, false, false));

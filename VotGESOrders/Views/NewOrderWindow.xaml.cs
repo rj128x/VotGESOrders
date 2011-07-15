@@ -91,7 +91,7 @@ namespace VotGESOrders.Views
 
 			Title = IsNewOrder ? "Создание заявки" : String.Format("Заявка №{0} от {1}", CurrentOrder.OrderNumber, CurrentOrder.OrderDateCreate.ToShortDateString());
 
-			PlanStartDatePicker.Enabled = !CurrentOrder.OrderIsExtend && !CurrentOrder.OrderIsFixErrorEnter;
+			PlanStartDatePicker.Enabled = !CurrentOrder.OrderIsExtend;
 			OrderObjectAddInfo.IsEnabled = !CurrentOrder.OrderIsExtend && !CurrentOrder.OrderIsFixErrorEnter;
 			OrderText.IsEnabled = !CurrentOrder.OrderIsExtend && !CurrentOrder.OrderIsFixErrorEnter;
 		}
@@ -124,7 +124,7 @@ namespace VotGESOrders.Views
 		}
 
 		private void cmbOrderTypes_SelectionChanged(object sender, SelectionChangedEventArgs e) {
-			if (CurrentOrder.OrderType==OrderTypeEnum.crash && !CurrentOrder.OrderIsExtend&&!CurrentOrder.OrderIsFixErrorEnter) {
+			if (CurrentOrder.OrderType==OrderTypeEnum.crash && !CurrentOrder.OrderIsExtend) {
 				PlanStartDate.Label = "Факт вывод";
 				CurrentOrder.ReadyTime = "Время заявки";
 				CurrentOrder.PlanStartDate = DateTime.Now;
