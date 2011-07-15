@@ -12,18 +12,29 @@ namespace VotGESOrders.Web.Models
 		public static DateTime? LastChanges { get; protected set; }
 		public static Guid? LastUpdateGUID { get; protected set; }
 
+		public static Dictionary<Guid,DateTime> clients=new Dictionary<Guid, DateTime>();
+
 		public static void save(Guid guid) {
 			LastChanges = DateTime.Now;
 			LastUpdateGUID = guid;
 		}
 
-		public static bool IsChanged(DateTime lastUpdate, Guid lastGUID) {
-			//Logger.info(String.Format("Проверка изменений {0}, {1} : {2}, {3}", lastUpdate, lastGUID, LastChanges,LastUpdateGUID));
+		public static void saveUpdate(Guid guid) {
+			if (!clients.ContainsKey(guid)) {
+				clients.Add(guid, DateTime.Now);
+			} else {
+				clients[guid] = DateTime.Now;
+			}
+		}
+
+		public static bool IsChanged(Guid guid) {
+
 			if (LastUpdateGUID.HasValue && LastChanges.HasValue) {
-				return lastUpdate < LastChanges.Value && LastUpdateGUID!=lastGUID;
+				return clients[guid] < LastChanges.Value && LastUpdateGUID != guid;
 			} else {
 				return false;
 			}
+
 		}
 	}
 }

@@ -52,7 +52,7 @@ namespace VotGESOrders.Web.Models
 					List<Order> resultOrders=new List<Order>();
 					foreach (Orders orderDB in orders) {
 						resultOrders.Add(new Order(orderDB, currentUser, false, false));
-					}
+					}					
 					return resultOrders.AsQueryable();
 				} catch (Exception e) {
 					Logger.info("Ошибка при получении списка заказов (по умолчанию)"+ e.ToString());
@@ -245,9 +245,7 @@ namespace VotGESOrders.Web.Models
 					parentOrderDB.childOrderNumber = orderDB.orderNumber;
 					context.SaveChanges();
 					Logger.info("Сохранена дочерняя заявка");
-					try {
-						MailContext.sendMail("Продление заявки №" + order.ParentOrderNumber, new Order(parentOrderDB, currentUser, false, false));
-					} catch (Exception e) { Logger.error("Ошибка приотправке почты " + e.ToString()); }
+					MailContext.sendMail("Продление заявки №" + order.ParentOrderNumber, new Order(parentOrderDB, currentUser, false, false));
 				}
 
 				if (order.OrderIsFixErrorEnter) {
@@ -269,9 +267,7 @@ namespace VotGESOrders.Web.Models
 					parentOrderDB.childOrderNumber = orderDB.orderNumber;
 					context.SaveChanges();
 					Logger.info("Сохранена дочерняя заявка");
-					try {
-						MailContext.sendMail("Заявка закрыта без ввода оборудования. Заявка №" + order.ParentOrderNumber, new Order(parentOrderDB, currentUser, false, false));
-					} catch (Exception e) { Logger.error("Ошибка приотправке почты " + e.ToString()); }
+					MailContext.sendMail("Заявка закрыта без ввода оборудования. Заявка №" + order.ParentOrderNumber, new Order(parentOrderDB, currentUser, false, false));
 				}
 				LastUpdate.save(guid);
 				order.refreshOrderFromDB(orderDB, currentUser);
@@ -326,9 +322,7 @@ namespace VotGESOrders.Web.Models
 						parentOrderDB.orderAskExtended = false;
 						parentOrderDB.orderState = OrderStateEnum.extended.ToString();						
 
-						try {
 							MailContext.sendMail("Продлена заявка №" + order.ParentOrderNumber, new Order(parentOrderDB, currentUser, false, false));
-						} catch { }
 					}
 					context.SaveChanges();
 					LastUpdate.save(guid);
@@ -372,9 +366,7 @@ namespace VotGESOrders.Web.Models
 						parentOrderDB.faktCompleteDate = null;
 						parentOrderDB.userCompleteOrderID = null;
 
-						try {
-							MailContext.sendMail("Продление заявки отклонено. Заявка №" + order.ParentOrderNumber, new Order(parentOrderDB, currentUser, false, false));
-						} catch { }
+						MailContext.sendMail("Продление заявки отклонено. Заявка №" + order.ParentOrderNumber, new Order(parentOrderDB, currentUser, false, false));
 					}
 
 					context.SaveChanges();
@@ -475,9 +467,7 @@ namespace VotGESOrders.Web.Models
 						parentOrderDB.faktCompleteDate = null;
 						parentOrderDB.userCompleteOrderID = null;
 
-						try {
-							MailContext.sendMail("Снята заявка на продление. Заявка №" + order.ParentOrderNumber, new Order(parentOrderDB, currentUser, false, false));
-						} catch { }
+						MailContext.sendMail("Снята заявка на продление. Заявка №" + order.ParentOrderNumber, new Order(parentOrderDB, currentUser, false, false));
 					}
 
 					context.SaveChanges();

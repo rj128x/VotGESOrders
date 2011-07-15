@@ -19,14 +19,16 @@ namespace VotGESOrders.Web.Services
 		private OrdersContext context= new OrdersContext();
 		private OrderObjectContext objContext=new OrderObjectContext();
 		private OrdersUserContext usrContext=new OrdersUserContext();
-		public IQueryable<Order> LoadOrders() {
-			return context.Orders;
+		public IQueryable<Order> LoadOrders(Guid guid) {
+			LastUpdate.saveUpdate(guid);
+			return context.Orders;			
 		}
 		
 		[Query(HasSideEffects=true)]
-		public IQueryable<Order> GetFilteredOrdersFromXML(string xml) {
+		public IQueryable<Order> GetFilteredOrdersFromXML(string xml,Guid guid) {
 			Logger.info("Сервис: Получение списка заказов (GetFilteredOrdersFromXML)");
 			OrderFilter filter=XMLStringSerializer.Deserialize<OrderFilter>(xml);
+			LastUpdate.saveUpdate(guid);
 			return context.getOrders(filter);
 		}
 
@@ -92,8 +94,8 @@ namespace VotGESOrders.Web.Services
 			context.ReloadOrder(order);
 		}
 
-		public bool ExistsChanges(DateTime lastUpdate, Guid guid) {			
-			bool exist= LastUpdate.IsChanged(lastUpdate,guid);
+		public bool ExistsChanges(Guid guid) {			
+			bool exist= LastUpdate.IsChanged(guid);
 			//Logger.info(String.Format("Проверка изменений {0}, {1} : {2}",lastUpdate,guid,exist));
 			return exist;
 		}

@@ -60,7 +60,7 @@ namespace VotGESOrders
 
 		void timerExistChanges_Tick(object sender, EventArgs e) {
 				InvokeOperation<bool> oper=
-					OrdersContext.Current.Context.ExistsChanges(OrdersContext.Current.LastUpdate, OrdersContext.Current.SessionGUID);
+					OrdersContext.Current.Context.ExistsChanges(OrdersContext.Current.SessionGUID);
 				oper.Completed += new EventHandler(oper_Completed);									
 		}
 

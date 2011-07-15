@@ -86,7 +86,7 @@ namespace VotGESOrders
 			context.Load(context.LoadOrderObjectsQuery());
 
 			filter = new OrderFilter();
-			context.Load(context.LoadOrdersQuery());
+			context.Load(context.LoadOrdersQuery(OrdersContext.Current.SessionGUID));
 
 			LastUpdate = DateTime.Now;
 		}
@@ -116,7 +116,7 @@ namespace VotGESOrders
 			filter.SelectedObjectsStr = filter.SelectedObjectsJoinStr;
 			string xml=XMLStringSerializer.Serialize<OrderFilter>(filter);
 			context.Load(
-				context.GetFilteredOrdersFromXMLQuery(xml),
+				context.GetFilteredOrdersFromXMLQuery(xml, OrdersContext.Current.SessionGUID),
 				System.ServiceModel.DomainServices.Client.LoadBehavior.RefreshCurrent, true);
 			LastUpdate = DateTime.Now;
 

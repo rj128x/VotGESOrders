@@ -4153,11 +4153,13 @@ namespace VotGESOrders.Web.Services
         /// Gets an EntityQuery instance that can be used to load <see cref="Order"/> entities using the 'GetFilteredOrdersFromXML' query.
         /// </summary>
         /// <param name="xml">The value for the 'xml' parameter of the query.</param>
+        /// <param name="guid">The value for the 'guid' parameter of the query.</param>
         /// <returns>An EntityQuery that can be loaded to retrieve <see cref="Order"/> entities.</returns>
-        public EntityQuery<Order> GetFilteredOrdersFromXMLQuery(string xml)
+        public EntityQuery<Order> GetFilteredOrdersFromXMLQuery(string xml, Guid guid)
         {
             Dictionary<string, object> parameters = new Dictionary<string, object>();
             parameters.Add("xml", xml);
+            parameters.Add("guid", guid);
             this.ValidateMethod("GetFilteredOrdersFromXMLQuery", parameters);
             return base.CreateQuery<Order>("GetFilteredOrdersFromXML", parameters, true, true);
         }
@@ -4175,11 +4177,14 @@ namespace VotGESOrders.Web.Services
         /// <summary>
         /// Gets an EntityQuery instance that can be used to load <see cref="Order"/> entities using the 'LoadOrders' query.
         /// </summary>
+        /// <param name="guid">The value for the 'guid' parameter of the query.</param>
         /// <returns>An EntityQuery that can be loaded to retrieve <see cref="Order"/> entities.</returns>
-        public EntityQuery<Order> LoadOrdersQuery()
+        public EntityQuery<Order> LoadOrdersQuery(Guid guid)
         {
-            this.ValidateMethod("LoadOrdersQuery", null);
-            return base.CreateQuery<Order>("LoadOrders", null, false, true);
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+            parameters.Add("guid", guid);
+            this.ValidateMethod("LoadOrdersQuery", parameters);
+            return base.CreateQuery<Order>("LoadOrders", parameters, false, true);
         }
         
         /// <summary>
@@ -4321,15 +4326,13 @@ namespace VotGESOrders.Web.Services
         /// <summary>
         /// Asynchronously invokes the 'ExistsChanges' method of the domain service.
         /// </summary>
-        /// <param name="lastUpdate">The value for the 'lastUpdate' parameter of this action.</param>
         /// <param name="guid">The value for the 'guid' parameter of this action.</param>
         /// <param name="callback">Callback to invoke when the operation completes.</param>
         /// <param name="userState">Value to pass to the callback.  It can be <c>null</c>.</param>
         /// <returns>An operation instance that can be used to manage the asynchronous request.</returns>
-        public InvokeOperation<bool> ExistsChanges(DateTime lastUpdate, Guid guid, Action<InvokeOperation<bool>> callback, object userState)
+        public InvokeOperation<bool> ExistsChanges(Guid guid, Action<InvokeOperation<bool>> callback, object userState)
         {
             Dictionary<string, object> parameters = new Dictionary<string, object>();
-            parameters.Add("lastUpdate", lastUpdate);
             parameters.Add("guid", guid);
             this.ValidateMethod("ExistsChanges", parameters);
             return ((InvokeOperation<bool>)(this.InvokeOperation("ExistsChanges", typeof(bool), parameters, true, callback, userState)));
@@ -4338,13 +4341,11 @@ namespace VotGESOrders.Web.Services
         /// <summary>
         /// Asynchronously invokes the 'ExistsChanges' method of the domain service.
         /// </summary>
-        /// <param name="lastUpdate">The value for the 'lastUpdate' parameter of this action.</param>
         /// <param name="guid">The value for the 'guid' parameter of this action.</param>
         /// <returns>An operation instance that can be used to manage the asynchronous request.</returns>
-        public InvokeOperation<bool> ExistsChanges(DateTime lastUpdate, Guid guid)
+        public InvokeOperation<bool> ExistsChanges(Guid guid)
         {
             Dictionary<string, object> parameters = new Dictionary<string, object>();
-            parameters.Add("lastUpdate", lastUpdate);
             parameters.Add("guid", guid);
             this.ValidateMethod("ExistsChanges", parameters);
             return ((InvokeOperation<bool>)(this.InvokeOperation("ExistsChanges", typeof(bool), parameters, true, null, null)));
@@ -4370,14 +4371,13 @@ namespace VotGESOrders.Web.Services
             /// <summary>
             /// Asynchronously invokes the 'ExistsChanges' operation.
             /// </summary>
-            /// <param name="lastUpdate">The value for the 'lastUpdate' parameter of this action.</param>
             /// <param name="guid">The value for the 'guid' parameter of this action.</param>
             /// <param name="callback">Callback to invoke on completion.</param>
             /// <param name="asyncState">Optional state object.</param>
             /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
             [FaultContract(typeof(DomainServiceFault), Action="http://tempuri.org/OrdersDomainService/ExistsChangesDomainServiceFault", Name="DomainServiceFault", Namespace="DomainServices")]
             [OperationContract(AsyncPattern=true, Action="http://tempuri.org/OrdersDomainService/ExistsChanges", ReplyAction="http://tempuri.org/OrdersDomainService/ExistsChangesResponse")]
-            IAsyncResult BeginExistsChanges(DateTime lastUpdate, Guid guid, AsyncCallback callback, object asyncState);
+            IAsyncResult BeginExistsChanges(Guid guid, AsyncCallback callback, object asyncState);
             
             /// <summary>
             /// Completes the asynchronous operation begun by 'BeginExistsChanges'.
@@ -4390,13 +4390,14 @@ namespace VotGESOrders.Web.Services
             /// Asynchronously invokes the 'GetFilteredOrdersFromXML' operation.
             /// </summary>
             /// <param name="xml">The value for the 'xml' parameter of this action.</param>
+            /// <param name="guid">The value for the 'guid' parameter of this action.</param>
             /// <param name="callback">Callback to invoke on completion.</param>
             /// <param name="asyncState">Optional state object.</param>
             /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
             [FaultContract(typeof(DomainServiceFault), Action="http://tempuri.org/OrdersDomainService/GetFilteredOrdersFromXMLDomainServiceFault" +
                 "", Name="DomainServiceFault", Namespace="DomainServices")]
             [OperationContract(AsyncPattern=true, Action="http://tempuri.org/OrdersDomainService/GetFilteredOrdersFromXML", ReplyAction="http://tempuri.org/OrdersDomainService/GetFilteredOrdersFromXMLResponse")]
-            IAsyncResult BeginGetFilteredOrdersFromXML(string xml, AsyncCallback callback, object asyncState);
+            IAsyncResult BeginGetFilteredOrdersFromXML(string xml, Guid guid, AsyncCallback callback, object asyncState);
             
             /// <summary>
             /// Completes the asynchronous operation begun by 'BeginGetFilteredOrdersFromXML'.
@@ -4426,13 +4427,14 @@ namespace VotGESOrders.Web.Services
             /// <summary>
             /// Asynchronously invokes the 'LoadOrders' operation.
             /// </summary>
+            /// <param name="guid">The value for the 'guid' parameter of this action.</param>
             /// <param name="callback">Callback to invoke on completion.</param>
             /// <param name="asyncState">Optional state object.</param>
             /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
             [FaultContract(typeof(DomainServiceFault), Action="http://tempuri.org/OrdersDomainService/LoadOrdersDomainServiceFault", Name="DomainServiceFault", Namespace="DomainServices")]
             [OperationContract(AsyncPattern=true, Action="http://tempuri.org/OrdersDomainService/LoadOrders", ReplyAction="http://tempuri.org/OrdersDomainService/LoadOrdersResponse")]
             [WebGet()]
-            IAsyncResult BeginLoadOrders(AsyncCallback callback, object asyncState);
+            IAsyncResult BeginLoadOrders(Guid guid, AsyncCallback callback, object asyncState);
             
             /// <summary>
             /// Completes the asynchronous operation begun by 'BeginLoadOrders'.
