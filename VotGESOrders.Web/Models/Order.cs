@@ -103,41 +103,18 @@ namespace VotGESOrders.Web.Models
 			}
 		}
 
-		public int UserAcceptOrderID { get; set; }
-		private OrdersUser userAcceptOrder;
+		public int UserReviewOrderID { get; set; }
+		private OrdersUser userReviewOrder;
 		[Include]
-		[Association("Order_UserAccept", "UserAcceptOrderID", "UserID")]
-		public OrdersUser UserAcceptOrder {
-			get { return userAcceptOrder; }
+		[Association("Order_UserReview", "UserReviewOrderID", "UserID")]
+		public OrdersUser UserReviewOrder {
+			get { return userReviewOrder; }
 			set {
-				userAcceptOrder = value;
-				UserAcceptOrderID = value.UserID;
+				userReviewOrder = value;
+				UserReviewOrderID = value.UserID;
 			}
 		}
-
-		public int UserBanOrderID { get; set; }
-		private OrdersUser userBanOrder;
-		[Include]
-		[Association("Order_UserBan", "UserBanOrderID", "UserID")]
-		public OrdersUser UserBanOrder {
-			get { return userBanOrder; }
-			set {
-				userBanOrder = value;
-				UserBanOrderID = value.UserID;
-			}
-		}
-
-		public int UserAcceptBanOrderID { get; set; }
-		private OrdersUser userAcceptBanOrder;
-		[Include]
-		[Association("Order_UserAcceptBan", "UserAcceptBanOrderID", "UserID")]
-		public OrdersUser UserAcceptBanOrder {
-			get { return userAcceptBanOrder; }
-			set {
-				userAcceptBanOrder = value;
-				UserAcceptBanOrderID = value.UserID;
-			}
-		}
+				
 
 		public int UserCloseOrderID { get; set; }
 		private OrdersUser userCloseOrder;
@@ -193,17 +170,12 @@ namespace VotGESOrders.Web.Models
 			set { orderDateCreate = value; }
 		}
 
-		private DateTime? orderDateAccept;
-		public DateTime? OrderDateAccept {
-			get { return orderDateAccept; }
-			set { orderDateAccept = value; }
+		private DateTime? orderDateReview;
+		public DateTime? OrderDateReview {
+			get { return orderDateReview; }
+			set { orderDateReview = value; }
 		}
 
-		private DateTime? orderDateBan;
-		public DateTime? OrderDateBan {
-			get { return orderDateBan; }
-			set { orderDateBan = value; }
-		}
 
 		private DateTime? orderDateOpen;
 		public DateTime? OrderDateOpen {
@@ -343,22 +315,14 @@ namespace VotGESOrders.Web.Models
 		}
 
 
-		private string acceptText;
+		private string reviewText;
 		[Display(Description = "Комментарий к разрешению (не обязательно)", ShortName = "Комментарий")]
 		[StringLength(250, ErrorMessage = "Комментарий - Максимум 250 символов")]
-		public string AcceptText {
-			get { return acceptText; }
-			set { acceptText = value; }
+		public string ReviewText {
+			get { return reviewText; }
+			set { reviewText = value; }
 		}
-
-		private string banText;
-		[Display(Description = "Комментарий к запрету (не обязательно)", ShortName = "Комментарий")]
-		[StringLength(250, ErrorMessage = "Комментарий - Максимум 250 символов")]
-		public string BanText {
-			get { return banText; }
-			set { banText = value; }
-		}
-
+		
 
 		private string openText;
 		[Display(Description = "Комментарий к выводу оборудования (не обязательно)", ShortName = "Комментарий")]
@@ -386,7 +350,7 @@ namespace VotGESOrders.Web.Models
 		}
 
 		private string completeText;
-		[Display(Description = "Комментарий к вводу в работу (не обязательно)", ShortName = "Комментарий")]
+		[Display(Description = "Комментарий к закрытию заявки (не обязательно)", ShortName = "Комментарий")]
 		[StringLength(250, ErrorMessage = "Комментарий - Максимум 250 символов")]
 		public string CompleteText {
 			get { return completeText; }
@@ -455,18 +419,11 @@ namespace VotGESOrders.Web.Models
 			set { orderCreated = value; }
 		}
 
-		private bool orderAccepted;
-		public bool OrderAccepted {
-			get { return orderAccepted; }
-			set { orderAccepted = value; }
+		private bool orderReviewed;
+		public bool OrderReviewed {
+			get { return orderReviewed; }
+			set { orderReviewed = value; }
 		}
-
-		private bool orderBanned;
-		public bool OrderBanned {
-			get { return orderBanned; }
-			set { orderBanned = value; }
-		}
-
 
 		private bool orderOpened;
 		public bool OrderOpened {
@@ -535,12 +492,6 @@ namespace VotGESOrders.Web.Models
 			set { orderHasParentOrder = value; }
 		}
 
-		private bool orderHasComments;
-
-		public bool OrderHasComments {
-			get { return orderHasComments; }
-			set { orderHasComments = value; }
-		}
 
 
 		private OrderStateEnum orderState;
@@ -633,8 +584,7 @@ namespace VotGESOrders.Web.Models
 			ReadyTime = dbOrder.readyTime;
 
 			CreateText = dbOrder.createText;
-			AcceptText = dbOrder.acceptText;
-			BanText = dbOrder.banText;
+			ReviewText = dbOrder.reviewText;
 			OpenText = dbOrder.openText;
 			CloseText = dbOrder.closeText;
 			CompleteText = dbOrder.completeText;
@@ -645,33 +595,25 @@ namespace VotGESOrders.Web.Models
 			AgreeText = dbOrder.agreeText;
 			AgreeUsersIDSText = dbOrder.agreeUsersIDS;
 			refreshAgreeUsers();
-
-			OrderHasComments = OrderAccepted || OrderBanned || OrderCanceled;
-
+			
 			FaktStartDate = dbOrder.faktStartDate;
 			FaktStopDate = dbOrder.faktStopDate;
 			FaktCompleteDate = dbOrder.faktCompleteDate;
 			PlanStartDate = dbOrder.planStartDate;
 			PlanStopDate = dbOrder.planStopDate;
 
-			OrderDateAccept = dbOrder.orderDateAccept;
+			OrderDateReview = dbOrder.orderDateReview;
 			OrderDateClose = dbOrder.orderDateClose;
 			OrderDateOpen = dbOrder.orderDateOpen;
 			OrderDateCreate = dbOrder.orderDateCreate;
-			OrderDateBan = dbOrder.orderDateBan;
 			OrderDateComplete = dbOrder.orderDateComplete;
 			OrderDateCancel = dbOrder.orderDateCancel;
 
 			UserCreateOrder = OrdersUser.loadFromCache(dbOrder.userCreateOrderID);
 
-			if (dbOrder.userAcceptOrderID != null) {
-				UserAcceptOrder = OrdersUser.loadFromCache(dbOrder.userAcceptOrderID.Value);
-				UserAcceptBanOrder = UserAcceptOrder;
+			if (dbOrder.userReviewOrderID != null) {
+				UserReviewOrder = OrdersUser.loadFromCache(dbOrder.userReviewOrderID.Value);
 			}
-			if (dbOrder.userBanOrderID != null) {
-				UserBanOrder = OrdersUser.loadFromCache(dbOrder.userBanOrderID.Value);
-				UserAcceptBanOrder = UserBanOrder;
-			}				
 			if (dbOrder.userCloseOrderID != null) {
 				UserCloseOrder = OrdersUser.loadFromCache(dbOrder.userCloseOrderID.Value);
 			}
@@ -713,13 +655,12 @@ namespace VotGESOrders.Web.Models
 
 		public void checkPremissions(Orders dbOrder, OrdersUser currentUser) {
 			OrderCreated = dbOrder.orderCreated;
-			OrderAccepted = dbOrder.orderAccepted;
+			OrderReviewed = dbOrder.orderReviewed;
 			OrderOpened = dbOrder.orderOpened;
 			OrderClosed = dbOrder.orderClosed;
 			OrderCanceled = dbOrder.orderCanceled;
 			OrderCompleted = dbOrder.orderCompleted;
 			OrderCompletedWithoutEnter = dbOrder.orderCompletedWithoutEnter;
-			OrderBanned = dbOrder.orderBanned;
 			OrderExtended = dbOrder.orderExtended;
 			OrderAskExtended = dbOrder.orderAskExtended;
 			OrderIsExtend = dbOrder.orderIsExtend;
@@ -727,18 +668,17 @@ namespace VotGESOrders.Web.Models
 
 			OrderState = (OrderStateEnum)Enum.Parse(typeof(OrderStateEnum), dbOrder.orderState, true);
 
-			int creator=dbOrder.userCreateOrderID;			
-			AllowAcceptOrder = currentUser.AllowAcceptOrder && OrderState == OrderStateEnum.created;
-			AllowBanOrder = currentUser.AllowAcceptOrder && OrderState == OrderStateEnum.created;
-			AllowOpenOrder = currentUser.AllowOpenOrder && OrderState == OrderStateEnum.accepted;
+			int creator=dbOrder.userCreateOrderID;
+			AllowReviewOrder = currentUser.AllowReviewOrder && OrderState == OrderStateEnum.created;
+			AllowOpenOrder = currentUser.AllowChangeOrder && OrderState == OrderStateEnum.accepted;
 			AllowCloseOrder = (currentUser.UserID == creator && OrderState == OrderStateEnum.opened) ||
-				currentUser.AllowCloseOrder && OrderState == OrderStateEnum.opened;
-			AllowCompleteWithoutEnterOrder = currentUser.AllowCompleteOrder && currentUser.AllowCreateCrashOrder && OrderState == OrderStateEnum.closed;
-			AllowCompleteOrder = currentUser.AllowCompleteOrder && OrderState == OrderStateEnum.closed;
+				currentUser.AllowChangeOrder && OrderState == OrderStateEnum.opened;
+			AllowCompleteWithoutEnterOrder = currentUser.AllowChangeOrder && currentUser.AllowCreateCrashOrder && OrderState == OrderStateEnum.closed;
+			AllowCompleteOrder = currentUser.AllowChangeOrder && OrderState == OrderStateEnum.closed;
 			AllowChangeOrder = currentUser.UserID == creator && OrderState == OrderStateEnum.created;
-			AllowExtendOrder = (currentUser.AllowExtendOrder || currentUser.UserID == creator) && OrderState == OrderStateEnum.opened;
+			AllowExtendOrder = (currentUser.AllowChangeOrder || currentUser.UserID == creator) && OrderState == OrderStateEnum.opened;
 			AllowCancelOrder = (currentUser.UserID == creator && OrderState == OrderStateEnum.created) ||
-				(currentUser.AllowCancelOrder && (OrderState == OrderStateEnum.accepted));
+				(currentUser.AllowChangeOrder && (OrderState == OrderStateEnum.accepted));
 		}
 
 		private void checkExpired() {
@@ -795,10 +735,9 @@ namespace VotGESOrders.Web.Models
 		public bool AllowCloseOrder { get; protected set; }
 		public bool AllowOpenOrder { get; protected set; }
 		public bool AllowChangeOrder { get; protected set; }
-		public bool AllowAcceptOrder { get; protected set; }
+		public bool AllowReviewOrder { get; protected set; }
 		public bool AllowCompleteOrder { get; protected set; }
 		public bool AllowCompleteWithoutEnterOrder { get; protected set; }
-		public bool AllowBanOrder { get; protected set; }
 		public bool AllowExtendOrder { get; protected set; }
 		public bool AllowCancelOrder { get; protected set; }
 

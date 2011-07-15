@@ -12,8 +12,8 @@ using System.Xml.Serialization;
 
 namespace VotGESOrders.Web.Models
 {
-	public enum FilterDateType { create, accept, ban, cancel, planStart, planStop, faktStart, faktStop, faktEnter }
-	public enum FilterUserType { create, accept, ban, cancel, open, close, complete }
+	public enum FilterDateType { create, review, cancel, planStart, planStop, faktStart, faktStop, faktEnter }
+	public enum FilterUserType { create, review, cancel, open, close, complete }
 	public enum OrderFilterEnum { defaultFilter, active, userFilter }
 	public class OrderFilter : INotifyPropertyChanged
 	{
@@ -31,8 +31,7 @@ namespace VotGESOrders.Web.Models
 		static OrderFilter() {
 			DateFilterTypes = new Dictionary<FilterDateType, string>();
 			DateFilterTypes.Add(FilterDateType.create, "Дата создания");
-			DateFilterTypes.Add(FilterDateType.accept, "Дата разрешения");
-			DateFilterTypes.Add(FilterDateType.ban, "Дата отклонения");
+			DateFilterTypes.Add(FilterDateType.review, "Дата рассмотрения");
 			DateFilterTypes.Add(FilterDateType.cancel, "Дата снятия");
 			DateFilterTypes.Add(FilterDateType.planStart, "Плановое начало");
 			DateFilterTypes.Add(FilterDateType.planStop, "Плановое окончание");
@@ -41,8 +40,7 @@ namespace VotGESOrders.Web.Models
 			DateFilterTypes.Add(FilterDateType.faktEnter, "Закрытие заявки");
 
 			UserFilterTypes = new Dictionary<FilterUserType, string>();
-			UserFilterTypes.Add(FilterUserType.accept, "Разрешил");
-			UserFilterTypes.Add(FilterUserType.ban, "Запретил");
+			UserFilterTypes.Add(FilterUserType.review, "Рассмотрел");
 			UserFilterTypes.Add(FilterUserType.cancel, "Снял");
 			UserFilterTypes.Add(FilterUserType.create, "Создал");
 			UserFilterTypes.Add(FilterUserType.close, "Разрешил ввод");

@@ -128,8 +128,7 @@
 								<Grid.RowDefinitions>
 									<RowDefinition />
 									<RowDefinition Height="{Binding OrderCreated, Converter={StaticResource heightConverter}}"/>
-									<RowDefinition Height="{Binding OrderAccepted, Converter={StaticResource heightConverter}}"/>
-									<RowDefinition Height="{Binding OrderBanned, Converter={StaticResource heightConverter}}"/>
+									<RowDefinition Height="{Binding OrderReviewed, Converter={StaticResource heightConverter}}"/>
 									<RowDefinition Height="{Binding OrderOpened, Converter={StaticResource heightConverter}}"/>
 									<RowDefinition Height="{Binding OrderClosed, Converter={StaticResource heightConverter}}"/>
 									<RowDefinition Height="{Binding OrderCompleted, Converter={StaticResource heightConverter}}"/>
@@ -137,12 +136,11 @@
 								</Grid.RowDefinitions>
 
 								<TextBlock Text="Создал:" Style="{StaticResource Label}" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right"/>
-								<TextBlock Text="Разрешил:" Style="{StaticResource Label}" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right"/>
-								<TextBlock Text="Отклонил:" Style="{StaticResource Label}" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right"/>
-								<TextBlock Text="Открыл:" Style="{StaticResource Label}" Grid.Row="4" Grid.Column="0" HorizontalAlignment="Right"/>
-								<TextBlock Text="Разрешил ввод:" Style="{StaticResource Label}" Grid.Row="5" Grid.Column="0" HorizontalAlignment="Right"/>
-								<TextBlock Text="Закрыл:" Style="{StaticResource Label}" Grid.Row="6" Grid.Column="0" HorizontalAlignment="Right"/>
-								<TextBlock Text="Снял:" Style="{StaticResource Label}" Grid.Row="7" Grid.Column="0" HorizontalAlignment="Right"/>
+								<TextBlock Text="Рассмотрел:" Style="{StaticResource Label}" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right"/>
+								<TextBlock Text="Открыл:" Style="{StaticResource Label}" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right"/>
+								<TextBlock Text="Разрешил ввод:" Style="{StaticResource Label}" Grid.Row="4" Grid.Column="0" HorizontalAlignment="Right"/>
+								<TextBlock Text="Закрыл:" Style="{StaticResource Label}" Grid.Row="5" Grid.Column="0" HorizontalAlignment="Right"/>
+								<TextBlock Text="Снял:" Style="{StaticResource Label}" Grid.Row="6" Grid.Column="0" HorizontalAlignment="Right"/>
 
 								<TextBlock Text="Автор" Style="{StaticResource Label}" Grid.Row="0" Grid.Column="1"  HorizontalAlignment="Center"/>
 								<TextBlock Text="Дата" Style="{StaticResource Label}" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center"/>
@@ -155,47 +153,40 @@
 								<TextBlock Text="{Binding CreateText}" 
 							  Grid.Column="3" Grid.Row="1"  Style="{StaticResource ValueText}" TextWrapping="Wrap"/>
 
-								<TextBlock Text="{Binding UserAcceptOrder.FullName}" Style="{StaticResource Value}" 
+								<TextBlock Text="{Binding UserReviewOrder.FullName}" Style="{StaticResource Value}" 
 							  Grid.Column="1" Grid.Row="2" />
-								<TextBlock Text="{Binding OrderDateAccept, Converter={StaticResource dateTimeConverter}}" 
+								<TextBlock Text="{Binding OrderDateReview, Converter={StaticResource dateTimeConverter}}" 
 							  Grid.Column="2" Grid.Row="2"   Style="{StaticResource Value}"/>
-								<TextBlock Text="{Binding AcceptText}" 
+								<TextBlock Text="{Binding ReviewText}" 
 							  Grid.Column="3" Grid.Row="2"  Style="{StaticResource ValueText}" TextWrapping="Wrap"/>
 
-								<TextBlock Text="{Binding UserBanOrder.FullName}" Style="{StaticResource Value}" 
-							  Grid.Column="1" Grid.Row="3"  />
-								<TextBlock Text="{Binding OrderDateBan, Converter={StaticResource dateTimeConverter}}" 
-							  Grid.Column="2" Grid.Row="3"  Style="{StaticResource Value}" />
-								<TextBlock Text="{Binding BanText}" 
-							  Grid.Column="3" Grid.Row="3"  Style="{StaticResource ValueText}" TextWrapping="Wrap"/>
-
 								<TextBlock Text="{Binding UserOpenOrder.FullName}" Style="{StaticResource Value}" 
-							  Grid.Column="1" Grid.Row="4"  />
+							  Grid.Column="1" Grid.Row="3"  />
 								<TextBlock Text="{Binding OrderDateOpen, Converter={StaticResource dateTimeConverter}}" 
-							  Grid.Column="2" Grid.Row="4"   Style="{StaticResource Value}"/>
+							  Grid.Column="2" Grid.Row="3"   Style="{StaticResource Value}"/>
 								<TextBlock Text="{Binding OpenText}" 
-							  Grid.Column="3" Grid.Row="4"   Style="{StaticResource ValueText}" />
+							  Grid.Column="3" Grid.Row="3"   Style="{StaticResource ValueText}" />
 
 								<TextBlock Text="{Binding UserCloseOrder.FullName}" Style="{StaticResource Value}" 
-							  Grid.Column="1" Grid.Row="5"  />
+							  Grid.Column="1" Grid.Row="4"  />
 								<TextBlock Text="{Binding OrderDateClose, Converter={StaticResource dateTimeConverter}}" 
-							  Grid.Column="2" Grid.Row="5"   Style="{StaticResource Value}"/>
+							  Grid.Column="2" Grid.Row="4"   Style="{StaticResource Value}"/>
 								<TextBlock Text="{Binding CloseText}" 
-							  Grid.Column="3" Grid.Row="5"  Style="{StaticResource ValueText}" />
+							  Grid.Column="3" Grid.Row="4"  Style="{StaticResource ValueText}" />
 
 								<TextBlock Text="{Binding UserCompleteOrder.FullName}" Style="{StaticResource Value}" 
-							  Grid.Column="1" Grid.Row="6"  />
+							  Grid.Column="1" Grid.Row="5"  />
 								<TextBlock Text="{Binding OrderDateComplete, Converter={StaticResource dateTimeConverter}}" 
-							  Grid.Column="2" Grid.Row="6"   Style="{StaticResource Value}"/>
+							  Grid.Column="2" Grid.Row="5"   Style="{StaticResource Value}"/>
 								<TextBlock Text="{Binding CompleteText}" 
-							  Grid.Column="3" Grid.Row="6"   Style="{StaticResource ValueText}" />
+							  Grid.Column="3" Grid.Row="5"   Style="{StaticResource ValueText}" />
 
 								<TextBlock Text="{Binding UserCancelOrder.FullName}" Style="{StaticResource Value}" 
-							  Grid.Column="1" Grid.Row="7"  />
+							  Grid.Column="1" Grid.Row="6"  />
 								<TextBlock Text="{Binding OrderDateCancel, Converter={StaticResource dateTimeConverter}}" 
-							  Grid.Column="2" Grid.Row="7"  Style="{StaticResource Value}"/>
+							  Grid.Column="2" Grid.Row="6"  Style="{StaticResource Value}"/>
 								<TextBlock Text="{Binding CancelText}" 
-							  Grid.Column="3" Grid.Row="7"   Style="{StaticResource ValueText}" />
+							  Grid.Column="3" Grid.Row="6"   Style="{StaticResource ValueText}" />
 
 							</Grid>
 						</StackPanel>

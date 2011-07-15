@@ -40,7 +40,6 @@ namespace VotGESOrders.Web.Services
 			AllowCreateOrder = ordersUser.AllowCreateOrder;
 			AllowCreateCrashOrder = ordersUser.AllowCreateCrashOrder;
 			AllowEditTree = ordersUser.AllowEditTree;
-			AllowEditOrders = ordersUser.AllowEditOrders;
 			AllowEditUsers = ordersUser.AllowEditUsers;
 			UserID = ordersUser.UserID;
 		}
@@ -54,8 +53,6 @@ namespace VotGESOrders.Web.Services
 		public bool AllowCreateCrashOrder { get; set; }
 		[ProfileUsage(IsExcluded = true)]
 		public bool AllowEditTree { get; set; }
-		[ProfileUsage(IsExcluded = true)]
-		public bool AllowEditOrders { get; set; }
 		[ProfileUsage(IsExcluded = true)]
 		public bool AllowEditUsers { get; set; }
 		[ProfileUsage(IsExcluded = true)]

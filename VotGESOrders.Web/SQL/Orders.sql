@@ -26,15 +26,10 @@ CREATE TABLE [dbo].[Users](
 	[sendCreateMail] [bit] NOT NULL,
 	[allowCreateOrder] [bit] NOT NULL, /*пользователь может создавать заявки*/
 	[allowCreateCrashOrder] [bit] NOT NULL, /*пользователь может создавать аварийные заявки*/
-	[allowAcceptOrder] [bit] NOT NULL,/*пользователь может разрешить/отклонить заявку*/
-	[allowOpenOrder] [bit] NOT NULL,/*пользователь может открыть заявку*/
-	[allowCancelOrder] [bit] NOT NULL,/*пользователь может снять чужую заявку*/
-	[allowCloseOrder] [bit] NOT NULL,/*пользователь может закрыть чужую заявку (разрешить ввод)*/
-	[allowCompleteOrder] [bit] NOT NULL,/*пользователь может ввести оборудование (полностью завершить заявку)*/
-	[allowExtendOrder] [bit] NOT NULL,/*пользователь может продить чужую заявку*/
+	[allowReviewOrder] [bit] NOT NULL,/*пользователь может разрешить/отклонить заявку*/
+	[allowChangeOrder] [bit] NOT NULL,/*пользователь может изменить заявку*/
 	[allowEditTree] [bit] NOT NULL,/*пользователь может редактировать дерево оборудования*/
 	[allowEditUsers][bit] NOT NULL,/*пользователь может редактировать дерево список пользователей*/
-	[allowEditOrders][bit] NOT NULL,/*пользователь может редактировать заявку*/
 	[allowAgreeOrders][bit] NOT NULL,/*пользователь может согласовывать заявку*/
 	
  CONSTRAINT [PK_Users] PRIMARY KEY CLUSTERED 
@@ -90,24 +85,21 @@ CREATE TABLE [dbo].[Orders](
 	[orderNumber] [int] identity(1,1) NOT NULL, /*Номер заявки (автоинкремент)*/
 	
 	[userCreateOrderID] [int] NOT NULL, /*Имя пользователя, создавшего заявку*/
-	[userAcceptOrderID] [int] NULL, /*Имя пользователя, разрешившего заявку*/
-	[userBanOrderID] [int] NULL, /*Имя пользователя, отклонившего заявку*/
+	[userReviewOrderID] [int] NULL, /*Имя пользователя, разрешившего заявку*/
 	[userCloseOrderID] [int] NULL, /*Имя пользователя, закрывшего заявку (разрешение ввода оборудования)*/
 	[userCompleteOrderID] [int] NULL, /*Имя пользователя, который ввел оборудование в работу (полное завершение заявки)*/
 	[userOpenOrderID] [int] NULL, /*Имя пользователя, открывшего заявку*/
 	[userCancelOrderID] [int] NULL, /*Имя пользователя, снявшего заявку*/
 	
 	[orderDateCreate] [datetime2](7) NOT NULL, /*Дата создания заявки - устанавливается временем сервера в момент создания*/
-	[orderDateAccept] [datetime2](7) NULL, /*Дата разрешения заявки - устанавливается временем сервера*/
-	[orderDateBan] [datetime2](7) NULL, /*Дата запрета заявки - устанавливается временем сервера*/
+	[orderDateReview] [datetime2](7) NULL, /*Дата разрешения заявки - устанавливается временем сервера*/
 	[orderDateClose] [datetime2](7) NULL, /*Дата закрытия заявки (разрешения ввода в работу) - устанавливается временем сервера*/
 	[orderDateOpen] [datetime2](7) NULL, /*Дата открытия заявки - устанавливается временем сервера*/
 	[orderDateComplete] [datetime2] (7)NULL, /*Дата ввода оборудования в работу (полное завершение работы) - устанавливается временем сервера*/
 	[orderDateCancel] [datetime2] (7)NULL, /*Дата снятия заявки - устанавливается временем сервера*/
 	[orderLastUpdate] [datetime2] (7) NOT NULL, /*Дата последнего изменения заявки - устанавливается временем сервера*/
 	
-	[acceptText] [varchar] (250) NULL, /*Комментарий при разрешении заявки*/
-	[banText] [varchar] (250) NULL, /*Комментарий при запрете заявки*/
+	[reviewText] [varchar] (250) NULL, /*Комментарий при разрешении заявки*/
 	[openText] [varchar] (250) NULL, /*Комментарий при открытии заявки*/
 	[closeText] [varchar] (250) NULL, /*Комментарий при закрытии (разрешении ввода) заявки*/
 	[completeText] [varchar] (250) NULL, /*Комментарий при вводе в работу (полном завершении заявки*/
@@ -129,8 +121,7 @@ CREATE TABLE [dbo].[Orders](
 	[orderObjectAddInfo] [varchar](100) NOT NULL,/* код оборудования*/
 	
 	[orderCreated] [bit] NOT NULL, /*заявка создана*/
-	[orderAccepted] [bit] NOT  NULL,	/*заявка разрешена*/
-	[orderBanned] [bit] NOT  NULL,	/*заявка отклонена*/
+	[orderReviewed] [bit] NOT  NULL,	/*заявка разрешена*/
 	[orderOpened] [bit] NOT NULL, /*заявка открыта*/
 	[orderClosed] [bit] NOT  NULL,/*заявка закрыта (разрешен ввод оборудования)*/
 	[orderCanceled] [bit] NOT  NULL,/*заявка снята*/
@@ -140,7 +131,7 @@ CREATE TABLE [dbo].[Orders](
 	[orderAskExtended] [bit] NOT NULL,/*подана заявка на продение текущей*/
 	[orderIsExtend] [bit] NOT NULL,/*зявка является продлением*/
 	[orderIsFixErrorEnter] [bit] NOT NULL,/*зявка является исправлением ошибки ввода*/
-
+	
 	[orderState] [varchar](50) NOT NULL /*состояние заявки - created, accepted, banned, opened, canceled, closed, completed, extended, askExtended*/
 	
  CONSTRAINT [PK_Orders] PRIMARY KEY CLUSTERED 
@@ -161,11 +152,11 @@ GO
 ALTER TABLE [dbo].[Orders] CHECK CONSTRAINT [FK_Orders_UsersCreate]
 GO
 
-ALTER TABLE [dbo].[Orders]  WITH CHECK ADD  CONSTRAINT [FK_Orders_UsersAccept] FOREIGN KEY([userAcceptOrderID])
+ALTER TABLE [dbo].[Orders]  WITH CHECK ADD  CONSTRAINT [FK_Orders_UsersReview] FOREIGN KEY([userReviewOrderID])
 REFERENCES [dbo].[Users] ([userID])
 GO
 
-ALTER TABLE [dbo].[Orders] CHECK CONSTRAINT [FK_Orders_UsersAccept]
+ALTER TABLE [dbo].[Orders] CHECK CONSTRAINT [FK_Orders_UsersReview]
 GO
 
 ALTER TABLE [dbo].[Orders]  WITH CHECK ADD  CONSTRAINT [FK_Orders_UsersClose] FOREIGN KEY([userCloseOrderID])
@@ -182,12 +173,6 @@ GO
 ALTER TABLE [dbo].[Orders] CHECK CONSTRAINT [FK_Orders_UsersOpen]
 GO
 
-ALTER TABLE [dbo].[Orders]  WITH CHECK ADD  CONSTRAINT [FK_Orders_UsersBan] FOREIGN KEY([userBanOrderID])
-REFERENCES [dbo].[Users] ([userID])
-GO
-
-ALTER TABLE [dbo].[Orders] CHECK CONSTRAINT [FK_Orders_UsersBan]
-GO
 
 ALTER TABLE [dbo].[Orders]  WITH CHECK ADD  CONSTRAINT [FK_Orders_UsersComplete] FOREIGN KEY([userCompleteOrderID])
 REFERENCES [dbo].[Users] ([userID])
@@ -217,17 +202,18 @@ GO
 
 
 				
-insert into users values('CORP\chekunovamv','Чекунова М.В','chekunovamv@votges.rushydro.ru',1,1,1,1,1,1,1,1,1,1,1,1,1,1,1);
-insert into users values('SR-VOTGES-PI\dgshu','ДГЩУ','',1,1,1,1,1,1,1,1,1,1,1,1,1,1,1);
-insert into users values('SR-VOTGES-PI\nss','НСС','',1,1,1,1,1,1,1,1,1,1,1,0,0,0,1);
-insert into users values('SR-VOTGES-PI\author1','Автор1','',1,1,1,1,1,0,0,0,0,0,0,0,0,0,1);
-insert into users values('SR-VOTGES-PI\author2','Автор2','',1,1,1,1,1,0,0,0,0,0,0,0,0,0,1);
-insert into users values('SR-VOTGES-PI\gi','ГИ','',1,1,1,0,1,1,0,0,0,0,0,0,0,0,0);
-insert into users values('SR-VOTGES-PI\Administrator','Админ','',1,1,1,1,1,1,1,1,1,1,1,1,1,1,1);
-insert into users values('','Зыков С.Л.','',1,1,1,1,0,0,0,0,0,0,0,0,0,0,1);
-insert into users values('','Никонов А.А.','',1,1,1,1,0,0,0,0,0,0,0,0,0,0,1);
-insert into users values('','Лазарев А.И.','',1,1,1,1,0,0,0,0,0,0,0,0,0,0,1);
-insert into users values('','Сидоров В.Л.','',1,1,1,1,0,0,0,0,0,0,0,0,0,0,1);
-insert into users values('','Турборемонт','',1,1,1,0,0,0,0,0,0,0,0,0,0,0,1);
-insert into users values('','Гидроремонт','',1,1,1,0,0,0,0,0,0,0,0,0,0,0,1);
+insert into users values('CORP\chekunovamv','Чекунова М.В','chekunovamv@votges.rushydro.ru',1,1,1,1,1,1,1,1,1,1);
+insert into users values('RJ128X-PC\rj128x','ДГЩУ','',1,1,1,1,1,1,1,1,1,1);
+insert into users values('SR-VOTGES-PI\dgshu','ДГЩУ','',1,1,1,1,1,1,1,1,1,1);
+insert into users values('SR-VOTGES-PI\nss','НСС','',1,1,1,1,1,1,1,1,1,1);
+insert into users values('SR-VOTGES-PI\author1','Автор1','',1,1,1,1,0,0,0,0,0,1);
+insert into users values('SR-VOTGES-PI\author2','Автор2','',1,1,1,1,0,0,0,0,0,1);
+insert into users values('SR-VOTGES-PI\gi','ГИ','',0,0,0,0,0,1,0,0,0,0);
+insert into users values('SR-VOTGES-PI\Administrator','Админ','',1,1,1,1,1,1,1,1,1,1);
+insert into users values('','Зыков С.Л.','',1,1,1,1,0,0,0,0,0,1);
+insert into users values('','Никонов А.А.','',1,1,1,1,0,0,0,0,0,1);
+insert into users values('','Лазарев А.И.','',1,1,1,1,0,0,0,0,0,1);
+insert into users values('','Сидоров В.Л.','',1,1,1,1,0,0,0,0,0,1);
+insert into users values('','Турборемонт','',1,1,1,1,0,0,0,0,0,1);
+insert into users values('','Гидроремонт','',1,1,1,1,0,0,0,0,0,1);
 

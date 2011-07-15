@@ -30,8 +30,7 @@ namespace VotGESOrders.Web.Models
 
 			string formatTR="<tr><th>{0}</th><td>{1}</td><td>{2}</td><td>{3}</td></tr>";
 			string htmlCreateTR=String.Format(formatTR, "Создал", order.UserCreateOrder.FullName, order.OrderDateCreate, order.CreateText);
-			string htmlAcceptTR=order.OrderAccepted ? String.Format(formatTR, "Разрешил", order.UserAcceptOrder.FullName, order.OrderDateAccept.Value, order.AcceptText) : "";
-			string htmlBanTR=order.OrderBanned ? String.Format(formatTR, "Отклонил", order.UserBanOrder.FullName, order.OrderDateBan.Value, order.BanText) : "";
+			string htmlAcceptTR=order.OrderReviewed ? String.Format(formatTR, "Рассмотрел", order.UserReviewOrder.FullName, order.OrderDateReview.Value, order.ReviewText) : "";
 			string htmlOpenTR=order.OrderOpened ? String.Format(formatTR, "Открыл", order.UserOpenOrder.FullName, order.OrderDateOpen.Value, order.OpenText) : "";
 			string htmlCloseTR=order.OrderClosed ? String.Format(formatTR, "Разрешил ввод", order.UserCloseOrder.FullName, order.OrderDateClose.Value, order.CloseText) : "";
 			string htmlEnterTR=order.OrderCompleted ? String.Format(formatTR, "Завершил", order.UserCompleteOrder.FullName, order.OrderDateComplete.Value, order.CompleteText) : "";
@@ -39,7 +38,7 @@ namespace VotGESOrders.Web.Models
 
 			string htmlOper="<tr><th>&nbsp;</th><th>Автор</th><th>Дата</th><th>Комментарий</th></tr>";
 			string htmlOperTable=String.Format("<table  width='100%'><tr><th colspan='4'>Операции над заявкой</th></tr> {0}{1}{2}{3}{4}{5}{6}{7}</table>",
-				htmlOper, htmlCreateTR, htmlAcceptTR, htmlBanTR, htmlOpenTR, htmlCloseTR, htmlEnterTR, htmlCancelTR);
+				htmlOper, htmlCreateTR, htmlAcceptTR, htmlOpenTR, htmlCloseTR, htmlEnterTR, htmlCancelTR);
 
 			string fullTable=String.Format("<table width='100%'><tr><td colspan='2'>{0}</td></tr><tr><td colspan='2'>{1}</td></tr><tr><td>{2}</td><td>{3}</td></tr></table>",
 				htmlFirstTRTable, htmlInfoTable, htmlExtend + htmlDatesTable, htmlOperTable);

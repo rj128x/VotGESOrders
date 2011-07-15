@@ -127,8 +127,7 @@ namespace VotGESOrders.Web.Models
 					(filter.ShowAllStates || states.Contains(o.orderState))
 					&& (filter.ShowAllTime ||
 						(filter.FilterDate == FilterDateType.create && o.orderDateCreate >= filter.DateStart && o.orderDateCreate <= filter.DateEnd) ||
-						(filter.FilterDate == FilterDateType.accept && o.orderDateAccept >= filter.DateStart && o.orderDateAccept <= filter.DateEnd) ||
-						(filter.FilterDate == FilterDateType.ban && o.orderDateBan >= filter.DateStart && o.orderDateBan <= filter.DateEnd) ||
+						(filter.FilterDate == FilterDateType.review && o.orderDateReview >= filter.DateStart && o.orderDateReview <= filter.DateEnd) ||
 						(filter.FilterDate == FilterDateType.cancel && o.orderDateCancel >= filter.DateStart && o.orderDateCancel <= filter.DateEnd) ||
 						(filter.FilterDate == FilterDateType.faktStart && o.faktStartDate >= filter.DateStart && o.faktStartDate <= filter.DateEnd) ||
 						(filter.FilterDate == FilterDateType.faktStop && o.faktStopDate >= filter.DateStart && o.faktStopDate <= filter.DateEnd) ||
@@ -137,8 +136,7 @@ namespace VotGESOrders.Web.Models
 						(filter.FilterDate == FilterDateType.planStop && o.planStopDate >= filter.DateStart && o.planStopDate <= filter.DateEnd))
 					&& (filter.ShowAllUsers ||
 						(filter.FilterUser == FilterUserType.create && users.Contains(o.userCreateOrderID)) ||
-						(filter.FilterUser == FilterUserType.accept && users.Contains(o.userAcceptOrderID.Value)) ||
-						(filter.FilterUser == FilterUserType.ban && users.Contains(o.userBanOrderID.Value)) ||
+						(filter.FilterUser == FilterUserType.review && users.Contains(o.userReviewOrderID.Value)) ||
 						(filter.FilterUser == FilterUserType.cancel && users.Contains(o.userCancelOrderID.Value)) ||
 						(filter.FilterUser == FilterUserType.open && users.Contains(o.userOpenOrderID.Value)) ||
 						(filter.FilterUser == FilterUserType.close && users.Contains(o.userCloseOrderID.Value)) ||
@@ -208,13 +206,13 @@ namespace VotGESOrders.Web.Models
 
 				if (order.OrderType == OrderTypeEnum.crash && !order.OrderIsExtend) {
 					Logger.info("Аварийная заявка");
-					orderDB.orderAccepted = true;
+					orderDB.orderReviewed = true;
 					orderDB.orderOpened = true;
-					orderDB.orderDateAccept = DateTime.Now;
+					orderDB.orderDateReview = DateTime.Now;
 					orderDB.orderDateOpen = DateTime.Now;
-					orderDB.userAcceptOrderID = currentUser.UserID;
+					orderDB.userReviewOrderID = currentUser.UserID;
 					orderDB.userOpenOrderID = currentUser.UserID;
-					orderDB.acceptText = "Аварийная заявка";
+					orderDB.reviewText = "Аварийная заявка";
 					orderDB.openText = "Аварийная заявка";
 					orderDB.faktStartDate = order.PlanStartDate;
 					orderDB.orderState = OrderStateEnum.opened.ToString();
@@ -312,13 +310,12 @@ namespace VotGESOrders.Web.Models
 				VotGESOrdersEntities context=new VotGESOrdersEntities();
 				Orders orderDB=context.Orders.First(o => o.orderNumber == order.OrderNumber);
 				order.checkPremissions(orderDB, currentUser);
-				if (order.AllowAcceptOrder) {
+				if (order.AllowReviewOrder) {
 					orderDB.orderLastUpdate = DateTime.Now;
-					orderDB.orderDateAccept = DateTime.Now;
-					orderDB.userAcceptOrderID = currentUser.UserID;
-					orderDB.acceptText = order.AcceptText;
-					orderDB.orderAccepted = true;
-					orderDB.orderBanned = false;
+					orderDB.orderDateReview = DateTime.Now;
+					orderDB.userReviewOrderID = currentUser.UserID;
+					orderDB.reviewText = order.ReviewText;
+					orderDB.orderReviewed = true;
 					orderDB.orderState = OrderStateEnum.accepted.ToString();
 
 					if (order.OrderIsExtend) {
@@ -351,13 +348,12 @@ namespace VotGESOrders.Web.Models
 				VotGESOrdersEntities context=new VotGESOrdersEntities();
 				Orders orderDB=context.Orders.First(o => o.orderNumber == order.OrderNumber);
 				order.checkPremissions(orderDB, currentUser);
-				if (order.AllowAcceptOrder) {
+				if (order.AllowReviewOrder) {
 					orderDB.orderLastUpdate = DateTime.Now;
-					orderDB.orderDateBan = DateTime.Now;
-					orderDB.userBanOrderID = currentUser.UserID;
-					orderDB.banText = order.BanText;
-					orderDB.orderBanned = true;
-					orderDB.orderAccepted = false;
+					orderDB.orderDateReview = DateTime.Now;
+					orderDB.userReviewOrderID = currentUser.UserID;
+					orderDB.reviewText = order.ReviewText;
+					orderDB.orderReviewed = true;
 					orderDB.orderState = OrderStateEnum.banned.ToString();
 
 					if (order.OrderIsExtend) {

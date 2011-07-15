@@ -23,14 +23,9 @@ namespace VotGESOrders.Web.Models
 		public bool SendCreateMail { get; set; }
 		public bool AllowCreateOrder { get; set; }
 		public bool AllowCreateCrashOrder { get; set; }
-		public bool AllowOpenOrder { get; set; }
-		public bool AllowAcceptOrder { get; set; }
-		public bool AllowCloseOrder { get; set; }
-		public bool AllowCompleteOrder { get; set; }
-		public bool AllowExtendOrder { get; set; }
-		public bool AllowCancelOrder { get; set; }
+		public bool AllowReviewOrder { get; set; }
+		public bool AllowChangeOrder { get; set; }
 		public bool AllowEditTree { get; set; }
-		public bool AllowEditOrders { get; set; }
 		public bool AllowEditUsers { get; set; }
 		public bool AllowAgreeOrders { get; set; }
 
@@ -101,15 +96,10 @@ namespace VotGESOrders.Web.Models
 				user.SendCreateMail = userDB.sendCreateMail;
 				user.AllowCreateOrder = userDB.allowCreateOrder;
 				user.AllowCreateCrashOrder = userDB.allowCreateCrashOrder;
-				user.AllowOpenOrder = userDB.allowOpenOrder;
-				user.AllowCloseOrder = userDB.allowCloseOrder;
-				user.AllowAcceptOrder = userDB.allowAcceptOrder;
-				user.AllowCompleteOrder = userDB.allowCompleteOrder;
-				user.AllowExtendOrder = userDB.allowExtendOrder;
-				user.AllowCancelOrder = userDB.allowCancelOrder;
+				user.AllowReviewOrder = userDB.allowReviewOrder;
+				user.AllowChangeOrder = userDB.allowChangeOrder;
 				user.AllowEditTree = userDB.allowEditTree;
 				user.AllowEditUsers = userDB.allowEditUsers;
-				user.AllowEditOrders = userDB.allowEditOrders;
 				user.AllowAgreeOrders = userDB.allowAgreeOrders;
 				return user;
 			} catch (Exception e) {
@@ -119,8 +109,8 @@ namespace VotGESOrders.Web.Models
 		}
 
 		public override string ToString() {
-			return string.Format("Name: {0}, FullName: {1}, AllowCreateOrder: {2}, AllowOpenOrder: {3}, AllowAcceptOrder: {4}, AllowCancelOrder: {5},AllowCompleteOrder: {6}, AllowExtendOrder: {7}",
-				Name, FullName, AllowCreateOrder, AllowOpenOrder, AllowAcceptOrder, AllowCancelOrder, AllowCompleteOrder, AllowExtendOrder);
+			return string.Format("Name: {0}, FullName: {1}",
+				Name, FullName, AllowCreateOrder);
 		}
 	}
 }

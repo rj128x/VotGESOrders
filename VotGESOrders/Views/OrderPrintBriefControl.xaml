@@ -68,7 +68,7 @@
 							</StackPanel>
 							<Grid>
 								<Grid.ColumnDefinitions>
-									<ColumnDefinition Width="30"/>
+									<ColumnDefinition Width="35"/>
 									<ColumnDefinition/>
 								</Grid.ColumnDefinitions>
 								<Grid.RowDefinitions>
@@ -82,41 +82,26 @@
 								<TextBlock Text="{Binding CreateText}" TextWrapping="Wrap" Grid.ColumnSpan="2" Grid.Row="1"
 										  Style="{StaticResource LabelPrint}" HorizontalAlignment="Right" TextAlignment="Right"/>
 							</Grid>
-							<Grid Visibility="{Binding OrderAccepted, Converter={StaticResource visibilityConverter}}">
+							<Grid Visibility="{Binding OrderReviewed, Converter={StaticResource visibilityConverter}}">
 								<Grid.ColumnDefinitions>
-									<ColumnDefinition Width="30"/>
+									<ColumnDefinition Width="35"/>
 									<ColumnDefinition/>
 								</Grid.ColumnDefinitions>
 								<Grid.RowDefinitions>
 									<RowDefinition/>
 									<RowDefinition Height="Auto"/>
 								</Grid.RowDefinitions>
-								<TextBlock Text="Разр:" Style="{StaticResource LabelPrint}" 
+								<TextBlock Text="Рассм:" Style="{StaticResource LabelPrint}" 
 											  HorizontalAlignment="Right" Grid.Column="0"/>
-								<TextBlock Text="{Binding UserAcceptOrder.FullName}" Grid.Column="1" 
+								<TextBlock Text="{Binding UserReviewOrder.FullName}" Grid.Column="1" 
 										  Style="{StaticResource ValuePrint}" HorizontalAlignment="Right"/>
-								<TextBlock Text="{Binding AcceptText}" TextWrapping="Wrap" Grid.ColumnSpan="2" Grid.Row="1"
+								<TextBlock Text="{Binding ReviewText}" TextWrapping="Wrap" Grid.ColumnSpan="2" Grid.Row="1"
 										  Style="{StaticResource LabelPrint}" HorizontalAlignment="Right" TextAlignment="Right"/>
 							</Grid>
-							<Grid Visibility="{Binding OrderBanned, Converter={StaticResource visibilityConverter}}">
-								<Grid.ColumnDefinitions>
-									<ColumnDefinition Width="30"/>
-									<ColumnDefinition/>
-								</Grid.ColumnDefinitions>
-								<Grid.RowDefinitions>
-									<RowDefinition/>
-									<RowDefinition Height="Auto"/>
-								</Grid.RowDefinitions>
-								<TextBlock Text="Запр:" Style="{StaticResource LabelPrint}" 
-											  HorizontalAlignment="Right" Grid.Column="0"/>
-								<TextBlock Text="{Binding UserBanOrder.FullName}" Grid.Column="1" 
-										  Style="{StaticResource ValuePrint}" HorizontalAlignment="Right"/>
-								<TextBlock Text="{Binding BanText}" TextWrapping="Wrap" Grid.ColumnSpan="2" Grid.Row="1"
-										  Style="{StaticResource LabelPrint}" HorizontalAlignment="Right" TextAlignment="Right"/>
-							</Grid>
+							
 							<Grid Visibility="{Binding OrderCanceled, Converter={StaticResource visibilityConverter}}">
 								<Grid.ColumnDefinitions>
-									<ColumnDefinition Width="30"/>
+									<ColumnDefinition Width="35"/>
 									<ColumnDefinition/>
 								</Grid.ColumnDefinitions>
 								<Grid.RowDefinitions>

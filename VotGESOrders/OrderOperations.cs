@@ -73,11 +73,11 @@ namespace VotGESOrders
 		public void ApplyAccept(Order currentOrder,AcceptResult result) {
 				switch (result) {
 					case AcceptResult.accept:
-						currentOrder.AcceptText = currentOrder.NewComment;
+						currentOrder.ReviewText = currentOrder.NewComment;
 						OrdersContext.Current.Context.RegisterAcceptOrder(currentOrder, OrdersContext.Current.SessionGUID);
 						break;
 					case AcceptResult.ban:
-						currentOrder.BanText = currentOrder.NewComment;
+						currentOrder.ReviewText = currentOrder.NewComment;
 						OrdersContext.Current.Context.RegisterBanOrder(currentOrder, OrdersContext.Current.SessionGUID);
 						break;
 					case AcceptResult.cancel:
@@ -216,7 +216,6 @@ namespace VotGESOrders
 			newOrder.OrderTypeShortName = OrderInfo.OrderTypesShort[OrderTypeEnum.crash];
 			newOrder.ParentOrderNumber = CurrentOrder.OrderNumber;
 			newOrder.UserCreateOrderID = WebContext.Current.User.UserID;
-			newOrder.OrderIsExtend = false;
 			newOrder.OrderIsFixErrorEnter = true;
 			newOrder.SelOrderObject = CurrentOrder.SelOrderObject;
 			newOrder.SelOrderObjectText = CurrentOrder.SelOrderObjectText;
@@ -230,6 +229,11 @@ namespace VotGESOrders
 			newOrder.AgreeUsersDict = new Dictionary<int, string>();
 			foreach (KeyValuePair<int,string> de in CurrentOrder.AgreeUsersDict) {
 				newOrder.AgreeUsersDict.Add(de.Key, de.Value);
+			}
+			if (!newOrder.AgreeUsersDict.ContainsKey(CurrentOrder.UserCreateOrderID)){
+				newOrder.AgreeUsersDict.Add(CurrentOrder.UserCreateOrderID,CurrentOrder.UserCreateOrder.FullName);
+				newOrder.AgreeUsersIDSText += ";" + CurrentOrder.UserCreateOrderID;
+				newOrder.AgreeText += "; " + CurrentOrder.UserCreateOrder.FullName;
 			}
 			
 			newOrder.ReadyTime = "Время заявки";

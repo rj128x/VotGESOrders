@@ -32,17 +32,11 @@ namespace VotGESOrders.Web.Models
 				user.sendAgreeMail = newUser.SendAgreeMail;
 				user.sendAllMail = newUser.SendAllMail;
 				user.sendCreateMail = newUser.SendCreateMail;
-				user.allowAcceptOrder = newUser.AllowAcceptOrder;
-				user.allowCancelOrder = newUser.AllowCancelOrder;
-				user.allowCloseOrder = newUser.AllowCloseOrder;
+				user.allowChangeOrder = newUser.AllowChangeOrder;
 				user.allowCreateOrder = newUser.AllowCreateOrder;
 				user.allowCreateCrashOrder = newUser.AllowCreateCrashOrder;
-				user.allowEditOrders = newUser.AllowEditOrders;
 				user.allowEditUsers = newUser.AllowEditUsers;
 				user.allowEditTree = newUser.AllowEditTree;
-				user.allowCompleteOrder = newUser.AllowCompleteOrder;
-				user.allowExtendOrder = newUser.AllowExtendOrder;
-				user.allowOpenOrder = newUser.AllowOpenOrder;
 				user.allowAgreeOrders = newUser.AllowAgreeOrders;
 
 				
