@@ -123,7 +123,7 @@ namespace VotGESOrders.Web.Models
         
         private EntityRef<Order> _childOrder;
         
-        private int _childOrderNumber;
+        private double _childOrderNumber;
         
         private string _closeText;
         
@@ -189,7 +189,7 @@ namespace VotGESOrders.Web.Models
         
         private bool _orderIsFixErrorEnter;
         
-        private int _orderNumber;
+        private double _orderNumber;
         
         private string _orderObjectAddInfo;
         
@@ -211,7 +211,7 @@ namespace VotGESOrders.Web.Models
         
         private EntityRef<Order> _parentOrder;
         
-        private int _parentOrderNumber;
+        private double _parentOrderNumber;
         
         private DateTime _planStartDate;
         
@@ -288,7 +288,7 @@ namespace VotGESOrders.Web.Models
         partial void OnAllowReviewOrderChanged();
         partial void OnCancelTextChanging(string value);
         partial void OnCancelTextChanged();
-        partial void OnChildOrderNumberChanging(int value);
+        partial void OnChildOrderNumberChanging(double value);
         partial void OnChildOrderNumberChanged();
         partial void OnCloseTextChanging(string value);
         partial void OnCloseTextChanged();
@@ -354,7 +354,7 @@ namespace VotGESOrders.Web.Models
         partial void OnOrderIsExtendChanged();
         partial void OnOrderIsFixErrorEnterChanging(bool value);
         partial void OnOrderIsFixErrorEnterChanged();
-        partial void OnOrderNumberChanging(int value);
+        partial void OnOrderNumberChanging(double value);
         partial void OnOrderNumberChanged();
         partial void OnOrderObjectAddInfoChanging(string value);
         partial void OnOrderObjectAddInfoChanged();
@@ -374,7 +374,7 @@ namespace VotGESOrders.Web.Models
         partial void OnOrderTypeNameChanged();
         partial void OnOrderTypeShortNameChanging(string value);
         partial void OnOrderTypeShortNameChanged();
-        partial void OnParentOrderNumberChanging(int value);
+        partial void OnParentOrderNumberChanging(double value);
         partial void OnParentOrderNumberChanged();
         partial void OnPlanStartDateChanging(DateTime value);
         partial void OnPlanStartDateChanged();
@@ -768,7 +768,7 @@ namespace VotGESOrders.Web.Models
         /// Gets or sets the 'ChildOrderNumber' value.
         /// </summary>
         [DataMember()]
-        public int ChildOrderNumber
+        public double ChildOrderNumber
         {
             get
             {
@@ -1581,7 +1581,7 @@ namespace VotGESOrders.Web.Models
         [Editable(false, AllowInitialValue=true)]
         [Key()]
         [RoundtripOriginal()]
-        public int OrderNumber
+        public double OrderNumber
         {
             get
             {
@@ -1852,7 +1852,7 @@ namespace VotGESOrders.Web.Models
         /// Gets or sets the 'ParentOrderNumber' value.
         /// </summary>
         [DataMember()]
-        public int ParentOrderNumber
+        public double ParentOrderNumber
         {
             get
             {

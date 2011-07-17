@@ -17,18 +17,18 @@
 					<sdk:DataGridTemplateColumn.CellTemplate >
 						<DataTemplate>
 							<StackPanel>
-								<ContentControl Content="{Binding OrderNumber, Converter={StaticResource orderNumberConverter}, Mode=OneWay}" 
+								<ContentControl Content="{Binding OrderNumber, Mode=OneWay, Converter={StaticResource orderNumberConverter}}" 
 													 Template="{StaticResource OrderCellDef}"/>								
 								<StackPanel Orientation="Horizontal" Visibility="{Binding OrderHasParentOrder, Converter={StaticResource visibilityConverter}}" 
 												HorizontalAlignment="Right">
 									<TextBlock Text="№ст=" Style="{StaticResource Label}"/>
-									<TextBlock Text="{Binding ParentOrderNumber, Converter={StaticResource orderNumberConverter}, Mode=OneWay}" 
+									<TextBlock Text="{Binding ParentOrderNumber, Mode=OneWay, Converter={StaticResource orderNumberConverter}}" 
 												  Style="{StaticResource Label}"/>
 								</StackPanel>
 								<StackPanel Orientation="Horizontal" Visibility="{Binding OrderHasChildOrder, Converter={StaticResource visibilityConverter}}"
 												HorizontalAlignment="Right">
 									<TextBlock Text="№нов="  Style="{StaticResource Label}"/>
-									<TextBlock Text="{Binding ChildOrderNumber, Converter={StaticResource orderNumberConverter}, Mode=OneWay}" 
+									<TextBlock Text="{Binding ChildOrderNumber, Mode=OneWay, Converter={StaticResource orderNumberConverter}}" 
 												   Style="{StaticResource Label}"/>
 								</StackPanel>
 							</StackPanel>

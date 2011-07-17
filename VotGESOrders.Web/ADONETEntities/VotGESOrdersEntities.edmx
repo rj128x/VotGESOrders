@@ -50,9 +50,9 @@
           <Key>
             <PropertyRef Name="orderNumber" />
           </Key>
-          <Property Name="parentOrderNumber" Type="int" />
-          <Property Name="childOrderNumber" Type="int" />
-          <Property Name="orderNumber" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="parentOrderNumber" Type="float" />
+          <Property Name="childOrderNumber" Type="float" />
+          <Property Name="orderNumber" Type="float" Nullable="false" />
           <Property Name="userCreateOrderID" Type="int" Nullable="false" />
           <Property Name="userReviewOrderID" Type="int" />
           <Property Name="userCloseOrderID" Type="int" />
@@ -251,9 +251,9 @@
           <Key>
             <PropertyRef Name="orderNumber" />
           </Key>
-          <Property Name="parentOrderNumber" Type="Int32" />
-          <Property Name="childOrderNumber" Type="Int32" />
-          <Property Name="orderNumber" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="parentOrderNumber" Type="Double" />
+          <Property Name="childOrderNumber" Type="Double" />
+          <Property Name="orderNumber" Type="Double" Nullable="false" />
           <Property Name="userCreateOrderID" Type="Int32" Nullable="false" />
           <Property Name="userReviewOrderID" Type="Int32" />
           <Property Name="userCloseOrderID" Type="Int32" />

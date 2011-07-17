@@ -90,7 +90,7 @@ namespace VotGESOrders.Views
 
 			//treeObjects.IsEnabled = !CurrentOrder.OrderIsExtend;
 
-			Title = IsNewOrder ? "Создание заявки" : String.Format("Заявка №{0} от {1}", CurrentOrder.OrderNumber, CurrentOrder.OrderDateCreate.ToShortDateString());
+			Title = IsNewOrder ? "Создание заявки" : String.Format("Заявка №{0} от {1}", CurrentOrder.OrderNumber.ToString(OrderInfo.NFI), CurrentOrder.OrderDateCreate.ToShortDateString());
 
 			PlanStartDatePicker.Enabled = !CurrentOrder.OrderIsExtend;
 			OrderObjectAddInfo.IsEnabled = !CurrentOrder.OrderIsExtend && !CurrentOrder.OrderIsFixErrorEnter;

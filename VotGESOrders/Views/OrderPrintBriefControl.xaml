@@ -48,8 +48,8 @@
 
 							<StackPanel Orientation="Horizontal">
 								<TextBlock Text="{Binding OrderTypeShortName}" Style="{StaticResource ValuePrint}"/>
-								<TextBlock Text=" № " Style="{StaticResource LabelPrint}"/>																
-								<TextBlock Text="{Binding OrderNumber}" 
+								<TextBlock Text=" № " Style="{StaticResource LabelPrint}"/>
+								<TextBlock Text="{Binding OrderNumber, Converter={StaticResource orderNumberConverter}}" 
 												 Style="{StaticResource ValuePrint}"/>
 								<TextBlock Text=" от " Style="{StaticResource LabelPrint}" />
 								<TextBlock Text="{Binding OrderDateCreate, Converter={StaticResource dateTimeConverter}, ConverterParameter='dd.MM.yyyy'}"
@@ -59,11 +59,11 @@
 							<StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
 								<StackPanel Orientation="Horizontal" Visibility="{Binding OrderHasParentOrder, Converter={StaticResource visibilityConverter}}" HorizontalAlignment="Right">
 									<TextBlock Style="{StaticResource LabelPrint}" Text="№ст="/>
-									<TextBlock Style="{StaticResource LabelPrint}" Text="{Binding ParentOrderNumber}"/>
+									<TextBlock Style="{StaticResource LabelPrint}" Text="{Binding ParentOrderNumber, Converter={StaticResource orderNumberConverter}}"/>
 								</StackPanel>
 								<StackPanel Orientation="Horizontal" Visibility="{Binding OrderHasChildOrder, Converter={StaticResource visibilityConverter}}" HorizontalAlignment="Right">
 									<TextBlock Style="{StaticResource LabelPrint}" Text=" №нов="/>
-									<TextBlock Style="{StaticResource LabelPrint}" Text="{Binding ChildOrderNumber}"/>
+									<TextBlock Style="{StaticResource LabelPrint}" Text="{Binding ChildOrderNumber, Converter={StaticResource orderNumberConverter}}"/>
 								</StackPanel>								
 							</StackPanel>
 							<Grid>

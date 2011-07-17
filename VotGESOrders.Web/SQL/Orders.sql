@@ -79,10 +79,10 @@ GO
 
 CREATE TABLE [dbo].[Orders](
 	
-	[parentOrderNumber] [int] NULL, /*ID родительской заявки (эта заявка - продление)*/
-	[childOrderNumber] [int] NULL, /*ID дочерней заявки (эта заявка продлена)*/
+	[parentOrderNumber] [float] NULL, /*ID родительской заявки (эта заявка - продление)*/
+	[childOrderNumber] [float] NULL, /*ID дочерней заявки (эта заявка продлена)*/
 	
-	[orderNumber] [int] identity(1,1) NOT NULL, /*Номер заявки (автоинкремент)*/
+	[orderNumber] [float] NOT NULL, /*Номер заявки (автоинкремент)*/
 	
 	[userCreateOrderID] [int] NOT NULL, /*Имя пользователя, создавшего заявку*/
 	[userReviewOrderID] [int] NULL, /*Имя пользователя, разрешившего заявку*/
@@ -203,7 +203,6 @@ GO
 
 				
 insert into users values('CORP\chekunovamv','Чекунова М.В','chekunovamv@votges.rushydro.ru',1,1,1,1,1,1,1,1,1,1);
-insert into users values('RJ128X-PC\rj128x','ДГЩУ','',1,1,1,1,1,1,1,1,1,1);
 insert into users values('SR-VOTGES-PI\dgshu','ДГЩУ','',1,1,1,1,1,1,1,1,1,1);
 insert into users values('SR-VOTGES-PI\nss','НСС','',1,1,1,1,1,1,1,1,1,1);
 insert into users values('SR-VOTGES-PI\author1','Автор1','',1,1,1,1,0,0,0,0,0,1);

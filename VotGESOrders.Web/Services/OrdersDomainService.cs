@@ -47,7 +47,7 @@ namespace VotGESOrders.Web.Services
 		}
 
 		public void UpdateOrder(Order order) {
-			Logger.info("Сервис: Update " + order.OrderNumber.ToString());
+			//Logger.info("Сервис: Update " + order.OrderNumber.ToString());
 			//context.UpdateOrder(order);
 		}
 
@@ -79,7 +79,7 @@ namespace VotGESOrders.Web.Services
 		}
 
 		public void RegisterCloseOrder(Order order, Guid guid) {
-			Logger.info("Сервис: закрытие заявки " + order.OrderNumber.ToString());
+			Logger.info("Сервис: разрешение ввода " + order.OrderNumber.ToString());
 			context.CloseOrder(order, guid);
 		}
 
@@ -101,7 +101,7 @@ namespace VotGESOrders.Web.Services
 		}
 
 		public void UpdateOrderObject(OrderObject obj) {
-			Logger.info("Сервис: Update " + obj.ObjectName);
+			//Logger.info("Сервис: Update " + obj.ObjectName);
 			//context.UpdateOrder(order);
 		}
 
@@ -117,7 +117,7 @@ namespace VotGESOrders.Web.Services
 		}
 
 		public void UpdateOrdersUser(OrdersUser obj) {
-			Logger.info("Сервис: Update " + obj.FullName);
+			//Logger.info("Сервис: Update " + obj.FullName);
 			//context.UpdateOrder(order);
 		}
 

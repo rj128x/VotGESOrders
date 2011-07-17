@@ -329,7 +329,7 @@ namespace VotGESOrders.Web.ADONETEntities
         /// <param name="orderIsExtend">Исходное значение свойства orderIsExtend.</param>
         /// <param name="orderIsFixErrorEnter">Исходное значение свойства orderIsFixErrorEnter.</param>
         /// <param name="orderState">Исходное значение свойства orderState.</param>
-        public static Orders CreateOrders(global::System.Int32 orderNumber, global::System.Int32 userCreateOrderID, global::System.DateTime orderDateCreate, global::System.DateTime orderLastUpdate, global::System.DateTime planStartDate, global::System.DateTime planStopDate, global::System.String orderText, global::System.String orderType, global::System.String agreeText, global::System.String agreeUsersIDS, global::System.String readyTime, global::System.Int32 orderObjectID, global::System.String orderObjectAddInfo, global::System.Boolean orderCreated, global::System.Boolean orderReviewed, global::System.Boolean orderOpened, global::System.Boolean orderClosed, global::System.Boolean orderCanceled, global::System.Boolean orderCompleted, global::System.Boolean orderCompletedWithoutEnter, global::System.Boolean orderExtended, global::System.Boolean orderAskExtended, global::System.Boolean orderIsExtend, global::System.Boolean orderIsFixErrorEnter, global::System.String orderState)
+        public static Orders CreateOrders(global::System.Double orderNumber, global::System.Int32 userCreateOrderID, global::System.DateTime orderDateCreate, global::System.DateTime orderLastUpdate, global::System.DateTime planStartDate, global::System.DateTime planStopDate, global::System.String orderText, global::System.String orderType, global::System.String agreeText, global::System.String agreeUsersIDS, global::System.String readyTime, global::System.Int32 orderObjectID, global::System.String orderObjectAddInfo, global::System.Boolean orderCreated, global::System.Boolean orderReviewed, global::System.Boolean orderOpened, global::System.Boolean orderClosed, global::System.Boolean orderCanceled, global::System.Boolean orderCompleted, global::System.Boolean orderCompletedWithoutEnter, global::System.Boolean orderExtended, global::System.Boolean orderAskExtended, global::System.Boolean orderIsExtend, global::System.Boolean orderIsFixErrorEnter, global::System.String orderState)
         {
             Orders orders = new Orders();
             orders.orderNumber = orderNumber;
@@ -368,7 +368,7 @@ namespace VotGESOrders.Web.ADONETEntities
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int32> parentOrderNumber
+        public Nullable<global::System.Double> parentOrderNumber
         {
             get
             {
@@ -383,8 +383,8 @@ namespace VotGESOrders.Web.ADONETEntities
                 OnparentOrderNumberChanged();
             }
         }
-        private Nullable<global::System.Int32> _parentOrderNumber;
-        partial void OnparentOrderNumberChanging(Nullable<global::System.Int32> value);
+        private Nullable<global::System.Double> _parentOrderNumber;
+        partial void OnparentOrderNumberChanging(Nullable<global::System.Double> value);
         partial void OnparentOrderNumberChanged();
     
         /// <summary>
@@ -392,7 +392,7 @@ namespace VotGESOrders.Web.ADONETEntities
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int32> childOrderNumber
+        public Nullable<global::System.Double> childOrderNumber
         {
             get
             {
@@ -407,8 +407,8 @@ namespace VotGESOrders.Web.ADONETEntities
                 OnchildOrderNumberChanged();
             }
         }
-        private Nullable<global::System.Int32> _childOrderNumber;
-        partial void OnchildOrderNumberChanging(Nullable<global::System.Int32> value);
+        private Nullable<global::System.Double> _childOrderNumber;
+        partial void OnchildOrderNumberChanging(Nullable<global::System.Double> value);
         partial void OnchildOrderNumberChanged();
     
         /// <summary>
@@ -416,7 +416,7 @@ namespace VotGESOrders.Web.ADONETEntities
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int32 orderNumber
+        public global::System.Double orderNumber
         {
             get
             {
@@ -434,8 +434,8 @@ namespace VotGESOrders.Web.ADONETEntities
                 }
             }
         }
-        private global::System.Int32 _orderNumber;
-        partial void OnorderNumberChanging(global::System.Int32 value);
+        private global::System.Double _orderNumber;
+        partial void OnorderNumberChanging(global::System.Double value);
         partial void OnorderNumberChanged();
     
         /// <summary>

@@ -10,6 +10,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.Windows.Data;
 using VotGESOrders.Logging;
+using VotGESOrders.Web.Models;
 
 namespace VotGESOrders.Converters
 {
@@ -18,8 +19,8 @@ namespace VotGESOrders.Converters
 		#region IValueConverter Members
 		public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture) {
 			try {
-				int val=(int)value;
-				return val>0?val.ToString():"";
+				double val=(double)value;
+				return val > 0 ? val.ToString(OrderInfo.NFI) : "";
 			}catch{
 				return "";
 			}
@@ -28,7 +29,7 @@ namespace VotGESOrders.Converters
 		public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture) {
 			try {
 				string val=value.ToString();
-				return val.Length!=0 ? Int32.Parse(val) : 0;
+				return val.Length!=0 ? Double.Parse(val) : 0;
 			} catch {
 				return 0;
 			}

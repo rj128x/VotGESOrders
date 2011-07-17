@@ -33,7 +33,7 @@
 								<TextBlock Text="Заявка " Style="{StaticResource Label}"/>
 								<TextBlock Text="{Binding OrderTypeShortName}" Style="{StaticResource Value}"/>
 								<TextBlock Text=" № " Style="{StaticResource Label}"/>
-								<TextBlock Text="{Binding OrderNumber}" 
+								<TextBlock Text="{Binding OrderNumber, Converter={StaticResource orderNumberConverter}}" 
 											 Style="{StaticResource Value}"/>
 								<TextBlock Text=" от " Style="{StaticResource Label}" />
 								<TextBlock Text="{Binding OrderDateCreate, Converter={StaticResource dateTimeConverter}, ConverterParameter='dd.MM.yyyy'}"
@@ -76,11 +76,11 @@
 						<StackPanel >
 							<StackPanel Orientation="Horizontal" Visibility="{Binding OrderHasParentOrder, Converter={StaticResource visibilityConverter}}">
 								<TextBlock Style="{StaticResource Label}" Text="СТАРАЯ ЗАЯВКА №"/>
-								<TextBlock Style="{StaticResource Value}" Text="{Binding ParentOrderNumber}"/>
+								<TextBlock Style="{StaticResource Value}" Text="{Binding ParentOrderNumber, Converter={StaticResource orderNumberConverter}}"/>
 							</StackPanel>
 							<StackPanel Orientation="Horizontal" Visibility="{Binding OrderHasChildOrder, Converter={StaticResource visibilityConverter}}">
 								<TextBlock Style="{StaticResource Label}" Text="НОВАЯ ЗАЯВКА №"/>
-								<TextBlock Style="{StaticResource Value}" Text="{Binding ChildOrderNumber}"/>
+								<TextBlock Style="{StaticResource Value}" Text="{Binding ChildOrderNumber, Converter={StaticResource orderNumberConverter}}"/>
 							</StackPanel>							
 
 							<Grid  Margin="0,15,0,0" >

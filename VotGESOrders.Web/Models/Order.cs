@@ -26,11 +26,17 @@ namespace VotGESOrders.Web.Models
 			if (PropertyChanged != null)
 				PropertyChanged(this, new PropertyChangedEventArgs(propName));
 		}
+
+
+
+		private double parentOrderNumber;
+		public double ParentOrderNumber {
+			get { return parentOrderNumber; }
+			set { 
+				parentOrderNumber = value;
+			}
+		}
 		
-
-
-
-		public int ParentOrderNumber { get; set; }
 		private Order parentOrder;
 		[Include]
 		[Association("Order_ParentOrder", "ParentOrderNumber", "OrderNumber")]
@@ -44,8 +50,14 @@ namespace VotGESOrders.Web.Models
 			}
 		}
 
-
-		public int ChildOrderNumber { get; set; }
+		private double childOrderNumber;
+		public double ChildOrderNumber {
+			get { return childOrderNumber; }
+			set { 
+				childOrderNumber = value;
+			}
+		}
+		
 		private Order childOrder;
 		[Include]
 		[Association("Order_ChildOrder", "ChildOrderNumber", "OrderNumber")]
@@ -60,12 +72,16 @@ namespace VotGESOrders.Web.Models
 		}
 
 
-		private int orderNumber;
+		private double orderNumber;
 		[Key]
-		public int OrderNumber {
+		public double OrderNumber {
 			get { return orderNumber; }
-			set { orderNumber = value; }
+			set { 
+				orderNumber = value;
+			}
 		}
+
+		
 
 
 		private OrderTypeEnum orderType;
@@ -724,7 +740,7 @@ namespace VotGESOrders.Web.Models
 			refreshOrderFromDB(dbOrder, currentUser, readParent, readChild);
 		}
 
-		protected Order(int oNumber, OrdersUser currentUser, bool readParent = true, bool readChild = true) {
+		protected Order(double oNumber, OrdersUser currentUser, bool readParent = true, bool readChild = true) {
 			VotGESOrdersEntities context=new VotGESOrdersEntities();
 			Orders orderDB=context.Orders.Where(o => o.orderNumber == oNumber).First();
 			refreshOrderFromDB(orderDB, currentUser, readParent, readChild);

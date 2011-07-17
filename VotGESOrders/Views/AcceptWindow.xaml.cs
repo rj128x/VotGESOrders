@@ -59,14 +59,14 @@ namespace VotGESOrders.Views
 				BanButton.Visibility = System.Windows.Visibility.Collapsed;
 				btnCancelNoWork.Visibility = System.Windows.Visibility.Visible;
 				btnGI.Visibility = System.Windows.Visibility.Collapsed;
-				Title = String.Format("Снять заявку №{0} от {1}", CurrentOrder.OrderNumber, CurrentOrder.OrderDateCreate.ToShortDateString());
+				Title = String.Format("Снять заявку №{0} от {1}", CurrentOrder.OrderNumber.ToString(OrderInfo.NFI), CurrentOrder.OrderDateCreate.ToShortDateString());
 			} else {
 				CancelOrderButton.Visibility = System.Windows.Visibility.Collapsed;
 				AcceptButton.Visibility = System.Windows.Visibility.Visible;
 				BanButton.Visibility = System.Windows.Visibility.Visible;
 				btnCancelNoWork.Visibility = System.Windows.Visibility.Collapsed;
-				btnGI.Visibility = System.Windows.Visibility.Visible;				
-				Title = String.Format("Разрешить заявку №{0} от {1}", CurrentOrder.OrderNumber, CurrentOrder.OrderDateCreate.ToShortDateString());
+				btnGI.Visibility = System.Windows.Visibility.Visible;
+				Title = String.Format("Разрешить заявку №{0} от {1}", CurrentOrder.OrderNumber.ToString(OrderInfo.NFI), CurrentOrder.OrderDateCreate.ToShortDateString());
 			}
 		}
 

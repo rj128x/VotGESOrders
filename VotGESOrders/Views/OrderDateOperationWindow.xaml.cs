@@ -56,7 +56,7 @@ namespace VotGESOrders.Views
 
 			switch (Operation) {
 				case OrderOperation.close:
-					Title = String.Format("Разрешение на ввод. Заявка №{0} от {1}", CurrentOrder.OrderNumber, CurrentOrder.OrderDateCreate.ToShortDateString());
+					Title = String.Format("Разрешение на ввод. Заявка №{0} от {1}", CurrentOrder.OrderNumber.ToString(OrderInfo.NFI), CurrentOrder.OrderDateCreate.ToShortDateString());
 					CurrentOrder.OrderState = OrderStateEnum.closed;
 					CurrentOrder.OrderClosed = true;
 
@@ -69,7 +69,7 @@ namespace VotGESOrders.Views
 					
 					break;
 				case OrderOperation.complete:
-					Title = String.Format("Закрытие заявки. Заявка №{0} от {1}", CurrentOrder.OrderNumber, CurrentOrder.OrderDateCreate.ToShortDateString());
+					Title = String.Format("Закрытие заявки. Заявка №{0} от {1}", CurrentOrder.OrderNumber.ToString(OrderInfo.NFI), CurrentOrder.OrderDateCreate.ToShortDateString());
 					CurrentOrder.OrderState = OrderStateEnum.completed;
 					CurrentOrder.OrderCompleted = true;
 					CurrentOrder.FaktCompleteDate = DateTime.Now;
@@ -81,7 +81,7 @@ namespace VotGESOrders.Views
 
 					break;
 				case OrderOperation.open:
-					Title = String.Format("Открытие заявки №{0} от {1}", CurrentOrder.OrderNumber, CurrentOrder.OrderDateCreate.ToShortDateString());
+					Title = String.Format("Открытие заявки №{0} от {1}", CurrentOrder.OrderNumber.ToString(OrderInfo.NFI), CurrentOrder.OrderDateCreate.ToShortDateString());
 					CurrentOrder.OrderState = OrderStateEnum.opened;	
 					CurrentOrder.OrderOpened = true;		
 					if (!CurrentOrder.OrderIsExtend&&CurrentOrder.OrderType!=OrderTypeEnum.crash) {
