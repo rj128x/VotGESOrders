@@ -181,6 +181,7 @@ namespace VotGESOrders
 			newOrder.OrderTypeName = CurrentOrder.OrderTypeName;
 			newOrder.OrderTypeShortName = CurrentOrder.OrderTypeShortName;
 			newOrder.ParentOrderNumber = CurrentOrder.OrderNumber;
+			newOrder.ParentOrder = CurrentOrder;
 			newOrder.UserCreateOrderID = WebContext.Current.User.UserID;
 			newOrder.OrderIsExtend = true;
 			newOrder.SelOrderObject = CurrentOrder.SelOrderObject;
@@ -215,6 +216,7 @@ namespace VotGESOrders
 			newOrder.OrderTypeName = OrderInfo.OrderTypes[OrderTypeEnum.crash];
 			newOrder.OrderTypeShortName = OrderInfo.OrderTypesShort[OrderTypeEnum.crash];
 			newOrder.ParentOrderNumber = CurrentOrder.OrderNumber;
+			newOrder.ParentOrder = CurrentOrder;
 			newOrder.UserCreateOrderID = WebContext.Current.User.UserID;
 			newOrder.OrderIsFixErrorEnter = true;
 			newOrder.SelOrderObject = CurrentOrder.SelOrderObject;

@@ -15,6 +15,14 @@ namespace VotGESOrders.Web.Models
 			}
 			if (date < order.OrderDateCreate && !order.OrderIsExtend && !order.OrderIsFixErrorEnter && order.OrderType != OrderTypeEnum.crash)
 				return new ValidationResult(String.Format("Плановая дата начала({0}) раньше даты создания({1})", date, order.OrderDateCreate));
+			if (order.OrderIsFixErrorEnter) {
+				if (order.ParentOrder != null && order.ParentOrder.FaktStopDate > date) 
+					return new ValidationResult(String.Format("Фактический отказ оборудования ({0}) раньше даты разрешения на ввод (родительская заявка)({1})", date, order.ParentOrder.FaktStopDate));				
+			}
+			/*if (order.OrderType == OrderTypeEnum.crash) {
+				if (date > DateTime.Now)
+					return new ValidationResult(String.Format("Фактический отказ оборудования ({0}) позже текущей даты ({1})", date, DateTime.Now));
+			}*/
 			return ValidationResult.Success;
 		}
 
@@ -65,7 +73,7 @@ namespace VotGESOrders.Web.Models
 			Order order=context.ObjectInstance as Order;
 			if (!date.HasValue)
 				return ValidationResult.Success;
-			if (date > DateTime.Now && !order.OrderIsExtend && !order.OrderIsFixErrorEnter && order.OrderType != OrderTypeEnum.crash) {
+			if (date > DateTime.Now && !order.OrderIsExtend && order.OrderType != OrderTypeEnum.crash) {
 				return new ValidationResult(String.Format("Дата ({0}) позже текущей даты", date));
 			}
 			return ValidationResult.Success;

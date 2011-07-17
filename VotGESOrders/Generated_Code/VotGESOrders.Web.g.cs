@@ -440,8 +440,8 @@ namespace VotGESOrders.Web.Models
         /// Gets or sets the 'AgreeText' value.
         /// </summary>
         [DataMember()]
-        [Display(Description="С кем согласованна заявка (минимум 5 символов)", ShortName="Согласование")]
-        [RegularExpression(".{5,}", ErrorMessage="Согласование - Минимум 5 символов")]
+        [Display(Description="С кем согласованна заявка", ShortName="Согласование")]
+        [RegularExpression(".{1,}", ErrorMessage="Согласование")]
         [Required(ErrorMessage="Согласование - обязательное поле")]
         [StringLength(250, ErrorMessage="Согласование - Максимум 250 символов")]
         public string AgreeText

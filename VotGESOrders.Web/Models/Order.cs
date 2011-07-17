@@ -260,8 +260,8 @@ namespace VotGESOrders.Web.Models
 		}
 
 		private string agreeText;
-		[RegularExpression(".{5,}", ErrorMessage = "Согласование - Минимум 5 символов")]
-		[Display(Description = "С кем согласованна заявка (минимум 5 символов)", ShortName = "Согласование")]
+		[RegularExpression(".{1,}", ErrorMessage = "Согласование")]
+		[Display(Description = "С кем согласованна заявка", ShortName = "Согласование")]
 		[StringLength(250, ErrorMessage = "Согласование - Максимум 250 символов")]
 		[Required(ErrorMessage = "Согласование - обязательное поле")]
 		public string AgreeText {
@@ -705,16 +705,16 @@ namespace VotGESOrders.Web.Models
 
 			if (OrderOpened) {
 				OrderIsExpiredOpen = PlanStartDate < FaktStartDate;
-				ExpiredOpenHours = (FaktStartDate.Value.Ticks - PlanStartDate.Ticks) / koef;
+				ExpiredOpenHours = (PlanStartDate.Ticks - FaktStartDate.Value.Ticks) / koef;
 			}
 
 			if (OrderClosed) {
 				OrderIsExpiredClose = PlanStopDate < FaktStopDate;
-				ExpiredCloseHours = (FaktStopDate.Value.Ticks - PlanStopDate.Ticks) / koef;
+				ExpiredCloseHours = (PlanStopDate.Ticks - FaktStopDate.Value.Ticks) / koef;
 			}
 			if (OrderCompleted) {
 				OrderIsExpriredEnter = PlanStopDate < FaktCompleteDate;
-				ExpiredEnterHours = (FaktCompleteDate.Value.Ticks - PlanStopDate.Ticks) / koef;
+				ExpiredEnterHours = (PlanStopDate.Ticks - FaktCompleteDate.Value.Ticks) / koef;
 			}
 		}
 

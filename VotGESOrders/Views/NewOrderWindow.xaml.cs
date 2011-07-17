@@ -35,7 +35,8 @@ namespace VotGESOrders.Views
 
 			treeObjects.ItemsSource = from OrderObject o in OrdersContext.Current.Context.OrderObjects where o.ObjectID == 0 select o;
 			lstUsers.ItemsSource = from OrdersUser u in OrdersContext.Current.Context.OrdersUsers where u.AllowAgreeOrders select u;
-			cmbReadyTime.ItemsSource = new List<String> { "5 минут", "15 минут", "30 минут", "45 минут", "1 час", "2 часа", "4 часа", "6 часов", "8 часов", "Время заявки" };
+			cmbReadyTime.ItemsSource = new List<String> { "5 минут", "15 минут", "30 минут", "45 минут", "1 час", "2 часа", "3 часа", "4 часа", 
+				"5 часов", "6 часов", "7 часов", "8 часов", "9 часов", "10 часов", "Время заявки" };
 			orderForm.AutoCommit = false;
 			orderForm.AutoEdit = false;
 			
