@@ -135,7 +135,7 @@
 							<TextBlock Text="{Binding FullOrderObjectInfo}" Style="{StaticResource ValuePrintText}" />
 							<TextBlock Text="Текст заявки:  " Style="{StaticResource LabelPrint}"  HorizontalAlignment="Center"/>
 							<TextBlock Text="{Binding OrderText}" Style="{StaticResource ValuePrintText}" />
-							<TextBlock Text="Согласованно:  " Style="{StaticResource LabelPrint}"  HorizontalAlignment="Center"/>
+							<TextBlock Text="Согласовано:  " Style="{StaticResource LabelPrint}"  HorizontalAlignment="Center"/>
 							<TextBlock Text="{Binding AgreeText}" Style="{StaticResource ValuePrintText}" />
 							<StackPanel Orientation="Horizontal">
 								<TextBlock Text="Аварийная готовность:  " Style="{StaticResource LabelPrint}"  HorizontalAlignment="Center"/>

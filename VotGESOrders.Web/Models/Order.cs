@@ -277,7 +277,7 @@ namespace VotGESOrders.Web.Models
 
 		private string agreeText;
 		[RegularExpression(".{1,}", ErrorMessage = "Согласование")]
-		[Display(Description = "С кем согласованна заявка", ShortName = "Согласование")]
+		[Display(Description = "С кем согласована заявка", ShortName = "Согласование")]
 		[StringLength(250, ErrorMessage = "Согласование - Максимум 250 символов")]
 		[Required(ErrorMessage = "Согласование - обязательное поле")]
 		public string AgreeText {

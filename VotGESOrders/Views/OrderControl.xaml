@@ -77,7 +77,7 @@
 								<TextBlock Text="{Binding OrderText}" Style="{StaticResource ValueText}" />
 							</StackPanel>
 							<StackPanel Orientation="Vertical" Grid.Column="2">
-								<TextBlock Text="Согласованно:  " Style="{StaticResource Label}" HorizontalAlignment="Center"/>
+								<TextBlock Text="Согласовано:  " Style="{StaticResource Label}" HorizontalAlignment="Center"/>
 								<TextBlock Text="{Binding AgreeText}" Style="{StaticResource ValueText}"/>
 							</StackPanel>
 						</Grid>
