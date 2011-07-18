@@ -45,11 +45,13 @@ namespace VotGESOrders.Views
 
 
 		private void OKButton_Click(object sender, RoutedEventArgs e) {
-			orderForm.CommitEdit();
-
-			if (!CurrentOrder.HasValidationErrors) {				
-				OrderOperations.Current.ApplyCreate(CurrentOrder, IsNewOrder, ParentOrder);
-				this.DialogResult = true;
+			bool ok=orderForm.ValidateItem();
+			if (ok) {
+				orderForm.CommitEdit();
+				if (!CurrentOrder.HasValidationErrors) {
+					OrderOperations.Current.ApplyCreate(CurrentOrder, IsNewOrder, ParentOrder);
+					this.DialogResult = true;
+				}
 			}
 		}
 

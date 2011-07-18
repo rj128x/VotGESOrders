@@ -30,16 +30,13 @@ namespace VotGESOrders.Views
 
 
 		private void OKButton_Click(object sender, RoutedEventArgs e) {
-			
-			orderForm.CommitEdit();
-			//bool ok=orderForm.ValidateItem();			
-			
-			/*foreach (ValidationResult vr in CurrentOrder.ValidationErrors) {
-				Logger.logMessage(vr.ErrorMessage);
-			}*/
-			if (!CurrentOrder.HasValidationErrors) {								
-				OrderOperations.Current.ApplyDataOperation(CurrentOrder, Operation);
-				this.DialogResult = true;
+			bool ok=orderForm.ValidateItem();
+			if (ok) {
+				orderForm.CommitEdit();
+				if (!CurrentOrder.HasValidationErrors) {
+					OrderOperations.Current.ApplyDataOperation(CurrentOrder, Operation);
+					this.DialogResult = true;
+				}
 			}
 		}
 

@@ -36,16 +36,26 @@ namespace VotGESOrders.Views
 
 		private void BanButton_Click(object sender, RoutedEventArgs e) {
 			Result = AcceptResult.ban;
-			orderForm.CommitEdit();
-			OrderOperations.Current.ApplyAccept(CurrentOrder, Result);
-			this.DialogResult = true;
+			bool ok=orderForm.ValidateItem();
+			if (ok) {
+				orderForm.CommitEdit();
+				if (!CurrentOrder.HasValidationErrors) {
+					OrderOperations.Current.ApplyAccept(CurrentOrder, Result);
+					this.DialogResult = true;
+				}
+			}
 		}
 
 		private void AcceptButton_Click(object sender, RoutedEventArgs e) {
 			Result = AcceptResult.accept;
-			orderForm.CommitEdit();
-			OrderOperations.Current.ApplyAccept(CurrentOrder, Result);
-			this.DialogResult = true;
+			bool ok=orderForm.ValidateItem();
+			if (ok) {
+				orderForm.CommitEdit();
+				if (!CurrentOrder.HasValidationErrors) {
+					OrderOperations.Current.ApplyAccept(CurrentOrder, Result);
+					this.DialogResult = true;
+				}
+			}
 		}
 
 		protected override void OnOpened() {
@@ -72,9 +82,14 @@ namespace VotGESOrders.Views
 
 		private void CancelOrderButton_Click(object sender, RoutedEventArgs e) {
 			Result = AcceptResult.cancel;
-			orderForm.CommitEdit();
-			OrderOperations.Current.ApplyAccept(CurrentOrder, Result);
-			this.DialogResult = true;
+			bool ok=orderForm.ValidateItem();
+			if (ok) {
+				orderForm.CommitEdit();
+				if (!CurrentOrder.HasValidationErrors) {
+					OrderOperations.Current.ApplyAccept(CurrentOrder, Result);
+					this.DialogResult = true;
+				}
+			}
 		}
 
 
