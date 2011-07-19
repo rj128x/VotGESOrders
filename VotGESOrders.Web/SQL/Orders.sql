@@ -91,13 +91,13 @@ CREATE TABLE [dbo].[Orders](
 	[userOpenOrderID] [int] NULL, /*Имя пользователя, открывшего заявку*/
 	[userCancelOrderID] [int] NULL, /*Имя пользователя, снявшего заявку*/
 	
-	[orderDateCreate] [datetime2](7) NOT NULL, /*Дата создания заявки - устанавливается временем сервера в момент создания*/
-	[orderDateReview] [datetime2](7) NULL, /*Дата разрешения заявки - устанавливается временем сервера*/
-	[orderDateClose] [datetime2](7) NULL, /*Дата закрытия заявки (разрешения ввода в работу) - устанавливается временем сервера*/
-	[orderDateOpen] [datetime2](7) NULL, /*Дата открытия заявки - устанавливается временем сервера*/
-	[orderDateComplete] [datetime2] (7)NULL, /*Дата ввода оборудования в работу (полное завершение работы) - устанавливается временем сервера*/
-	[orderDateCancel] [datetime2] (7)NULL, /*Дата снятия заявки - устанавливается временем сервера*/
-	[orderLastUpdate] [datetime2] (7) NOT NULL, /*Дата последнего изменения заявки - устанавливается временем сервера*/
+	[orderDateCreate] [datetime] NOT NULL, /*Дата создания заявки - устанавливается временем сервера в момент создания*/
+	[orderDateReview] [datetime] NULL, /*Дата разрешения заявки - устанавливается временем сервера*/
+	[orderDateClose] [datetime] NULL, /*Дата закрытия заявки (разрешения ввода в работу) - устанавливается временем сервера*/
+	[orderDateOpen] [datetime] NULL, /*Дата открытия заявки - устанавливается временем сервера*/
+	[orderDateComplete] [datetime] NULL, /*Дата ввода оборудования в работу (полное завершение работы) - устанавливается временем сервера*/
+	[orderDateCancel] [datetime] NULL, /*Дата снятия заявки - устанавливается временем сервера*/
+	[orderLastUpdate] [datetime] NOT NULL, /*Дата последнего изменения заявки - устанавливается временем сервера*/
 	
 	[reviewText] [varchar] (250) NULL, /*Комментарий при разрешении заявки*/
 	[openText] [varchar] (250) NULL, /*Комментарий при открытии заявки*/
@@ -106,11 +106,11 @@ CREATE TABLE [dbo].[Orders](
 	[cancelText] [varchar] (250) NULL, /*Комментарий при снятии заявки*/
 	[createText] [varchar] (250) NULL, /*Комментарий при создании заявки*/
 	
-	[planStartDate] [datetime2](7) NOT NULL, /*Плановая дата начала работ (устанавливается пользователем)*/
-	[planStopDate] [datetime2](7) NOT NULL,/*Плановая дата окончания работ (устанавливается пользователем)*/
-	[faktStartDate] [datetime2](7) NULL, /*фактическая дата начала работ (устанавливается пользователем)*/
-	[faktStopDate] [datetime2](7) NULL, /*фактическая дата окончания работ (разрешение ввода в работ) (устанавливается пользователем)*/
-	[faktCompleteDate] [datetime2](7) NULL, /*фактическая дата ввода оборудования в работу (устанавливается пользователем)*/
+	[planStartDate] [datetime] NOT NULL, /*Плановая дата начала работ (устанавливается пользователем)*/
+	[planStopDate] [datetime] NOT NULL,/*Плановая дата окончания работ (устанавливается пользователем)*/
+	[faktStartDate] [datetime] NULL, /*фактическая дата начала работ (устанавливается пользователем)*/
+	[faktStopDate] [datetime] NULL, /*фактическая дата окончания работ (разрешение ввода в работ) (устанавливается пользователем)*/
+	[faktCompleteDate] [datetime] NULL, /*фактическая дата ввода оборудования в работу (устанавливается пользователем)*/
 	
 	[orderText] [varchar](250) NOT NULL, /*текст заявки*/
 	[orderType] [varchar](5) NOT NULL, /*тип заявки (ПЛ,НПЛ,АВ,НО)*/
@@ -199,20 +199,4 @@ USE [VotGESOrders]
 GO
 
 
-
-
-				
-insert into users values('CORP\chekunovamv','Чекунова М.В','chekunovamv@votges.rushydro.ru',1,1,1,1,1,1,1,1,1,1);
-insert into users values('SR-VOTGES-PI\dgshu','ДГЩУ','',1,1,1,1,1,1,1,1,1,1);
-insert into users values('SR-VOTGES-PI\nss','НСС','',1,1,1,1,1,1,1,1,1,1);
-insert into users values('SR-VOTGES-PI\author1','Автор1','',1,1,1,1,0,0,0,0,0,1);
-insert into users values('SR-VOTGES-PI\author2','Автор2','',1,1,1,1,0,0,0,0,0,1);
-insert into users values('SR-VOTGES-PI\gi','ГИ','',0,0,0,0,0,1,0,0,0,0);
-insert into users values('SR-VOTGES-PI\Administrator','Админ','',1,1,1,1,1,1,1,1,1,1);
-insert into users values('','Зыков С.Л.','',1,1,1,1,0,0,0,0,0,1);
-insert into users values('','Никонов А.А.','',1,1,1,1,0,0,0,0,0,1);
-insert into users values('','Лазарев А.И.','',1,1,1,1,0,0,0,0,0,1);
-insert into users values('','Сидоров В.Л.','',1,1,1,1,0,0,0,0,0,1);
-insert into users values('','Турборемонт','',1,1,1,1,0,0,0,0,0,1);
-insert into users values('','Гидроремонт','',1,1,1,1,0,0,0,0,0,1);
 

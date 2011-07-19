@@ -40,7 +40,7 @@ namespace VotGESOrders.Web.Models
 			context = new VotGESOrdersEntities();
 
 			VotGESOrdersEntities ctx = new VotGESOrdersEntities();
-			IQueryable<Users> dbUsers=from u in ctx.Users select u;
+			IQueryable<Users> dbUsers=from u in ctx.Users orderby u.fullName select u;
 			foreach (Users dbUser in dbUsers) {
 				allUsers.Add(getFromDB(dbUser));
 			}

@@ -10,7 +10,7 @@ namespace VotGESOrders.Web.Models
 	public class MailContext
 	{
 		public static void sendMail(string header, Order order) {
-			return;
+			//return;
 			try {
 				IQueryable users=OrdersUser.getAllUsers();
 				List<string> mailToList=new List<string>();
@@ -24,9 +24,8 @@ namespace VotGESOrders.Web.Models
 					}
 				}
 
-				mailToList.Add("ChekunovaMV@votges.rushydro.ru");
 				string message=OrderView.getOrderHTML(order);
-				SendMailLocal("mx-votges-121.corp.gidroogk.com", 25, "", "", "ChekunovaMV@votges.rushydro.ru", mailToList, header, message, true);
+				SendMailLocal("mx-votges-121.corp.gidroogk.com", 25, "", "", "SR-VOTGES-INT@votges.rushydro.ru", mailToList, header, message, true);
 			} catch (Exception e) {
 				Logger.error(String.Format("Ошибка при отправке почты: {0}", e.ToString()));
 			}

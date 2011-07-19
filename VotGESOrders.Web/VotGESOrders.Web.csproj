@@ -120,6 +120,8 @@
     <Content Include="SQL\objects.sql" />
     <Content Include="SQL\Orders.sql" />
     <Content Include="SQL\temp.sql" />
+    <Content Include="SQL\users.sql" />
+    <Content Include="SQL\users_PI.sql" />
     <Content Include="Views\Home\VotGESOrders.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>

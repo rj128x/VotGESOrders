@@ -16,7 +16,7 @@ namespace VotGESOrders.Web.Logging
 
 		}
 		public static void init(string path, string name) {
-			string fileName=String.Format("{0}/{1}_{2}.txt", path, name, DateTime.Now.ToShortDateString().Replace(":", "_").Replace(".", "_"));
+			string fileName=String.Format("{0}/{1}_{2}.txt", path, name, DateTime.Now.ToShortDateString().Replace(":", "_").Replace("/", "_").Replace(".", "_"));
 			PatternLayout layout = new PatternLayout(@"[%d] %5p - %m%n");
 			FileAppender appender=new FileAppender();
 			appender.Layout = layout;

@@ -29,15 +29,15 @@ namespace VotGESOrders.Web.Models
 				order.FaktCompleteDate.HasValue ? order.FaktCompleteDate.Value.ToString("dd.MM.yy HH:mm") : "&nbsp;");
 
 			string formatTR="<tr><th>{0}</th><td>{1}</td><td>{2}</td><td>{3}</td></tr>";
-			string htmlCreateTR=String.Format(formatTR, "Создал", order.UserCreateOrder.FullName, order.OrderDateCreate, order.CreateText);
-			string htmlAcceptTR=order.OrderReviewed ? String.Format(formatTR, "Рассмотрел", order.UserReviewOrder.FullName, order.OrderDateReview.Value, order.ReviewText) : "";
-			string htmlOpenTR=order.OrderOpened ? String.Format(formatTR, "Открыл", order.UserOpenOrder.FullName, order.OrderDateOpen.Value, order.OpenText) : "";
-			string htmlCloseTR=order.OrderClosed ? String.Format(formatTR, "Разрешил ввод", order.UserCloseOrder.FullName, order.OrderDateClose.Value, order.CloseText) : "";
-			string htmlEnterTR=order.OrderCompleted ? String.Format(formatTR, "Завершил", order.UserCompleteOrder.FullName, order.OrderDateComplete.Value, order.CompleteText) : "";
-			string htmlCancelTR=order.OrderCanceled ? String.Format(formatTR, "Снял", order.UserCancelOrder.FullName, order.OrderDateCancel.Value, order.CancelText) : "";
+			string htmlCreateTR=String.Format(formatTR, "Создал", order.UserCreateOrder.FullName, order.OrderDateCreate.ToString("dd.MM.yy HH:mm"), order.CreateText);
+			string htmlAcceptTR=order.OrderReviewed ? String.Format(formatTR, "Рассмотрел", order.UserReviewOrder.FullName, order.OrderDateReview.Value.ToString("dd.MM.yy HH:mm"), order.ReviewText) : "";
+			string htmlOpenTR=order.OrderOpened ? String.Format(formatTR, "Открыл", order.UserOpenOrder.FullName, order.OrderDateOpen.Value.ToString("dd.MM.yy HH:mm"), order.OpenText) : "";
+			string htmlCloseTR=order.OrderClosed ? String.Format(formatTR, "Разрешил ввод", order.UserCloseOrder.FullName, order.OrderDateClose.Value.ToString("dd.MM.yy HH:mm"), order.CloseText) : "";
+			string htmlEnterTR=order.OrderCompleted ? String.Format(formatTR, "Завершил", order.UserCompleteOrder.FullName, order.OrderDateComplete.Value.ToString("dd.MM.yy HH:mm"), order.CompleteText) : "";
+			string htmlCancelTR=order.OrderCanceled ? String.Format(formatTR, "Снял", order.UserCancelOrder.FullName, order.OrderDateCancel.Value.ToString("dd.MM.yy HH:mm"), order.CancelText) : "";
 
 			string htmlOper="<tr><th>&nbsp;</th><th>Автор</th><th>Дата</th><th>Комментарий</th></tr>";
-			string htmlOperTable=String.Format("<table  width='100%'><tr><th colspan='4'>Операции над заявкой</th></tr> {0}{1}{2}{3}{4}{5}{6}{7}</table>",
+			string htmlOperTable=String.Format("<table  width='100%'><tr><th colspan='4'>Операции над заявкой</th></tr> {0}{1}{2}{3}{4}{5}{6}</table>",
 				htmlOper, htmlCreateTR, htmlAcceptTR, htmlOpenTR, htmlCloseTR, htmlEnterTR, htmlCancelTR);
 
 			string fullTable=String.Format("<table width='100%'><tr><td colspan='2'>{0}</td></tr><tr><td colspan='2'>{1}</td></tr><tr><td>{2}</td><td>{3}</td></tr></table>",

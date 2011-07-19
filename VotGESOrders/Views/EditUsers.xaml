@@ -12,7 +12,7 @@
 	<Grid x:Name="LayoutRoot" VerticalAlignment="Stretch">
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition />
-			<ColumnDefinition />
+			<ColumnDefinition Width="Auto"/>
 		</Grid.ColumnDefinitions>
 		<Grid.RowDefinitions>
 			<RowDefinition />
