@@ -16,15 +16,15 @@ namespace VotGESOrders.Web.Services
 	public class LoggerService : DomainService
 	{
 		public void info(string message) {
-			Logger.info(String.Format("Из клиента: {0}",message));
+			Logger.info(String.Format("{0}",message),"Клиент");
 		}
 
 		public void error(string message) {
-			Logger.error(String.Format("Из клиента: {0}", message));
+			Logger.error(String.Format("{0}", message), "Клиент");
 		}
 
 		public void debug(string message) {
-			Logger.debug(String.Format("Из клиента: {0}", message));
+			Logger.debug(String.Format("{0}", message), "Клиент");
 		}
 
 		

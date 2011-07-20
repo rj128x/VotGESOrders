@@ -95,7 +95,6 @@
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\LastUpdate.cs" />
     <Compile Include="Models\MailContext.cs" />
-    <Compile Include="Models\OrderException.shared.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\OrderFilter.shared.cs" />
     <Compile Include="Models\OrderInfo.shared.cs" />

@@ -19,7 +19,7 @@ namespace VotGESOrders.Web.Services
 		protected override User GetAuthenticatedUser(System.Security.Principal.IPrincipal principal) {
 			User user=base.GetAuthenticatedUser(principal);
 			user.loadFromDB(user.Name);
-			Logger.info(String.Format("Пользователь авторизовался в системе: {0}", user));
+			Logger.info(String.Format("Пользователь авторизовался в системе: {0}", user),"Сервер");
 
 			return user;
 		}

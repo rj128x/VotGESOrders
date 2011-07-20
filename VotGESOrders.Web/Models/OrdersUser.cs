@@ -51,10 +51,7 @@ namespace VotGESOrders.Web.Models
 		}
 
 		public static OrdersUser loadFromCache(string userName) {
-			//Logger.debug(String.Format("Получение краткой информации о пользователе из БД: {0}", userName));
 			try {
-				//Users userDB=context.Users.First(u => u.name.ToLower() == userName.ToLower());				
-				//Users userDB =(from u in context.Users where u.name.ToLower()==userName.ToLower() select u).First();
 				OrdersUser user=allUsers.AsQueryable().First(u => u.Name.ToLower() == userName.ToLower());
 				return user;
 			} catch (Exception e) {
@@ -62,16 +59,13 @@ namespace VotGESOrders.Web.Models
 				user.FullName = String.Format("{0} (нет в базе)", userName);
 				user.Name = userName;
 				user.UserID = -1;
-				Logger.error(String.Format("Ошибка при получении краткой информации о пользователе из БД: {0}, {1}", userName, e));
+				Logger.error(String.Format("Ошибка при получении краткой информации о пользователе из БД: {0}", userName), "Сервер");
 				return user;
 			}
 		}
 
 		public static OrdersUser loadFromCache(int userID) {
-			//Logger.debug(String.Format("Получение краткой информации о пользователе из БД: {0}", userName));
 			try {
-				//Users userDB=context.Users.First(u => u.name.ToLower() == userName.ToLower());				
-				//Users userDB =(from u in context.Users where u.name.ToLower()==userName.ToLower() select u).First();
 				OrdersUser user=allUsers.AsQueryable().First(u => u.UserID == userID);
 				return user;
 			} catch (Exception e) {
@@ -79,7 +73,7 @@ namespace VotGESOrders.Web.Models
 				user.FullName = String.Format("{0} (нет в базе)", userID);
 				user.Name = userID.ToString();
 				user.UserID = -1;
-				Logger.error(String.Format("Ошибка при получении краткой информации о пользователе из БД: {0}, {1}", userID, e));
+				Logger.error(String.Format("Ошибка при получении краткой информации о пользователе из БД: {0}, {1}", userID, e), "Сервер");
 				return user;
 			}
 		}
@@ -103,7 +97,7 @@ namespace VotGESOrders.Web.Models
 				user.AllowAgreeOrders = userDB.allowAgreeOrders;
 				return user;
 			} catch (Exception e) {
-				Logger.error(String.Format("Ошибка при получении краткой информации о пользователе: {0}", e));
+				Logger.error(String.Format("Ошибка при получении краткой информации о пользователе: {0}", e), "Сервер");
 			}
 			return null;
 		}

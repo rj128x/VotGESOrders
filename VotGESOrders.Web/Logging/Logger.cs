@@ -17,8 +17,8 @@ namespace VotGESOrders.Web.Logging
 		}
 		public static void init(string path, string name) {
 			string fileName=String.Format("{0}/{1}_{2}.txt", path, name, DateTime.Now.ToShortDateString().Replace(":", "_").Replace("/", "_").Replace(".", "_"));
-			PatternLayout layout = new PatternLayout(@"[%d] %5p - %m%n");
-			FileAppender appender=new FileAppender();
+			PatternLayout layout = new PatternLayout(@"[%d] %-10p %m%n");
+			FileAppender appender=new FileAppender();			
 			appender.Layout = layout;
 			appender.File = fileName;
 			appender.AppendToFile = true;
@@ -27,27 +27,26 @@ namespace VotGESOrders.Web.Logging
 			logger = LogManager.GetLogger(name);
 		}
 
-		public static string createMessage(string message) {
+		public static string createMessage(string message, string source="") {
 			try {
 				string user=HttpContext.Current.User.Identity.IsAuthenticated ? HttpContext.Current.User.Identity.Name : "Anonimous";
 				string ip= HttpContext.Current.Request.UserHostAddress;
-				string machine= HttpContext.Current.Request.UserHostName;
-				return String.Format("{0}({1})-{3}", user, ip, machine, message);
+				return String.Format("{0,-30} {1,-15} {2,-20} {3}", user, ip, source, message);
 			}catch{
-				return message;
+				return String.Format("{0,-30} {1,-15} {2,-20} {3}", "", "", source, message);;
 			}
 		}
 
-		public static void info(string str) {			
-			logger.Info(createMessage(str));
+		public static void info(string str, string source) {			
+			logger.Info(createMessage(str,source));
 		}
 
-		public static void error(string str) {
-			logger.Error(createMessage(str));
+		public static void error(string str, string source) {
+			logger.Error(createMessage(str,source));
 		}
 
-		public static void debug(string str) {
-			logger.Debug(createMessage(str));
+		public static void debug(string str, string source) {
+			logger.Debug(createMessage(str,source));
 		}
 
 	}

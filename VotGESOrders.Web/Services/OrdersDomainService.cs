@@ -26,14 +26,14 @@ namespace VotGESOrders.Web.Services
 		
 		[Query(HasSideEffects=true)]
 		public IQueryable<Order> GetFilteredOrdersFromXML(string xml,Guid guid) {
-			Logger.info("Сервис: Получение списка заказов (GetFilteredOrdersFromXML)");
+			Logger.info("Получение списка заказов (GetFilteredOrdersFromXML)","Сервис");
 			OrderFilter filter=XMLStringSerializer.Deserialize<OrderFilter>(xml);
 			LastUpdate.saveUpdate(guid);
 			return context.getOrders(filter);
 		}
 
 		public IQueryable<OrdersUser> LoadOrdersUsers() {
-			Logger.info("Сервис: Получение списка пользователей (LoadUsers)");
+			Logger.info("Получение списка пользователей (LoadUsers)", "Сервис");
 			return OrdersUser.getAllUsers().AsQueryable();
 		}
 
@@ -42,7 +42,7 @@ namespace VotGESOrders.Web.Services
 		}
 
 		public void RegisterNew(Order order,Guid guid) {
-			Logger.info("Сервис: создание заявки");
+			Logger.info("Ссоздание заявки", "Сервис");
 			context.RegisterOrder(order, guid);
 		}
 
@@ -54,43 +54,43 @@ namespace VotGESOrders.Web.Services
 		
 
 		public void RegisterChangeOrder(Order order,Guid guid) {
-			Logger.info("Сервис: изменение заявки " + order.OrderNumber.ToString());
+			Logger.info("изменение заявки " + order.OrderNumber.ToString(), "Сервис");
 			context.ChangeOrder(order, guid);
 		}
 
 		public void RegisterAcceptOrder(Order order,Guid guid) {
-			Logger.info("Сервис: разрешение заявки");
+			Logger.info("разрешение заявки " + order.OrderNumber.ToString(), "Сервис");
 			context.AcceptOrder(order, guid);
 		}
 
 		public void RegisterBanOrder(Order order, Guid guid) {
-			Logger.info("Сервис: запрет заявки " + order.OrderNumber.ToString());
+			Logger.info("запрет заявки " + order.OrderNumber.ToString(), "Сервис");
 			context.BanOrder(order, guid);
 		}
 
 		public void RegisterCancelOrder(Order order, Guid guid) {
-			Logger.info("Сервис: снятие заявки " + order.OrderNumber.ToString());
+			Logger.info("снятие заявки " + order.OrderNumber.ToString(), "Сервис");
 			context.CancelOrder(order, guid);
 		}
 
 		public void RegisterOpenOrder(Order order, Guid guid) {
-			Logger.info("Сервис: открытие заявки " + order.OrderNumber.ToString());
+			Logger.info("открытие заявки " + order.OrderNumber.ToString(), "Сервис");
 			context.OpenOrder(order, guid);
 		}
 
 		public void RegisterCloseOrder(Order order, Guid guid) {
-			Logger.info("Сервис: разрешение ввода " + order.OrderNumber.ToString());
+			Logger.info("разрешение ввода " + order.OrderNumber.ToString(), "Сервис");
 			context.CloseOrder(order, guid);
 		}
 
 		public void RegisterCompleteOrder(Order order, Guid guid) {
-			Logger.info("Сервис: ввод оборудования " + order.OrderNumber.ToString());
+			Logger.info("ввод оборудования " + order.OrderNumber.ToString(), "Сервис");
 			context.CompleteOrder(order, guid);
 		}
 
 
 		public void ReloadOrder(Order order, Guid guid) {
-			Logger.info("Сервис: обновление заявки" + order.OrderNumber.ToString());
+			Logger.info("обновление заявки" + order.OrderNumber.ToString(), "Сервис");
 			context.ReloadOrder(order);
 		}
 
@@ -107,12 +107,12 @@ namespace VotGESOrders.Web.Services
 
 
 		public void RegisterChangeObject(OrderObject newObject) {
-			Logger.info("Сервис: изменение оборудования " + newObject.ObjectName);
+			Logger.info("изменение оборудования " + newObject.ObjectName, "Сервис");
 			objContext.RegisterChangeOrderObject(newObject);
 		}
 
 		public void RegisterDeleteObject(OrderObject newObject) {
-			Logger.info("Сервис: удаление оборудования " + newObject.ObjectName);
+			Logger.info("удаление оборудования " + newObject.ObjectName, "Сервис");
 			objContext.RegisterDeleteOrderObject(newObject);
 		}
 
@@ -123,12 +123,12 @@ namespace VotGESOrders.Web.Services
 
 
 		public void RegisterChangeUser(OrdersUser newObject) {
-			Logger.info("Сервис: изменение пользователя " + newObject.FullName);
+			Logger.info("изменение пользователя " + newObject.FullName, "Сервис");
 			usrContext.RegisterChangeUser(newObject);
 		}
 
 		public void RegisterDeleteUser(OrdersUser newObject) {
-			Logger.info("Сервис: удаление пользователя " + newObject.FullName);
+			Logger.info("удаление пользователя " + newObject.FullName, "Сервис");
 			usrContext.RegisterDeleteUser(newObject);
 		}
 

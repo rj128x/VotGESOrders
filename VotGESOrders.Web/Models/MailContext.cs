@@ -20,14 +20,18 @@ namespace VotGESOrders.Web.Models
 						user.SendAllMail && !mailToList.Contains(user.Mail) ||
 						user.SendCreateMail && order.UserCreateOrderID == user.UserID && !mailToList.Contains(user.Mail)
 						){
-						mailToList.Add(user.Mail);
+							if (!String.IsNullOrEmpty(user.Mail)) {
+								mailToList.Add(user.Mail);
+							}
 					}
 				}
 
 				string message=OrderView.getOrderHTML(order);
-				SendMailLocal("mx-votges-121.corp.gidroogk.com", 25, "", "", "SR-VOTGES-INT@votges.rushydro.ru", mailToList, header, message, true);
+				if (mailToList.Count > 0) {
+					SendMailLocal("mx-votges-121.corp.gidroogk.com", 25, "", "", "SR-VOTGES-INT@votges.rushydro.ru", mailToList, header, message, true);
+				}
 			} catch (Exception e) {
-				Logger.error(String.Format("Ошибка при отправке почты: {0}", e.ToString()));
+				Logger.error(String.Format("Ошибка при отправке почты: {0}", e.ToString()), "Сервер");
 			}
 		}
 
