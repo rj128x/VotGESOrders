@@ -51,7 +51,7 @@ namespace VotGESOrders.Web.Models
 						(order.orderLastUpdate > lastDate));
 					List<Order> resultOrders=new List<Order>();
 					foreach (Orders orderDB in orders) {
-						resultOrders.Add(new Order(orderDB, currentUser, false, false));
+						resultOrders.Add(new Order(orderDB, currentUser, false, null));
 					}					
 					return resultOrders.AsQueryable();
 				} catch (Exception e) {
@@ -83,7 +83,7 @@ namespace VotGESOrders.Web.Models
 					select o;
 					List<Order> resultOrders=new List<Order>();
 					foreach (Orders orderDB in orders) {
-						resultOrders.Add(new Order(orderDB, currentUser,false,false));
+						resultOrders.Add(new Order(orderDB, currentUser,false,null));
 					}
 					return resultOrders.AsQueryable();
 				} catch (Exception e) {
@@ -155,8 +155,19 @@ namespace VotGESOrders.Web.Models
 
 				List<Order> resultOrders=new List<Order>();
 				foreach (Orders orderDB in orders) {
-					resultOrders.Add(new Order(orderDB, currentUser, filter.ShowRelatedOrders, filter.ShowRelatedOrders));
+					resultOrders.Add(new Order(orderDB, currentUser, false, null));
 				}
+
+				if (filter.ShowRelatedOrders) {
+					IEnumerable<double> floorNumbers=from Order o in resultOrders select Math.Floor(o.OrderNumber);
+					IEnumerable<double> numbers=from Order o in resultOrders select o.OrderNumber;
+					IQueryable<Orders> relOrders=from o in context.Orders where floorNumbers.Contains(Math.Floor(o.orderNumber)) && !numbers.Contains(o.orderNumber) select o;
+					foreach (Orders orderDB in relOrders) {
+						resultOrders.Add(new Order(orderDB, currentUser, false, null));
+					}
+				}
+
+
 				return resultOrders.AsQueryable();
 			} catch (Exception e) {
 				Logger.error("===Ошибка при получении списка заказов (фильтр) " + e.ToString(), "К-т заявок");
@@ -252,7 +263,7 @@ namespace VotGESOrders.Web.Models
 					orderDB.parentOrderNumber = order.ParentOrderNumber;
 					parentOrderDB.childOrderNumber = orderDB.orderNumber;
 
-					MailContext.sendMail("Продление заявки №" + order.ParentOrderNumber.ToString(OrderInfo.NFI), new Order(parentOrderDB, currentUser, false, false));
+					MailContext.sendMail("Продление заявки №" + order.ParentOrderNumber.ToString(OrderInfo.NFI), new Order(parentOrderDB, currentUser, false, null));
 				}
 
 				if (order.OrderIsFixErrorEnter) {
@@ -273,7 +284,7 @@ namespace VotGESOrders.Web.Models
 					orderDB.parentOrderNumber = order.ParentOrderNumber;
 					parentOrderDB.childOrderNumber = orderDB.orderNumber;
 
-					MailContext.sendMail("Заявка закрыта без ввода оборудования. Заявка №" + order.ParentOrderNumber.ToString(OrderInfo.NFI), new Order(parentOrderDB, currentUser, false, false));
+					MailContext.sendMail("Заявка закрыта без ввода оборудования. Заявка №" + order.ParentOrderNumber.ToString(OrderInfo.NFI), new Order(parentOrderDB, currentUser, false, null));
 				}
 
 				context.Orders.AddObject(orderDB);
@@ -282,7 +293,7 @@ namespace VotGESOrders.Web.Models
 				Logger.info("===Сохранено", "К-т заявок");		
 
 				LastUpdate.save(guid);
-				order.refreshOrderFromDB(orderDB, currentUser);
+				order.refreshOrderFromDB(orderDB, currentUser,false,null);
 				MailContext.sendMail("Создана новая заявка", order);
 			} catch (Exception e) {
 				Logger.error(String.Format("===Ошибка при создании заявки: {0}", e), "К-т заявок");
@@ -302,8 +313,8 @@ namespace VotGESOrders.Web.Models
 					context.SaveChanges();
 					LastUpdate.save(guid);
 					Logger.info("===Изменения сохранены. Заявка №" + order.OrderNumber, "К-т заявок");
-				} 
-				order.refreshOrderFromDB(orderDB, currentUser);
+				}
+				order.refreshOrderFromDB(orderDB, currentUser, false, null);
 				MailContext.sendMail("Изменена заявка №" + orderDB.orderNumber.ToString(OrderInfo.NFI), order);
 			} catch (Exception e) {
 				Logger.error(String.Format("===Ошибка при изменении заявки №{1}: {0}", e, order.OrderNumber.ToString(OrderInfo.NFI)), "К-т заявок");
@@ -333,13 +344,13 @@ namespace VotGESOrders.Web.Models
 						parentOrderDB.orderExtended = true;
 						parentOrderDB.orderAskExtended = false;
 						parentOrderDB.orderState = OrderStateEnum.extended.ToString();
-						MailContext.sendMail("Продлена заявка №" + order.ParentOrderNumber.ToString(OrderInfo.NFI), new Order(parentOrderDB, currentUser, false, false));
+						MailContext.sendMail("Продлена заявка №" + order.ParentOrderNumber.ToString(OrderInfo.NFI), new Order(parentOrderDB, currentUser, false, null));
 					}
 					context.SaveChanges();
 					LastUpdate.save(guid);
 					Logger.info("Заявка разрешена. Заявка №" + order.OrderNumber.ToString(OrderInfo.NFI), "К-т заявок");
 				}
-				order.refreshOrderFromDB(orderDB, currentUser);
+				order.refreshOrderFromDB(orderDB, currentUser, false, null);
 				MailContext.sendMail("Разрешена заявка №" + orderDB.orderNumber.ToString(OrderInfo.NFI), order);
 			} catch (Exception e) {
 				Logger.error(String.Format("===Ошибка при разрешении заявки №{1}: {0}", e, order.OrderNumber.ToString(OrderInfo.NFI)), "К-т заявок");
@@ -377,7 +388,7 @@ namespace VotGESOrders.Web.Models
 						parentOrderDB.faktCompleteDate = null;
 						parentOrderDB.userCompleteOrderID = null;
 
-						MailContext.sendMail("Продление заявки отклонено. Заявка №" + order.ParentOrderNumber.ToString(OrderInfo.NFI), new Order(parentOrderDB, currentUser, false, false));
+						MailContext.sendMail("Продление заявки отклонено. Заявка №" + order.ParentOrderNumber.ToString(OrderInfo.NFI), new Order(parentOrderDB, currentUser, false, null));
 					}
 
 					context.SaveChanges();
@@ -385,7 +396,7 @@ namespace VotGESOrders.Web.Models
 					Logger.info("===Заявка запрещена. Заявка №" + order.OrderNumber.ToString(OrderInfo.NFI), "К-т заявок");
 
 				}
-				order.refreshOrderFromDB(orderDB, currentUser);
+				order.refreshOrderFromDB(orderDB, currentUser, false, null);
 				MailContext.sendMail("Отклонена заявка №" + orderDB.orderNumber.ToString(OrderInfo.NFI), order);
 			} catch (Exception e) {
 				Logger.error(String.Format("===Ошибка при запрещении заявки №{1}: {0}", e, order.OrderNumber.ToString(OrderInfo.NFI)), "К-т заявок");
@@ -414,7 +425,7 @@ namespace VotGESOrders.Web.Models
 					LastUpdate.save(guid);
 					Logger.info("===Заявка открыта. Заявка №" + order.OrderNumber.ToString(OrderInfo.NFI), "К-т заявок");
 				}
-				order.refreshOrderFromDB(orderDB, currentUser);
+				order.refreshOrderFromDB(orderDB, currentUser, false, null);
 				MailContext.sendMail("Открыта заявка №" + orderDB.orderNumber.ToString(OrderInfo.NFI), order);
 			} catch (Exception e) {
 				Logger.error(String.Format("===Ошибка при открытии заявки №{1}: {0}", e, order.OrderNumber.ToString(OrderInfo.NFI)), "К-т заявок");
@@ -441,7 +452,7 @@ namespace VotGESOrders.Web.Models
 					LastUpdate.save(guid);
 					Logger.info("===Разрешен ввод оборудования. Заявка №" + order.OrderNumber.ToString(OrderInfo.NFI), "К-т заявок");
 				}
-				order.refreshOrderFromDB(orderDB, currentUser);
+				order.refreshOrderFromDB(orderDB, currentUser, false, null);
 				MailContext.sendMail("Разрешен ввод оборудования. Заявка №" + orderDB.orderNumber.ToString(OrderInfo.NFI), order);
 			} catch (Exception e) {
 				Logger.error(String.Format("===Ошибка при разрешении ввода. Заявка №{1}: {0}", e, order.OrderNumber.ToString(OrderInfo.NFI)), "К-т заявок");
@@ -478,14 +489,14 @@ namespace VotGESOrders.Web.Models
 						parentOrderDB.faktCompleteDate = null;
 						parentOrderDB.userCompleteOrderID = null;
 
-						MailContext.sendMail("Снята заявка на продление. Заявка №" + order.ParentOrderNumber.ToString(OrderInfo.NFI), new Order(parentOrderDB, currentUser, false, false));
+						MailContext.sendMail("Снята заявка на продление. Заявка №" + order.ParentOrderNumber.ToString(OrderInfo.NFI), new Order(parentOrderDB, currentUser, false, null));
 					}
 
 					context.SaveChanges();
 					LastUpdate.save(guid);
 					Logger.info("===Заявка снята. Заявка №" + order.OrderNumber.ToString(OrderInfo.NFI), "К-т заявок");
 				}
-				order.refreshOrderFromDB(orderDB, currentUser);
+				order.refreshOrderFromDB(orderDB, currentUser, false, null);
 				MailContext.sendMail("Снята заявка №" + orderDB.orderNumber.ToString(OrderInfo.NFI), order);
 			} catch (Exception e) {
 				Logger.error(String.Format("===Ошибка при снятии заявки №{1}: {0}", e, order.OrderNumber.ToString(OrderInfo.NFI)), "К-т заявок");
@@ -512,7 +523,7 @@ namespace VotGESOrders.Web.Models
 					LastUpdate.save(guid);
 					Logger.info("===Оборудование введено. Заявка №" + order.OrderNumber.ToString(OrderInfo.NFI), "К-т заявок");
 				}
-				order.refreshOrderFromDB(orderDB, currentUser);
+				order.refreshOrderFromDB(orderDB, currentUser, false, null);
 				MailContext.sendMail("Завершена заявка №" + orderDB.orderNumber.ToString(OrderInfo.NFI), order);
 			} catch (Exception e) {
 				Logger.error(String.Format("===Ошибка при вводе оборудования №{1}: {0}", e, order.OrderNumber.ToString(OrderInfo.NFI)), "К-т заявок");
@@ -526,7 +537,7 @@ namespace VotGESOrders.Web.Models
 				VotGESOrdersEntities context=new VotGESOrdersEntities();
 				Orders orderDB=context.Orders.First(o => o.orderNumber == order.OrderNumber);
 				Logger.info("===Заявка обновлена. Заявка №" + order.OrderNumber.ToString(OrderInfo.NFI), "К-т заявок");
-				order.refreshOrderFromDB(orderDB, currentUser);
+				order.refreshOrderFromDB(orderDB, currentUser, false, null);
 			} catch (Exception e) {
 				Logger.error(String.Format("===Ошибка при обновлении заявки №{1}: {0}", e, order.OrderNumber.ToString(OrderInfo.NFI)), "К-т заявок");
 				throw new DomainException(String.Format("Ошибка при обновлении заявки №{0}", order.OrderNumber.ToString(OrderInfo.NFI)));

@@ -1,4 +1,5 @@
 ﻿delete from orders
+delete from users
 insert into users values('CORP\gschu','ГЩУ ВотГЭС','gschu@votges.rushydro.ru',1,0,0,0,0,0,0,0,0,0)
 insert into users values('CORP\BazhenovSV','Баженов С.В.','BazhenovSV@votges.rushydro.ru',1,1,1,1,1,1,1,1,1,1)
 insert into users values('CORP\ChekunovaMV','Чекунова М.В.','ChekunovaMV@votges.rushydro.ru',1,1,1,1,1,1,1,1,1,1)

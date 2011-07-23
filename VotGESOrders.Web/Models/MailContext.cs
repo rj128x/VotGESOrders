@@ -10,7 +10,7 @@ namespace VotGESOrders.Web.Models
 	public class MailContext
 	{
 		public static void sendMail(string header, Order order) {
-			//return;
+			return;
 			try {
 				IQueryable users=OrdersUser.getAllUsers();
 				List<string> mailToList=new List<string>();

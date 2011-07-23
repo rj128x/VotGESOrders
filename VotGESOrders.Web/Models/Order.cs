@@ -590,7 +590,13 @@ namespace VotGESOrders.Web.Models
 			OrderCreated = true;			
 		}
 
-		public void refreshOrderFromDB(Orders dbOrder, OrdersUser currentUser, bool readParent = true, bool readChild = true) {
+		public void refreshOrderFromDB(Orders dbOrder, OrdersUser currentUser, bool readRelated, List<Order> listOrders) {
+			if (listOrders != null) {
+				if (!listOrders.Contains(this)) {
+					listOrders.Add(this);
+				}
+			}
+			
 			checkPremissions(dbOrder, currentUser);
 
 			SelOrderObject = OrderObject.getByID(dbOrder.orderObjectID);
@@ -644,8 +650,8 @@ namespace VotGESOrders.Web.Models
 			}
 
 			if (OrderExtended || OrderAskExtended ||OrderCompletedWithoutEnter) {
-				if (readChild) {
-					ChildOrder = new Order(dbOrder.childOrderNumber.Value, currentUser, false, true);
+				if (readRelated) {
+					ChildOrder = GetOrder(dbOrder.childOrderNumber.Value, currentUser, readRelated, listOrders);
 				} else {
 					ChildOrderNumber = dbOrder.childOrderNumber.Value;
 				}
@@ -654,8 +660,8 @@ namespace VotGESOrders.Web.Models
 			}
 
 			if (OrderIsExtend||OrderIsFixErrorEnter) {
-				if (readParent) {
-					ParentOrder = new Order(dbOrder.parentOrderNumber.Value, currentUser, true, false);
+				if (readRelated) {
+					ParentOrder = GetOrder(dbOrder.parentOrderNumber.Value, currentUser, readRelated, listOrders);
 				} else {
 					ParentOrderNumber = dbOrder.parentOrderNumber.Value;
 				}
@@ -666,7 +672,7 @@ namespace VotGESOrders.Web.Models
 			OrderHasParentOrder = ParentOrderNumber > 0;
 			
 			checkExpired();
-
+						
 		}
 
 		public void checkPremissions(Orders dbOrder, OrdersUser currentUser) {
@@ -736,16 +742,24 @@ namespace VotGESOrders.Web.Models
 
 
 
-		public Order(Orders dbOrder, OrdersUser currentUser, bool readParent = true, bool readChild = true) {
-			refreshOrderFromDB(dbOrder, currentUser, readParent, readChild);
+		public Order(Orders dbOrder, OrdersUser currentUser, bool readRelated, List<Order> listOrders) {
+			refreshOrderFromDB(dbOrder, currentUser, readRelated,listOrders);			
 		}
 
-		protected Order(double oNumber, OrdersUser currentUser, bool readParent = true, bool readChild = true) {
+
+		public static Order GetOrder(double oNumber, OrdersUser currentUser, bool readRelated, List<Order> listOrders){
+			if (listOrders != null) {
+				try{
+					return (from Order o in listOrders where o.OrderNumber == oNumber select o).First();
+				}
+				catch{}
+			} 
+			Order newOrder=new Order();
 			VotGESOrdersEntities context=new VotGESOrdersEntities();
 			Orders orderDB=context.Orders.Where(o => o.orderNumber == oNumber).First();
-			refreshOrderFromDB(orderDB, currentUser, readParent, readChild);
+			newOrder.refreshOrderFromDB(orderDB, currentUser, readRelated, listOrders);			
+			return newOrder;			
 		}
-
 
 
 		public bool AllowCloseOrder { get; protected set; }
