@@ -26,7 +26,10 @@ namespace VotGESOrders.Web.Models
 					}
 				}
 
+				
+
 				string message=OrderView.getOrderHTML(order);
+				message += String.Format("<h3><a href='{0}'>Перейти к списку заказов</a></h3>",HttpContext.Current.Request.UrlReferrer);
 				if (mailToList.Count > 0) {
 					SendMailLocal("mx-votges-121.corp.gidroogk.com", 25, "", "", "SR-VOTGES-INT@votges.rushydro.ru", mailToList, header, message, true);
 				}

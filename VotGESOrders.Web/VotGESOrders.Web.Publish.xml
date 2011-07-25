@@ -7,7 +7,7 @@
     <file relUrl="bin/System.Web.Mvc.dll" publishTime="02/17/2010 07:24:14" />
     <file relUrl="bin/System.ServiceModel.DomainServices.Server.dll" publishTime="05/06/2010 14:24:00" />
     <file relUrl="Logging/Logger.cs" publishTime="07/20/2011 10:48:31" />
-    <file relUrl="bin/VotGESOrders.Web.dll" publishTime="07/25/2011 08:11:56" />
+    <file relUrl="bin/VotGESOrders.Web.dll" publishTime="07/25/2011 13:33:56" />
     <file relUrl="SQL/users.sql" publishTime="07/25/2011 08:00:11" />
     <file relUrl="Models/XMLStringSerializer.shared.cs" publishTime="07/07/2011 07:54:59" />
     <file relUrl="Scripts/MicrosoftMvcAjax.js" publishTime="07/07/2011 07:54:59" />
@@ -30,7 +30,7 @@
     <file relUrl="VotGESOrders.Web.csproj.user" publishTime="07/25/2011 08:11:50" />
     <file relUrl="SQL/objects.sql" publishTime="07/14/2011 10:41:14" />
     <file relUrl="bin/ru/System.Web.Mvc.resources.dll" publishTime="03/29/2010 17:36:52" />
-    <file relUrl="bin/VotGESOrders.Web.pdb" publishTime="07/25/2011 08:11:55" />
+    <file relUrl="bin/VotGESOrders.Web.pdb" publishTime="07/25/2011 13:33:55" />
     <file relUrl="Views/Home/About.aspx" publishTime="07/07/2011 07:55:00" />
     <file relUrl="Scripts/jquery-1.4.1-vsdoc.js" publishTime="07/07/2011 07:54:59" />
     <file relUrl="Models/OrderInfo.shared.cs" publishTime="07/18/2011 07:53:28" />
@@ -38,7 +38,7 @@
     <file relUrl="Controllers/HomeController.cs" publishTime="07/07/2011 07:54:59" />
     <file relUrl="bin/log4net.dll" publishTime="03/30/2006 13:24:28" />
     <file relUrl="Models/OrdersUser.cs" publishTime="07/20/2011 10:32:48" />
-    <file relUrl="ClientBin/VotGESOrders.xap" publishTime="07/25/2011 08:09:50" />
+    <file relUrl="ClientBin/VotGESOrders.xap" publishTime="07/25/2011 10:16:06" />
     <file relUrl="Views/Shared/Site.Master" publishTime="07/07/2011 07:55:00" />
     <file relUrl="Scripts/jquery.validate.min.js" publishTime="07/07/2011 07:55:00" />
     <file relUrl="Services/AuthenticationDomainService.cs" publishTime="07/20/2011 10:42:57" />
@@ -63,7 +63,7 @@
     <file relUrl="Views/Home/VotGESOrders.aspx" publishTime="07/07/2011 07:55:00" />
     <file relUrl="Scripts/jquery.validate.js" publishTime="07/07/2011 07:55:00" />
     <file relUrl="Web.Debug.config" publishTime="07/07/2011 07:55:00" />
-    <file relUrl="Models/MailContext.cs" publishTime="07/25/2011 08:09:56" />
+    <file relUrl="Models/MailContext.cs" publishTime="07/25/2011 13:34:49" />
     <file relUrl="Models/UserContext.cs" publishTime="07/20/2011 10:42:59" />
     <file relUrl="Services/OrdersDomainService.cs" publishTime="07/20/2011 10:28:15" />
     <file relUrl="Models/AccountModels.cs" publishTime="07/07/2011 07:54:59" />
