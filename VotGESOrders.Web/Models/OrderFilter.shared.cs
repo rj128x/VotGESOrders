@@ -78,20 +78,14 @@ namespace VotGESOrders.Web.Models
 
 		[XmlIgnore]
 		public ObservableCollection<OrdersUser> SelectedUsers { get; set; }
-		[XmlIgnore]
-		public string SelectedUsersJoinStr {
-			get {
-				return String.Join("~", from u in SelectedUsers select u.UserID);
-			}
+		public string getSelectedUsersJoinStr() {
+			return String.Join("~", from u in SelectedUsers select u.UserID);
 		}
 
 		[XmlIgnore]
 		public ObservableCollection<OrderObject> SelectedObjects { get; set; }
-		[XmlIgnore]
-		public string SelectedObjectsJoinStr {
-			get {
-				return String.Join("~", from o in SelectedObjects select o.ObjectID);
-			}
+		public string getSelectedObjectsJoinStr() {
+			return String.Join("~", from o in SelectedObjects select o.ObjectID);
 		}
 
 

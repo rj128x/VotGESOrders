@@ -112,8 +112,8 @@ namespace VotGESOrders
 			if (clear) {
 				context.Orders.Clear();
 			}
-			filter.SelectedUsersStr = filter.SelectedUsersJoinStr;
-			filter.SelectedObjectsStr = filter.SelectedObjectsJoinStr;
+			filter.SelectedUsersStr = filter.getSelectedUsersJoinStr();
+			filter.SelectedObjectsStr = filter.getSelectedObjectsJoinStr();
 			string xml=XMLStringSerializer.Serialize<OrderFilter>(filter);
 			context.Load(
 				context.GetFilteredOrdersFromXMLQuery(xml, OrdersContext.Current.SessionGUID),
