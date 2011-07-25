@@ -59,7 +59,7 @@ namespace VotGESOrders.Web.Models
 				user.FullName = String.Format("{0} (нет в базе)", userName);
 				user.Name = userName;
 				user.UserID = -1;
-				Logger.error(String.Format("Ошибка при получении краткой информации о пользователе из БД: {0}", userName), "Сервер");
+				Logger.error(String.Format("Ошибка при получении краткой информации о пользователе из БД: {0}", userName), Logger.LoggerSource.server);
 				return user;
 			}
 		}
@@ -73,7 +73,7 @@ namespace VotGESOrders.Web.Models
 				user.FullName = String.Format("{0} (нет в базе)", userID);
 				user.Name = userID.ToString();
 				user.UserID = -1;
-				Logger.error(String.Format("Ошибка при получении краткой информации о пользователе из БД: {0}, {1}", userID, e), "Сервер");
+				Logger.error(String.Format("Ошибка при получении краткой информации о пользователе из БД: {0}, {1}", userID, e), Logger.LoggerSource.server);
 				return user;
 			}
 		}
@@ -97,7 +97,7 @@ namespace VotGESOrders.Web.Models
 				user.AllowAgreeOrders = userDB.allowAgreeOrders;
 				return user;
 			} catch (Exception e) {
-				Logger.error(String.Format("Ошибка при получении краткой информации о пользователе: {0}", e), "Сервер");
+				Logger.error(String.Format("Ошибка при получении краткой информации о пользователе: {0}", e), Logger.LoggerSource.server);
 			}
 			return null;
 		}

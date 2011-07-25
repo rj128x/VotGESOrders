@@ -12,14 +12,14 @@ namespace VotGESOrders.Web.Models
 	{
 
 		public void RegisterChangeUser(OrdersUser newUser) {
-			Logger.info("Пользователь изменил пользователя","К-т пользов.");
+			Logger.info("Пользователь изменил пользователя", Logger.LoggerSource.usersContext);
 			try {
 				VotGESOrdersEntities context=new VotGESOrdersEntities();
 
 				IQueryable<Users> users=(from u in context.Users where u.userID == newUser.UserID select u);
 				Users user=null;
 				if (users.Count()==0) {
-					Logger.info("===Новый пользователь", "К-т пользов.");
+					Logger.info("===Новый пользователь", Logger.LoggerSource.usersContext);
 					user = new Users();
 					user.name = newUser.Name;
 					context.Users.AddObject(user);
@@ -45,17 +45,17 @@ namespace VotGESOrders.Web.Models
 				newUser.UserID = user.userID;
 				OrdersUser.init();
 
-				Logger.info("===Сохранено", "К-т пользов.");
+				Logger.info("===Сохранено", Logger.LoggerSource.usersContext);
 
 			} catch (Exception e) {
-				Logger.error(String.Format("===Ошибка при изменении пользователя: {0}", e), "К-т пользов.");
+				Logger.error(String.Format("===Ошибка при изменении пользователя: {0}", e), Logger.LoggerSource.usersContext);
 				throw new DomainException("Ошибка при изменении пользователя");
 			}
 		}
 
 
 		public void RegisterDeleteUser(OrdersUser newUser) {
-			Logger.info("Пользователь удалил пользователя", "К-т пользов.");
+			Logger.info("Пользователь удалил пользователя", Logger.LoggerSource.usersContext);
 			try {
 				VotGESOrdersEntities context=new VotGESOrdersEntities();
 
@@ -67,10 +67,10 @@ namespace VotGESOrders.Web.Models
 
 				context.SaveChanges();
 				OrdersUser.init();
-				Logger.info("===Сохранено", "К-т пользов.");
+				Logger.info("===Сохранено", Logger.LoggerSource.usersContext);
 
 			} catch (Exception e) {
-				Logger.error(String.Format("===Ошибка при удалении пользователя: {0}", e), "К-т пользов.");
+				Logger.error(String.Format("===Ошибка при удалении пользователя: {0}", e), Logger.LoggerSource.usersContext);
 				throw new DomainException("Ошибка при удалении пользователя. Возможно на пользователя ссылаются заявки");
 			}
 		}

@@ -34,7 +34,7 @@ namespace VotGESOrders.Web.Models
 					SendMailLocal("mx-votges-121.corp.gidroogk.com", 25, "", "", "SR-VOTGES-INT@votges.rushydro.ru", mailToList, header, message, true);
 				}
 			} catch (Exception e) {
-				Logger.error(String.Format("Ошибка при отправке почты: {0}", e.ToString()), "Сервер");
+				Logger.error(String.Format("Ошибка при отправке почты: {0}", e.ToString()), Logger.LoggerSource.server);
 			}
 		}
 

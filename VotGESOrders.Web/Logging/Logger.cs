@@ -11,6 +11,7 @@ namespace VotGESOrders.Web.Logging
 {
 	public static class Logger
 	{
+		public enum LoggerSource { server, client, ordersContext, objectsContext, usersContext,service }
 		public static log4net.ILog logger;
 		static Logger() {
 
@@ -27,25 +28,25 @@ namespace VotGESOrders.Web.Logging
 			logger = LogManager.GetLogger(name);
 		}
 
-		public static string createMessage(string message, string source="") {
+		public static string createMessage(string message, LoggerSource source) {
 			try {
 				string user=HttpContext.Current.User.Identity.IsAuthenticated ? HttpContext.Current.User.Identity.Name : "Anonimous";
 				string ip= HttpContext.Current.Request.UserHostAddress;
-				return String.Format("{0,-30} {1,-15} {2,-20} {3}", user, ip, source, message);
+				return String.Format("{0,-30} {1,-15} {2,-20} {3}", user, ip, source.ToString(), message);
 			}catch{
-				return String.Format("{0,-30} {1,-15} {2,-20} {3}", "", "", source, message);;
+				return String.Format("{0,-30} {1,-15} {2,-20} {3}", "", "", source.ToString(), message);;
 			}
 		}
 
-		public static void info(string str, string source) {			
+		public static void info(string str, LoggerSource source) {			
 			logger.Info(createMessage(str,source));
 		}
 
-		public static void error(string str, string source) {
+		public static void error(string str, LoggerSource source) {
 			logger.Error(createMessage(str,source));
 		}
 
-		public static void debug(string str, string source) {
+		public static void debug(string str, LoggerSource source) {
 			logger.Debug(createMessage(str,source));
 		}
 

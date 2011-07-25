@@ -49,7 +49,7 @@ namespace VotGESOrders.Web.Models
 		protected static Dictionary<int,OrderObject> allObjects;
 
 		public static void init() {
-			Logger.info("Чтение списка объектов из БД","Сервер");
+			Logger.info("Чтение списка объектов из БД", Logger.LoggerSource.server);
 			allObjects = new Dictionary<int, OrderObject>();
 			context = new VotGESOrdersEntities();
 
@@ -59,7 +59,7 @@ namespace VotGESOrders.Web.Models
 				allObjects.Add(dbObject.objectID, getFromDB(dbObject));
 			}
 			createNames();
-			Logger.info("Чтение списка объектов из БД завершено", "Сервер");
+			Logger.info("Чтение списка объектов из БД завершено", Logger.LoggerSource.server);
 		}
 
 		static OrderObject() {
@@ -114,7 +114,7 @@ namespace VotGESOrders.Web.Models
 				obj.ParentObjectID = objectDB.parentID;
 				return obj;
 			} catch (Exception e) {
-				Logger.error(String.Format("Ошибка при получении информации об оборудовании: {0}", e), "Сервер");
+				Logger.error(String.Format("Ошибка при получении информации об оборудовании: {0}", e), Logger.LoggerSource.server);
 			}
 			return null;
 		}
