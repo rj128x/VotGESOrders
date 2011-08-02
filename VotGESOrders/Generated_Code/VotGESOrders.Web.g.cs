@@ -22,20 +22,20 @@ namespace VotGESOrders
     
     
     /// <summary>
-    /// Context for the RIA application.
+    /// Контекст полнофункционального интернет-приложения (RIA).
     /// </summary>
     /// <remarks>
-    /// This context extends the base to make application services and types available
-    /// for consumption from code and xaml.
+    /// Данный контекст расширяет базовый и делает доступными службы и типы приложений,
+    /// которые могут быть использованы в коде и xaml.
     /// </remarks>
     public sealed partial class WebContext : WebContextBase
     {
         
-        #region Extensibility Method Definitions
+        #region Определение методов расширяемости
 
         /// <summary>
-        /// This method is invoked from the constructor once initialization is complete and
-        /// can be used for further object setup.
+        /// Этот метод вызывается из конструктора по завершении инициализации и
+        /// не может быть использован для последующей настройки объекта.
         /// </summary>
         partial void OnCreated();
 
@@ -43,7 +43,7 @@ namespace VotGESOrders
         
         
         /// <summary>
-        /// Initializes a new instance of the WebContext class.
+        /// Инициализирует новый экземпляр класса WebContext.
         /// </summary>
         public WebContext()
         {
@@ -51,10 +51,10 @@ namespace VotGESOrders
         }
         
         /// <summary>
-        /// Gets the context that is registered as a lifetime object with the current application.
+        /// Возвращает контекст, зарегистрированный как объект времени существования в данном приложении.
         /// </summary>
-        /// <exception cref="InvalidOperationException"> is thrown if there is no current application,
-        /// no contexts have been added, or more than one context has been added.
+        /// Исключение <exception cref="InvalidOperationException"> вызывается в том случае, если отсутствует текущее приложение,
+        /// не добавлено ни одного контекста либо было добавлено более одного контекста.
         /// </exception>
         /// <seealso cref="System.Windows.Application.ApplicationLifetimeObjects"/>
         public new static WebContext Current
@@ -66,7 +66,7 @@ namespace VotGESOrders
         }
         
         /// <summary>
-        /// Gets a user representing the authenticated identity.
+        /// Возвращает пользователя, прошедшего проверку подлинности.
         /// </summary>
         public new User User
         {
@@ -91,7 +91,7 @@ namespace VotGESOrders.Web.Models
     
     
     /// <summary>
-    /// The 'Order' entity class.
+    /// Класс сущности "Order".
     /// </summary>
     [DataContract(Namespace="http://schemas.datacontract.org/2004/07/VotGESOrders.Web.Models")]
     public sealed partial class Order : Entity
@@ -257,11 +257,11 @@ namespace VotGESOrders.Web.Models
         
         private int _userReviewOrderID;
         
-        #region Extensibility Method Definitions
+        #region Определение методов расширяемости
 
         /// <summary>
-        /// This method is invoked from the constructor once initialization is complete and
-        /// can be used for further object setup.
+        /// Этот метод вызывается из конструктора по завершении инициализации и
+        /// не может быть использован для последующей настройки объекта.
         /// </summary>
         partial void OnCreated();
         partial void OnAgreeTextChanging(string value);
@@ -429,7 +429,7 @@ namespace VotGESOrders.Web.Models
         
         
         /// <summary>
-        /// Initializes a new instance of the <see cref="Order"/> class.
+        /// Инициализация нового экземпляра класса <see cref="Order"/>.
         /// </summary>
         public Order()
         {
@@ -437,7 +437,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the 'AgreeText' value.
+        /// Возвращает или задает значение параметра "AgreeText".
         /// </summary>
         [DataMember()]
         [Display(Description="С кем согласована заявка", ShortName="Согласование")]
@@ -465,7 +465,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the 'AgreeUsersDict' value.
+        /// Возвращает или задает значение параметра "AgreeUsersDict".
         /// </summary>
         [DataMember()]
         public Dictionary<int, string> AgreeUsersDict
@@ -489,7 +489,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the 'AgreeUsersIDSText' value.
+        /// Возвращает или задает значение параметра "AgreeUsersIDSText".
         /// </summary>
         [DataMember()]
         public string AgreeUsersIDSText
@@ -513,7 +513,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the 'AllowCancelOrder' value.
+        /// Возвращает или задает значение параметра "AllowCancelOrder".
         /// </summary>
         [DataMember()]
         [Editable(false)]
@@ -538,7 +538,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the 'AllowChangeOrder' value.
+        /// Возвращает или задает значение параметра "AllowChangeOrder".
         /// </summary>
         [DataMember()]
         [Editable(false)]
@@ -563,7 +563,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the 'AllowCloseOrder' value.
+        /// Возвращает или задает значение параметра "AllowCloseOrder".
         /// </summary>
         [DataMember()]
         [Editable(false)]
@@ -588,7 +588,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the 'AllowCompleteOrder' value.
+        /// Возвращает или задает значение параметра "AllowCompleteOrder".
         /// </summary>
         [DataMember()]
         [Editable(false)]
@@ -613,7 +613,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the 'AllowCompleteWithoutEnterOrder' value.
+        /// Возвращает или задает значение параметра "AllowCompleteWithoutEnterOrder".
         /// </summary>
         [DataMember()]
         [Editable(false)]
@@ -638,7 +638,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the 'AllowExtendOrder' value.
+        /// Возвращает или задает значение параметра "AllowExtendOrder".
         /// </summary>
         [DataMember()]
         [Editable(false)]
@@ -663,7 +663,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the 'AllowOpenOrder' value.
+        /// Возвращает или задает значение параметра "AllowOpenOrder".
         /// </summary>
         [DataMember()]
         [Editable(false)]
@@ -688,7 +688,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the 'AllowReviewOrder' value.
+        /// Возвращает или задает значение параметра "AllowReviewOrder".
         /// </summary>
         [DataMember()]
         [Editable(false)]
@@ -713,7 +713,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the 'CancelText' value.
+        /// Возвращает или задает значение параметра "CancelText".
         /// </summary>
         [DataMember()]
         [Display(Description="Комментарий к отмене заявки (не обязательно)", ShortName="Комментарий")]
@@ -739,7 +739,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the associated <see cref="Order"/> entity.
+        /// Возвращает или задает связанную сущность <see cref="Order"/>.
         /// </summary>
         [Association("Order_ChildOrder", "ChildOrderNumber", "OrderNumber")]
         public Order ChildOrder
@@ -765,7 +765,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the 'ChildOrderNumber' value.
+        /// Возвращает или задает значение параметра "ChildOrderNumber".
         /// </summary>
         [DataMember()]
         public double ChildOrderNumber
@@ -789,7 +789,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the 'CloseText' value.
+        /// Возвращает или задает значение параметра "CloseText".
         /// </summary>
         [DataMember()]
         [Display(Description="Комментарий к разрешению на ввод (не обязательно)", ShortName="Комментарий")]
@@ -815,7 +815,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the 'CompleteText' value.
+        /// Возвращает или задает значение параметра "CompleteText".
         /// </summary>
         [DataMember()]
         [Display(Description="Комментарий к закрытию заявки (не обязательно)", ShortName="Комментарий")]
@@ -841,7 +841,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the 'CreateText' value.
+        /// Возвращает или задает значение параметра "CreateText".
         /// </summary>
         [DataMember()]
         [Display(Description="Дополнительный комментарий к заявке", ShortName="Комментарий")]
@@ -867,7 +867,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the 'ExpiredCloseHours' value.
+        /// Возвращает или задает значение параметра "ExpiredCloseHours".
         /// </summary>
         [DataMember()]
         public Nullable<double> ExpiredCloseHours
@@ -891,7 +891,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the 'ExpiredEnterHours' value.
+        /// Возвращает или задает значение параметра "ExpiredEnterHours".
         /// </summary>
         [DataMember()]
         public Nullable<double> ExpiredEnterHours
@@ -915,7 +915,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the 'ExpiredOpenHours' value.
+        /// Возвращает или задает значение параметра "ExpiredOpenHours".
         /// </summary>
         [DataMember()]
         public Nullable<double> ExpiredOpenHours
@@ -939,7 +939,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the 'FaktCompleteDate' value.
+        /// Возвращает или задает значение параметра "FaktCompleteDate".
         /// </summary>
         [CustomValidation(typeof(OrderValidator), "ValidateFaktCompleteDate", ErrorMessage="Ошибка")]
         [CustomValidation(typeof(OrderValidator), "ValidateFutureDate", ErrorMessage="Ошибка")]
@@ -966,7 +966,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the 'FaktStartDate' value.
+        /// Возвращает или задает значение параметра "FaktStartDate".
         /// </summary>
         [CustomValidation(typeof(OrderValidator), "ValidateFaktStartDate", ErrorMessage="Ошибка")]
         [CustomValidation(typeof(OrderValidator), "ValidateFutureDate", ErrorMessage="Ошибка")]
@@ -993,7 +993,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the 'FaktStopDate' value.
+        /// Возвращает или задает значение параметра "FaktStopDate".
         /// </summary>
         [CustomValidation(typeof(OrderValidator), "ValidateFaktStopDate", ErrorMessage="Ошибка")]
         [CustomValidation(typeof(OrderValidator), "ValidateFutureDate", ErrorMessage="Ошибка")]
@@ -1020,7 +1020,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the 'FullOrderObjectInfo' value.
+        /// Возвращает или задает значение параметра "FullOrderObjectInfo".
         /// </summary>
         [DataMember()]
         public string FullOrderObjectInfo
@@ -1044,7 +1044,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the 'NewComment' value.
+        /// Возвращает или задает значение параметра "NewComment".
         /// </summary>
         [DataMember()]
         [Display(Description="Комментарий (не обязательно)")]
@@ -1069,7 +1069,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the 'OpenText' value.
+        /// Возвращает или задает значение параметра "OpenText".
         /// </summary>
         [DataMember()]
         [Display(Description="Комментарий к выводу оборудования (не обязательно)", ShortName="Комментарий")]
@@ -1095,7 +1095,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the 'OrderAskExtended' value.
+        /// Возвращает или задает значение параметра "OrderAskExtended".
         /// </summary>
         [DataMember()]
         public bool OrderAskExtended
@@ -1119,7 +1119,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the 'OrderCanceled' value.
+        /// Возвращает или задает значение параметра "OrderCanceled".
         /// </summary>
         [DataMember()]
         public bool OrderCanceled
@@ -1143,7 +1143,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the 'OrderClosed' value.
+        /// Возвращает или задает значение параметра "OrderClosed".
         /// </summary>
         [DataMember()]
         public bool OrderClosed
@@ -1167,7 +1167,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the 'OrderCompleted' value.
+        /// Возвращает или задает значение параметра "OrderCompleted".
         /// </summary>
         [DataMember()]
         public bool OrderCompleted
@@ -1191,7 +1191,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the 'OrderCompletedWithoutEnter' value.
+        /// Возвращает или задает значение параметра "OrderCompletedWithoutEnter".
         /// </summary>
         [DataMember()]
         public bool OrderCompletedWithoutEnter
@@ -1215,7 +1215,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the 'OrderCreated' value.
+        /// Возвращает или задает значение параметра "OrderCreated".
         /// </summary>
         [DataMember()]
         public bool OrderCreated
@@ -1239,7 +1239,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the 'OrderDateCancel' value.
+        /// Возвращает или задает значение параметра "OrderDateCancel".
         /// </summary>
         [DataMember()]
         public Nullable<DateTime> OrderDateCancel
@@ -1263,7 +1263,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the 'OrderDateClose' value.
+        /// Возвращает или задает значение параметра "OrderDateClose".
         /// </summary>
         [DataMember()]
         public Nullable<DateTime> OrderDateClose
@@ -1287,7 +1287,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the 'OrderDateComplete' value.
+        /// Возвращает или задает значение параметра "OrderDateComplete".
         /// </summary>
         [DataMember()]
         public Nullable<DateTime> OrderDateComplete
@@ -1311,7 +1311,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the 'OrderDateCreate' value.
+        /// Возвращает или задает значение параметра "OrderDateCreate".
         /// </summary>
         [DataMember()]
         public DateTime OrderDateCreate
@@ -1335,7 +1335,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the 'OrderDateOpen' value.
+        /// Возвращает или задает значение параметра "OrderDateOpen".
         /// </summary>
         [DataMember()]
         public Nullable<DateTime> OrderDateOpen
@@ -1359,7 +1359,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the 'OrderDateReview' value.
+        /// Возвращает или задает значение параметра "OrderDateReview".
         /// </summary>
         [DataMember()]
         public Nullable<DateTime> OrderDateReview
@@ -1383,7 +1383,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the 'OrderExtended' value.
+        /// Возвращает или задает значение параметра "OrderExtended".
         /// </summary>
         [DataMember()]
         public bool OrderExtended
@@ -1407,7 +1407,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the 'OrderHasChildOrder' value.
+        /// Возвращает или задает значение параметра "OrderHasChildOrder".
         /// </summary>
         [DataMember()]
         public bool OrderHasChildOrder
@@ -1431,7 +1431,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the 'OrderHasParentOrder' value.
+        /// Возвращает или задает значение параметра "OrderHasParentOrder".
         /// </summary>
         [DataMember()]
         public bool OrderHasParentOrder
@@ -1455,7 +1455,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the 'OrderIsExpiredClose' value.
+        /// Возвращает или задает значение параметра "OrderIsExpiredClose".
         /// </summary>
         [DataMember()]
         public Nullable<bool> OrderIsExpiredClose
@@ -1479,7 +1479,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the 'OrderIsExpiredOpen' value.
+        /// Возвращает или задает значение параметра "OrderIsExpiredOpen".
         /// </summary>
         [DataMember()]
         public Nullable<bool> OrderIsExpiredOpen
@@ -1503,7 +1503,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the 'OrderIsExpriredEnter' value.
+        /// Возвращает или задает значение параметра "OrderIsExpriredEnter".
         /// </summary>
         [DataMember()]
         public Nullable<bool> OrderIsExpriredEnter
@@ -1527,7 +1527,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the 'OrderIsExtend' value.
+        /// Возвращает или задает значение параметра "OrderIsExtend".
         /// </summary>
         [DataMember()]
         public bool OrderIsExtend
@@ -1551,7 +1551,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the 'OrderIsFixErrorEnter' value.
+        /// Возвращает или задает значение параметра "OrderIsFixErrorEnter".
         /// </summary>
         [DataMember()]
         public bool OrderIsFixErrorEnter
@@ -1575,7 +1575,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the 'OrderNumber' value.
+        /// Возвращает или задает значение параметра "OrderNumber".
         /// </summary>
         [DataMember()]
         [Editable(false, AllowInitialValue=true)]
@@ -1601,7 +1601,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the 'OrderObjectAddInfo' value.
+        /// Возвращает или задает значение параметра "OrderObjectAddInfo".
         /// </summary>
         [DataMember()]
         [Display(Description="Детализация оборудования (если отсутствует в дереве)", ShortName="Оборудование")]
@@ -1627,7 +1627,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the 'OrderOpened' value.
+        /// Возвращает или задает значение параметра "OrderOpened".
         /// </summary>
         [DataMember()]
         public bool OrderOpened
@@ -1651,7 +1651,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the 'OrderReviewed' value.
+        /// Возвращает или задает значение параметра "OrderReviewed".
         /// </summary>
         [DataMember()]
         public bool OrderReviewed
@@ -1675,7 +1675,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the 'OrderState' value.
+        /// Возвращает или задает значение параметра "OrderState".
         /// </summary>
         [DataMember()]
         public OrderStateEnum OrderState
@@ -1699,7 +1699,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the 'OrderStateStr' value.
+        /// Возвращает или задает значение параметра "OrderStateStr".
         /// </summary>
         [DataMember()]
         public string OrderStateStr
@@ -1723,7 +1723,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the 'OrderText' value.
+        /// Возвращает или задает значение параметра "OrderText".
         /// </summary>
         [DataMember()]
         [Display(Description="Введите текст заявки (минимум 5 символов)", ShortName="Текст заявки")]
@@ -1751,7 +1751,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the 'OrderType' value.
+        /// Возвращает или задает значение параметра "OrderType".
         /// </summary>
         [DataMember()]
         public OrderTypeEnum OrderType
@@ -1775,7 +1775,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the 'OrderTypeName' value.
+        /// Возвращает или задает значение параметра "OrderTypeName".
         /// </summary>
         [DataMember()]
         public string OrderTypeName
@@ -1799,7 +1799,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the 'OrderTypeShortName' value.
+        /// Возвращает или задает значение параметра "OrderTypeShortName".
         /// </summary>
         [DataMember()]
         public string OrderTypeShortName
@@ -1823,7 +1823,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the associated <see cref="Order"/> entity.
+        /// Возвращает или задает связанную сущность <see cref="Order"/>.
         /// </summary>
         [Association("Order_ParentOrder", "ParentOrderNumber", "OrderNumber")]
         public Order ParentOrder
@@ -1849,7 +1849,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the 'ParentOrderNumber' value.
+        /// Возвращает или задает значение параметра "ParentOrderNumber".
         /// </summary>
         [DataMember()]
         public double ParentOrderNumber
@@ -1873,7 +1873,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the 'PlanStartDate' value.
+        /// Возвращает или задает значение параметра "PlanStartDate".
         /// </summary>
         [CustomValidation(typeof(OrderValidator), "ValidatePlanStartDate", ErrorMessage="Ошибка")]
         [DataMember()]
@@ -1899,7 +1899,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the 'PlanStopDate' value.
+        /// Возвращает или задает значение параметра "PlanStopDate".
         /// </summary>
         [CustomValidation(typeof(OrderValidator), "ValidatePlanStopDate", ErrorMessage="Ошибка")]
         [DataMember()]
@@ -1925,7 +1925,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the 'ReadyTime' value.
+        /// Возвращает или задает значение параметра "ReadyTime".
         /// </summary>
         [DataMember()]
         [Display(Description="Аварийная готовность", ShortName="Аварийная готовность")]
@@ -1953,7 +1953,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the 'ReviewText' value.
+        /// Возвращает или задает значение параметра "ReviewText".
         /// </summary>
         [DataMember()]
         [Display(Description="Комментарий к разрешению (не обязательно)", ShortName="Комментарий")]
@@ -1979,7 +1979,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the associated <see cref="OrderObject"/> entity.
+        /// Возвращает или задает связанную сущность <see cref="OrderObject"/>.
         /// </summary>
         [Association("Order_OrderObject", "SelOrderObjectID", "ObjectID")]
         public OrderObject SelOrderObject
@@ -2005,7 +2005,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the 'SelOrderObjectID' value.
+        /// Возвращает или задает значение параметра "SelOrderObjectID".
         /// </summary>
         [DataMember()]
         public int SelOrderObjectID
@@ -2029,7 +2029,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the 'SelOrderObjectText' value.
+        /// Возвращает или задает значение параметра "SelOrderObjectText".
         /// </summary>
         [DataMember()]
         [Display(Description="Объект оборудования (выбирается из дерева)", ShortName="Оборудование")]
@@ -2056,7 +2056,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the 'TimeToClose' value.
+        /// Возвращает или задает значение параметра "TimeToClose".
         /// </summary>
         [DataMember()]
         public Nullable<double> TimeToClose
@@ -2080,7 +2080,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the 'TimeToEnter' value.
+        /// Возвращает или задает значение параметра "TimeToEnter".
         /// </summary>
         [DataMember()]
         public Nullable<double> TimeToEnter
@@ -2104,7 +2104,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the 'TimeToOpen' value.
+        /// Возвращает или задает значение параметра "TimeToOpen".
         /// </summary>
         [DataMember()]
         public Nullable<double> TimeToOpen
@@ -2128,7 +2128,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the associated <see cref="OrdersUser"/> entity.
+        /// Возвращает или задает связанную сущность <see cref="OrdersUser"/>.
         /// </summary>
         [Association("Order_UserCancel", "UserCancelOrderID", "UserID")]
         public OrdersUser UserCancelOrder
@@ -2154,7 +2154,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the 'UserCancelOrderID' value.
+        /// Возвращает или задает значение параметра "UserCancelOrderID".
         /// </summary>
         [DataMember()]
         public int UserCancelOrderID
@@ -2178,7 +2178,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the associated <see cref="OrdersUser"/> entity.
+        /// Возвращает или задает связанную сущность <see cref="OrdersUser"/>.
         /// </summary>
         [Association("Order_UserClose", "UserCloseOrderID", "UserID")]
         public OrdersUser UserCloseOrder
@@ -2204,7 +2204,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the 'UserCloseOrderID' value.
+        /// Возвращает или задает значение параметра "UserCloseOrderID".
         /// </summary>
         [DataMember()]
         public int UserCloseOrderID
@@ -2228,7 +2228,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the associated <see cref="OrdersUser"/> entity.
+        /// Возвращает или задает связанную сущность <see cref="OrdersUser"/>.
         /// </summary>
         [Association("Order_UserEnter", "UserCompleteOrderID", "UserID")]
         public OrdersUser UserCompleteOrder
@@ -2254,7 +2254,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the 'UserCompleteOrderID' value.
+        /// Возвращает или задает значение параметра "UserCompleteOrderID".
         /// </summary>
         [DataMember()]
         public int UserCompleteOrderID
@@ -2278,7 +2278,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the associated <see cref="OrdersUser"/> entity.
+        /// Возвращает или задает связанную сущность <see cref="OrdersUser"/>.
         /// </summary>
         [Association("Order_UserCreate", "UserCreateOrderID", "UserID")]
         public OrdersUser UserCreateOrder
@@ -2304,7 +2304,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the 'UserCreateOrderID' value.
+        /// Возвращает или задает значение параметра "UserCreateOrderID".
         /// </summary>
         [DataMember()]
         public int UserCreateOrderID
@@ -2328,7 +2328,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the associated <see cref="OrdersUser"/> entity.
+        /// Возвращает или задает связанную сущность <see cref="OrdersUser"/>.
         /// </summary>
         [Association("Order_UserOpen", "UserOpenOrderID", "UserID")]
         public OrdersUser UserOpenOrder
@@ -2354,7 +2354,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the 'UserOpenOrderID' value.
+        /// Возвращает или задает значение параметра "UserOpenOrderID".
         /// </summary>
         [DataMember()]
         public int UserOpenOrderID
@@ -2378,7 +2378,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the associated <see cref="OrdersUser"/> entity.
+        /// Возвращает или задает связанную сущность <see cref="OrdersUser"/>.
         /// </summary>
         [Association("Order_UserReview", "UserReviewOrderID", "UserID")]
         public OrdersUser UserReviewOrder
@@ -2404,7 +2404,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the 'UserReviewOrderID' value.
+        /// Возвращает или задает значение параметра "UserReviewOrderID".
         /// </summary>
         [DataMember()]
         public int UserReviewOrderID
@@ -2428,7 +2428,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets a value indicating whether the 'RegisterAcceptOrder' action has been invoked on this entity.
+        /// Возвращает значение, указывающее, может ли действие "RegisterAcceptOrder" быть вызвано для данной сущности.
         /// </summary>
         [Display(AutoGenerateField=false)]
         public bool IsRegisterAcceptOrderInvoked
@@ -2440,7 +2440,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets a value indicating whether the 'RegisterAcceptOrder' method can be invoked on this entity.
+        /// Возвращает значение, указывающее, может ли вызываться метод "RegisterAcceptOrder" для данной сущности.
         /// </summary>
         [Display(AutoGenerateField=false)]
         public bool CanRegisterAcceptOrder
@@ -2452,7 +2452,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets a value indicating whether the 'RegisterBanOrder' action has been invoked on this entity.
+        /// Возвращает значение, указывающее, может ли действие "RegisterBanOrder" быть вызвано для данной сущности.
         /// </summary>
         [Display(AutoGenerateField=false)]
         public bool IsRegisterBanOrderInvoked
@@ -2464,7 +2464,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets a value indicating whether the 'RegisterBanOrder' method can be invoked on this entity.
+        /// Возвращает значение, указывающее, может ли вызываться метод "RegisterBanOrder" для данной сущности.
         /// </summary>
         [Display(AutoGenerateField=false)]
         public bool CanRegisterBanOrder
@@ -2476,7 +2476,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets a value indicating whether the 'RegisterCancelOrder' action has been invoked on this entity.
+        /// Возвращает значение, указывающее, может ли действие "RegisterCancelOrder" быть вызвано для данной сущности.
         /// </summary>
         [Display(AutoGenerateField=false)]
         public bool IsRegisterCancelOrderInvoked
@@ -2488,7 +2488,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets a value indicating whether the 'RegisterCancelOrder' method can be invoked on this entity.
+        /// Возвращает значение, указывающее, может ли вызываться метод "RegisterCancelOrder" для данной сущности.
         /// </summary>
         [Display(AutoGenerateField=false)]
         public bool CanRegisterCancelOrder
@@ -2500,7 +2500,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets a value indicating whether the 'RegisterChangeOrder' action has been invoked on this entity.
+        /// Возвращает значение, указывающее, может ли действие "RegisterChangeOrder" быть вызвано для данной сущности.
         /// </summary>
         [Display(AutoGenerateField=false)]
         public bool IsRegisterChangeOrderInvoked
@@ -2512,7 +2512,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets a value indicating whether the 'RegisterChangeOrder' method can be invoked on this entity.
+        /// Возвращает значение, указывающее, может ли вызываться метод "RegisterChangeOrder" для данной сущности.
         /// </summary>
         [Display(AutoGenerateField=false)]
         public bool CanRegisterChangeOrder
@@ -2524,7 +2524,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets a value indicating whether the 'RegisterCloseOrder' action has been invoked on this entity.
+        /// Возвращает значение, указывающее, может ли действие "RegisterCloseOrder" быть вызвано для данной сущности.
         /// </summary>
         [Display(AutoGenerateField=false)]
         public bool IsRegisterCloseOrderInvoked
@@ -2536,7 +2536,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets a value indicating whether the 'RegisterCloseOrder' method can be invoked on this entity.
+        /// Возвращает значение, указывающее, может ли вызываться метод "RegisterCloseOrder" для данной сущности.
         /// </summary>
         [Display(AutoGenerateField=false)]
         public bool CanRegisterCloseOrder
@@ -2548,7 +2548,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets a value indicating whether the 'RegisterCompleteOrder' action has been invoked on this entity.
+        /// Возвращает значение, указывающее, может ли действие "RegisterCompleteOrder" быть вызвано для данной сущности.
         /// </summary>
         [Display(AutoGenerateField=false)]
         public bool IsRegisterCompleteOrderInvoked
@@ -2560,7 +2560,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets a value indicating whether the 'RegisterCompleteOrder' method can be invoked on this entity.
+        /// Возвращает значение, указывающее, может ли вызываться метод "RegisterCompleteOrder" для данной сущности.
         /// </summary>
         [Display(AutoGenerateField=false)]
         public bool CanRegisterCompleteOrder
@@ -2572,7 +2572,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets a value indicating whether the 'RegisterNew' action has been invoked on this entity.
+        /// Возвращает значение, указывающее, может ли действие "RegisterNew" быть вызвано для данной сущности.
         /// </summary>
         [Display(AutoGenerateField=false)]
         public bool IsRegisterNewInvoked
@@ -2584,7 +2584,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets a value indicating whether the 'RegisterNew' method can be invoked on this entity.
+        /// Возвращает значение, указывающее, может ли вызываться метод "RegisterNew" для данной сущности.
         /// </summary>
         [Display(AutoGenerateField=false)]
         public bool CanRegisterNew
@@ -2596,7 +2596,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets a value indicating whether the 'RegisterOpenOrder' action has been invoked on this entity.
+        /// Возвращает значение, указывающее, может ли действие "RegisterOpenOrder" быть вызвано для данной сущности.
         /// </summary>
         [Display(AutoGenerateField=false)]
         public bool IsRegisterOpenOrderInvoked
@@ -2608,7 +2608,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets a value indicating whether the 'RegisterOpenOrder' method can be invoked on this entity.
+        /// Возвращает значение, указывающее, может ли вызываться метод "RegisterOpenOrder" для данной сущности.
         /// </summary>
         [Display(AutoGenerateField=false)]
         public bool CanRegisterOpenOrder
@@ -2620,7 +2620,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets a value indicating whether the 'ReloadOrder' action has been invoked on this entity.
+        /// Возвращает значение, указывающее, может ли действие "ReloadOrder" быть вызвано для данной сущности.
         /// </summary>
         [Display(AutoGenerateField=false)]
         public bool IsReloadOrderInvoked
@@ -2632,7 +2632,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets a value indicating whether the 'ReloadOrder' method can be invoked on this entity.
+        /// Возвращает значение, указывающее, может ли вызываться метод "ReloadOrder" для данной сущности.
         /// </summary>
         [Display(AutoGenerateField=false)]
         public bool CanReloadOrder
@@ -2689,18 +2689,18 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Computes a value from the key fields that uniquely identifies this entity instance.
+        /// Вычисляет значение ключевых полей, уникально идентифицирующее данный экземпляр сущности.
         /// </summary>
-        /// <returns>An object instance that uniquely identifies this entity instance.</returns>
+        /// <returns>Экземпляр объекта, уникально идентифицирующий данный экземпляр сущности.</returns>
         public override object GetIdentity()
         {
             return this._orderNumber;
         }
         
         /// <summary>
-        /// Invokes the 'RegisterAcceptOrder' action on this entity.
+        /// Вызывает действие "RegisterAcceptOrder" для данной сущности.
         /// </summary>
-        /// <param name="guid">The value to pass to the server method's 'guid' parameter.</param>
+        /// <param name="guid">Значение, передаваемое параметру серверного метода (method's) "guid".</param>
         public void RegisterAcceptOrder(Guid guid)
         {
             this.OnRegisterAcceptOrderInvoking(guid);
@@ -2709,9 +2709,9 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Invokes the 'RegisterBanOrder' action on this entity.
+        /// Вызывает действие "RegisterBanOrder" для данной сущности.
         /// </summary>
-        /// <param name="guid">The value to pass to the server method's 'guid' parameter.</param>
+        /// <param name="guid">Значение, передаваемое параметру серверного метода (method's) "guid".</param>
         public void RegisterBanOrder(Guid guid)
         {
             this.OnRegisterBanOrderInvoking(guid);
@@ -2720,9 +2720,9 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Invokes the 'RegisterCancelOrder' action on this entity.
+        /// Вызывает действие "RegisterCancelOrder" для данной сущности.
         /// </summary>
-        /// <param name="guid">The value to pass to the server method's 'guid' parameter.</param>
+        /// <param name="guid">Значение, передаваемое параметру серверного метода (method's) "guid".</param>
         public void RegisterCancelOrder(Guid guid)
         {
             this.OnRegisterCancelOrderInvoking(guid);
@@ -2731,9 +2731,9 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Invokes the 'RegisterChangeOrder' action on this entity.
+        /// Вызывает действие "RegisterChangeOrder" для данной сущности.
         /// </summary>
-        /// <param name="guid">The value to pass to the server method's 'guid' parameter.</param>
+        /// <param name="guid">Значение, передаваемое параметру серверного метода (method's) "guid".</param>
         public void RegisterChangeOrder(Guid guid)
         {
             this.OnRegisterChangeOrderInvoking(guid);
@@ -2742,9 +2742,9 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Invokes the 'RegisterCloseOrder' action on this entity.
+        /// Вызывает действие "RegisterCloseOrder" для данной сущности.
         /// </summary>
-        /// <param name="guid">The value to pass to the server method's 'guid' parameter.</param>
+        /// <param name="guid">Значение, передаваемое параметру серверного метода (method's) "guid".</param>
         public void RegisterCloseOrder(Guid guid)
         {
             this.OnRegisterCloseOrderInvoking(guid);
@@ -2753,9 +2753,9 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Invokes the 'RegisterCompleteOrder' action on this entity.
+        /// Вызывает действие "RegisterCompleteOrder" для данной сущности.
         /// </summary>
-        /// <param name="guid">The value to pass to the server method's 'guid' parameter.</param>
+        /// <param name="guid">Значение, передаваемое параметру серверного метода (method's) "guid".</param>
         public void RegisterCompleteOrder(Guid guid)
         {
             this.OnRegisterCompleteOrderInvoking(guid);
@@ -2764,9 +2764,9 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Invokes the 'RegisterNew' action on this entity.
+        /// Вызывает действие "RegisterNew" для данной сущности.
         /// </summary>
-        /// <param name="guid">The value to pass to the server method's 'guid' parameter.</param>
+        /// <param name="guid">Значение, передаваемое параметру серверного метода (method's) "guid".</param>
         public void RegisterNew(Guid guid)
         {
             this.OnRegisterNewInvoking(guid);
@@ -2775,9 +2775,9 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Invokes the 'RegisterOpenOrder' action on this entity.
+        /// Вызывает действие "RegisterOpenOrder" для данной сущности.
         /// </summary>
-        /// <param name="guid">The value to pass to the server method's 'guid' parameter.</param>
+        /// <param name="guid">Значение, передаваемое параметру серверного метода (method's) "guid".</param>
         public void RegisterOpenOrder(Guid guid)
         {
             this.OnRegisterOpenOrderInvoking(guid);
@@ -2786,9 +2786,9 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Invokes the 'ReloadOrder' action on this entity.
+        /// Вызывает действие "ReloadOrder" для данной сущности.
         /// </summary>
-        /// <param name="guid">The value to pass to the server method's 'guid' parameter.</param>
+        /// <param name="guid">Значение, передаваемое параметру серверного метода (method's) "guid".</param>
         public void ReloadOrder(Guid guid)
         {
             this.OnReloadOrderInvoking(guid);
@@ -2811,7 +2811,7 @@ namespace VotGESOrders.Web.Models
     }
     
     /// <summary>
-    /// The 'OrderObject' entity class.
+    /// Класс сущности "OrderObject".
     /// </summary>
     [DataContract(Namespace="http://schemas.datacontract.org/2004/07/VotGESOrders.Web.Models")]
     public sealed partial class OrderObject : Entity
@@ -2829,11 +2829,11 @@ namespace VotGESOrders.Web.Models
         
         private int _parentObjectID;
         
-        #region Extensibility Method Definitions
+        #region Определение методов расширяемости
 
         /// <summary>
-        /// This method is invoked from the constructor once initialization is complete and
-        /// can be used for further object setup.
+        /// Этот метод вызывается из конструктора по завершении инициализации и
+        /// не может быть использован для последующей настройки объекта.
         /// </summary>
         partial void OnCreated();
         partial void OnFullNameChanging(string value);
@@ -2853,7 +2853,7 @@ namespace VotGESOrders.Web.Models
         
         
         /// <summary>
-        /// Initializes a new instance of the <see cref="OrderObject"/> class.
+        /// Инициализация нового экземпляра класса <see cref="OrderObject"/>.
         /// </summary>
         public OrderObject()
         {
@@ -2861,7 +2861,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets the collection of associated <see cref="OrderObject"/> entities.
+        /// Возвращает коллекцию связанных экземпляров сущности <see cref="OrderObject"/>.
         /// </summary>
         [Association("Order_OrderObject2", "ObjectID", "ParentObjectID")]
         public EntityCollection<OrderObject> ChildObjects
@@ -2877,7 +2877,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the 'FullName' value.
+        /// Возвращает или задает значение параметра "FullName".
         /// </summary>
         [DataMember()]
         public string FullName
@@ -2901,7 +2901,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the 'ObjectID' value.
+        /// Возвращает или задает значение параметра "ObjectID".
         /// </summary>
         [DataMember()]
         [Editable(false, AllowInitialValue=true)]
@@ -2927,7 +2927,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the 'ObjectName' value.
+        /// Возвращает или задает значение параметра "ObjectName".
         /// </summary>
         [DataMember()]
         public string ObjectName
@@ -2951,7 +2951,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the associated <see cref="OrderObject"/> entity.
+        /// Возвращает или задает связанную сущность <see cref="OrderObject"/>.
         /// </summary>
         [Association("Order_OrderObject1", "ParentObjectID", "ObjectID")]
         public OrderObject ParentObject
@@ -2977,7 +2977,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the 'ParentObjectID' value.
+        /// Возвращает или задает значение параметра "ParentObjectID".
         /// </summary>
         [DataMember()]
         public int ParentObjectID
@@ -3001,7 +3001,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets a value indicating whether the 'RegisterChangeObject' action has been invoked on this entity.
+        /// Возвращает значение, указывающее, может ли действие "RegisterChangeObject" быть вызвано для данной сущности.
         /// </summary>
         [Display(AutoGenerateField=false)]
         public bool IsRegisterChangeObjectInvoked
@@ -3013,7 +3013,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets a value indicating whether the 'RegisterChangeObject' method can be invoked on this entity.
+        /// Возвращает значение, указывающее, может ли вызываться метод "RegisterChangeObject" для данной сущности.
         /// </summary>
         [Display(AutoGenerateField=false)]
         public bool CanRegisterChangeObject
@@ -3025,7 +3025,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets a value indicating whether the 'RegisterDeleteObject' action has been invoked on this entity.
+        /// Возвращает значение, указывающее, может ли действие "RegisterDeleteObject" быть вызвано для данной сущности.
         /// </summary>
         [Display(AutoGenerateField=false)]
         public bool IsRegisterDeleteObjectInvoked
@@ -3037,7 +3037,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets a value indicating whether the 'RegisterDeleteObject' method can be invoked on this entity.
+        /// Возвращает значение, указывающее, может ли вызываться метод "RegisterDeleteObject" для данной сущности.
         /// </summary>
         [Display(AutoGenerateField=false)]
         public bool CanRegisterDeleteObject
@@ -3059,16 +3059,16 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Computes a value from the key fields that uniquely identifies this entity instance.
+        /// Вычисляет значение ключевых полей, уникально идентифицирующее данный экземпляр сущности.
         /// </summary>
-        /// <returns>An object instance that uniquely identifies this entity instance.</returns>
+        /// <returns>Экземпляр объекта, уникально идентифицирующий данный экземпляр сущности.</returns>
         public override object GetIdentity()
         {
             return this._objectID;
         }
         
         /// <summary>
-        /// Invokes the 'RegisterChangeObject' action on this entity.
+        /// Вызывает действие "RegisterChangeObject" для данной сущности.
         /// </summary>
         public void RegisterChangeObject()
         {
@@ -3078,7 +3078,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Invokes the 'RegisterDeleteObject' action on this entity.
+        /// Вызывает действие "RegisterDeleteObject" для данной сущности.
         /// </summary>
         public void RegisterDeleteObject()
         {
@@ -3119,7 +3119,7 @@ namespace VotGESOrders.Web.Models
     }
     
     /// <summary>
-    /// The 'OrdersUser' entity class.
+    /// Класс сущности "OrdersUser".
     /// </summary>
     [DataContract(Namespace="http://schemas.datacontract.org/2004/07/VotGESOrders.Web.Models")]
     public sealed partial class OrdersUser : Entity
@@ -3153,11 +3153,11 @@ namespace VotGESOrders.Web.Models
         
         private int _userID;
         
-        #region Extensibility Method Definitions
+        #region Определение методов расширяемости
 
         /// <summary>
-        /// This method is invoked from the constructor once initialization is complete and
-        /// can be used for further object setup.
+        /// Этот метод вызывается из конструктора по завершении инициализации и
+        /// не может быть использован для последующей настройки объекта.
         /// </summary>
         partial void OnCreated();
         partial void OnAllowAgreeOrdersChanging(bool value);
@@ -3197,7 +3197,7 @@ namespace VotGESOrders.Web.Models
         
         
         /// <summary>
-        /// Initializes a new instance of the <see cref="OrdersUser"/> class.
+        /// Инициализация нового экземпляра класса <see cref="OrdersUser"/>.
         /// </summary>
         public OrdersUser()
         {
@@ -3205,7 +3205,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the 'AllowAgreeOrders' value.
+        /// Возвращает или задает значение параметра "AllowAgreeOrders".
         /// </summary>
         [DataMember()]
         public bool AllowAgreeOrders
@@ -3229,7 +3229,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the 'AllowChangeOrder' value.
+        /// Возвращает или задает значение параметра "AllowChangeOrder".
         /// </summary>
         [DataMember()]
         public bool AllowChangeOrder
@@ -3253,7 +3253,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the 'AllowCreateCrashOrder' value.
+        /// Возвращает или задает значение параметра "AllowCreateCrashOrder".
         /// </summary>
         [DataMember()]
         public bool AllowCreateCrashOrder
@@ -3277,7 +3277,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the 'AllowCreateOrder' value.
+        /// Возвращает или задает значение параметра "AllowCreateOrder".
         /// </summary>
         [DataMember()]
         public bool AllowCreateOrder
@@ -3301,7 +3301,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the 'AllowEditTree' value.
+        /// Возвращает или задает значение параметра "AllowEditTree".
         /// </summary>
         [DataMember()]
         public bool AllowEditTree
@@ -3325,7 +3325,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the 'AllowEditUsers' value.
+        /// Возвращает или задает значение параметра "AllowEditUsers".
         /// </summary>
         [DataMember()]
         public bool AllowEditUsers
@@ -3349,7 +3349,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the 'AllowReviewOrder' value.
+        /// Возвращает или задает значение параметра "AllowReviewOrder".
         /// </summary>
         [DataMember()]
         public bool AllowReviewOrder
@@ -3373,7 +3373,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the 'FullName' value.
+        /// Возвращает или задает значение параметра "FullName".
         /// </summary>
         [DataMember()]
         public string FullName
@@ -3397,7 +3397,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the 'Mail' value.
+        /// Возвращает или задает значение параметра "Mail".
         /// </summary>
         [DataMember()]
         public string Mail
@@ -3421,7 +3421,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the 'Name' value.
+        /// Возвращает или задает значение параметра "Name".
         /// </summary>
         [DataMember()]
         public string Name
@@ -3445,7 +3445,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the 'SendAgreeMail' value.
+        /// Возвращает или задает значение параметра "SendAgreeMail".
         /// </summary>
         [DataMember()]
         public bool SendAgreeMail
@@ -3469,7 +3469,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the 'SendAllMail' value.
+        /// Возвращает или задает значение параметра "SendAllMail".
         /// </summary>
         [DataMember()]
         public bool SendAllMail
@@ -3493,7 +3493,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the 'SendCreateMail' value.
+        /// Возвращает или задает значение параметра "SendCreateMail".
         /// </summary>
         [DataMember()]
         public bool SendCreateMail
@@ -3517,7 +3517,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets or sets the 'UserID' value.
+        /// Возвращает или задает значение параметра "UserID".
         /// </summary>
         [DataMember()]
         [Editable(false, AllowInitialValue=true)]
@@ -3543,7 +3543,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets a value indicating whether the 'RegisterChangeUser' action has been invoked on this entity.
+        /// Возвращает значение, указывающее, может ли действие "RegisterChangeUser" быть вызвано для данной сущности.
         /// </summary>
         [Display(AutoGenerateField=false)]
         public bool IsRegisterChangeUserInvoked
@@ -3555,7 +3555,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets a value indicating whether the 'RegisterChangeUser' method can be invoked on this entity.
+        /// Возвращает значение, указывающее, может ли вызываться метод "RegisterChangeUser" для данной сущности.
         /// </summary>
         [Display(AutoGenerateField=false)]
         public bool CanRegisterChangeUser
@@ -3567,7 +3567,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets a value indicating whether the 'RegisterDeleteUser' action has been invoked on this entity.
+        /// Возвращает значение, указывающее, может ли действие "RegisterDeleteUser" быть вызвано для данной сущности.
         /// </summary>
         [Display(AutoGenerateField=false)]
         public bool IsRegisterDeleteUserInvoked
@@ -3579,7 +3579,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Gets a value indicating whether the 'RegisterDeleteUser' method can be invoked on this entity.
+        /// Возвращает значение, указывающее, может ли вызываться метод "RegisterDeleteUser" для данной сущности.
         /// </summary>
         [Display(AutoGenerateField=false)]
         public bool CanRegisterDeleteUser
@@ -3591,16 +3591,16 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Computes a value from the key fields that uniquely identifies this entity instance.
+        /// Вычисляет значение ключевых полей, уникально идентифицирующее данный экземпляр сущности.
         /// </summary>
-        /// <returns>An object instance that uniquely identifies this entity instance.</returns>
+        /// <returns>Экземпляр объекта, уникально идентифицирующий данный экземпляр сущности.</returns>
         public override object GetIdentity()
         {
             return this._userID;
         }
         
         /// <summary>
-        /// Invokes the 'RegisterChangeUser' action on this entity.
+        /// Вызывает действие "RegisterChangeUser" для данной сущности.
         /// </summary>
         public void RegisterChangeUser()
         {
@@ -3610,7 +3610,7 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Invokes the 'RegisterDeleteUser' action on this entity.
+        /// Вызывает действие "RegisterDeleteUser" для данной сущности.
         /// </summary>
         public void RegisterDeleteUser()
         {
@@ -3655,16 +3655,16 @@ namespace VotGESOrders.Web.Services
     
     
     /// <summary>
-    /// The domain context corresponding to the 'AuthenticationDomainService' domain service.
+    /// Контекст DomainContext, соответствующий службе "AuthenticationDomainService" DomainService.
     /// </summary>
     public sealed partial class AuthenticationDomainContext : global::System.ServiceModel.DomainServices.Client.ApplicationServices.AuthenticationDomainContextBase
     {
         
-        #region Extensibility Method Definitions
+        #region Определение методов расширяемости
 
         /// <summary>
-        /// This method is invoked from the constructor once initialization is complete and
-        /// can be used for further object setup.
+        /// Этот метод вызывается из конструктора по завершении инициализации и
+        /// не может быть использован для последующей настройки объекта.
         /// </summary>
         partial void OnCreated();
 
@@ -3672,7 +3672,7 @@ namespace VotGESOrders.Web.Services
         
         
         /// <summary>
-        /// Initializes a new instance of the <see cref="AuthenticationDomainContext"/> class.
+        /// Инициализация нового экземпляра класса <see cref="AuthenticationDomainContext"/>.
         /// </summary>
         public AuthenticationDomainContext() : 
                 this(new WebDomainClient<IAuthenticationDomainServiceContract>(new Uri("VotGESOrders-Web-Services-AuthenticationDomainService.svc", UriKind.Relative)))
@@ -3680,18 +3680,18 @@ namespace VotGESOrders.Web.Services
         }
         
         /// <summary>
-        /// Initializes a new instance of the <see cref="AuthenticationDomainContext"/> class with the specified service URI.
+        /// Инициализирует новый экземпляр класса <see cref="AuthenticationDomainContext"/> с указанным URI службы.
         /// </summary>
-        /// <param name="serviceUri">The AuthenticationDomainService service URI.</param>
+        /// <param name="serviceUri">Идентификатор URI службы AuthenticationDomainService.</param>
         public AuthenticationDomainContext(Uri serviceUri) : 
                 this(new WebDomainClient<IAuthenticationDomainServiceContract>(serviceUri))
         {
         }
         
         /// <summary>
-        /// Initializes a new instance of the <see cref="AuthenticationDomainContext"/> class with the specified <paramref name="domainClient"/>.
+        /// Инициализирует новый экземпляр класса <see cref="AuthenticationDomainContext"/> с указанным параметром <paramref name="domainClient"/>.
         /// </summary>
-        /// <param name="domainClient">The DomainClient instance to use for this domain context.</param>
+        /// <param name="domainClient">Экземпляр DomainClient для использования в этом контексте DomainContext.</param>
         public AuthenticationDomainContext(DomainClient domainClient) : 
                 base(domainClient)
         {
@@ -3699,7 +3699,7 @@ namespace VotGESOrders.Web.Services
         }
         
         /// <summary>
-        /// Gets the set of <see cref="User"/> entities that have been loaded into this <see cref="AuthenticationDomainContext"/> instance.
+        /// Возвращает набор экземпляров сущностей <see cref="User"/>, загруженных в данный экземпляр <see cref="AuthenticationDomainContext"/>.
         /// </summary>
         public EntitySet<User> Users
         {
@@ -3710,9 +3710,9 @@ namespace VotGESOrders.Web.Services
         }
         
         /// <summary>
-        /// Gets an EntityQuery instance that can be used to load <see cref="User"/> entities using the 'GetUser' query.
+        /// Возвращает экземпляр EntityQuery, который может быть использован для загрузки экземпляров сущностей <see cref="User"/> с помощью запроса "GetUser".
         /// </summary>
-        /// <returns>An EntityQuery that can be loaded to retrieve <see cref="User"/> entities.</returns>
+        /// <returns>Значение EntityQuery, которое может быть загружено для извлечения экземпляров сущностей <see cref="User"/>.</returns>
         public EntityQuery<User> GetUserQuery()
         {
             this.ValidateMethod("GetUserQuery", null);
@@ -3720,13 +3720,13 @@ namespace VotGESOrders.Web.Services
         }
         
         /// <summary>
-        /// Gets an EntityQuery instance that can be used to load <see cref="User"/> entities using the 'Login' query.
+        /// Возвращает экземпляр EntityQuery, который может быть использован для загрузки экземпляров сущностей <see cref="User"/> с помощью запроса "Login".
         /// </summary>
-        /// <param name="userName">The value for the 'userName' parameter of the query.</param>
-        /// <param name="password">The value for the 'password' parameter of the query.</param>
-        /// <param name="isPersistent">The value for the 'isPersistent' parameter of the query.</param>
-        /// <param name="customData">The value for the 'customData' parameter of the query.</param>
-        /// <returns>An EntityQuery that can be loaded to retrieve <see cref="User"/> entities.</returns>
+        /// <param name="userName">Значение параметра "userName" для запроса.</param>
+        /// <param name="password">Значение параметра "password" для запроса.</param>
+        /// <param name="isPersistent">Значение параметра "isPersistent" для запроса.</param>
+        /// <param name="customData">Значение параметра "customData" для запроса.</param>
+        /// <returns>Значение EntityQuery, которое может быть загружено для извлечения экземпляров сущностей <see cref="User"/>.</returns>
         public EntityQuery<User> LoginQuery(string userName, string password, bool isPersistent, string customData)
         {
             Dictionary<string, object> parameters = new Dictionary<string, object>();
@@ -3739,9 +3739,9 @@ namespace VotGESOrders.Web.Services
         }
         
         /// <summary>
-        /// Gets an EntityQuery instance that can be used to load <see cref="User"/> entities using the 'Logout' query.
+        /// Возвращает экземпляр EntityQuery, который может быть использован для загрузки экземпляров сущностей <see cref="User"/> с помощью запроса "Logout".
         /// </summary>
-        /// <returns>An EntityQuery that can be loaded to retrieve <see cref="User"/> entities.</returns>
+        /// <returns>Значение EntityQuery, которое может быть загружено для извлечения экземпляров сущностей <see cref="User"/>.</returns>
         public EntityQuery<User> LogoutQuery()
         {
             this.ValidateMethod("LogoutQuery", null);
@@ -3749,93 +3749,93 @@ namespace VotGESOrders.Web.Services
         }
         
         /// <summary>
-        /// Creates a new entity container for this domain context's entity sets.
+        /// Создает новый объект EntityContainer для наборов сущностей EntitySets данного контекста DomainContext.
         /// </summary>
-        /// <returns>A new container instance.</returns>
+        /// <returns>Новый экземпляр контейнера.</returns>
         protected override EntityContainer CreateEntityContainer()
         {
             return new AuthenticationDomainContextEntityContainer();
         }
         
         /// <summary>
-        /// Service contract for the 'AuthenticationDomainService' domain service.
+        /// Контракт службы (Service) "AuthenticationDomainService" DomainService.
         /// </summary>
         [ServiceContract()]
         public interface IAuthenticationDomainServiceContract
         {
             
             /// <summary>
-            /// Asynchronously invokes the 'GetUser' operation.
+            /// Асинхронно вызывает операцию "GetUser".
             /// </summary>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
+            /// <param name="callback">Функция обратного вызова вызывается после завершения.</param>
+            /// <param name="asyncState">Необязательный объект состояния.</param>
+            /// <returns>Интерфейс IAsyncResult, который может быть использован для отслеживания запроса.</returns>
             [FaultContract(typeof(DomainServiceFault), Action="http://tempuri.org/AuthenticationDomainService/GetUserDomainServiceFault", Name="DomainServiceFault", Namespace="DomainServices")]
             [OperationContract(AsyncPattern=true, Action="http://tempuri.org/AuthenticationDomainService/GetUser", ReplyAction="http://tempuri.org/AuthenticationDomainService/GetUserResponse")]
             [WebGet()]
             IAsyncResult BeginGetUser(AsyncCallback callback, object asyncState);
             
             /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginGetUser'.
+            /// Завершает асинхронную операцию, начатую "BeginGetUser".
             /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginGetUser'.</param>
-            /// <returns>The 'QueryResult' returned from the 'GetUser' operation.</returns>
+            /// <param name="result">Интерфейс IAsyncResult, возвращенный из "BeginGetUser".</param>
+            /// <returns>Объект "QueryResult", возвращенный из операции "GetUser".</returns>
             QueryResult<User> EndGetUser(IAsyncResult result);
             
             /// <summary>
-            /// Asynchronously invokes the 'Login' operation.
+            /// Асинхронно вызывает операцию "Login".
             /// </summary>
-            /// <param name="userName">The value for the 'userName' parameter of this action.</param>
-            /// <param name="password">The value for the 'password' parameter of this action.</param>
-            /// <param name="isPersistent">The value for the 'isPersistent' parameter of this action.</param>
-            /// <param name="customData">The value for the 'customData' parameter of this action.</param>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
+            /// <param name="userName">Значение параметра "userName" для данного действия.</param>
+            /// <param name="password">Значение параметра "password" для данного действия.</param>
+            /// <param name="isPersistent">Значение параметра "isPersistent" для данного действия.</param>
+            /// <param name="customData">Значение параметра "customData" для данного действия.</param>
+            /// <param name="callback">Функция обратного вызова вызывается после завершения.</param>
+            /// <param name="asyncState">Необязательный объект состояния.</param>
+            /// <returns>Интерфейс IAsyncResult, который может быть использован для отслеживания запроса.</returns>
             [FaultContract(typeof(DomainServiceFault), Action="http://tempuri.org/AuthenticationDomainService/LoginDomainServiceFault", Name="DomainServiceFault", Namespace="DomainServices")]
             [OperationContract(AsyncPattern=true, Action="http://tempuri.org/AuthenticationDomainService/Login", ReplyAction="http://tempuri.org/AuthenticationDomainService/LoginResponse")]
             IAsyncResult BeginLogin(string userName, string password, bool isPersistent, string customData, AsyncCallback callback, object asyncState);
             
             /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginLogin'.
+            /// Завершает асинхронную операцию, начатую "BeginLogin".
             /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginLogin'.</param>
-            /// <returns>The 'QueryResult' returned from the 'Login' operation.</returns>
+            /// <param name="result">Интерфейс IAsyncResult, возвращенный из "BeginLogin".</param>
+            /// <returns>Объект "QueryResult", возвращенный из операции "Login".</returns>
             QueryResult<User> EndLogin(IAsyncResult result);
             
             /// <summary>
-            /// Asynchronously invokes the 'Logout' operation.
+            /// Асинхронно вызывает операцию "Logout".
             /// </summary>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
+            /// <param name="callback">Функция обратного вызова вызывается после завершения.</param>
+            /// <param name="asyncState">Необязательный объект состояния.</param>
+            /// <returns>Интерфейс IAsyncResult, который может быть использован для отслеживания запроса.</returns>
             [FaultContract(typeof(DomainServiceFault), Action="http://tempuri.org/AuthenticationDomainService/LogoutDomainServiceFault", Name="DomainServiceFault", Namespace="DomainServices")]
             [OperationContract(AsyncPattern=true, Action="http://tempuri.org/AuthenticationDomainService/Logout", ReplyAction="http://tempuri.org/AuthenticationDomainService/LogoutResponse")]
             IAsyncResult BeginLogout(AsyncCallback callback, object asyncState);
             
             /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginLogout'.
+            /// Завершает асинхронную операцию, начатую "BeginLogout".
             /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginLogout'.</param>
-            /// <returns>The 'QueryResult' returned from the 'Logout' operation.</returns>
+            /// <param name="result">Интерфейс IAsyncResult, возвращенный из "BeginLogout".</param>
+            /// <returns>Объект "QueryResult", возвращенный из операции "Logout".</returns>
             QueryResult<User> EndLogout(IAsyncResult result);
             
             /// <summary>
-            /// Asynchronously invokes the 'SubmitChanges' operation.
+            /// Асинхронно вызывает операцию "SubmitChanges".
             /// </summary>
-            /// <param name="changeSet">The change-set to submit.</param>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
+            /// <param name="changeSet">Набор изменений для отправки.</param>
+            /// <param name="callback">Функция обратного вызова вызывается после завершения.</param>
+            /// <param name="asyncState">Необязательный объект состояния.</param>
+            /// <returns>Интерфейс IAsyncResult, который может быть использован для отслеживания запроса.</returns>
             [FaultContract(typeof(DomainServiceFault), Action="http://tempuri.org/AuthenticationDomainService/SubmitChangesDomainServiceFault", Name="DomainServiceFault", Namespace="DomainServices")]
             [OperationContract(AsyncPattern=true, Action="http://tempuri.org/AuthenticationDomainService/SubmitChanges", ReplyAction="http://tempuri.org/AuthenticationDomainService/SubmitChangesResponse")]
             IAsyncResult BeginSubmitChanges(IEnumerable<ChangeSetEntry> changeSet, AsyncCallback callback, object asyncState);
             
             /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginSubmitChanges'.
+            /// Завершает асинхронную операцию, начатую "BeginSubmitChanges".
             /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginSubmitChanges'.</param>
-            /// <returns>The collection of change-set entry elements returned from 'SubmitChanges'.</returns>
+            /// <param name="result">Интерфейс IAsyncResult, возвращенный из "BeginSubmitChanges".</param>
+            /// <returns>Коллекция элементов набора изменений, возвращенного операцией SubmitChanges.</returns>
             IEnumerable<ChangeSetEntry> EndSubmitChanges(IAsyncResult result);
         }
         
@@ -3850,16 +3850,16 @@ namespace VotGESOrders.Web.Services
     }
     
     /// <summary>
-    /// The domain context corresponding to the 'LoggerService' domain service.
+    /// Контекст DomainContext, соответствующий службе "LoggerService" DomainService.
     /// </summary>
     public sealed partial class LoggerContext : DomainContext
     {
         
-        #region Extensibility Method Definitions
+        #region Определение методов расширяемости
 
         /// <summary>
-        /// This method is invoked from the constructor once initialization is complete and
-        /// can be used for further object setup.
+        /// Этот метод вызывается из конструктора по завершении инициализации и
+        /// не может быть использован для последующей настройки объекта.
         /// </summary>
         partial void OnCreated();
 
@@ -3867,7 +3867,7 @@ namespace VotGESOrders.Web.Services
         
         
         /// <summary>
-        /// Initializes a new instance of the <see cref="LoggerContext"/> class.
+        /// Инициализация нового экземпляра класса <see cref="LoggerContext"/>.
         /// </summary>
         public LoggerContext() : 
                 this(new WebDomainClient<ILoggerServiceContract>(new Uri("VotGESOrders-Web-Services-LoggerService.svc", UriKind.Relative)))
@@ -3875,18 +3875,18 @@ namespace VotGESOrders.Web.Services
         }
         
         /// <summary>
-        /// Initializes a new instance of the <see cref="LoggerContext"/> class with the specified service URI.
+        /// Инициализирует новый экземпляр класса <see cref="LoggerContext"/> с указанным URI службы.
         /// </summary>
-        /// <param name="serviceUri">The LoggerService service URI.</param>
+        /// <param name="serviceUri">Идентификатор URI службы LoggerService.</param>
         public LoggerContext(Uri serviceUri) : 
                 this(new WebDomainClient<ILoggerServiceContract>(serviceUri))
         {
         }
         
         /// <summary>
-        /// Initializes a new instance of the <see cref="LoggerContext"/> class with the specified <paramref name="domainClient"/>.
+        /// Инициализирует новый экземпляр класса <see cref="LoggerContext"/> с указанным параметром <paramref name="domainClient"/>.
         /// </summary>
-        /// <param name="domainClient">The DomainClient instance to use for this domain context.</param>
+        /// <param name="domainClient">Экземпляр DomainClient для использования в этом контексте DomainContext.</param>
         public LoggerContext(DomainClient domainClient) : 
                 base(domainClient)
         {
@@ -3894,12 +3894,12 @@ namespace VotGESOrders.Web.Services
         }
         
         /// <summary>
-        /// Asynchronously invokes the 'debug' method of the domain service.
+        /// Асинхронно вызывает метод "debug" службы DomainService.
         /// </summary>
-        /// <param name="message">The value for the 'message' parameter of this action.</param>
-        /// <param name="callback">Callback to invoke when the operation completes.</param>
-        /// <param name="userState">Value to pass to the callback.  It can be <c>null</c>.</param>
-        /// <returns>An operation instance that can be used to manage the asynchronous request.</returns>
+        /// <param name="message">Значение параметра "message" для данного действия.</param>
+        /// <param name="callback">Функция обратного вызова вызывается после завершения операции.</param>
+        /// <param name="userState">Параметр для передачи в функцию обратного вызова. Может быть равен <c>null</c>.</param>
+        /// <returns>Экземпляр операции, который может быть использован для управления асинхронным запросом.</returns>
         public InvokeOperation debug(string message, Action<InvokeOperation> callback, object userState)
         {
             Dictionary<string, object> parameters = new Dictionary<string, object>();
@@ -3909,10 +3909,10 @@ namespace VotGESOrders.Web.Services
         }
         
         /// <summary>
-        /// Asynchronously invokes the 'debug' method of the domain service.
+        /// Асинхронно вызывает метод "debug" службы DomainService.
         /// </summary>
-        /// <param name="message">The value for the 'message' parameter of this action.</param>
-        /// <returns>An operation instance that can be used to manage the asynchronous request.</returns>
+        /// <param name="message">Значение параметра "message" для данного действия.</param>
+        /// <returns>Экземпляр операции, который может быть использован для управления асинхронным запросом.</returns>
         public InvokeOperation debug(string message)
         {
             Dictionary<string, object> parameters = new Dictionary<string, object>();
@@ -3922,12 +3922,12 @@ namespace VotGESOrders.Web.Services
         }
         
         /// <summary>
-        /// Asynchronously invokes the 'error' method of the domain service.
+        /// Асинхронно вызывает метод "error" службы DomainService.
         /// </summary>
-        /// <param name="message">The value for the 'message' parameter of this action.</param>
-        /// <param name="callback">Callback to invoke when the operation completes.</param>
-        /// <param name="userState">Value to pass to the callback.  It can be <c>null</c>.</param>
-        /// <returns>An operation instance that can be used to manage the asynchronous request.</returns>
+        /// <param name="message">Значение параметра "message" для данного действия.</param>
+        /// <param name="callback">Функция обратного вызова вызывается после завершения операции.</param>
+        /// <param name="userState">Параметр для передачи в функцию обратного вызова. Может быть равен <c>null</c>.</param>
+        /// <returns>Экземпляр операции, который может быть использован для управления асинхронным запросом.</returns>
         public InvokeOperation error(string message, Action<InvokeOperation> callback, object userState)
         {
             Dictionary<string, object> parameters = new Dictionary<string, object>();
@@ -3937,10 +3937,10 @@ namespace VotGESOrders.Web.Services
         }
         
         /// <summary>
-        /// Asynchronously invokes the 'error' method of the domain service.
+        /// Асинхронно вызывает метод "error" службы DomainService.
         /// </summary>
-        /// <param name="message">The value for the 'message' parameter of this action.</param>
-        /// <returns>An operation instance that can be used to manage the asynchronous request.</returns>
+        /// <param name="message">Значение параметра "message" для данного действия.</param>
+        /// <returns>Экземпляр операции, который может быть использован для управления асинхронным запросом.</returns>
         public InvokeOperation error(string message)
         {
             Dictionary<string, object> parameters = new Dictionary<string, object>();
@@ -3950,12 +3950,12 @@ namespace VotGESOrders.Web.Services
         }
         
         /// <summary>
-        /// Asynchronously invokes the 'info' method of the domain service.
+        /// Асинхронно вызывает метод "info" службы DomainService.
         /// </summary>
-        /// <param name="message">The value for the 'message' parameter of this action.</param>
-        /// <param name="callback">Callback to invoke when the operation completes.</param>
-        /// <param name="userState">Value to pass to the callback.  It can be <c>null</c>.</param>
-        /// <returns>An operation instance that can be used to manage the asynchronous request.</returns>
+        /// <param name="message">Значение параметра "message" для данного действия.</param>
+        /// <param name="callback">Функция обратного вызова вызывается после завершения операции.</param>
+        /// <param name="userState">Параметр для передачи в функцию обратного вызова. Может быть равен <c>null</c>.</param>
+        /// <returns>Экземпляр операции, который может быть использован для управления асинхронным запросом.</returns>
         public InvokeOperation info(string message, Action<InvokeOperation> callback, object userState)
         {
             Dictionary<string, object> parameters = new Dictionary<string, object>();
@@ -3965,10 +3965,10 @@ namespace VotGESOrders.Web.Services
         }
         
         /// <summary>
-        /// Asynchronously invokes the 'info' method of the domain service.
+        /// Асинхронно вызывает метод "info" службы DomainService.
         /// </summary>
-        /// <param name="message">The value for the 'message' parameter of this action.</param>
-        /// <returns>An operation instance that can be used to manage the asynchronous request.</returns>
+        /// <param name="message">Значение параметра "message" для данного действия.</param>
+        /// <returns>Экземпляр операции, который может быть использован для управления асинхронным запросом.</returns>
         public InvokeOperation info(string message)
         {
             Dictionary<string, object> parameters = new Dictionary<string, object>();
@@ -3978,89 +3978,71 @@ namespace VotGESOrders.Web.Services
         }
         
         /// <summary>
-        /// Creates a new entity container for this domain context's entity sets.
+        /// Создает новый объект EntityContainer для наборов сущностей EntitySets данного контекста DomainContext.
         /// </summary>
-        /// <returns>A new container instance.</returns>
+        /// <returns>Новый экземпляр контейнера.</returns>
         protected override EntityContainer CreateEntityContainer()
         {
             return new LoggerContextEntityContainer();
         }
         
         /// <summary>
-        /// Service contract for the 'LoggerService' domain service.
+        /// Контракт службы (Service) "LoggerService" DomainService.
         /// </summary>
         [ServiceContract()]
         public interface ILoggerServiceContract
         {
             
             /// <summary>
-            /// Asynchronously invokes the 'debug' operation.
+            /// Асинхронно вызывает операцию "debug".
             /// </summary>
-            /// <param name="message">The value for the 'message' parameter of this action.</param>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
+            /// <param name="message">Значение параметра "message" для данного действия.</param>
+            /// <param name="callback">Функция обратного вызова вызывается после завершения.</param>
+            /// <param name="asyncState">Необязательный объект состояния.</param>
+            /// <returns>Интерфейс IAsyncResult, который может быть использован для отслеживания запроса.</returns>
             [FaultContract(typeof(DomainServiceFault), Action="http://tempuri.org/LoggerService/debugDomainServiceFault", Name="DomainServiceFault", Namespace="DomainServices")]
             [OperationContract(AsyncPattern=true, Action="http://tempuri.org/LoggerService/debug", ReplyAction="http://tempuri.org/LoggerService/debugResponse")]
             IAsyncResult Begindebug(string message, AsyncCallback callback, object asyncState);
             
             /// <summary>
-            /// Completes the asynchronous operation begun by 'Begindebug'.
+            /// Завершает асинхронную операцию, начатую "Begindebug".
             /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'Begindebug'.</param>
+            /// <param name="result">Интерфейс IAsyncResult, возвращенный из "Begindebug".</param>
             void Enddebug(IAsyncResult result);
             
             /// <summary>
-            /// Asynchronously invokes the 'error' operation.
+            /// Асинхронно вызывает операцию "error".
             /// </summary>
-            /// <param name="message">The value for the 'message' parameter of this action.</param>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
+            /// <param name="message">Значение параметра "message" для данного действия.</param>
+            /// <param name="callback">Функция обратного вызова вызывается после завершения.</param>
+            /// <param name="asyncState">Необязательный объект состояния.</param>
+            /// <returns>Интерфейс IAsyncResult, который может быть использован для отслеживания запроса.</returns>
             [FaultContract(typeof(DomainServiceFault), Action="http://tempuri.org/LoggerService/errorDomainServiceFault", Name="DomainServiceFault", Namespace="DomainServices")]
             [OperationContract(AsyncPattern=true, Action="http://tempuri.org/LoggerService/error", ReplyAction="http://tempuri.org/LoggerService/errorResponse")]
             IAsyncResult Beginerror(string message, AsyncCallback callback, object asyncState);
             
             /// <summary>
-            /// Completes the asynchronous operation begun by 'Beginerror'.
+            /// Завершает асинхронную операцию, начатую "Beginerror".
             /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'Beginerror'.</param>
+            /// <param name="result">Интерфейс IAsyncResult, возвращенный из "Beginerror".</param>
             void Enderror(IAsyncResult result);
             
             /// <summary>
-            /// Asynchronously invokes the 'info' operation.
+            /// Асинхронно вызывает операцию "info".
             /// </summary>
-            /// <param name="message">The value for the 'message' parameter of this action.</param>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
+            /// <param name="message">Значение параметра "message" для данного действия.</param>
+            /// <param name="callback">Функция обратного вызова вызывается после завершения.</param>
+            /// <param name="asyncState">Необязательный объект состояния.</param>
+            /// <returns>Интерфейс IAsyncResult, который может быть использован для отслеживания запроса.</returns>
             [FaultContract(typeof(DomainServiceFault), Action="http://tempuri.org/LoggerService/infoDomainServiceFault", Name="DomainServiceFault", Namespace="DomainServices")]
             [OperationContract(AsyncPattern=true, Action="http://tempuri.org/LoggerService/info", ReplyAction="http://tempuri.org/LoggerService/infoResponse")]
             IAsyncResult Begininfo(string message, AsyncCallback callback, object asyncState);
             
             /// <summary>
-            /// Completes the asynchronous operation begun by 'Begininfo'.
+            /// Завершает асинхронную операцию, начатую "Begininfo".
             /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'Begininfo'.</param>
+            /// <param name="result">Интерфейс IAsyncResult, возвращенный из "Begininfo".</param>
             void Endinfo(IAsyncResult result);
-            
-            /// <summary>
-            /// Asynchronously invokes the 'SubmitChanges' operation.
-            /// </summary>
-            /// <param name="changeSet">The change-set to submit.</param>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            [FaultContract(typeof(DomainServiceFault), Action="http://tempuri.org/LoggerService/SubmitChangesDomainServiceFault", Name="DomainServiceFault", Namespace="DomainServices")]
-            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/LoggerService/SubmitChanges", ReplyAction="http://tempuri.org/LoggerService/SubmitChangesResponse")]
-            IAsyncResult BeginSubmitChanges(IEnumerable<ChangeSetEntry> changeSet, AsyncCallback callback, object asyncState);
-            
-            /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginSubmitChanges'.
-            /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginSubmitChanges'.</param>
-            /// <returns>The collection of change-set entry elements returned from 'SubmitChanges'.</returns>
-            IEnumerable<ChangeSetEntry> EndSubmitChanges(IAsyncResult result);
         }
         
         internal sealed class LoggerContextEntityContainer : EntityContainer
@@ -4073,16 +4055,16 @@ namespace VotGESOrders.Web.Services
     }
     
     /// <summary>
-    /// The domain context corresponding to the 'OrdersDomainService' domain service.
+    /// Контекст DomainContext, соответствующий службе "OrdersDomainService" DomainService.
     /// </summary>
     public sealed partial class OrdersDomainContext : DomainContext
     {
         
-        #region Extensibility Method Definitions
+        #region Определение методов расширяемости
 
         /// <summary>
-        /// This method is invoked from the constructor once initialization is complete and
-        /// can be used for further object setup.
+        /// Этот метод вызывается из конструктора по завершении инициализации и
+        /// не может быть использован для последующей настройки объекта.
         /// </summary>
         partial void OnCreated();
 
@@ -4090,7 +4072,7 @@ namespace VotGESOrders.Web.Services
         
         
         /// <summary>
-        /// Initializes a new instance of the <see cref="OrdersDomainContext"/> class.
+        /// Инициализация нового экземпляра класса <see cref="OrdersDomainContext"/>.
         /// </summary>
         public OrdersDomainContext() : 
                 this(new WebDomainClient<IOrdersDomainServiceContract>(new Uri("VotGESOrders-Web-Services-OrdersDomainService.svc", UriKind.Relative)))
@@ -4098,18 +4080,18 @@ namespace VotGESOrders.Web.Services
         }
         
         /// <summary>
-        /// Initializes a new instance of the <see cref="OrdersDomainContext"/> class with the specified service URI.
+        /// Инициализирует новый экземпляр класса <see cref="OrdersDomainContext"/> с указанным URI службы.
         /// </summary>
-        /// <param name="serviceUri">The OrdersDomainService service URI.</param>
+        /// <param name="serviceUri">Идентификатор URI службы OrdersDomainService.</param>
         public OrdersDomainContext(Uri serviceUri) : 
                 this(new WebDomainClient<IOrdersDomainServiceContract>(serviceUri))
         {
         }
         
         /// <summary>
-        /// Initializes a new instance of the <see cref="OrdersDomainContext"/> class with the specified <paramref name="domainClient"/>.
+        /// Инициализирует новый экземпляр класса <see cref="OrdersDomainContext"/> с указанным параметром <paramref name="domainClient"/>.
         /// </summary>
-        /// <param name="domainClient">The DomainClient instance to use for this domain context.</param>
+        /// <param name="domainClient">Экземпляр DomainClient для использования в этом контексте DomainContext.</param>
         public OrdersDomainContext(DomainClient domainClient) : 
                 base(domainClient)
         {
@@ -4117,7 +4099,7 @@ namespace VotGESOrders.Web.Services
         }
         
         /// <summary>
-        /// Gets the set of <see cref="Order"/> entities that have been loaded into this <see cref="OrdersDomainContext"/> instance.
+        /// Возвращает набор экземпляров сущностей <see cref="Order"/>, загруженных в данный экземпляр <see cref="OrdersDomainContext"/>.
         /// </summary>
         public EntitySet<Order> Orders
         {
@@ -4128,7 +4110,7 @@ namespace VotGESOrders.Web.Services
         }
         
         /// <summary>
-        /// Gets the set of <see cref="OrderObject"/> entities that have been loaded into this <see cref="OrdersDomainContext"/> instance.
+        /// Возвращает набор экземпляров сущностей <see cref="OrderObject"/>, загруженных в данный экземпляр <see cref="OrdersDomainContext"/>.
         /// </summary>
         public EntitySet<OrderObject> OrderObjects
         {
@@ -4139,7 +4121,7 @@ namespace VotGESOrders.Web.Services
         }
         
         /// <summary>
-        /// Gets the set of <see cref="OrdersUser"/> entities that have been loaded into this <see cref="OrdersDomainContext"/> instance.
+        /// Возвращает набор экземпляров сущностей <see cref="OrdersUser"/>, загруженных в данный экземпляр <see cref="OrdersDomainContext"/>.
         /// </summary>
         public EntitySet<OrdersUser> OrdersUsers
         {
@@ -4150,11 +4132,11 @@ namespace VotGESOrders.Web.Services
         }
         
         /// <summary>
-        /// Gets an EntityQuery instance that can be used to load <see cref="Order"/> entities using the 'GetFilteredOrdersFromXML' query.
+        /// Возвращает экземпляр EntityQuery, который может быть использован для загрузки экземпляров сущностей <see cref="Order"/> с помощью запроса "GetFilteredOrdersFromXML".
         /// </summary>
-        /// <param name="xml">The value for the 'xml' parameter of the query.</param>
-        /// <param name="guid">The value for the 'guid' parameter of the query.</param>
-        /// <returns>An EntityQuery that can be loaded to retrieve <see cref="Order"/> entities.</returns>
+        /// <param name="xml">Значение параметра "xml" для запроса.</param>
+        /// <param name="guid">Значение параметра "guid" для запроса.</param>
+        /// <returns>Значение EntityQuery, которое может быть загружено для извлечения экземпляров сущностей <see cref="Order"/>.</returns>
         public EntityQuery<Order> GetFilteredOrdersFromXMLQuery(string xml, Guid guid)
         {
             Dictionary<string, object> parameters = new Dictionary<string, object>();
@@ -4165,9 +4147,9 @@ namespace VotGESOrders.Web.Services
         }
         
         /// <summary>
-        /// Gets an EntityQuery instance that can be used to load <see cref="OrderObject"/> entities using the 'LoadOrderObjects' query.
+        /// Возвращает экземпляр EntityQuery, который может быть использован для загрузки экземпляров сущностей <see cref="OrderObject"/> с помощью запроса "LoadOrderObjects".
         /// </summary>
-        /// <returns>An EntityQuery that can be loaded to retrieve <see cref="OrderObject"/> entities.</returns>
+        /// <returns>Значение EntityQuery, которое может быть загружено для извлечения экземпляров сущностей <see cref="OrderObject"/>.</returns>
         public EntityQuery<OrderObject> LoadOrderObjectsQuery()
         {
             this.ValidateMethod("LoadOrderObjectsQuery", null);
@@ -4175,10 +4157,10 @@ namespace VotGESOrders.Web.Services
         }
         
         /// <summary>
-        /// Gets an EntityQuery instance that can be used to load <see cref="Order"/> entities using the 'LoadOrders' query.
+        /// Возвращает экземпляр EntityQuery, который может быть использован для загрузки экземпляров сущностей <see cref="Order"/> с помощью запроса "LoadOrders".
         /// </summary>
-        /// <param name="guid">The value for the 'guid' parameter of the query.</param>
-        /// <returns>An EntityQuery that can be loaded to retrieve <see cref="Order"/> entities.</returns>
+        /// <param name="guid">Значение параметра "guid" для запроса.</param>
+        /// <returns>Значение EntityQuery, которое может быть загружено для извлечения экземпляров сущностей <see cref="Order"/>.</returns>
         public EntityQuery<Order> LoadOrdersQuery(Guid guid)
         {
             Dictionary<string, object> parameters = new Dictionary<string, object>();
@@ -4188,9 +4170,9 @@ namespace VotGESOrders.Web.Services
         }
         
         /// <summary>
-        /// Gets an EntityQuery instance that can be used to load <see cref="OrdersUser"/> entities using the 'LoadOrdersUsers' query.
+        /// Возвращает экземпляр EntityQuery, который может быть использован для загрузки экземпляров сущностей <see cref="OrdersUser"/> с помощью запроса "LoadOrdersUsers".
         /// </summary>
-        /// <returns>An EntityQuery that can be loaded to retrieve <see cref="OrdersUser"/> entities.</returns>
+        /// <returns>Значение EntityQuery, которое может быть загружено для извлечения экземпляров сущностей <see cref="OrdersUser"/>.</returns>
         public EntityQuery<OrdersUser> LoadOrdersUsersQuery()
         {
             this.ValidateMethod("LoadOrdersUsersQuery", null);
@@ -4198,138 +4180,138 @@ namespace VotGESOrders.Web.Services
         }
         
         /// <summary>
-        /// Invokes the 'RegisterNew' method of the specified <see cref="Order"/> entity.
+        /// Вызывает метод "RegisterNew" указанной сущности <see cref="Order"/>.
         /// </summary>
-        /// <param name="order">The <see cref="Order"/> entity instance.</param>
-        /// <param name="guid">The value for the 'guid' parameter for this action.</param>
+        /// <param name="order">Экземпляр сущности <see cref="Order"/>.</param>
+        /// <param name="guid">Значение параметра "guid" для данного действия.</param>
         public void RegisterNew(Order order, Guid guid)
         {
             order.RegisterNew(guid);
         }
         
         /// <summary>
-        /// Invokes the 'RegisterChangeOrder' method of the specified <see cref="Order"/> entity.
+        /// Вызывает метод "RegisterChangeOrder" указанной сущности <see cref="Order"/>.
         /// </summary>
-        /// <param name="order">The <see cref="Order"/> entity instance.</param>
-        /// <param name="guid">The value for the 'guid' parameter for this action.</param>
+        /// <param name="order">Экземпляр сущности <see cref="Order"/>.</param>
+        /// <param name="guid">Значение параметра "guid" для данного действия.</param>
         public void RegisterChangeOrder(Order order, Guid guid)
         {
             order.RegisterChangeOrder(guid);
         }
         
         /// <summary>
-        /// Invokes the 'RegisterAcceptOrder' method of the specified <see cref="Order"/> entity.
+        /// Вызывает метод "RegisterAcceptOrder" указанной сущности <see cref="Order"/>.
         /// </summary>
-        /// <param name="order">The <see cref="Order"/> entity instance.</param>
-        /// <param name="guid">The value for the 'guid' parameter for this action.</param>
+        /// <param name="order">Экземпляр сущности <see cref="Order"/>.</param>
+        /// <param name="guid">Значение параметра "guid" для данного действия.</param>
         public void RegisterAcceptOrder(Order order, Guid guid)
         {
             order.RegisterAcceptOrder(guid);
         }
         
         /// <summary>
-        /// Invokes the 'RegisterBanOrder' method of the specified <see cref="Order"/> entity.
+        /// Вызывает метод "RegisterBanOrder" указанной сущности <see cref="Order"/>.
         /// </summary>
-        /// <param name="order">The <see cref="Order"/> entity instance.</param>
-        /// <param name="guid">The value for the 'guid' parameter for this action.</param>
+        /// <param name="order">Экземпляр сущности <see cref="Order"/>.</param>
+        /// <param name="guid">Значение параметра "guid" для данного действия.</param>
         public void RegisterBanOrder(Order order, Guid guid)
         {
             order.RegisterBanOrder(guid);
         }
         
         /// <summary>
-        /// Invokes the 'RegisterCancelOrder' method of the specified <see cref="Order"/> entity.
+        /// Вызывает метод "RegisterCancelOrder" указанной сущности <see cref="Order"/>.
         /// </summary>
-        /// <param name="order">The <see cref="Order"/> entity instance.</param>
-        /// <param name="guid">The value for the 'guid' parameter for this action.</param>
+        /// <param name="order">Экземпляр сущности <see cref="Order"/>.</param>
+        /// <param name="guid">Значение параметра "guid" для данного действия.</param>
         public void RegisterCancelOrder(Order order, Guid guid)
         {
             order.RegisterCancelOrder(guid);
         }
         
         /// <summary>
-        /// Invokes the 'RegisterOpenOrder' method of the specified <see cref="Order"/> entity.
+        /// Вызывает метод "RegisterOpenOrder" указанной сущности <see cref="Order"/>.
         /// </summary>
-        /// <param name="order">The <see cref="Order"/> entity instance.</param>
-        /// <param name="guid">The value for the 'guid' parameter for this action.</param>
+        /// <param name="order">Экземпляр сущности <see cref="Order"/>.</param>
+        /// <param name="guid">Значение параметра "guid" для данного действия.</param>
         public void RegisterOpenOrder(Order order, Guid guid)
         {
             order.RegisterOpenOrder(guid);
         }
         
         /// <summary>
-        /// Invokes the 'RegisterCloseOrder' method of the specified <see cref="Order"/> entity.
+        /// Вызывает метод "RegisterCloseOrder" указанной сущности <see cref="Order"/>.
         /// </summary>
-        /// <param name="order">The <see cref="Order"/> entity instance.</param>
-        /// <param name="guid">The value for the 'guid' parameter for this action.</param>
+        /// <param name="order">Экземпляр сущности <see cref="Order"/>.</param>
+        /// <param name="guid">Значение параметра "guid" для данного действия.</param>
         public void RegisterCloseOrder(Order order, Guid guid)
         {
             order.RegisterCloseOrder(guid);
         }
         
         /// <summary>
-        /// Invokes the 'RegisterCompleteOrder' method of the specified <see cref="Order"/> entity.
+        /// Вызывает метод "RegisterCompleteOrder" указанной сущности <see cref="Order"/>.
         /// </summary>
-        /// <param name="order">The <see cref="Order"/> entity instance.</param>
-        /// <param name="guid">The value for the 'guid' parameter for this action.</param>
+        /// <param name="order">Экземпляр сущности <see cref="Order"/>.</param>
+        /// <param name="guid">Значение параметра "guid" для данного действия.</param>
         public void RegisterCompleteOrder(Order order, Guid guid)
         {
             order.RegisterCompleteOrder(guid);
         }
         
         /// <summary>
-        /// Invokes the 'ReloadOrder' method of the specified <see cref="Order"/> entity.
+        /// Вызывает метод "ReloadOrder" указанной сущности <see cref="Order"/>.
         /// </summary>
-        /// <param name="order">The <see cref="Order"/> entity instance.</param>
-        /// <param name="guid">The value for the 'guid' parameter for this action.</param>
+        /// <param name="order">Экземпляр сущности <see cref="Order"/>.</param>
+        /// <param name="guid">Значение параметра "guid" для данного действия.</param>
         public void ReloadOrder(Order order, Guid guid)
         {
             order.ReloadOrder(guid);
         }
         
         /// <summary>
-        /// Invokes the 'RegisterChangeObject' method of the specified <see cref="OrderObject"/> entity.
+        /// Вызывает метод "RegisterChangeObject" указанной сущности <see cref="OrderObject"/>.
         /// </summary>
-        /// <param name="newObject">The <see cref="OrderObject"/> entity instance.</param>
+        /// <param name="newObject">Экземпляр сущности <see cref="OrderObject"/>.</param>
         public void RegisterChangeObject(OrderObject newObject)
         {
             newObject.RegisterChangeObject();
         }
         
         /// <summary>
-        /// Invokes the 'RegisterDeleteObject' method of the specified <see cref="OrderObject"/> entity.
+        /// Вызывает метод "RegisterDeleteObject" указанной сущности <see cref="OrderObject"/>.
         /// </summary>
-        /// <param name="newObject">The <see cref="OrderObject"/> entity instance.</param>
+        /// <param name="newObject">Экземпляр сущности <see cref="OrderObject"/>.</param>
         public void RegisterDeleteObject(OrderObject newObject)
         {
             newObject.RegisterDeleteObject();
         }
         
         /// <summary>
-        /// Invokes the 'RegisterChangeUser' method of the specified <see cref="OrdersUser"/> entity.
+        /// Вызывает метод "RegisterChangeUser" указанной сущности <see cref="OrdersUser"/>.
         /// </summary>
-        /// <param name="newObject">The <see cref="OrdersUser"/> entity instance.</param>
+        /// <param name="newObject">Экземпляр сущности <see cref="OrdersUser"/>.</param>
         public void RegisterChangeUser(OrdersUser newObject)
         {
             newObject.RegisterChangeUser();
         }
         
         /// <summary>
-        /// Invokes the 'RegisterDeleteUser' method of the specified <see cref="OrdersUser"/> entity.
+        /// Вызывает метод "RegisterDeleteUser" указанной сущности <see cref="OrdersUser"/>.
         /// </summary>
-        /// <param name="newObject">The <see cref="OrdersUser"/> entity instance.</param>
+        /// <param name="newObject">Экземпляр сущности <see cref="OrdersUser"/>.</param>
         public void RegisterDeleteUser(OrdersUser newObject)
         {
             newObject.RegisterDeleteUser();
         }
         
         /// <summary>
-        /// Asynchronously invokes the 'ExistsChanges' method of the domain service.
+        /// Асинхронно вызывает метод "ExistsChanges" службы DomainService.
         /// </summary>
-        /// <param name="guid">The value for the 'guid' parameter of this action.</param>
-        /// <param name="callback">Callback to invoke when the operation completes.</param>
-        /// <param name="userState">Value to pass to the callback.  It can be <c>null</c>.</param>
-        /// <returns>An operation instance that can be used to manage the asynchronous request.</returns>
+        /// <param name="guid">Значение параметра "guid" для данного действия.</param>
+        /// <param name="callback">Функция обратного вызова вызывается после завершения операции.</param>
+        /// <param name="userState">Параметр для передачи в функцию обратного вызова. Может быть равен <c>null</c>.</param>
+        /// <returns>Экземпляр операции, который может быть использован для управления асинхронным запросом.</returns>
         public InvokeOperation<bool> ExistsChanges(Guid guid, Action<InvokeOperation<bool>> callback, object userState)
         {
             Dictionary<string, object> parameters = new Dictionary<string, object>();
@@ -4339,10 +4321,10 @@ namespace VotGESOrders.Web.Services
         }
         
         /// <summary>
-        /// Asynchronously invokes the 'ExistsChanges' method of the domain service.
+        /// Асинхронно вызывает метод "ExistsChanges" службы DomainService.
         /// </summary>
-        /// <param name="guid">The value for the 'guid' parameter of this action.</param>
-        /// <returns>An operation instance that can be used to manage the asynchronous request.</returns>
+        /// <param name="guid">Значение параметра "guid" для данного действия.</param>
+        /// <returns>Экземпляр операции, который может быть использован для управления асинхронным запросом.</returns>
         public InvokeOperation<bool> ExistsChanges(Guid guid)
         {
             Dictionary<string, object> parameters = new Dictionary<string, object>();
@@ -4352,16 +4334,16 @@ namespace VotGESOrders.Web.Services
         }
         
         /// <summary>
-        /// Creates a new entity container for this domain context's entity sets.
+        /// Создает новый объект EntityContainer для наборов сущностей EntitySets данного контекста DomainContext.
         /// </summary>
-        /// <returns>A new container instance.</returns>
+        /// <returns>Новый экземпляр контейнера.</returns>
         protected override EntityContainer CreateEntityContainer()
         {
             return new OrdersDomainContextEntityContainer();
         }
         
         /// <summary>
-        /// Service contract for the 'OrdersDomainService' domain service.
+        /// Контракт службы (Service) "OrdersDomainService" DomainService.
         /// </summary>
         [ServiceContract()]
         [ServiceKnownType(typeof(Guid))]
@@ -4369,114 +4351,114 @@ namespace VotGESOrders.Web.Services
         {
             
             /// <summary>
-            /// Asynchronously invokes the 'ExistsChanges' operation.
+            /// Асинхронно вызывает операцию "ExistsChanges".
             /// </summary>
-            /// <param name="guid">The value for the 'guid' parameter of this action.</param>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
+            /// <param name="guid">Значение параметра "guid" для данного действия.</param>
+            /// <param name="callback">Функция обратного вызова вызывается после завершения.</param>
+            /// <param name="asyncState">Необязательный объект состояния.</param>
+            /// <returns>Интерфейс IAsyncResult, который может быть использован для отслеживания запроса.</returns>
             [FaultContract(typeof(DomainServiceFault), Action="http://tempuri.org/OrdersDomainService/ExistsChangesDomainServiceFault", Name="DomainServiceFault", Namespace="DomainServices")]
             [OperationContract(AsyncPattern=true, Action="http://tempuri.org/OrdersDomainService/ExistsChanges", ReplyAction="http://tempuri.org/OrdersDomainService/ExistsChangesResponse")]
             IAsyncResult BeginExistsChanges(Guid guid, AsyncCallback callback, object asyncState);
             
             /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginExistsChanges'.
+            /// Завершает асинхронную операцию, начатую "BeginExistsChanges".
             /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginExistsChanges'.</param>
-            /// <returns>The 'Boolean' returned from the 'ExistsChanges' operation.</returns>
+            /// <param name="result">Интерфейс IAsyncResult, возвращенный из "BeginExistsChanges".</param>
+            /// <returns>Объект "Boolean", возвращенный из операции "ExistsChanges".</returns>
             bool EndExistsChanges(IAsyncResult result);
             
             /// <summary>
-            /// Asynchronously invokes the 'GetFilteredOrdersFromXML' operation.
+            /// Асинхронно вызывает операцию "GetFilteredOrdersFromXML".
             /// </summary>
-            /// <param name="xml">The value for the 'xml' parameter of this action.</param>
-            /// <param name="guid">The value for the 'guid' parameter of this action.</param>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
+            /// <param name="xml">Значение параметра "xml" для данного действия.</param>
+            /// <param name="guid">Значение параметра "guid" для данного действия.</param>
+            /// <param name="callback">Функция обратного вызова вызывается после завершения.</param>
+            /// <param name="asyncState">Необязательный объект состояния.</param>
+            /// <returns>Интерфейс IAsyncResult, который может быть использован для отслеживания запроса.</returns>
             [FaultContract(typeof(DomainServiceFault), Action="http://tempuri.org/OrdersDomainService/GetFilteredOrdersFromXMLDomainServiceFault" +
                 "", Name="DomainServiceFault", Namespace="DomainServices")]
             [OperationContract(AsyncPattern=true, Action="http://tempuri.org/OrdersDomainService/GetFilteredOrdersFromXML", ReplyAction="http://tempuri.org/OrdersDomainService/GetFilteredOrdersFromXMLResponse")]
             IAsyncResult BeginGetFilteredOrdersFromXML(string xml, Guid guid, AsyncCallback callback, object asyncState);
             
             /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginGetFilteredOrdersFromXML'.
+            /// Завершает асинхронную операцию, начатую "BeginGetFilteredOrdersFromXML".
             /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginGetFilteredOrdersFromXML'.</param>
-            /// <returns>The 'QueryResult' returned from the 'GetFilteredOrdersFromXML' operation.</returns>
+            /// <param name="result">Интерфейс IAsyncResult, возвращенный из "BeginGetFilteredOrdersFromXML".</param>
+            /// <returns>Объект "QueryResult", возвращенный из операции "GetFilteredOrdersFromXML".</returns>
             QueryResult<Order> EndGetFilteredOrdersFromXML(IAsyncResult result);
             
             /// <summary>
-            /// Asynchronously invokes the 'LoadOrderObjects' operation.
+            /// Асинхронно вызывает операцию "LoadOrderObjects".
             /// </summary>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
+            /// <param name="callback">Функция обратного вызова вызывается после завершения.</param>
+            /// <param name="asyncState">Необязательный объект состояния.</param>
+            /// <returns>Интерфейс IAsyncResult, который может быть использован для отслеживания запроса.</returns>
             [FaultContract(typeof(DomainServiceFault), Action="http://tempuri.org/OrdersDomainService/LoadOrderObjectsDomainServiceFault", Name="DomainServiceFault", Namespace="DomainServices")]
             [OperationContract(AsyncPattern=true, Action="http://tempuri.org/OrdersDomainService/LoadOrderObjects", ReplyAction="http://tempuri.org/OrdersDomainService/LoadOrderObjectsResponse")]
             [WebGet()]
             IAsyncResult BeginLoadOrderObjects(AsyncCallback callback, object asyncState);
             
             /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginLoadOrderObjects'.
+            /// Завершает асинхронную операцию, начатую "BeginLoadOrderObjects".
             /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginLoadOrderObjects'.</param>
-            /// <returns>The 'QueryResult' returned from the 'LoadOrderObjects' operation.</returns>
+            /// <param name="result">Интерфейс IAsyncResult, возвращенный из "BeginLoadOrderObjects".</param>
+            /// <returns>Объект "QueryResult", возвращенный из операции "LoadOrderObjects".</returns>
             QueryResult<OrderObject> EndLoadOrderObjects(IAsyncResult result);
             
             /// <summary>
-            /// Asynchronously invokes the 'LoadOrders' operation.
+            /// Асинхронно вызывает операцию "LoadOrders".
             /// </summary>
-            /// <param name="guid">The value for the 'guid' parameter of this action.</param>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
+            /// <param name="guid">Значение параметра "guid" для данного действия.</param>
+            /// <param name="callback">Функция обратного вызова вызывается после завершения.</param>
+            /// <param name="asyncState">Необязательный объект состояния.</param>
+            /// <returns>Интерфейс IAsyncResult, который может быть использован для отслеживания запроса.</returns>
             [FaultContract(typeof(DomainServiceFault), Action="http://tempuri.org/OrdersDomainService/LoadOrdersDomainServiceFault", Name="DomainServiceFault", Namespace="DomainServices")]
             [OperationContract(AsyncPattern=true, Action="http://tempuri.org/OrdersDomainService/LoadOrders", ReplyAction="http://tempuri.org/OrdersDomainService/LoadOrdersResponse")]
             [WebGet()]
             IAsyncResult BeginLoadOrders(Guid guid, AsyncCallback callback, object asyncState);
             
             /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginLoadOrders'.
+            /// Завершает асинхронную операцию, начатую "BeginLoadOrders".
             /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginLoadOrders'.</param>
-            /// <returns>The 'QueryResult' returned from the 'LoadOrders' operation.</returns>
+            /// <param name="result">Интерфейс IAsyncResult, возвращенный из "BeginLoadOrders".</param>
+            /// <returns>Объект "QueryResult", возвращенный из операции "LoadOrders".</returns>
             QueryResult<Order> EndLoadOrders(IAsyncResult result);
             
             /// <summary>
-            /// Asynchronously invokes the 'LoadOrdersUsers' operation.
+            /// Асинхронно вызывает операцию "LoadOrdersUsers".
             /// </summary>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
+            /// <param name="callback">Функция обратного вызова вызывается после завершения.</param>
+            /// <param name="asyncState">Необязательный объект состояния.</param>
+            /// <returns>Интерфейс IAsyncResult, который может быть использован для отслеживания запроса.</returns>
             [FaultContract(typeof(DomainServiceFault), Action="http://tempuri.org/OrdersDomainService/LoadOrdersUsersDomainServiceFault", Name="DomainServiceFault", Namespace="DomainServices")]
             [OperationContract(AsyncPattern=true, Action="http://tempuri.org/OrdersDomainService/LoadOrdersUsers", ReplyAction="http://tempuri.org/OrdersDomainService/LoadOrdersUsersResponse")]
             [WebGet()]
             IAsyncResult BeginLoadOrdersUsers(AsyncCallback callback, object asyncState);
             
             /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginLoadOrdersUsers'.
+            /// Завершает асинхронную операцию, начатую "BeginLoadOrdersUsers".
             /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginLoadOrdersUsers'.</param>
-            /// <returns>The 'QueryResult' returned from the 'LoadOrdersUsers' operation.</returns>
+            /// <param name="result">Интерфейс IAsyncResult, возвращенный из "BeginLoadOrdersUsers".</param>
+            /// <returns>Объект "QueryResult", возвращенный из операции "LoadOrdersUsers".</returns>
             QueryResult<OrdersUser> EndLoadOrdersUsers(IAsyncResult result);
             
             /// <summary>
-            /// Asynchronously invokes the 'SubmitChanges' operation.
+            /// Асинхронно вызывает операцию "SubmitChanges".
             /// </summary>
-            /// <param name="changeSet">The change-set to submit.</param>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
+            /// <param name="changeSet">Набор изменений для отправки.</param>
+            /// <param name="callback">Функция обратного вызова вызывается после завершения.</param>
+            /// <param name="asyncState">Необязательный объект состояния.</param>
+            /// <returns>Интерфейс IAsyncResult, который может быть использован для отслеживания запроса.</returns>
             [FaultContract(typeof(DomainServiceFault), Action="http://tempuri.org/OrdersDomainService/SubmitChangesDomainServiceFault", Name="DomainServiceFault", Namespace="DomainServices")]
             [OperationContract(AsyncPattern=true, Action="http://tempuri.org/OrdersDomainService/SubmitChanges", ReplyAction="http://tempuri.org/OrdersDomainService/SubmitChangesResponse")]
             IAsyncResult BeginSubmitChanges(IEnumerable<ChangeSetEntry> changeSet, AsyncCallback callback, object asyncState);
             
             /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginSubmitChanges'.
+            /// Завершает асинхронную операцию, начатую "BeginSubmitChanges".
             /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginSubmitChanges'.</param>
-            /// <returns>The collection of change-set entry elements returned from 'SubmitChanges'.</returns>
+            /// <param name="result">Интерфейс IAsyncResult, возвращенный из "BeginSubmitChanges".</param>
+            /// <returns>Коллекция элементов набора изменений, возвращенного операцией SubmitChanges.</returns>
             IEnumerable<ChangeSetEntry> EndSubmitChanges(IAsyncResult result);
         }
         
@@ -4493,7 +4475,7 @@ namespace VotGESOrders.Web.Services
     }
     
     /// <summary>
-    /// The 'User' entity class.
+    /// Класс сущности "User".
     /// </summary>
     [DataContract(Namespace="http://schemas.datacontract.org/2004/07/VotGESOrders.Web.Services")]
     public sealed partial class User : Entity, global::System.Security.Principal.IIdentity, global::System.Security.Principal.IPrincipal
@@ -4515,11 +4497,11 @@ namespace VotGESOrders.Web.Services
         
         private int _userID;
         
-        #region Extensibility Method Definitions
+        #region Определение методов расширяемости
 
         /// <summary>
-        /// This method is invoked from the constructor once initialization is complete and
-        /// can be used for further object setup.
+        /// Этот метод вызывается из конструктора по завершении инициализации и
+        /// не может быть использован для последующей настройки объекта.
         /// </summary>
         partial void OnCreated();
         partial void OnAllowCreateCrashOrderChanging(bool value);
@@ -4543,7 +4525,7 @@ namespace VotGESOrders.Web.Services
         
         
         /// <summary>
-        /// Initializes a new instance of the <see cref="User"/> class.
+        /// Инициализация нового экземпляра класса <see cref="User"/>.
         /// </summary>
         public User()
         {
@@ -4551,7 +4533,7 @@ namespace VotGESOrders.Web.Services
         }
         
         /// <summary>
-        /// Gets or sets the 'AllowCreateCrashOrder' value.
+        /// Возвращает или задает значение параметра "AllowCreateCrashOrder".
         /// </summary>
         [DataMember()]
         public bool AllowCreateCrashOrder
@@ -4575,7 +4557,7 @@ namespace VotGESOrders.Web.Services
         }
         
         /// <summary>
-        /// Gets or sets the 'AllowCreateOrder' value.
+        /// Возвращает или задает значение параметра "AllowCreateOrder".
         /// </summary>
         [DataMember()]
         public bool AllowCreateOrder
@@ -4599,7 +4581,7 @@ namespace VotGESOrders.Web.Services
         }
         
         /// <summary>
-        /// Gets or sets the 'AllowEditTree' value.
+        /// Возвращает или задает значение параметра "AllowEditTree".
         /// </summary>
         [DataMember()]
         public bool AllowEditTree
@@ -4623,7 +4605,7 @@ namespace VotGESOrders.Web.Services
         }
         
         /// <summary>
-        /// Gets or sets the 'AllowEditUsers' value.
+        /// Возвращает или задает значение параметра "AllowEditUsers".
         /// </summary>
         [DataMember()]
         public bool AllowEditUsers
@@ -4647,7 +4629,7 @@ namespace VotGESOrders.Web.Services
         }
         
         /// <summary>
-        /// Gets or sets the 'FullName' value.
+        /// Возвращает или задает значение параметра "FullName".
         /// </summary>
         [DataMember()]
         public string FullName
@@ -4671,7 +4653,7 @@ namespace VotGESOrders.Web.Services
         }
         
         /// <summary>
-        /// Gets or sets the 'Name' value.
+        /// Возвращает или задает значение параметра "Name".
         /// </summary>
         [DataMember()]
         [Editable(false, AllowInitialValue=true)]
@@ -4698,7 +4680,7 @@ namespace VotGESOrders.Web.Services
         }
         
         /// <summary>
-        /// Gets or sets the 'Roles' value.
+        /// Возвращает или задает значение параметра "Roles".
         /// </summary>
         [DataMember()]
         [Editable(false)]
@@ -4722,7 +4704,7 @@ namespace VotGESOrders.Web.Services
         }
         
         /// <summary>
-        /// Gets or sets the 'UserID' value.
+        /// Возвращает или задает значение параметра "UserID".
         /// </summary>
         [DataMember()]
         public int UserID
@@ -4754,10 +4736,10 @@ namespace VotGESOrders.Web.Services
         }
         
         /// <summary>
-        /// Gets a value indicating whether the identity is authenticated.
+        /// Возвращает значение, указывающее, проверена ли подлинность пользователя.
         /// </summary>
         /// <remarks>
-        /// This value is <c>true</c> if <see cref="Name"/> is not <c>null</c> or empty.
+        /// Это значение равно <c>true</c>, если <see cref="Name"/> не является пустым значением и не равно <c>null</c>.
         /// </remarks>
         public bool IsAuthenticated
         {
@@ -4784,23 +4766,23 @@ namespace VotGESOrders.Web.Services
         }
         
         /// <summary>
-        /// Computes a value from the key fields that uniquely identifies this entity instance.
+        /// Вычисляет значение ключевых полей, уникально идентифицирующее данный экземпляр сущности.
         /// </summary>
-        /// <returns>An object instance that uniquely identifies this entity instance.</returns>
+        /// <returns>Экземпляр объекта, уникально идентифицирующий данный экземпляр сущности.</returns>
         public override object GetIdentity()
         {
             return this._name;
         }
         
         /// <summary>
-        /// Return whether the principal is in the role.
+        /// Возвращает значение, указывающее, имеет ли участник данную роль.
         /// </summary>
         /// <remarks>
-        /// Returns whether the specified role is contained in the roles.
-        /// This implementation is case sensitive.
+        /// Возвращает значение, указывающее, содержится ли указанная роль в списке ролей.
+        /// Эта функция учитывает регистр символов.
         /// </remarks>
-        /// <param name="role">The name of the role for which to check membership.</param>
-        /// <returns>Whether the principal is in the role.</returns>
+        /// <param name="role">Имя роли, членство в которой проверяется.</param>
+        /// <returns>Возвращает значение, указывающее, имеет ли участник данную роль.</returns>
         public bool IsInRole(string role)
         {
             if ((this.Roles == null))
