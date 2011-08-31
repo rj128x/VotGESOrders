@@ -238,7 +238,6 @@ namespace VotGESOrders.Web.Models
 
 		private DateTime? faktStartDate;
 		[CustomValidation(typeof(OrderValidator), "ValidateFaktStartDate", ErrorMessage = "Ошибка")]
-		[CustomValidation(typeof(OrderValidator), "ValidateFutureDate", ErrorMessage = "Ошибка")]
 		[Display(ShortName = "Фактическое начало")]
 		public DateTime? FaktStartDate {
 			get { return faktStartDate; }
@@ -248,7 +247,6 @@ namespace VotGESOrders.Web.Models
 
 		private DateTime? faktStopDate;
 		[CustomValidation(typeof(OrderValidator), "ValidateFaktStopDate", ErrorMessage = "Ошибка")]
-		[CustomValidation(typeof(OrderValidator), "ValidateFutureDate", ErrorMessage = "Ошибка")]
 		[Display(ShortName = "Разрешение на ввод")]
 		public DateTime? FaktStopDate {
 			get { return faktStopDate; }
@@ -257,7 +255,6 @@ namespace VotGESOrders.Web.Models
 
 		private DateTime? faktCompleteDate;
 		[CustomValidation(typeof(OrderValidator), "ValidateFaktCompleteDate", ErrorMessage = "Ошибка")]
-		[CustomValidation(typeof(OrderValidator), "ValidateFutureDate", ErrorMessage = "Ошибка")]
 		[Display(ShortName = "Ввод в работу")]
 		public DateTime? FaktCompleteDate {
 			get { return faktCompleteDate; }
