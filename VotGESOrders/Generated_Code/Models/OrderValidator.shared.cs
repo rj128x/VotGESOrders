@@ -7,14 +7,14 @@ namespace VotGESOrders.Web.Models
 {
 	public static class OrderValidator
 	{
-
+		
 		public static ValidationResult ValidatePlanStartDate(DateTime date, ValidationContext context) {
 			Order order=context.ObjectInstance as Order;
 			if (order.OrderState != OrderStateEnum.created) {
 				return ValidationResult.Success;
 			}
-			if (date < order.OrderDateCreate && !order.OrderIsExtend && !order.OrderIsFixErrorEnter && order.OrderType != OrderTypeEnum.crash)
-				return new ValidationResult(String.Format("Плановая дата начала({0}) раньше даты создания({1})", date, order.OrderDateCreate));
+			if (date < DateTime.Now && !order.OrderIsExtend && !order.OrderIsFixErrorEnter && order.OrderType != OrderTypeEnum.crash)
+				return new ValidationResult(String.Format("Плановая дата начала({0}) раньше текущей даты", date));
 			if (order.OrderIsFixErrorEnter) {
 				if (order.ParentOrder != null && order.ParentOrder.FaktStopDate > date) 
 					return new ValidationResult(String.Format("Фактический отказ оборудования ({0}) раньше даты разрешения на ввод (родительская заявка)({1})", date, order.ParentOrder.FaktStopDate));				
@@ -32,8 +32,8 @@ namespace VotGESOrders.Web.Models
 			}
 			if (date < order.PlanStartDate)
 				return new ValidationResult(String.Format("Плановая дата завершения({0}) раньше даты планового начала({1})", date, order.PlanStartDate));
-			if (date < order.OrderDateCreate)
-				return new ValidationResult(String.Format("Плановая дата окончания({0}) раньше даты создания({1})", date, order.OrderDateCreate));
+			if (date < DateTime.Now)
+				return new ValidationResult(String.Format("Плановая дата окончания({0}) раньше текущей даты", date));
 			return ValidationResult.Success;
 		}
 

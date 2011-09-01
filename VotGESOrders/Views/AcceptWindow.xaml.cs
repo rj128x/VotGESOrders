@@ -36,6 +36,7 @@ namespace VotGESOrders.Views
 
 		private void BanButton_Click(object sender, RoutedEventArgs e) {
 			Result = AcceptResult.ban;
+			CurrentOrder.OrderState = OrderStateEnum.banned;
 			bool ok=orderForm.ValidateItem();
 			if (ok) {
 				orderForm.CommitEdit();
@@ -48,6 +49,7 @@ namespace VotGESOrders.Views
 
 		private void AcceptButton_Click(object sender, RoutedEventArgs e) {
 			Result = AcceptResult.accept;
+			CurrentOrder.OrderState = OrderStateEnum.accepted;
 			bool ok=orderForm.ValidateItem();
 			if (ok) {
 				orderForm.CommitEdit();
