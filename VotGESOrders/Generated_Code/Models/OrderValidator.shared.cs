@@ -32,6 +32,8 @@ namespace VotGESOrders.Web.Models
 			}
 			if (date < order.PlanStartDate)
 				return new ValidationResult(String.Format("Плановая дата завершения({0}) раньше даты планового начала({1})", date, order.PlanStartDate));
+			if (date < order.OrderDateCreate)
+				return new ValidationResult(String.Format("Плановая дата окончания({0}) раньше даты создания({1})", date, order.OrderDateCreate));
 			return ValidationResult.Success;
 		}
 

@@ -1,1 +1,1 @@
-﻿select * from Users
+﻿delete  from orders
