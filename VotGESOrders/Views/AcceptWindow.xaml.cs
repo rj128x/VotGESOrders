@@ -84,6 +84,7 @@ namespace VotGESOrders.Views
 
 		private void CancelOrderButton_Click(object sender, RoutedEventArgs e) {
 			Result = AcceptResult.cancel;
+			CurrentOrder.OrderState = OrderStateEnum.canceled;
 			bool ok=orderForm.ValidateItem();
 			if (ok) {
 				orderForm.CommitEdit();
