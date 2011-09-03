@@ -9,20 +9,24 @@ namespace VotGESOrders.Web.Models
 {
 	public class MailContext
 	{
-		public static void sendMail(string header, Order order) {
+		public static void sendMail(string header, Order order, bool onlyAuthor=false) {
 			//return;
 			try {
 				IQueryable users=OrdersUser.getAllUsers();
 				List<string> mailToList=new List<string>();
-				foreach (OrdersUser user in users) {
-					if (
-						user.SendAgreeMail && order.AgreeUsers.Contains(user) && !mailToList.Contains(user.Mail)||
-						user.SendAllMail && !mailToList.Contains(user.Mail) ||
-						user.SendCreateMail && order.UserCreateOrderID == user.UserID && !mailToList.Contains(user.Mail)
-						){
+				if (onlyAuthor) {
+					mailToList.Add(order.UserCreateOrder.Mail);
+				} else {
+					foreach (OrdersUser user in users) {
+						if (
+							user.SendAgreeMail && order.AgreeUsers.Contains(user) && !mailToList.Contains(user.Mail) ||
+							user.SendAllMail && !mailToList.Contains(user.Mail) ||
+							user.SendCreateMail && order.UserCreateOrderID == user.UserID && !mailToList.Contains(user.Mail)
+							) {
 							if (!String.IsNullOrEmpty(user.Mail)) {
 								mailToList.Add(user.Mail);
 							}
+						}
 					}
 				}
 
@@ -37,6 +41,7 @@ namespace VotGESOrders.Web.Models
 				Logger.error(String.Format("Ошибка при отправке почты: {0}", e.ToString()), Logger.LoggerSource.server);
 			}
 		}
+
 
 
 

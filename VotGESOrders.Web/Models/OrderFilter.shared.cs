@@ -49,7 +49,7 @@ namespace VotGESOrders.Web.Models
 
 			FilterTypes = new Dictionary<OrderFilterEnum, string>();
 			FilterTypes.Add(OrderFilterEnum.defaultFilter, "Активные заявки/Недавно измененные");
-			FilterTypes.Add(OrderFilterEnum.active, "Только активные заявки");
+			FilterTypes.Add(OrderFilterEnum.active, "Только активные заявки");			
 			FilterTypes.Add(OrderFilterEnum.userFilter, "Ручная настройка");
 
 		}
