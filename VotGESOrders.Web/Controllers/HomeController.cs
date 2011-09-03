@@ -15,7 +15,7 @@ namespace VotGESOrders.Web.Controllers
 
 			return View("VotGESOrders");
 		}
-
+				
 		public ActionResult ProcessExpiredOrders() {
 			OrdersContext context= new OrdersContext();
 			IQueryable<Order> expiredOrders=context.OrdersActiveExpired;
