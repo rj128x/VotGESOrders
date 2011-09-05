@@ -48,7 +48,7 @@
     <file relUrl="Controllers/HomeController.cs" publishTime="09/05/2011 07:58:49" />
     <file relUrl="bin/log4net.dll" publishTime="03/30/2006 13:24:28" />
     <file relUrl="Models/OrdersUser.cs" publishTime="07/25/2011 14:04:16" />
-    <file relUrl="ClientBin/VotGESOrders.xap" publishTime="09/05/2011 14:15:54" />
+    <file relUrl="ClientBin/VotGESOrders.xap" publishTime="09/05/2011 15:24:13" />
     <file relUrl="Views/Shared/Site.Master" publishTime="07/07/2011 07:55:00" />
     <file relUrl="Scripts/jquery.validate.min.js" publishTime="07/07/2011 07:55:00" />
     <file relUrl="Services/AuthenticationDomainService.cs" publishTime="07/25/2011 14:04:16" />

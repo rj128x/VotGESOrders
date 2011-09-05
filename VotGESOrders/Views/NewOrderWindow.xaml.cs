@@ -58,45 +58,47 @@ namespace VotGESOrders.Views
 		private void CancelButton_Click(object sender, RoutedEventArgs e) {
 			orderForm.CancelEdit();
 			OrdersContext.Current.Context.RejectChanges();
+			orderForm.CurrentItem = null;
 			this.DialogResult = false;
 		}
 
 		protected override void OnOpened() {
-			base.OnOpened();
-			//orderForm.CancelEdit();
-			orderForm.CurrentItem = CurrentOrder;
-			orderForm.BeginEdit();
+				base.OnOpened();
+				//orderForm.CancelEdit();
+				orderForm.CurrentItem = CurrentOrder;
+				orderForm.BeginEdit();
 
-			if (IsNewOrder && !CurrentOrder.OrderIsExtend&&!CurrentOrder.OrderIsFixErrorEnter) {
-				CurrentOrder.PlanStartDate = DateTime.Now.Date.AddDays(1).AddHours(8);
-				CurrentOrder.PlanStopDate = DateTime.Now.Date.AddDays(1).AddHours(17);
-				CurrentOrder.AgreeUsersDict = new Dictionary<int, string>();
+				if (IsNewOrder && !CurrentOrder.OrderIsExtend && !CurrentOrder.OrderIsFixErrorEnter) {
+					CurrentOrder.PlanStartDate = DateTime.Now.Date.AddDays(1).AddHours(8);
+					CurrentOrder.PlanStopDate = DateTime.Now.Date.AddDays(1).AddHours(17);
+					CurrentOrder.AgreeUsersDict = new Dictionary<int, string>();
 
-			}
-			if (CurrentOrder.OrderIsExtend||CurrentOrder.OrderIsFixErrorEnter) {
-				treeObjects.Visibility = System.Windows.Visibility.Collapsed;
-				cmbOrderTypes.Visibility = System.Windows.Visibility.Collapsed;
-				txtOrderType.Visibility = System.Windows.Visibility.Visible;
-			} else {
-				treeObjects.Visibility = System.Windows.Visibility.Visible;
-				cmbOrderTypes.Visibility = System.Windows.Visibility.Visible;
-				txtOrderType.Visibility = System.Windows.Visibility.Collapsed;
-			}
+				}
+				if (CurrentOrder.OrderIsExtend || CurrentOrder.OrderIsFixErrorEnter) {
+					treeObjects.Visibility = System.Windows.Visibility.Collapsed;
+					cmbOrderTypes.Visibility = System.Windows.Visibility.Collapsed;
+					txtOrderType.Visibility = System.Windows.Visibility.Visible;
+				} else {
+					treeObjects.Visibility = System.Windows.Visibility.Visible;
+					cmbOrderTypes.Visibility = System.Windows.Visibility.Visible;
+					txtOrderType.Visibility = System.Windows.Visibility.Collapsed;
+				}
 
-			if (CurrentOrder.SelOrderObject != null) {
-				TreeViewItem item = treeObjects.ItemContainerGenerator.ContainerFromItem(CurrentOrder.SelOrderObject) as TreeViewItem;
-				if (item != null) {
-					item.IsSelected = true;					
-				}				
-			}
+				if (CurrentOrder.SelOrderObject != null) {
+					TreeViewItem item = treeObjects.ItemContainerGenerator.ContainerFromItem(CurrentOrder.SelOrderObject) as TreeViewItem;
+					if (item != null) {
+						item.IsSelected = true;
+					}
+				}
 
-			//treeObjects.IsEnabled = !CurrentOrder.OrderIsExtend;
+				//treeObjects.IsEnabled = !CurrentOrder.OrderIsExtend;
 
-			Title = IsNewOrder ? "Создание заявки" : String.Format("Заявка №{0} от {1}", CurrentOrder.OrderNumber.ToString(OrderInfo.NFI), CurrentOrder.OrderDateCreate.ToShortDateString());
+				Title = IsNewOrder ? "Создание заявки" : String.Format("Заявка №{0} от {1}", CurrentOrder.OrderNumber.ToString(OrderInfo.NFI), CurrentOrder.OrderDateCreate.ToShortDateString());
 
-			PlanStartDatePicker.Enabled = !CurrentOrder.OrderIsExtend;
-			OrderObjectAddInfo.IsEnabled = !CurrentOrder.OrderIsExtend && !CurrentOrder.OrderIsFixErrorEnter;
-			OrderText.IsEnabled = !CurrentOrder.OrderIsExtend && !CurrentOrder.OrderIsFixErrorEnter;
+				PlanStartDatePicker.Enabled = !CurrentOrder.OrderIsExtend;
+				OrderObjectAddInfo.IsEnabled = !CurrentOrder.OrderIsExtend && !CurrentOrder.OrderIsFixErrorEnter;
+				OrderText.IsEnabled = !CurrentOrder.OrderIsExtend && !CurrentOrder.OrderIsFixErrorEnter;
+
 		}
 		
 
@@ -112,8 +114,9 @@ namespace VotGESOrders.Views
 
 		private void lstUsers_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) {
 			OrdersUser user=lstUsers.SelectedItem as OrdersUser;
-			if (CurrentOrder.AgreeText == null) {
+			if ((CurrentOrder.AgreeText == null)||(CurrentOrder.AgreeUsersDict == null)) {
 				CurrentOrder.AgreeText = "";
+				CurrentOrder.AgreeUsersDict = new Dictionary<int, string>();
 			}
 			if (user != null) {
 				if (CurrentOrder.AgreeUsersDict.Keys.Contains(user.UserID)) {
