@@ -63,7 +63,7 @@ namespace VotGESOrders.Views
 
 		protected override void OnOpened() {
 			base.OnOpened();
-			orderForm.CancelEdit();
+			//orderForm.CancelEdit();
 			orderForm.CurrentItem = CurrentOrder;
 			orderForm.BeginEdit();
 
