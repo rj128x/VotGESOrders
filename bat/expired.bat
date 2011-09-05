@@ -1,1 +1,1 @@
-CmdHttpRequest -u http://localhost:8090/Home/ProcessExpiredOrders
+CmdHttpRequest -u http://sr-votges-int:8070/Home/ProcessExpiredOrders
