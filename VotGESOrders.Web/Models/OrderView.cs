@@ -22,7 +22,7 @@ namespace VotGESOrders.Web.Models
 				htmlExtend += "<br/>";
 
 			string htmlDatesTable = 
-				String.Format("<table width='100%'><tr><th colspan='3'>Сроки заявки</th></tr><tr><th>&nbsp;</th><th>Начало</th><th>Окончание</th></tr><tr><th>План</th><td>{0}</td><td>{1}</td></tr><tr><th>Факт</th><td>{2}</td><td>{3}</td></tr><tr><th>Разрешение на ввод</th><td colspan='2'>{4}</td></tr></table>",
+				String.Format("<table width='100%'><tr><th colspan='3'>Сроки заявки</th></tr><tr><th>&nbsp;</th><th>Начало</th><th>Окончание</th></tr><tr><th>План</th><td>{0}</td><td>{1}</td></tr><tr><th>Факт</th><td>{2}</td><td>{4}</td></tr><tr><th>Разрешение на ввод</th><td colspan='2'>{3}</td></tr></table>",
 				order.PlanStartDate.ToString("dd.MM.yy HH:mm"), order.PlanStopDate.ToString("dd.MM.yy HH:mm"),
 				order.FaktStartDate.HasValue ? order.FaktStartDate.Value.ToString("dd.MM.yy HH:mm") : "&nbsp;",
 				order.FaktStopDate.HasValue ? order.FaktStopDate.Value.ToString("dd.MM.yy HH:mm") : "&nbsp;",
