@@ -17,55 +17,75 @@
 			<ColumnDefinition Width="Auto"/>
 		</Grid.ColumnDefinitions>
 
-		<toolkit:DataForm Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" Name="orderForm" 
+		<Grid Grid.Column="1" Grid.Row="0" VerticalAlignment="Stretch">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="20"/>
+				<RowDefinition Height="1*"/>
+			</Grid.RowDefinitions>
+			<TextBlock Grid.Row="0" Text="Заявка" HorizontalAlignment="Center"></TextBlock>
+			<toolkit:DataForm HorizontalAlignment="Stretch" Name="orderForm" 
 								VerticalAlignment="Stretch" AutoGenerateFields="False"
-								CommandButtonsVisibility="None">
-			<StackPanel>				
-				<StackPanel >
-					<toolkit:DataField Name="OrderType" Label="Тип заявки">
-						<StackPanel>
-							<ComboBox Name="cmbOrderTypes" SelectedValue="{Binding OrderType,Mode=TwoWay}" DisplayMemberPath="Value" 
+								CommandButtonsVisibility="None" Grid.Row="1">
+				<StackPanel>
+					<StackPanel >
+						<toolkit:DataField Name="OrderType" Label="Тип заявки">
+							<StackPanel>
+								<ComboBox Name="cmbOrderTypes" SelectedValue="{Binding OrderType,Mode=TwoWay}" DisplayMemberPath="Value" 
 										 SelectedValuePath="Key" SelectionChanged="cmbOrderTypes_SelectionChanged"/>
-							<TextBox Name="txtOrderType" Text="{Binding OrderTypeName,Mode=TwoWay}" IsEnabled="False"/>
-						</StackPanel>
-					</toolkit:DataField>
+								<TextBox Name="txtOrderType" Text="{Binding OrderTypeName,Mode=TwoWay}" IsEnabled="False"/>
+							</StackPanel>
+						</toolkit:DataField>
 
-					<toolkit:DataField Name="SelOrderObjectText" Label="Оборудование">
+						<toolkit:DataField Name="SelOrderObjectText" Label="Оборудование">
 							<TextBox Text="{Binding SelOrderObjectText,Mode=TwoWay}" TextWrapping="Wrap" IsEnabled="False"/>
-					</toolkit:DataField>
-					<toolkit:DataField Name="OrderObjectAddInfo" Label="Дополнительно">
+						</toolkit:DataField>
+						<toolkit:DataField Name="OrderObjectAddInfo" Label="Дополнительно">
 							<TextBox x:Name="txtAddInfo" Text="{Binding OrderObjectAddInfo,Mode=TwoWay}" />
-					</toolkit:DataField>
-					<StackPanel Orientation="Vertical">
-						<toolkit:DataField Name="PlanStartDate" Label="План старт">
-							<usr:DateTimePicker x:Name="PlanStartDatePicker" SelectedDateTime="{Binding PlanStartDate, Mode=TwoWay}"/>
 						</toolkit:DataField>
-						<toolkit:DataField Name="PlanStopDate" Label="План стоп">
-							<usr:DateTimePicker SelectedDateTime="{Binding PlanStopDate, Mode=TwoWay}"/>
-						</toolkit:DataField>
-						<toolkit:DataField Name="ReadyTime" Label="Ав. готовность" >
-							<sdk:AutoCompleteBox Name="cmbReadyTime" Text="{Binding ReadyTime, Mode=TwoWay}">
-								
-							</sdk:AutoCompleteBox>
-						</toolkit:DataField>
-						<toolkit:DataField Name="OrderText" Label="Текст">
-							<TextBox Text="{Binding OrderText, Mode=TwoWay}" Height="50"  AcceptsReturn="True" TextWrapping="Wrap"/>
-						</toolkit:DataField>
-						<toolkit:DataField Name="AgreeText" Label="Согласовано">
-							<TextBox Text="{Binding AgreeText, Mode=TwoWay}" Height="50"  AcceptsReturn="True" TextWrapping="Wrap" IsEnabled="false"/>
-						</toolkit:DataField>
-						<toolkit:DataField Name="CreateText" Label="Комментарий">
-							<TextBox Text="{Binding CreateText, Mode=TwoWay}" Height="50"  AcceptsReturn="True" TextWrapping="Wrap"/>
-						</toolkit:DataField>
+						<StackPanel Orientation="Vertical">
+							<toolkit:DataField Name="PlanStartDate" Label="План старт">
+								<usr:DateTimePicker x:Name="PlanStartDatePicker" SelectedDateTime="{Binding PlanStartDate, Mode=TwoWay}"/>
+							</toolkit:DataField>
+							<toolkit:DataField Name="PlanStopDate" Label="План стоп">
+								<usr:DateTimePicker SelectedDateTime="{Binding PlanStopDate, Mode=TwoWay}"/>
+							</toolkit:DataField>
+							<toolkit:DataField Name="ReadyTime" Label="Ав. готовность" >
+								<sdk:AutoCompleteBox Name="cmbReadyTime" Text="{Binding ReadyTime, Mode=TwoWay}">
+
+								</sdk:AutoCompleteBox>
+							</toolkit:DataField>
+							<toolkit:DataField Name="OrderText" Label="Текст">
+								<TextBox Text="{Binding OrderText, Mode=TwoWay}" Height="50"  AcceptsReturn="True" TextWrapping="Wrap"/>
+							</toolkit:DataField>
+							<toolkit:DataField Name="AgreeText" Label="Согласовано">
+								<TextBox Text="{Binding AgreeText, Mode=TwoWay}" Height="50"  AcceptsReturn="True" TextWrapping="Wrap" IsEnabled="false"/>
+							</toolkit:DataField>
+							<toolkit:DataField Name="CreateText" Label="Комментарий">
+								<TextBox Text="{Binding CreateText, Mode=TwoWay}" Height="50"  AcceptsReturn="True" TextWrapping="Wrap"/>
+							</toolkit:DataField>
+						</StackPanel>
 					</StackPanel>
-				</StackPanel>				
-			</StackPanel>
-		</toolkit:DataForm>
-			<sdk:TreeView Name="treeObjects" ItemTemplate="{StaticResource treeTemplate}" Grid.Column="2" Grid.Row="0"
-										  VerticalAlignment="Stretch" 
+				</StackPanel>
+			</toolkit:DataForm>
+		</Grid>
+		<Grid Grid.Column="2" Grid.Row="0" VerticalAlignment="Stretch">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="20"/>
+				<RowDefinition Height="1*"/>
+			</Grid.RowDefinitions>
+			<TextBlock Text="Оборудование" Grid.Row="0"  HorizontalAlignment="Center"/>
+			<sdk:TreeView Name="treeObjects" Grid.Row="1" ItemTemplate="{StaticResource treeTemplate}"  
 										  SelectedItemChanged="treeObjects_SelectedItemChanged" VerticalContentAlignment="Stretch"/>
-		<ListBox Name="lstUsers" Grid.Column="0" Grid.Row="0" DisplayMemberPath="FullName" 
-					VerticalAlignment="Stretch" MouseLeftButtonUp="lstUsers_MouseLeftButtonUp"/>
+		</Grid>
+
+		<Grid Grid.Column="0" Grid.Row="0" VerticalAlignment="Stretch" >
+			<Grid.RowDefinitions>
+				<RowDefinition Height="20"/>
+				<RowDefinition Height="1*"/>
+			</Grid.RowDefinitions>
+			<TextBlock Text="Согласование" Grid.Row="0" HorizontalAlignment="Center"/>
+			<ListBox Name="lstUsers" Grid.Row="1" DisplayMemberPath="FullName" MouseLeftButtonUp="lstUsers_MouseLeftButtonUp"/>
+		</Grid>
 
 
 
