@@ -239,7 +239,7 @@ namespace VotGESOrders
 			}
 			
 			newOrder.ReadyTime = "Время заявки";
-			newOrder.CreateText = "Ошибка при вводе оборудования";
+			newOrder.CreateText = "Невозможность ввода оборудования";
 			newOrder.OrderDateCreate = DateTime.Now;
 
 

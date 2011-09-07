@@ -128,10 +128,14 @@ namespace VotGESOrders
 				
 
 		private void btnVisDetails_Click(object sender, RoutedEventArgs e) {
-			if ((cntrlOrder.Visibility == System.Windows.Visibility.Collapsed) && (ordersGridControl.ordersGrid.SelectedItem != null)) {
-				cntrlOrder.Visibility = System.Windows.Visibility.Visible;
-			} else {
+			if (OrderOperations.Current.CurrentOrder == null) {
 				cntrlOrder.Visibility = System.Windows.Visibility.Collapsed;
+			} else {
+				if ((cntrlOrder.Visibility == System.Windows.Visibility.Collapsed) && (ordersGridControl.ordersGrid.SelectedItem != null)) {
+					cntrlOrder.Visibility = System.Windows.Visibility.Visible;
+				} else {
+					cntrlOrder.Visibility = System.Windows.Visibility.Collapsed;
+				}
 			}
 		}
 
