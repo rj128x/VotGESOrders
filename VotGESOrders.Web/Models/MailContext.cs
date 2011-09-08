@@ -53,16 +53,16 @@ namespace VotGESOrders.Web.Models
 			mess.Subject = subject; mess.Body = message;
 			foreach (string mail in mailToList) {
 				mess.To.Add(mail);
-			}
+			}			
 			
 			mess.SubjectEncoding = System.Text.Encoding.UTF8;
 			mess.BodyEncoding = System.Text.Encoding.UTF8;
 			mess.IsBodyHtml = is_html;
 			System.Net.Mail.SmtpClient client =	new System.Net.Mail.SmtpClient(smtp_server, port);
-			client.EnableSsl = true; 
+			client.EnableSsl = true; 			
 			if (string.IsNullOrEmpty(mail_user)) {
-				client.UseDefaultCredentials = true;
-			} else {
+				client.UseDefaultCredentials = true;				
+			} else {				
 				client.Credentials = new System.Net.NetworkCredential(mail_user, mail_password);
 			}
 			// Отправляем письмо
