@@ -78,9 +78,9 @@ namespace VotGESOrders.Converters
 					bool? expired=(bool?)value;
 					if (expired.HasValue) {
 						if (expired.Value)
-							color = Colors.Red;
+							color = Color.FromArgb(255, 255, 204, 204);
 						else
-							color = Colors.Green;
+							color = Color.FromArgb(255, 153, 255, 204);
 					} else {
 						color = Colors.Transparent;
 					}
