@@ -123,6 +123,7 @@
     <Content Include="SQL\users.sql" />
     <Content Include="SQL\users_PI.sql" />
     <Content Include="Views\Home\ProcessExpiredOrders.aspx" />
+    <Content Include="Views\Home\TestMail.aspx" />
     <Content Include="Views\Home\VotGESOrders.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
