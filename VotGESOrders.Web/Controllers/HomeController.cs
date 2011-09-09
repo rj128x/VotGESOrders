@@ -30,7 +30,7 @@ namespace VotGESOrders.Web.Controllers
 		public ActionResult TestMail() {
 			System.Net.Mail.MailMessage mess =	new System.Net.Mail.MailMessage();
 
-			mess.From = new MailAddress("ChekunovaMV@votges.rushydro.ru");
+			mess.From = new MailAddress("BalabanovVV@votges.rushydro.ru");
 			mess.Subject = "test"; mess.Body = "test message";
 			mess.To.Add("ChekunovaMV@votges.rushydro.ru");
 			mess.To.Add("rj128x@gmail.com");
@@ -40,9 +40,8 @@ namespace VotGESOrders.Web.Controllers
 			mess.BodyEncoding = System.Text.Encoding.UTF8;
 			mess.IsBodyHtml = true;
 			System.Net.Mail.SmtpClient client =	new System.Net.Mail.SmtpClient("mx-votges-121.corp.gidroogk.com", 25);
-			client.EnableSsl = true;
-			client.Credentials = new System.Net.NetworkCredential("ChekunovaMV", "320204","CORP");			
-			
+			client.Credentials = new System.Net.NetworkCredential("BalabanovVV", "12345","CORP");			
+						
 			// Отправляем письмо
 			client.Send(mess);
 			return View();
