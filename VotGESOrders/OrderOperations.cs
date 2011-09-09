@@ -121,9 +121,11 @@ namespace VotGESOrders
 			newOrder.OrderDateCreate = DateTime.Now;
 			newOrder.OrderIsExtend = false;
 			newOrder.OrderIsFixErrorEnter = false;
-			newOrder.OrderType = OrderTypeEnum.pl;			
+			newOrder.OrderType = OrderTypeEnum.pl;
+			newOrder.ReadyTime = "2 часа";
 			newOrderWindow.CurrentOrder = newOrder;
 			newOrderWindow.IsNewOrder = true;
+			
 			newOrderWindow.Show();
 		}
 
