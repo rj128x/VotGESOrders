@@ -148,7 +148,7 @@ namespace VotGESOrders
 				StackPanel host = new StackPanel();				
 				bool isFirst=true;
 				while (index < OrdersContext.Current.View.Count) {
-					OrderPrintBriefControl cntrl = new OrderPrintBriefControl();
+					OrderPrintBriefLandscapeControl cntrl = new OrderPrintBriefLandscapeControl();
 					cntrl.DataContext = OrdersContext.Current.View.GetItemAt(index); ;
 					cntrl.UpdateLayout();
 					host.Children.Add(cntrl);
@@ -179,19 +179,43 @@ namespace VotGESOrders
 			List<StackPanel> pages=null;
 
 			multidoc.PrintPage += (s, arg) => {
+				double width = arg.PrintableArea.Width;
+				double height=arg.PrintableArea.Height;
+				bool rotate=false;
+
+				Logger.logMessage(String.Format("{0}-{1}",width,height));
+
+				if (width < height) {
+					double temp=width;
+					width = height;
+					height = temp;
+					rotate = true;
+				}				
+
+				Logger.logMessage(String.Format("{0}-{1}", width, height));
+
 				if (pages == null) {
-					pages = getPrintPages(arg.PrintableArea.Width, arg.PrintableArea.Height);
+					pages = getPrintPages(width,height);
 				}
 				if (index < pages.Count) {
 					StackPanel host=pages[index];
 
 					Grid grid=new Grid();
+					Grid layout=new Grid();
+					layout.VerticalAlignment = System.Windows.VerticalAlignment.Top;
+					layout.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
+					layout.Width = width;
+					layout.Height = width;
+					layout.Children.Add(grid);
 					grid.RowDefinitions.Add(new RowDefinition());
 					grid.RowDefinitions.Add(new RowDefinition());
 					grid.RowDefinitions.Add(new RowDefinition());
 					grid.RowDefinitions[0].Height = new GridLength(30);
 					grid.RowDefinitions[2].Height = new GridLength(35);
-					grid.RowDefinitions[1].Height = new GridLength(1, GridUnitType.Star);
+					grid.RowDefinitions[1].Height = new GridLength(height - 65);
+
+					/*grid.ColumnDefinitions.Add(new ColumnDefinition());
+					grid.ColumnDefinitions[0].Width = new GridLength(width);*/
 
 					TextBlock header=new TextBlock();
 					header.Text = String.Format("{0} на {1}", GlobalStatus.Current.HomeHeader,DateTime.Now.ToString("dd.MM.yy HH:mm"));
@@ -201,10 +225,10 @@ namespace VotGESOrders
 					grid.Children.Add(header);
 					header.SetValue(Grid.RowProperty, 0);
 
-					host.Measure(new Size(arg.PrintableArea.Width, double.PositiveInfinity));
+					//host.Measure(new Size(width, double.PositiveInfinity));
 
 					StackPanel footerPnl=new StackPanel();
-					footerPnl.Width = arg.PrintableArea.Width;
+					footerPnl.Width = width;
 					footerPnl.Orientation = Orientation.Horizontal;
 					
 					TextBlock page=new TextBlock();
@@ -218,7 +242,7 @@ namespace VotGESOrders
 					//footer.Text = String.Format(" Начальник ОС ________________/{0}/",DateTime.Now.ToString("dd.MM.yy"));
 					footer.TextAlignment = TextAlignment.Right;
 					footer.FontSize = 12;
-					footer.Width = arg.PrintableArea.Width - page.Width;
+					footer.Width = width - page.Width;
 					footerPnl.Children.Add(footer);
 					
 					grid.Children.Add(footerPnl);
@@ -227,8 +251,18 @@ namespace VotGESOrders
 
 					grid.Children.Add(host);
 					host.SetValue(Grid.RowProperty, 1);
-
-					arg.PageVisual = grid;
+					if (rotate){
+						CompositeTransform transform=new CompositeTransform() {							
+							Rotation = 90,
+							TranslateX=height
+							
+						};
+						grid.RenderTransform = transform;
+						
+					}
+					
+					arg.PageVisual = layout;			
+					
 				}				
 				index++;
 				arg.HasMorePages = index < pages.Count;
