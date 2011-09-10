@@ -35,7 +35,7 @@ namespace VotGESOrders
 			OrdersContext.Current.View.SortDescriptions.Add(new System.ComponentModel.SortDescription("OrderNumber", System.ComponentModel.ListSortDirection.Descending));
 			OrdersContext.Current.View.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(View_CollectionChanged);
 			ordersGridControl.ordersGrid.ItemsSource = OrdersContext.Current.View;
-			ordersGridControl.ordersGrid.MouseLeftButtonUp += new MouseButtonEventHandler(ordersGrid_MouseLeftButtonUp);
+			ordersGridControl.ordersGrid.MouseLeftButtonUp += new MouseButtonEventHandler(ordersGrid_MouseLeftButtonUp);			
 			//context.Orders.OrderByDescending(o => o.OrderDateCreate);			
 
 			timerExistChanges = new DispatcherTimer();

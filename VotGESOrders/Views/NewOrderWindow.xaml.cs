@@ -84,6 +84,15 @@ namespace VotGESOrders.Views
 					txtOrderType.Visibility = System.Windows.Visibility.Collapsed;
 				}
 
+
+				if (CurrentOrder.OrderType == OrderTypeEnum.crash && !CurrentOrder.OrderIsExtend || CurrentOrder.OrderIsFixErrorEnter) {
+					PlanStartDate.Label = "Факт отказ";
+					CurrentOrder.ReadyTime = "Время заявки";
+					CurrentOrder.PlanStartDate = DateTime.Now;
+				} else {
+					PlanStartDate.Label = "План старт";
+				}
+
 				if (CurrentOrder.SelOrderObject != null) {
 					TreeViewItem item = treeObjects.ItemContainerGenerator.ContainerFromItem(CurrentOrder.SelOrderObject) as TreeViewItem;
 					if (item != null) {
@@ -130,8 +139,8 @@ namespace VotGESOrders.Views
 		}
 
 		private void cmbOrderTypes_SelectionChanged(object sender, SelectionChangedEventArgs e) {
-			if (CurrentOrder.OrderType==OrderTypeEnum.crash && !CurrentOrder.OrderIsExtend) {
-				PlanStartDate.Label = "Факт вывод";
+			if (CurrentOrder.OrderType==OrderTypeEnum.crash && !CurrentOrder.OrderIsExtend || CurrentOrder.OrderIsFixErrorEnter) {
+				PlanStartDate.Label = "Факт отказ";
 				CurrentOrder.ReadyTime = "Время заявки";
 				CurrentOrder.PlanStartDate = DateTime.Now;
 			} else {

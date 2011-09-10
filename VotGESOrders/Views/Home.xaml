@@ -10,9 +10,11 @@
 
 	<Grid x:Name="LayoutRoot" VerticalAlignment="Stretch">
 		<Grid.RowDefinitions>
-			<RowDefinition Height="40"/>
+			<RowDefinition Height="40"/>			
+			<RowDefinition Height="Auto"/>
 			<RowDefinition Height="Auto"/>
 			<RowDefinition Height="*"/>
+			<RowDefinition Height="Auto"/>
 			<RowDefinition Height="Auto"/>
 		</Grid.RowDefinitions>
 		<TextBlock x:Name="HeaderText" Style="{StaticResource HeaderTextStyle}" 
@@ -27,15 +29,11 @@
 									 SelectedValuePath="Key" DisplayMemberPath="Value" 
 								 SelectionChanged="cmbFilterType_SelectionChanged" SelectedValue="{Binding FilterType, Mode=TwoWay}"
 					IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
-				<Button x:Name="btnVisFilter" Click="btnVisFilter_Click" Content="..."
-					  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
+				
 				<Button x:Name="btnRefresh" Click="btnRefresh_Click" Content="Обновить"
 					  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
 			</StackPanel>
-
-
-			<Button x:Name="btnVisDetails" Click="btnVisDetails_Click" Content="Детали"
-					  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
+			
 			<Button x:Name="btnPrint" Click="btnPrint_Click" Content="Печать"
 					  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
 			<Button x:Name="btnFullScreen" Click="btnFullScreen_Click" Content="На весь экран" Visibility="Collapsed"
@@ -43,15 +41,20 @@
 
 		</StackPanel>
 
-		<usr:OrdersGridControl Grid.Row="2" x:Name="ordersGridControl"/>
+		<usr:OrdersGridControl Grid.Row="3" x:Name="ordersGridControl"/>
+		<Button x:Name="btnVisDetails" Click="btnVisDetails_Click" Content="Детали"  Grid.Row="4" Height="8" BorderBrush="Gray" BorderThickness="4" 
+					  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
 
+		<Button x:Name="btnVisFilter" Grid.Row="2" Click="btnVisFilter_Click" Content="..." Height="8" BorderBrush="Gray" BorderThickness="4" 
+					  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
+		
 		<Border Grid.Row="1" HorizontalAlignment="Right">
 			<StackPanel>
 				<usr:FilterControl x:Name="cntrlFilter" Visibility="Collapsed"></usr:FilterControl>
 			</StackPanel>
 		</Border>
 
-		<Border Style="{StaticResource borderFilterControl}" Grid.Row="3"  HorizontalAlignment="Stretch">
+		<Border Style="{StaticResource borderFilterControl}" Grid.Row="5"  HorizontalAlignment="Stretch">
 			<usr:OrderControl x:Name="cntrlOrder"  HorizontalAlignment="Stretch"/>
 		</Border>
 	</Grid>
