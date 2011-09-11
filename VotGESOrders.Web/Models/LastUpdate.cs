@@ -27,8 +27,7 @@ namespace VotGESOrders.Web.Models
 			}
 		}
 
-		public static bool IsChanged(Guid guid) {
-
+		public static bool IsChanged(Guid guid) {			
 			if (LastUpdateGUID.HasValue && LastChanges.HasValue) {
 				return clients[guid] < LastChanges.Value && LastUpdateGUID != guid;
 			} else {

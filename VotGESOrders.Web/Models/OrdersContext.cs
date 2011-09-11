@@ -256,7 +256,7 @@ namespace VotGESOrders.Web.Models
 				try {
 					if (order.OrderIsExtend || order.OrderIsFixErrorEnter) {
 						maxNumber = context.Orders.Where(o=>Math.Floor(o.orderNumber)==Math.Floor(order.ParentOrderNumber)).Max(o => o.orderNumber);
-						newNumber=maxNumber+0.1;
+						newNumber=maxNumber+0.001;
 					} else {
 						maxNumber = context.Orders.Max(o => o.orderNumber);
 						maxNumber = Math.Floor(maxNumber);
@@ -286,6 +286,13 @@ namespace VotGESOrders.Web.Models
 					Logger.info("===Продленная заявка", Logger.LoggerSource.ordersContext);
 					Orders parentOrderDB=context.Orders.Where(o => o.orderNumber == order.ParentOrderNumber).First();
 
+					Order parentOrder=new Order(parentOrderDB, currentUser, false, null);
+					parentOrder.checkPremissions(parentOrderDB, currentUser);
+
+					if (!parentOrder.AllowExtendOrder) {
+						throw new DomainException("Заявка уже продлена");
+					}
+
 					parentOrderDB.orderLastUpdate = DateTime.Now;
 					parentOrderDB.orderAskExtended = true;
 					parentOrderDB.orderState = OrderStateEnum.askExtended.ToString();
@@ -307,6 +314,13 @@ namespace VotGESOrders.Web.Models
 				if (order.OrderIsFixErrorEnter) {
 					Logger.info("===Заявка закрыта без ввода оборудования", Logger.LoggerSource.ordersContext);
 					Orders parentOrderDB=context.Orders.Where(o => o.orderNumber == order.ParentOrderNumber).First();
+
+					Order parentOrder=new Order(parentOrderDB, currentUser, false, null);
+					parentOrder.checkPremissions(parentOrderDB, currentUser);
+
+					if (!parentOrder.AllowCompleteWithoutEnterOrder) {
+						throw new DomainException("Заявка уже закрыта");
+					}
 
 					parentOrderDB.orderLastUpdate = DateTime.Now;
 					parentOrderDB.orderCompletedWithoutEnter = true;
@@ -335,6 +349,9 @@ namespace VotGESOrders.Web.Models
 				MailContext.sendMail("Создана новая заявка", order);
 			} catch (Exception e) {
 				Logger.error(String.Format("===Ошибка при создании заявки: {0}", e), Logger.LoggerSource.ordersContext);
+				if (e is DomainException) {
+					throw e;
+				}
 				throw new DomainException("Ошибка при создании заявки");
 			}
 		}
@@ -351,11 +368,16 @@ namespace VotGESOrders.Web.Models
 					context.SaveChanges();
 					LastUpdate.save(guid);
 					Logger.info("===Изменения сохранены. Заявка №" + order.OrderNumber, Logger.LoggerSource.ordersContext);
+				} else {
+					throw new DomainException("Нельзя изменить заявку");
 				}
 				order.refreshOrderFromDB(orderDB, currentUser, false, null);
 				MailContext.sendMail("Изменена заявка №" + orderDB.orderNumber.ToString(OrderInfo.NFI), order);
 			} catch (Exception e) {
 				Logger.error(String.Format("===Ошибка при изменении заявки №{1}: {0}", e, order.OrderNumber.ToString(OrderInfo.NFI)), Logger.LoggerSource.ordersContext);
+				if (e is DomainException) {
+					throw e;
+				}
 				throw new DomainException(String.Format("Ошибка при изменении заявки №{0}", order.OrderNumber.ToString(OrderInfo.NFI)));
 			}
 		}
@@ -387,11 +409,16 @@ namespace VotGESOrders.Web.Models
 					context.SaveChanges();
 					LastUpdate.save(guid);
 					Logger.info("Заявка разрешена. Заявка №" + order.OrderNumber.ToString(OrderInfo.NFI), Logger.LoggerSource.ordersContext);
+				} else {
+					throw new DomainException("Нельзя разрешить заявку");
 				}
 				order.refreshOrderFromDB(orderDB, currentUser, false, null);
 				MailContext.sendMail("Разрешена заявка №" + orderDB.orderNumber.ToString(OrderInfo.NFI), order);
 			} catch (Exception e) {
 				Logger.error(String.Format("===Ошибка при разрешении заявки №{1}: {0}", e, order.OrderNumber.ToString(OrderInfo.NFI)), Logger.LoggerSource.ordersContext);
+				if (e is DomainException) {
+					throw e;
+				}
 				throw new DomainException(String.Format("Ошибка при разрешении заявки №{0}", order.OrderNumber.ToString(OrderInfo.NFI)));
 			}
 		}
@@ -433,11 +460,16 @@ namespace VotGESOrders.Web.Models
 					LastUpdate.save(guid);
 					Logger.info("===Заявка запрещена. Заявка №" + order.OrderNumber.ToString(OrderInfo.NFI), Logger.LoggerSource.ordersContext);
 
+				} else {
+					throw new DomainException("Нельзя отклонить заявку");
 				}
 				order.refreshOrderFromDB(orderDB, currentUser, false, null);
 				MailContext.sendMail("Отклонена заявка №" + orderDB.orderNumber.ToString(OrderInfo.NFI), order);
 			} catch (Exception e) {
 				Logger.error(String.Format("===Ошибка при запрещении заявки №{1}: {0}", e, order.OrderNumber.ToString(OrderInfo.NFI)), Logger.LoggerSource.ordersContext);
+				if (e is DomainException) {
+					throw e;
+				}
 				throw new DomainException(String.Format("Ошибка при запрете заявки №{0}", order.OrderNumber.ToString(OrderInfo.NFI)));
 			}
 		}
@@ -462,11 +494,16 @@ namespace VotGESOrders.Web.Models
 					context.SaveChanges();
 					LastUpdate.save(guid);
 					Logger.info("===Заявка открыта. Заявка №" + order.OrderNumber.ToString(OrderInfo.NFI), Logger.LoggerSource.ordersContext);
+				} else {
+					throw new DomainException("Нельзя открыть заявку");
 				}
 				order.refreshOrderFromDB(orderDB, currentUser, false, null);
 				MailContext.sendMail("Открыта заявка №" + orderDB.orderNumber.ToString(OrderInfo.NFI), order);
 			} catch (Exception e) {
 				Logger.error(String.Format("===Ошибка при открытии заявки №{1}: {0}", e, order.OrderNumber.ToString(OrderInfo.NFI)), Logger.LoggerSource.ordersContext);
+				if (e is DomainException) {
+					throw e;
+				}
 				throw new DomainException(String.Format("Ошибка при открытии заявки №{0}", order.OrderNumber.ToString(OrderInfo.NFI)));
 			}
 		}
@@ -489,11 +526,16 @@ namespace VotGESOrders.Web.Models
 					context.SaveChanges();
 					LastUpdate.save(guid);
 					Logger.info("===Разрешен ввод оборудования. Заявка №" + order.OrderNumber.ToString(OrderInfo.NFI), Logger.LoggerSource.ordersContext);
+				} else {
+					throw new DomainException("Нельзя разрешить ввод оборудования");
 				}
 				order.refreshOrderFromDB(orderDB, currentUser, false, null);
 				MailContext.sendMail("Разрешен ввод оборудования. Заявка №" + orderDB.orderNumber.ToString(OrderInfo.NFI), order);
 			} catch (Exception e) {
 				Logger.error(String.Format("===Ошибка при разрешении ввода. Заявка №{1}: {0}", e, order.OrderNumber.ToString(OrderInfo.NFI)), Logger.LoggerSource.ordersContext);
+				if (e is DomainException) {
+					throw e;
+				}
 				throw new DomainException(String.Format("Ошибка при разрешении ввода. Заявка №{0}", order.OrderNumber.ToString(OrderInfo.NFI)));
 			}
 		}
@@ -533,11 +575,16 @@ namespace VotGESOrders.Web.Models
 					context.SaveChanges();
 					LastUpdate.save(guid);
 					Logger.info("===Заявка снята. Заявка №" + order.OrderNumber.ToString(OrderInfo.NFI), Logger.LoggerSource.ordersContext);
+				} else {
+					throw new DomainException("Нельзя снять заявку");
 				}
 				order.refreshOrderFromDB(orderDB, currentUser, false, null);
 				MailContext.sendMail("Снята заявка №" + orderDB.orderNumber.ToString(OrderInfo.NFI), order);
 			} catch (Exception e) {
 				Logger.error(String.Format("===Ошибка при снятии заявки №{1}: {0}", e, order.OrderNumber.ToString(OrderInfo.NFI)), Logger.LoggerSource.ordersContext);
+				if (e is DomainException) {
+					throw e;
+				}
 				throw new DomainException(String.Format("Ошибка при снятии заявки №{0}", order.OrderNumber.ToString(OrderInfo.NFI)));
 			}
 		}
@@ -560,11 +607,16 @@ namespace VotGESOrders.Web.Models
 					context.SaveChanges();
 					LastUpdate.save(guid);
 					Logger.info("===Оборудование введено. Заявка №" + order.OrderNumber.ToString(OrderInfo.NFI), Logger.LoggerSource.ordersContext);
+				} else {
+					throw new DomainException("Нельзя закрыть заявку");
 				}
 				order.refreshOrderFromDB(orderDB, currentUser, false, null);
 				MailContext.sendMail("Завершена заявка №" + orderDB.orderNumber.ToString(OrderInfo.NFI), order);
 			} catch (Exception e) {
 				Logger.error(String.Format("===Ошибка при вводе оборудования №{1}: {0}", e, order.OrderNumber.ToString(OrderInfo.NFI)), Logger.LoggerSource.ordersContext);
+				if (e is DomainException) {
+					throw e;
+				}
 				throw new DomainException(String.Format("Ошибка при вводе оборудования по заявке №{0}", order.OrderNumber.ToString(OrderInfo.NFI)));
 			}
 		}
