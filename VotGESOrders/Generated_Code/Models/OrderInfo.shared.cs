@@ -11,13 +11,14 @@ namespace VotGESOrders.Web.Models
 		public static Dictionary<OrderTypeEnum,string> OrderTypes=new Dictionary<OrderTypeEnum, string>();
 		public static Dictionary<OrderTypeEnum,string> OrderTypesShort=new Dictionary<OrderTypeEnum, string>();
 		public static Dictionary<OrderStateEnum,string> OrderStates=new Dictionary<OrderStateEnum, string>();
-		public static string OrderNumberFormat="0/0##";
 		public static NumberFormatInfo NFI;
 
 
 		static OrderInfo() {
 			NFI = new NumberFormatInfo();
 			NFI.NumberDecimalSeparator = "/";
+			//NFI.NumberDecimalDigits = 3;			
+			
 
 			OrderTypes.Add(OrderTypeEnum.crash, "Аварийная");
 			OrderTypes.Add(OrderTypeEnum.pl, "Плановая");
