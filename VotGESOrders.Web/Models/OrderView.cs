@@ -13,7 +13,7 @@ namespace VotGESOrders.Web.Models
 			string htmlState=String.Format("Состояние: {0}", order.OrderStateStr);
 			string htmlFirstTRTable=String.Format("<table width='100%'><tr><th>{0}</th><th>{1}</th></tr></table>", htmlNumber, htmlState);
 			string htmlInfoTable=String.Format("<table width='100%'><tr><th colspan='3'>Информация о заявке</th></tr><tr><th width='30%'>Оборудование</th><th  width='30%'>Текст заявки</th><th width='30%'>Согласовано</th></tr><tr><td width='30%'>{0}</td><td width='30%'>{1}</td><td width='30%'>{2}</td></tr></table>",
-				order.SelOrderObjectText, order.OrderText, order.AgreeText);
+				order.FullOrderObjectInfo, order.OrderText, order.AgreeText);
 
 			string htmlExtend=order.OrderHasParentOrder ? "СТАРАЯ ЗАЯВКА №" + order.ParentOrderNumber.ToString(OrderInfo.NFI) : "";
 			string htmlExtended=order.OrderHasChildOrder ? "НОВАЯ ЗАЯВКА №" + order.ChildOrderNumber.ToString(OrderInfo.NFI) : "";			
