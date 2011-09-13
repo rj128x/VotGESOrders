@@ -408,7 +408,7 @@ namespace VotGESOrders.Web.Models
 					}
 					context.SaveChanges();
 					LastUpdate.save(guid);
-					Logger.info("Заявка разрешена. Заявка №" + order.OrderNumber.ToString(OrderInfo.NFI), Logger.LoggerSource.ordersContext);
+					Logger.info("===Заявка разрешена. Заявка №" + order.OrderNumber.ToString(OrderInfo.NFI), Logger.LoggerSource.ordersContext);
 				} else {
 					throw new DomainException("Нельзя разрешить заявку");
 				}
