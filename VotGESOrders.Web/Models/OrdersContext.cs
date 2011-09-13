@@ -322,6 +322,8 @@ namespace VotGESOrders.Web.Models
 						throw new DomainException("Заявка уже закрыта");
 					}
 
+					orderDB.userCreateOrderID = parentOrderDB.userCreateOrderID;
+
 					parentOrderDB.orderLastUpdate = DateTime.Now;
 					parentOrderDB.orderCompletedWithoutEnter = true;
 					parentOrderDB.orderCompleted = true;

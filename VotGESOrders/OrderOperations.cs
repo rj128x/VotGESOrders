@@ -234,11 +234,6 @@ namespace VotGESOrders
 			foreach (KeyValuePair<int,string> de in CurrentOrder.AgreeUsersDict) {
 				newOrder.AgreeUsersDict.Add(de.Key, de.Value);
 			}
-			if (!newOrder.AgreeUsersDict.ContainsKey(CurrentOrder.UserCreateOrderID)){
-				newOrder.AgreeUsersDict.Add(CurrentOrder.UserCreateOrderID,CurrentOrder.UserCreateOrder.FullName);
-				newOrder.AgreeUsersIDSText += ";" + CurrentOrder.UserCreateOrderID;
-				newOrder.AgreeText += "; " + CurrentOrder.UserCreateOrder.FullName;
-			}
 			
 			newOrder.ReadyTime = "Время заявки";
 			newOrder.CreateText = "Невозможность ввода оборудования";
