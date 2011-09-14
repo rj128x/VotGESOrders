@@ -45,6 +45,8 @@ namespace VotGESOrders.Web.Models
 			}
 			if (date.Value.AddHours(6) < order.PlanStartDate)
 				return new ValidationResult(String.Format("Дата начала работ({0}) раньше даты планового начала({1}) больше 6 часов", date, order.PlanStartDate));
+			if (date.Value > order.PlanStopDate)
+				return new ValidationResult(String.Format("Дата начала работ({0}) позже планового окончания({1})", date, order.PlanStopDate));
 			if (date < order.OrderDateReview && !order.OrderIsExtend && !order.OrderIsFixErrorEnter && order.OrderType != OrderTypeEnum.crash && order.OrderType!=OrderTypeEnum.no)
 				return new ValidationResult(String.Format("Дата начала работ({0}) раньше даты разрешения({1})", date, order.OrderDateReview));
 			/*if (date > DateTime.Now && !order.OrderIsExtend) {
