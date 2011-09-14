@@ -294,7 +294,7 @@ namespace VotGESOrders.Web.Models
 					}
 
 					orderDB.userCreateOrderID = parentOrderDB.userCreateOrderID;
-
+					
 					parentOrderDB.orderLastUpdate = DateTime.Now;
 					parentOrderDB.orderAskExtended = true;
 					parentOrderDB.orderState = OrderStateEnum.askExtended.ToString();
@@ -399,11 +399,19 @@ namespace VotGESOrders.Web.Models
 					orderDB.userReviewOrderID = currentUser.UserID;
 					orderDB.reviewText = order.ReviewText;
 					orderDB.orderReviewed = true;
+					
 					orderDB.orderState = OrderStateEnum.accepted.ToString();
 
 					if (order.OrderIsExtend) {
 						Logger.info("===Продленная заявка", Logger.LoggerSource.ordersContext);
 						Orders parentOrderDB=context.Orders.Where(o => o.orderNumber == order.ParentOrderNumber).First();
+						
+						orderDB.orderOpened = true;
+						orderDB.openText = "Оборудование выведено. Заявка продлена";
+						orderDB.userOpenOrderID = parentOrderDB.userOpenOrderID;
+						orderDB.orderState = OrderStateEnum.opened.ToString();
+						orderDB.orderDateOpen = DateTime.Now;
+						orderDB.faktStartDate = parentOrderDB.planStopDate;
 						parentOrderDB.orderLastUpdate = DateTime.Now;
 						parentOrderDB.orderExtended = true;
 						parentOrderDB.orderAskExtended = false;
