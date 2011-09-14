@@ -29,6 +29,7 @@ namespace VotGESOrders.Views
 			InitializeComponent();
 			if (!WebContext.Current.User.AllowCreateCrashOrder) {
 				OrderInfo.OrderTypes.Remove(OrderTypeEnum.crash);
+				OrderInfo.OrderTypes.Remove(OrderTypeEnum.no);
 			}
 
 			cmbOrderTypes.ItemsSource = OrderInfo.OrderTypes;			
@@ -85,8 +86,8 @@ namespace VotGESOrders.Views
 				}
 
 
-				if (CurrentOrder.OrderType == OrderTypeEnum.crash && !CurrentOrder.OrderIsExtend || CurrentOrder.OrderIsFixErrorEnter) {
-					PlanStartDate.Label = "Факт отказ";
+				if ((CurrentOrder.OrderType == OrderTypeEnum.crash || CurrentOrder.OrderType==OrderTypeEnum.no) && !CurrentOrder.OrderIsExtend || CurrentOrder.OrderIsFixErrorEnter) {
+					PlanStartDate.Label = CurrentOrder.OrderType==OrderTypeEnum.crash?"Факт отказ":"Факт вывод";
 					CurrentOrder.ReadyTime = "Время заявки";
 					CurrentOrder.PlanStartDate = DateTime.Now;
 				} else {
@@ -139,8 +140,8 @@ namespace VotGESOrders.Views
 		}
 
 		private void cmbOrderTypes_SelectionChanged(object sender, SelectionChangedEventArgs e) {
-			if (CurrentOrder.OrderType==OrderTypeEnum.crash && !CurrentOrder.OrderIsExtend || CurrentOrder.OrderIsFixErrorEnter) {
-				PlanStartDate.Label = "Факт отказ";
+			if ((CurrentOrder.OrderType == OrderTypeEnum.crash || CurrentOrder.OrderType == OrderTypeEnum.no) && !CurrentOrder.OrderIsExtend || CurrentOrder.OrderIsFixErrorEnter) {
+				PlanStartDate.Label = CurrentOrder.OrderType == OrderTypeEnum.crash ? "Факт отказ" : "Факт вывод";
 				CurrentOrder.ReadyTime = "Время заявки";
 				CurrentOrder.PlanStartDate = DateTime.Now;
 			} else {

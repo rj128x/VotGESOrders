@@ -268,16 +268,16 @@ namespace VotGESOrders.Web.Models
 
 				writeOrderToOrderDB(order, orderDB);
 
-				if (order.OrderType == OrderTypeEnum.crash && !order.OrderIsExtend) {
-					Logger.info("===Аварийная заявка", Logger.LoggerSource.ordersContext);
+				if ((order.OrderType == OrderTypeEnum.crash || order.OrderType==OrderTypeEnum.no) && !order.OrderIsExtend) {
+					Logger.info("===Аварийная/неотложная заявка", Logger.LoggerSource.ordersContext);
 					orderDB.orderReviewed = true;
 					orderDB.orderOpened = true;
 					orderDB.orderDateReview = DateTime.Now;
 					orderDB.orderDateOpen = DateTime.Now;
 					orderDB.userReviewOrderID = currentUser.UserID;
 					orderDB.userOpenOrderID = currentUser.UserID;
-					orderDB.reviewText = "Аварийная заявка";
-					orderDB.openText = "Аварийная заявка";
+					orderDB.reviewText = order.OrderType == OrderTypeEnum.crash?"Аварийная заявка":"Неотложная заявка";
+					orderDB.openText = order.OrderType == OrderTypeEnum.crash ? "Аварийная заявка" : "Неотложная заявка";
 					orderDB.faktStartDate = order.PlanStartDate;
 					orderDB.orderState = OrderStateEnum.opened.ToString();
 				}						

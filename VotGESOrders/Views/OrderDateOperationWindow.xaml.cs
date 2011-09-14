@@ -88,8 +88,10 @@ namespace VotGESOrders.Views
 					}
 					if (CurrentOrder.OrderIsExtend) {
 						CurrentOrder.OpenText = "Заявка продлена. Оборудование выведено.";
-					} else if (CurrentOrder.OrderType == OrderTypeEnum.crash) {
+					} else if (CurrentOrder.OrderType == OrderTypeEnum.crash ) {
 						CurrentOrder.OpenText = "Аварийная заявка. Оборудование выведено.";
+					} else if (CurrentOrder.OrderType == OrderTypeEnum.no) {
+						CurrentOrder.OpenText = "Неотложная заявка. Оборудование выведено.";
 					} else {
 						CurrentOrder.OpenText = "Оборудование выведено. Можно начинать работу";
 					}

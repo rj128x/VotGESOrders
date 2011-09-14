@@ -13,15 +13,16 @@ namespace VotGESOrders.Web.Models
 			if (order.OrderState != OrderStateEnum.created) {
 				return ValidationResult.Success;
 			}
-			if (date < DateTime.Now && !order.OrderIsExtend && !order.OrderIsFixErrorEnter && order.OrderType != OrderTypeEnum.crash)
+			if (date < DateTime.Now && !order.OrderIsExtend && !order.OrderIsFixErrorEnter && 
+				order.OrderType != OrderTypeEnum.crash && order.OrderType!=OrderTypeEnum.no)
 				return new ValidationResult(String.Format("Плановая дата начала({0}) раньше текущей даты", date));
 			if (order.OrderIsFixErrorEnter) {
 				if (order.ParentOrder != null && order.ParentOrder.FaktStopDate > date) 
 					return new ValidationResult(String.Format("Фактический отказ оборудования ({0}) раньше даты разрешения на ввод (родительская заявка)({1})", date, order.ParentOrder.FaktStopDate));				
 			}
-			
-			/*if (order.OrderType==OrderTypeEnum.crash && !order.OrderIsExtend && date > DateTime.Now)
-				return new ValidationResult(String.Format("Фактический отказ оборудования ({0}) позже текущей даты", date));*/
+
+			/*if ((order.OrderType==OrderTypeEnum.crash || order.OrderType==OrderTypeEnum.crash) && !order.OrderIsExtend && date > DateTime.Now)
+				return new ValidationResult(String.Format("Фактический вывод оборудования ({0}) позже текущей даты", date));*/
 			return ValidationResult.Success;
 		}
 
@@ -44,7 +45,7 @@ namespace VotGESOrders.Web.Models
 			}
 			if (date.Value.AddHours(6) < order.PlanStartDate)
 				return new ValidationResult(String.Format("Дата начала работ({0}) раньше даты планового начала({1}) больше 6 часов", date, order.PlanStartDate));
-			if (date < order.OrderDateReview && !order.OrderIsExtend && !order.OrderIsFixErrorEnter && order.OrderType != OrderTypeEnum.crash)
+			if (date < order.OrderDateReview && !order.OrderIsExtend && !order.OrderIsFixErrorEnter && order.OrderType != OrderTypeEnum.crash && order.OrderType!=OrderTypeEnum.no)
 				return new ValidationResult(String.Format("Дата начала работ({0}) раньше даты разрешения({1})", date, order.OrderDateReview));
 			/*if (date > DateTime.Now && !order.OrderIsExtend) {
 				return new ValidationResult(String.Format("Дата ({0}) позже текущей даты", date));
