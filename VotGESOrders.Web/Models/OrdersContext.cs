@@ -293,6 +293,8 @@ namespace VotGESOrders.Web.Models
 						throw new DomainException("Заявка уже продлена");
 					}
 
+					orderDB.userCreateOrderID = parentOrderDB.userCreateOrderID;
+
 					parentOrderDB.orderLastUpdate = DateTime.Now;
 					parentOrderDB.orderAskExtended = true;
 					parentOrderDB.orderState = OrderStateEnum.askExtended.ToString();
