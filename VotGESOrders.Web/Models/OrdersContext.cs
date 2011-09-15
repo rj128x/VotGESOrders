@@ -16,6 +16,7 @@ namespace VotGESOrders.Web.Models
 
 		public OrdersContext() {
 			CurrentUser = OrdersUser.loadFromCache(HttpContext.Current.User.Identity.Name);
+			AutoUser = OrdersUser.loadFromCache("auto");
 		}
 
 		public IQueryable<Order> getOrders(OrderFilter filter) {
@@ -225,6 +226,16 @@ namespace VotGESOrders.Web.Models
 			}
 		}
 
+		private OrdersUser autoUser;
+		public OrdersUser AutoUser {
+			get {
+				return autoUser;
+			}
+			set {
+				autoUser = value;
+			}
+		}
+
 		protected void writeOrderToOrderDB(Order order, Orders orderDB) {
 			orderDB.orderText = order.OrderText;
 			orderDB.agreeText = order.AgreeText;
@@ -274,8 +285,8 @@ namespace VotGESOrders.Web.Models
 					orderDB.orderOpened = true;
 					orderDB.orderDateReview = DateTime.Now;
 					orderDB.orderDateOpen = DateTime.Now;
-					orderDB.userReviewOrderID = currentUser.UserID;
-					orderDB.userOpenOrderID = currentUser.UserID;
+					orderDB.userReviewOrderID = AutoUser.UserID;
+					orderDB.userOpenOrderID = AutoUser.UserID;
 					orderDB.reviewText = order.OrderType == OrderTypeEnum.crash?"Аварийная заявка":"Неотложная заявка";
 					orderDB.openText = order.OrderType == OrderTypeEnum.crash ? "Аварийная заявка" : "Неотложная заявка";
 					orderDB.faktStartDate = order.PlanStartDate;
@@ -408,7 +419,7 @@ namespace VotGESOrders.Web.Models
 						
 						orderDB.orderOpened = true;
 						orderDB.openText = "Оборудование выведено. Заявка продлена";
-						orderDB.userOpenOrderID = parentOrderDB.userOpenOrderID;
+						orderDB.userOpenOrderID = AutoUser.UserID;
 						orderDB.orderState = OrderStateEnum.opened.ToString();
 						orderDB.orderDateOpen = DateTime.Now;
 						orderDB.faktStartDate = parentOrderDB.planStopDate;
@@ -521,7 +532,7 @@ namespace VotGESOrders.Web.Models
 		}
 
 		public void CloseOrder(Order order, Guid guid) {
-			Logger.info("Пользователь разрешаил ввод оборудования. Заявка  №" + order.OrderNumber.ToString(OrderInfo.NFI), Logger.LoggerSource.ordersContext);
+			Logger.info("Пользователь разрешил ввод оборудования. Заявка  №" + order.OrderNumber.ToString(OrderInfo.NFI), Logger.LoggerSource.ordersContext);
 			try {
 				VotGESOrdersEntities context=new VotGESOrdersEntities();
 				Orders orderDB=context.Orders.First(o => o.orderNumber == order.OrderNumber);
