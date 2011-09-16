@@ -10,7 +10,8 @@ namespace VotGESOrders.Web.Models
 	public class MailContext
 	{
 		public static void sendMail(string header, Order order, bool onlyAuthor = false) {
-			//return;
+			if (HttpContext.Current.Request.Url.Port == 8071 || HttpContext.Current.Request.Url.Port == 8090)
+				return;
 			try {
 				IQueryable users=OrdersUser.getAllUsers();
 				List<string> mailToList=new List<string>();

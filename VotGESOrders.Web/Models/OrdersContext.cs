@@ -267,7 +267,7 @@ namespace VotGESOrders.Web.Models
 				try {
 					if (order.OrderIsExtend || order.OrderIsFixErrorEnter) {
 						maxNumber = context.Orders.Where(o=>Math.Floor(o.orderNumber)==Math.Floor(order.ParentOrderNumber)).Max(o => o.orderNumber);
-						newNumber=maxNumber+0.001;
+						newNumber=maxNumber+0.01;
 					} else {
 						maxNumber = context.Orders.Max(o => o.orderNumber);
 						maxNumber = Math.Floor(maxNumber);
