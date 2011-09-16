@@ -21,7 +21,7 @@ namespace VotGESOrders.Web.Models
 					return new ValidationResult(String.Format("Фактический отказ оборудования ({0}) раньше даты разрешения на ввод (родительская заявка)({1})", date, order.ParentOrder.FaktStopDate));				
 			}
 
-			if ((order.OrderType == OrderTypeEnum.crash || order.OrderType == OrderTypeEnum.crash) && !order.OrderIsExtend && date > DateTime.Now.AddMinutes(0))
+			if ((order.OrderType == OrderTypeEnum.crash || order.OrderType == OrderTypeEnum.no) && !order.OrderIsExtend && date > DateTime.Now.AddMinutes(0))
 				return new ValidationResult(String.Format("Фактический вывод оборудования ({0}) позже текущей даты", date));
 			return ValidationResult.Success;
 		}

@@ -1,0 +1,1 @@
+sqlcmd -S .\SQLEXPRESS -i "E:\Projects\Orders\bat\bkp.sql"
