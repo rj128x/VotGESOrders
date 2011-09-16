@@ -13,7 +13,7 @@ namespace VotGESOrders.Web.Models
 			if (order.OrderState != OrderStateEnum.created) {
 				return ValidationResult.Success;
 			}
-			if (date < DateTime.Now && !order.OrderIsExtend && !order.OrderIsFixErrorEnter && 
+			if (date < DateTime.Now.AddMinutes(0) && !order.OrderIsExtend && !order.OrderIsFixErrorEnter && 
 				order.OrderType != OrderTypeEnum.crash && order.OrderType!=OrderTypeEnum.no)
 				return new ValidationResult(String.Format("Плановая дата начала({0}) раньше текущей даты", date));
 			if (order.OrderIsFixErrorEnter) {
@@ -21,8 +21,8 @@ namespace VotGESOrders.Web.Models
 					return new ValidationResult(String.Format("Фактический отказ оборудования ({0}) раньше даты разрешения на ввод (родительская заявка)({1})", date, order.ParentOrder.FaktStopDate));				
 			}
 
-			/*if ((order.OrderType==OrderTypeEnum.crash || order.OrderType==OrderTypeEnum.crash) && !order.OrderIsExtend && date > DateTime.Now)
-				return new ValidationResult(String.Format("Фактический вывод оборудования ({0}) позже текущей даты", date));*/
+			if ((order.OrderType == OrderTypeEnum.crash || order.OrderType == OrderTypeEnum.crash) && !order.OrderIsExtend && date > DateTime.Now.AddMinutes(0))
+				return new ValidationResult(String.Format("Фактический вывод оборудования ({0}) позже текущей даты", date));
 			return ValidationResult.Success;
 		}
 
@@ -33,7 +33,7 @@ namespace VotGESOrders.Web.Models
 			}
 			if (date < order.PlanStartDate)
 				return new ValidationResult(String.Format("Плановая дата завершения({0}) раньше даты планового начала({1})", date, order.PlanStartDate));
-			if (date < DateTime.Now)
+			if (date < DateTime.Now.AddMinutes(0))
 				return new ValidationResult(String.Format("Плановая дата окончания({0}) раньше текущей даты", date));
 			return ValidationResult.Success;
 		}
@@ -49,9 +49,9 @@ namespace VotGESOrders.Web.Models
 				return new ValidationResult(String.Format("Дата начала работ({0}) позже планового окончания({1})", date, order.PlanStopDate));
 			if (date < order.OrderDateReview && !order.OrderIsExtend && !order.OrderIsFixErrorEnter && order.OrderType != OrderTypeEnum.crash && order.OrderType!=OrderTypeEnum.no)
 				return new ValidationResult(String.Format("Дата начала работ({0}) раньше даты разрешения({1})", date, order.OrderDateReview));
-			/*if (date > DateTime.Now && !order.OrderIsExtend) {
-				return new ValidationResult(String.Format("Дата ({0}) позже текущей даты", date));
-			}*/
+			if (date > DateTime.Now.AddMinutes(0) && !order.OrderIsExtend) {
+				return new ValidationResult(String.Format("Дата начала работ({0}) позже текущей даты", date));
+			}
 			return ValidationResult.Success;
 		}
 
@@ -62,10 +62,10 @@ namespace VotGESOrders.Web.Models
 			}
 			if (date < order.FaktStartDate)
 				return new ValidationResult(String.Format("Дата разрешения на ввод({0}) раньше даты фактического начала({1})", date, order.FaktStartDate));
-			
-			/*if (date > DateTime.Now && !order.OrderExtended && !order.OrderAskExtended) {
-				return new ValidationResult(String.Format("Дата ({0}) позже текущей даты", date));
-			}*/
+
+			if (date > DateTime.Now.AddMinutes(0) && !order.OrderExtended && !order.OrderAskExtended) {
+				return new ValidationResult(String.Format("Дата разрешения на ввод ({0}) позже текущей даты", date));
+			}
 			return ValidationResult.Success;
 		}
 
@@ -77,9 +77,9 @@ namespace VotGESOrders.Web.Models
 			if (date < order.FaktStopDate)
 				return new ValidationResult(String.Format("Дата закрытия({0}) раньше даты разрешения на ввод({1})", date, order.FaktStopDate));
 
-			/*if (date > DateTime.Now && !order.OrderExtended && !order.OrderAskExtended && order.OrderState != OrderStateEnum.completedWithoutEnter) {
-				return new ValidationResult(String.Format("Дата ({0}) позже текущей даты", date));
-			}*/
+			if (date > DateTime.Now.AddMinutes(0) && !order.OrderExtended && !order.OrderAskExtended && order.OrderState != OrderStateEnum.completedWithoutEnter) {
+				return new ValidationResult(String.Format("Дата закрытия ({0}) позже текущей даты", date));
+			}
 			
 			return ValidationResult.Success;
 		}

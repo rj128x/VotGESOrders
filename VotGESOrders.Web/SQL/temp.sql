@@ -1,1 +1,1 @@
-﻿select * from orders
+﻿delete from orders
