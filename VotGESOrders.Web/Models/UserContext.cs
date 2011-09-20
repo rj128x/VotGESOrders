@@ -32,6 +32,8 @@ namespace VotGESOrders.Web.Models
 				user.sendAgreeMail = newUser.SendAgreeMail;
 				user.sendAllMail = newUser.SendAllMail;
 				user.sendCreateMail = newUser.SendCreateMail;
+				user.sendAllAgreeMail = newUser.SendAllAgreeMail;
+				user.sendAllCreateMail = newUser.SendAllCreateMail;
 				user.allowChangeOrder = newUser.AllowChangeOrder;
 				user.allowCreateOrder = newUser.AllowCreateOrder;
 				user.allowCreateCrashOrder = newUser.AllowCreateCrashOrder;

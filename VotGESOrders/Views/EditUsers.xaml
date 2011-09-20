@@ -81,7 +81,13 @@
 							<CheckBox Content="Оповещать о своих заявках" IsChecked="{Binding SendCreateMail,Mode=TwoWay}"/>
 						</toolkit:DataField>
 						<toolkit:DataField Name="SendAgreeMail" Label="">
-							<CheckBox Content="Оповещать о согласованных заявках" IsChecked="{Binding SendAgreeMail,Mode=TwoWay}"/>
+							<CheckBox Content="Оповещать создании согласованных заявок" IsChecked="{Binding SendAgreeMail,Mode=TwoWay}"/>
+						</toolkit:DataField>
+						<toolkit:DataField Name="SendAllCreateMail" Label="">
+							<CheckBox Content="Оповещать о создании всех заявок" IsChecked="{Binding SendAllCreateMail,Mode=TwoWay}"/>
+						</toolkit:DataField>
+						<toolkit:DataField Name="SendAllAgreeMail" Label="">
+							<CheckBox Content="Оповещать о согласованных заявках" IsChecked="{Binding SendAllAgreeMail,Mode=TwoWay}"/>
 						</toolkit:DataField>
 						<toolkit:DataField Name="AllowCreateOrder" Label="">
 							<CheckBox Content="Может создавать заявки" IsChecked="{Binding AllowCreateOrder,Mode=TwoWay}"/>

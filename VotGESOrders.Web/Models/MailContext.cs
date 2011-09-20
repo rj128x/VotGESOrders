@@ -9,7 +9,7 @@ namespace VotGESOrders.Web.Models
 {
 	public class MailContext
 	{
-		public static void sendMail(string header, Order order, bool onlyAuthor = false) {
+		public static void sendMail(string header, Order order,bool isNewOrder, bool onlyAuthor) {
 			if (HttpContext.Current.Request.Url.Port == 8071 || HttpContext.Current.Request.Url.Port == 8090)
 				return;
 			try {
@@ -18,10 +18,11 @@ namespace VotGESOrders.Web.Models
 
 				foreach (OrdersUser user in users) {
 					if (
-						user.SendAgreeMail && order.AgreeUsers.Contains(user) && !mailToList.Contains(user.Mail) && !onlyAuthor ||
+						user.SendAllAgreeMail && order.AgreeUsers.Contains(user) && !mailToList.Contains(user.Mail) && !onlyAuthor ||
 						user.SendAllMail && !mailToList.Contains(user.Mail) ||
 						user.SendCreateMail && order.UserCreateOrderID == user.UserID && !mailToList.Contains(user.Mail)||
-						onlyAuthor && order.UserCreateOrderID == user.UserID && !mailToList.Contains(user.Mail)						
+						onlyAuthor && order.UserCreateOrderID == user.UserID && !mailToList.Contains(user.Mail)||
+						isNewOrder && (user.SendAllCreateMail || user.SendAgreeMail && order.AgreeUsers.Contains(user)) && !mailToList.Contains(user.Mail) && !onlyAuthor
 						) {
 						if (!String.IsNullOrEmpty(user.Mail)) {
 							mailToList.Add(user.Mail);

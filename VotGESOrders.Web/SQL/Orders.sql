@@ -24,6 +24,8 @@ CREATE TABLE [dbo].[Users](
 	[sendAllMail] [bit] NOT NULL,
 	[sendAgreeMail] [bit] NOT NULL,
 	[sendCreateMail] [bit] NOT NULL,
+	[sendAllAgreeMail] [bit] NOT NULL,
+	[sendAllCreateMail] [bit] NOT NULL,
 	[allowCreateOrder] [bit] NOT NULL, /*пользователь может создавать заявки*/
 	[allowCreateCrashOrder] [bit] NOT NULL, /*пользователь может создавать аварийные заявки*/
 	[allowReviewOrder] [bit] NOT NULL,/*пользователь может разрешить/отклонить заявку*/

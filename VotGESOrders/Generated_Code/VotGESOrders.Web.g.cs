@@ -3144,6 +3144,10 @@ namespace VotGESOrders.Web.Models
         
         private bool _sendAgreeMail;
         
+        private bool _sendAllAgreeMail;
+        
+        private bool _sendAllCreateMail;
+        
         private bool _sendAllMail;
         
         private bool _sendCreateMail;
@@ -3179,6 +3183,10 @@ namespace VotGESOrders.Web.Models
         partial void OnNameChanged();
         partial void OnSendAgreeMailChanging(bool value);
         partial void OnSendAgreeMailChanged();
+        partial void OnSendAllAgreeMailChanging(bool value);
+        partial void OnSendAllAgreeMailChanged();
+        partial void OnSendAllCreateMailChanging(bool value);
+        partial void OnSendAllCreateMailChanged();
         partial void OnSendAllMailChanging(bool value);
         partial void OnSendAllMailChanged();
         partial void OnSendCreateMailChanging(bool value);
@@ -3461,6 +3469,54 @@ namespace VotGESOrders.Web.Models
                     this._sendAgreeMail = value;
                     this.RaiseDataMemberChanged("SendAgreeMail");
                     this.OnSendAgreeMailChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "SendAllAgreeMail".
+        /// </summary>
+        [DataMember()]
+        public bool SendAllAgreeMail
+        {
+            get
+            {
+                return this._sendAllAgreeMail;
+            }
+            set
+            {
+                if ((this._sendAllAgreeMail != value))
+                {
+                    this.OnSendAllAgreeMailChanging(value);
+                    this.RaiseDataMemberChanging("SendAllAgreeMail");
+                    this.ValidateProperty("SendAllAgreeMail", value);
+                    this._sendAllAgreeMail = value;
+                    this.RaiseDataMemberChanged("SendAllAgreeMail");
+                    this.OnSendAllAgreeMailChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "SendAllCreateMail".
+        /// </summary>
+        [DataMember()]
+        public bool SendAllCreateMail
+        {
+            get
+            {
+                return this._sendAllCreateMail;
+            }
+            set
+            {
+                if ((this._sendAllCreateMail != value))
+                {
+                    this.OnSendAllCreateMailChanging(value);
+                    this.RaiseDataMemberChanging("SendAllCreateMail");
+                    this.ValidateProperty("SendAllCreateMail", value);
+                    this._sendAllCreateMail = value;
+                    this.RaiseDataMemberChanged("SendAllCreateMail");
+                    this.OnSendAllCreateMailChanged();
                 }
             }
         }
