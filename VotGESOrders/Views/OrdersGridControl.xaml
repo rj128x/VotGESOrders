@@ -13,36 +13,18 @@
 						  CanUserSortColumns="True" CanUserResizeColumns="False">
 			<sdk:DataGrid.Columns>
 
-				<sdk:DataGridTemplateColumn Header="№ заявки" SortMemberPath="OrderNumber" Width="80" >
+				<sdk:DataGridTemplateColumn Header="№ заявки" SortMemberPath="OrderNumber" Width="60" >
 					<sdk:DataGridTemplateColumn.CellTemplate >
 						<DataTemplate>
 							<StackPanel>
 								<ContentControl Content="{Binding OrderNumber, Mode=OneWay, Converter={StaticResource orderNumberConverter}}" 
-													 Template="{StaticResource OrderCellDef}"/>								
-								<StackPanel Orientation="Horizontal" Visibility="{Binding OrderHasParentOrder, Converter={StaticResource visibilityConverter}}" 
-												HorizontalAlignment="Right">
-									<TextBlock Text="№ст=" Style="{StaticResource Label}"/>
-									<TextBlock Text="{Binding ParentOrderNumber, Mode=OneWay, Converter={StaticResource orderNumberConverter}}" 
-												  Style="{StaticResource Label}"/>
-								</StackPanel>
-								<StackPanel Orientation="Horizontal" Visibility="{Binding OrderHasChildOrder, Converter={StaticResource visibilityConverter}}"
-												HorizontalAlignment="Right">
-									<TextBlock Text="№нов="  Style="{StaticResource Label}"/>
-									<TextBlock Text="{Binding ChildOrderNumber, Mode=OneWay, Converter={StaticResource orderNumberConverter}}" 
-												   Style="{StaticResource Label}"/>
-								</StackPanel>
+													 Template="{StaticResource OrderCellDef}"/>
+								<TextBlock Text="{Binding OrderTypeShortName, Mode=OneWay}" Style="{StaticResource Label}"/>
+
 							</StackPanel>
 						</DataTemplate>
 					</sdk:DataGridTemplateColumn.CellTemplate>
-				</sdk:DataGridTemplateColumn>
-				
-				<sdk:DataGridTemplateColumn Header="Тип"  SortMemberPath="OrderType"  Width="50" >
-					<sdk:DataGridTemplateColumn.CellTemplate>
-						<DataTemplate>
-							<ContentControl Content="{Binding OrderTypeShortName}"  Template="{StaticResource OrderCellDef}"/>
-						</DataTemplate>
-					</sdk:DataGridTemplateColumn.CellTemplate>
-				</sdk:DataGridTemplateColumn>
+				</sdk:DataGridTemplateColumn>				
 
 				<sdk:DataGridTemplateColumn Header="Состояние"  SortMemberPath="OrderStateStr" Width="80" >
 					<sdk:DataGridTemplateColumn.CellTemplate>
@@ -51,7 +33,7 @@
 						</DataTemplate>
 					</sdk:DataGridTemplateColumn.CellTemplate>
 				</sdk:DataGridTemplateColumn>
-				<sdk:DataGridTemplateColumn Header="Оборудование"  SortMemberPath="SelOrderObject.FullName"  Width="*"  MinWidth="150" >
+				<sdk:DataGridTemplateColumn Header="Оборудование"  SortMemberPath="SelOrderObject.FullName"  Width="*"  MinWidth="100" >
 					<sdk:DataGridTemplateColumn.CellTemplate>
 						<DataTemplate>
 							<ContentControl Content="{Binding FullOrderObjectInfo}"    Template="{StaticResource OrderCellDef}"/>
@@ -59,7 +41,7 @@
 					</sdk:DataGridTemplateColumn.CellTemplate>
 				</sdk:DataGridTemplateColumn>
 				<sdk:DataGridTemplateColumn Header="Текст заявки"  
-													 SortMemberPath="OrderText" Width="*"   MinWidth="150">
+													 SortMemberPath="OrderText" Width="*"   MinWidth="100">
 					<sdk:DataGridTemplateColumn.CellTemplate>
 						<DataTemplate>
 							<ContentControl Content="{Binding OrderText}" Template="{StaticResource OrderCellDef}"/>

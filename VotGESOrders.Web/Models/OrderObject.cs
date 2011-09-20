@@ -76,6 +76,9 @@ namespace VotGESOrders.Web.Models
 				parent = getByID(parent.ParentObjectID);
 			}
 			names.Reverse();
+			if (names.Count > 1) {
+				names.RemoveAt(0);
+			}
 			return String.Join(" => ", names);
 		}
 
