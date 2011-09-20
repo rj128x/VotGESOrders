@@ -9,7 +9,7 @@
 	<Grid x:Name="LayoutRoot" Background="White">
 		<sdk:DataGrid x:Name="ordersGrid" AutoGenerateColumns="False" ColumnHeaderStyle="{StaticResource CenterHeaderText}"
                              HorizontalAlignment="Stretch" 
-								   RowHeight="50"  VerticalAlignment="Stretch" VerticalContentAlignment="Stretch" Height="Auto"
+								   RowHeight="55"  VerticalAlignment="Stretch" VerticalContentAlignment="Stretch" Height="Auto"
 						  CanUserSortColumns="True" CanUserResizeColumns="False">
 			<sdk:DataGrid.Columns>
 
@@ -55,7 +55,7 @@
 						</DataTemplate>
 					</sdk:DataGridTemplateColumn.CellTemplate>
 				</sdk:DataGridTemplateColumn>
-				<sdk:DataGridTemplateColumn Header="План начало"  SortMemberPath="PlanStartDate"   Width="100">
+				<sdk:DataGridTemplateColumn Header="План начало"  SortMemberPath="PlanStartDate"   Width="60">
 					<sdk:DataGridTemplateColumn.CellTemplate>
 						<DataTemplate>
 							<ContentControl Content="{Binding PlanStartDate, Converter={StaticResource dateTimeConverter}}"  
@@ -63,7 +63,7 @@
 						</DataTemplate>
 					</sdk:DataGridTemplateColumn.CellTemplate>
 				</sdk:DataGridTemplateColumn>
-				<sdk:DataGridTemplateColumn Header="План завершение"  SortMemberPath="PlanStopDate"  Width="100">
+				<sdk:DataGridTemplateColumn Header="План заверш."  SortMemberPath="PlanStopDate"  Width="60">
 					<sdk:DataGridTemplateColumn.CellTemplate>
 						<DataTemplate>
 							<ContentControl Content="{Binding PlanStopDate, Converter={StaticResource dateTimeConverter}}"  
@@ -71,7 +71,7 @@
 						</DataTemplate>
 					</sdk:DataGridTemplateColumn.CellTemplate>
 				</sdk:DataGridTemplateColumn >
-				<sdk:DataGridTemplateColumn Header="Факт начало"   SortMemberPath="FaktStartDate"  Width="100">
+				<sdk:DataGridTemplateColumn Header="Факт начало"   SortMemberPath="FaktStartDate"  Width="60">
 					<sdk:DataGridTemplateColumn.CellTemplate>
 						<DataTemplate>
 							<ContentControl Content="{Binding FaktStartDate, Converter={StaticResource dateTimeConverter}}"  
@@ -79,7 +79,7 @@
 						</DataTemplate>
 					</sdk:DataGridTemplateColumn.CellTemplate>
 				</sdk:DataGridTemplateColumn>
-				<sdk:DataGridTemplateColumn Header="Разрешение на ввод"   SortMemberPath="FaktStopDate"  Width="100">
+				<sdk:DataGridTemplateColumn Header="Разр. на ввод"   SortMemberPath="FaktStopDate"  Width="60">
 					<sdk:DataGridTemplateColumn.CellTemplate>
 						<DataTemplate>
 							<ContentControl Content="{Binding FaktStopDate, Converter={StaticResource dateTimeConverter}}"  
@@ -87,7 +87,7 @@
 						</DataTemplate>
 					</sdk:DataGridTemplateColumn.CellTemplate>
 				</sdk:DataGridTemplateColumn>
-				<sdk:DataGridTemplateColumn Header="Факт завершение"   SortMemberPath="FaktCompleteDate"  Width="100">
+				<sdk:DataGridTemplateColumn Header="Факт заверш."   SortMemberPath="FaktCompleteDate"  Width="60">
 					<sdk:DataGridTemplateColumn.CellTemplate>
 						<DataTemplate>
 							<ContentControl Content="{Binding FaktCompleteDate, Converter={StaticResource dateTimeConverter}}"  

@@ -70,9 +70,9 @@
 				  CornerRadius="2" BorderThickness="2">
 			<StackPanel Style="{StaticResource pnlCellOrderRow}"
 							Background="{Binding TimeToOpen, Converter={StaticResource backgroundColorConverter}, ConverterParameter='Time',Mode=OneWay}">
-				<TextBlock Style="{StaticResource txtCellOrderRow}" Text="{TemplateBinding Content}"/>
+				<TextBlock Style="{StaticResource txtCellOrderRow}" Text="{TemplateBinding Content}" TextWrapping="Wrap" TextAlignment="Center"/>
 				<StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-					<TextBlock Style="{StaticResource txtCellOrderRowAdd}" Text="{Binding TimeToOpen, Converter={StaticResource expiredTimeConverter},ConverterParameter='plan'}"/>
+					<TextBlock Style="{StaticResource txtCellOrderRowAdd}" Text="{Binding TimeToOpen, Converter={StaticResource expiredTimeConverter},ConverterParameter='plan'}" />
 					<TextBlock Style="{StaticResource txtCellOrderRowAdd}" Text="{Binding ExpiredOpenHours, Converter={StaticResource expiredTimeConverter},ConverterParameter='fakt'}"/>
 				</StackPanel>
 			</StackPanel>
@@ -85,7 +85,7 @@
 				  CornerRadius="2" BorderThickness="2">
 			<StackPanel Style="{StaticResource pnlCellOrderRow}"
 							Background="{Binding TimeToClose, Converter={StaticResource backgroundColorConverter}, ConverterParameter='Time',Mode=OneWay}">
-				<TextBlock Style="{StaticResource txtCellOrderRow}" Text="{TemplateBinding Content}"/>
+				<TextBlock Style="{StaticResource txtCellOrderRow}" Text="{TemplateBinding Content}" TextWrapping="Wrap" TextAlignment="Center"/>
 				<StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
 					<TextBlock Style="{StaticResource txtCellOrderRowAdd}" Text="{Binding TimeToClose, Converter={StaticResource expiredTimeConverter},ConverterParameter='plan'}"/>
 					<TextBlock Style="{StaticResource txtCellOrderRowAdd}" Text="{Binding ExpiredCloseHours, Converter={StaticResource expiredTimeConverter},ConverterParameter='fakt'}"/>
@@ -99,7 +99,7 @@
 				  CornerRadius="2" BorderThickness="2">
 			<StackPanel Style="{StaticResource pnlCellOrderRow}"
 							Background="{Binding TimeToEnter, Converter={StaticResource backgroundColorConverter}, ConverterParameter='Time',Mode=OneWay}">
-				<TextBlock Style="{StaticResource txtCellOrderRow}" Text="{TemplateBinding Content}"/>
+				<TextBlock Style="{StaticResource txtCellOrderRow}" Text="{TemplateBinding Content}" TextWrapping="Wrap"  TextAlignment="Center"/>
 				<StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
 					<TextBlock Style="{StaticResource txtCellOrderRowAdd}" Text="{Binding TimeToEnter, Converter={StaticResource expiredTimeConverter},ConverterParameter='plan'}"/>
 					<TextBlock Style="{StaticResource txtCellOrderRowAdd}" Text="{Binding ExpiredEnterHours, Converter={StaticResource expiredTimeConverter},ConverterParameter='fakt'}"/>

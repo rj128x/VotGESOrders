@@ -26,7 +26,7 @@ namespace VotGESOrders.Converters
 		/// 
 		protected string getTimeStr(double time) {
 			time = Math.Abs(time);
-			return String.Format("{0}ч.{1:00}мин.", Math.Floor(time), Math.Round((time - Math.Floor(time)) * 60));
+			return String.Format("{0}:{1:00}", Math.Floor(time), Math.Round((time - Math.Floor(time)) * 60));
 		}
 
 		public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture) {
