@@ -24,6 +24,7 @@ namespace VotGESOrders.Web.Models
 		[Key]
 		public int ObjectID { get; set; }
 		public int ParentObjectID { get; set; }
+		public bool ShowInFullName { get; set; }
 
 
 		private OrderObject parentObject;
@@ -72,13 +73,12 @@ namespace VotGESOrders.Web.Models
 			List<string> names=new List<string>();
 			names.Add(ObjectName);
 			while (parent != null) {
-				names.Add(parent.ObjectName);
+				if (parent.ShowInFullName) {
+					names.Add(parent.ObjectName);
+				}
 				parent = getByID(parent.ParentObjectID);
 			}
 			names.Reverse();
-			if (names.Count > 1) {
-				names.RemoveAt(0);
-			}
 			return String.Join(" => ", names);
 		}
 
@@ -115,6 +115,7 @@ namespace VotGESOrders.Web.Models
 				obj.ObjectName = objectDB.objectName;
 				obj.ObjectID = objectDB.objectID;
 				obj.ParentObjectID = objectDB.parentID;
+				obj.ShowInFullName = objectDB.showInFullName;
 				return obj;
 			} catch (Exception e) {
 				Logger.error(String.Format("Ошибка при получении информации об оборудовании: {0}", e), Logger.LoggerSource.server);

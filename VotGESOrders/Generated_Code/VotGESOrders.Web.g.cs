@@ -2826,6 +2826,8 @@ namespace VotGESOrders.Web.Models
         
         private int _parentObjectID;
         
+        private bool _showInFullName;
+        
         #region Определение методов расширяемости
 
         /// <summary>
@@ -2841,6 +2843,8 @@ namespace VotGESOrders.Web.Models
         partial void OnObjectNameChanged();
         partial void OnParentObjectIDChanging(int value);
         partial void OnParentObjectIDChanged();
+        partial void OnShowInFullNameChanging(bool value);
+        partial void OnShowInFullNameChanged();
         partial void OnRegisterChangeObjectInvoking();
         partial void OnRegisterChangeObjectInvoked();
         partial void OnRegisterDeleteObjectInvoking();
@@ -2993,6 +2997,30 @@ namespace VotGESOrders.Web.Models
                     this._parentObjectID = value;
                     this.RaiseDataMemberChanged("ParentObjectID");
                     this.OnParentObjectIDChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "ShowInFullName".
+        /// </summary>
+        [DataMember()]
+        public bool ShowInFullName
+        {
+            get
+            {
+                return this._showInFullName;
+            }
+            set
+            {
+                if ((this._showInFullName != value))
+                {
+                    this.OnShowInFullNameChanging(value);
+                    this.RaiseDataMemberChanging("ShowInFullName");
+                    this.ValidateProperty("ShowInFullName", value);
+                    this._showInFullName = value;
+                    this.RaiseDataMemberChanged("ShowInFullName");
+                    this.OnShowInFullNameChanged();
                 }
             }
         }

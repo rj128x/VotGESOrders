@@ -175,12 +175,14 @@ namespace VotGESOrders.Web.ADONETEntities
         /// <param name="objectID">Исходное значение свойства objectID.</param>
         /// <param name="parentID">Исходное значение свойства parentID.</param>
         /// <param name="objectName">Исходное значение свойства objectName.</param>
-        public static OrderObjects CreateOrderObjects(global::System.Int32 objectID, global::System.Int32 parentID, global::System.String objectName)
+        /// <param name="showInFullName">Исходное значение свойства showInFullName.</param>
+        public static OrderObjects CreateOrderObjects(global::System.Int32 objectID, global::System.Int32 parentID, global::System.String objectName, global::System.Boolean showInFullName)
         {
             OrderObjects orderObjects = new OrderObjects();
             orderObjects.objectID = objectID;
             orderObjects.parentID = parentID;
             orderObjects.objectName = objectName;
+            orderObjects.showInFullName = showInFullName;
             return orderObjects;
         }
 
@@ -261,6 +263,30 @@ namespace VotGESOrders.Web.ADONETEntities
         private global::System.String _objectName;
         partial void OnobjectNameChanging(global::System.String value);
         partial void OnobjectNameChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean showInFullName
+        {
+            get
+            {
+                return _showInFullName;
+            }
+            set
+            {
+                OnshowInFullNameChanging(value);
+                ReportPropertyChanging("showInFullName");
+                _showInFullName = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("showInFullName");
+                OnshowInFullNameChanged();
+            }
+        }
+        private global::System.Boolean _showInFullName;
+        partial void OnshowInFullNameChanging(global::System.Boolean value);
+        partial void OnshowInFullNameChanged();
 
         #endregion
     

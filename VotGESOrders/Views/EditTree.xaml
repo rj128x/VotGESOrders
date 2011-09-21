@@ -62,7 +62,10 @@
 							<TextBox Name="txtName" Text="{Binding ObjectName, Mode=TwoWay}"
 										IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}" />
 						<TextBlock Style="{StaticResource Label}" Text="Родительское оборудование"/>
-						<TextBox Name="txtParent" Text="{Binding SelParentOrderObjectName, Mode=TwoWay}" IsEnabled="False" Width="Auto" Grid.Column="0" TextWrapping="Wrap" Height="Auto"/>							
+						<TextBox Name="txtParent" Text="{Binding SelParentOrderObjectName, Mode=TwoWay}" IsEnabled="False" Width="Auto" Grid.Column="0" TextWrapping="Wrap" Height="Auto"/>
+						<toolkit:DataField Name="ShowInFullName" Label="">
+							<CheckBox Content="Отображать в имени" IsChecked="{Binding ShowInFullName,Mode=TwoWay}"/>
+						</toolkit:DataField>
 					</StackPanel>
 				</toolkit:DataForm>
 				<StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="1" Grid.Column="1">

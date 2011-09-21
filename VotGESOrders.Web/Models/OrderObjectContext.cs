@@ -27,6 +27,7 @@ namespace VotGESOrders.Web.Models
 				}
 				objDB.objectName = newObj.ObjectName;
 				objDB.parentID = newObj.ParentObjectID;
+				objDB.showInFullName = newObj.ShowInFullName;
 
 				context.SaveChanges();
 

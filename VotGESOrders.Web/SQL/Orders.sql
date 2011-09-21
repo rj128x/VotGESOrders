@@ -51,6 +51,7 @@ CREATE TABLE [dbo].[OrderObjects](
 	[objectID] [int] identity(1,1) NOT NULL, /*код оборудования*/
 	[parentID] [int] not NULL,/* код родительского оборудования*/
 	[objectName] [varchar](250) NOT NULL, /*наименование оборудования*/
+	[showInFullName] [bit] not NULL
 	
  CONSTRAINT [PK_OrderObjects] PRIMARY KEY CLUSTERED 
 (

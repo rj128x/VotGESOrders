@@ -101,8 +101,10 @@ namespace VotGESOrders
 
 		protected void saveEdit() {
 			if (SelObject != null) {
-				SelObject.ParentObject = SelParentOrderObject;
-				SelObject.ParentObjectID = SelParentOrderObject.ObjectID;
+				try {
+					SelObject.ParentObject = SelParentOrderObject;
+					SelObject.ParentObjectID = SelParentOrderObject.ObjectID;
+				}catch{}
 				if (isNew) {
 					OrdersContext.Current.Context.OrderObjects.Attach(SelObject);
 				}
