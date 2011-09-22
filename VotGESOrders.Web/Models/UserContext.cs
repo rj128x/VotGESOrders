@@ -11,9 +11,25 @@ namespace VotGESOrders.Web.Models
 	public class OrdersUserContext
 	{
 
+		private OrdersUser currentUser;
+		public OrdersUser CurrentUser {
+			get {
+				return currentUser;
+			}
+			set {
+				currentUser = value;
+			}
+		}
+		public OrdersUserContext() {
+			CurrentUser = OrdersUser.loadFromCache(HttpContext.Current.User.Identity.Name);
+		}
+
 		public void RegisterChangeUser(OrdersUser newUser) {
 			Logger.info("Пользователь изменил пользователя", Logger.LoggerSource.usersContext);
 			try {
+				if (!CurrentUser.AllowEditUsers) {
+					throw new DomainException("У вас нет прав редактировать пользователей");
+				}
 				VotGESOrdersEntities context=new VotGESOrdersEntities();
 
 				IQueryable<Users> users=(from u in context.Users where u.userID == newUser.UserID select u);
@@ -51,6 +67,9 @@ namespace VotGESOrders.Web.Models
 
 			} catch (Exception e) {
 				Logger.error(String.Format("===Ошибка при изменении пользователя: {0}", e), Logger.LoggerSource.usersContext);
+				if (e is DomainException) {
+					throw e;
+				}
 				throw new DomainException("Ошибка при изменении пользователя");
 			}
 		}
@@ -59,6 +78,9 @@ namespace VotGESOrders.Web.Models
 		public void RegisterDeleteUser(OrdersUser newUser) {
 			Logger.info("Пользователь удалил пользователя", Logger.LoggerSource.usersContext);
 			try {
+				if (!CurrentUser.AllowEditUsers) {
+					throw new DomainException("У вас нет прав редактировать пользователей");
+				}
 				VotGESOrdersEntities context=new VotGESOrdersEntities();
 
 				IQueryable<Users> users=(from u in context.Users where u.name.ToLower() == newUser.Name.ToLower() select u);
@@ -73,6 +95,9 @@ namespace VotGESOrders.Web.Models
 
 			} catch (Exception e) {
 				Logger.error(String.Format("===Ошибка при удалении пользователя: {0}", e), Logger.LoggerSource.usersContext);
+				if (e is DomainException) {
+					throw e;
+				}
 				throw new DomainException("Ошибка при удалении пользователя. Возможно на пользователя ссылаются заявки");
 			}
 		}

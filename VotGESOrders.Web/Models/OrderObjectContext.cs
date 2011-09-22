@@ -10,10 +10,25 @@ namespace VotGESOrders.Web.Models
 {
 	public class OrderObjectContext
 	{
+		private OrdersUser currentUser;
+		public OrdersUser CurrentUser {
+			get {
+				return currentUser;
+			}
+			set {
+				currentUser = value;
+			}
+		}
+		public OrderObjectContext() {
+			CurrentUser = OrdersUser.loadFromCache(HttpContext.Current.User.Identity.Name);
+		}
 
 		public void RegisterChangeOrderObject(OrderObject newObj) {
 			Logger.info("Пользователь изменил оборудование", Logger.LoggerSource.objectsContext);
 			try {
+				if (!CurrentUser.AllowEditTree) {
+					throw new DomainException("У вас нет прав редактировать оборудование");
+				}
 				VotGESOrdersEntities context=new VotGESOrdersEntities();
 
 				IQueryable<OrderObjects> objectsDB=(from o in context.OrderObjects where o.objectID == newObj.ObjectID select  o);
@@ -39,6 +54,9 @@ namespace VotGESOrders.Web.Models
 
 			} catch (Exception e) {
 				Logger.error(String.Format("===Ошибка при изменении оборудования: {0}", e), Logger.LoggerSource.objectsContext);
+				if (e is DomainException) {
+					throw e;
+				}
 				throw new DomainException("Ошибка при изменении/создании оборудования");
 			}
 		}
@@ -54,6 +72,9 @@ namespace VotGESOrders.Web.Models
 		public void RegisterDeleteOrderObject(OrderObject newObj) {
 			Logger.info("Пользователь удалил оборудование", Logger.LoggerSource.objectsContext);
 			try {
+				if (!CurrentUser.AllowEditTree) {
+					throw new DomainException("У вас нет прав редактировать оборудование");
+				}
 				VotGESOrdersEntities context=new VotGESOrdersEntities();
 				VotGESOrders.Web.ADONETEntities.Orders orderDB=new Orders();
 				OrderObjects objDB=(from o in context.OrderObjects where o.objectID == newObj.ObjectID select o).First();
@@ -68,6 +89,9 @@ namespace VotGESOrders.Web.Models
 
 			} catch (Exception e) {
 				Logger.error(String.Format("===Ошибка при удалении оборудования: {0}", e), Logger.LoggerSource.objectsContext);
+				if (e is DomainException) {
+					throw e;
+				}
 				throw new DomainException("Ошибка при удалении оборудования, возможно на оборудование (или дочернее оборудование) ссылаются заявки");
 			}
 		}
