@@ -183,7 +183,7 @@ namespace VotGESOrders
 				double height=arg.PrintableArea.Height;
 				bool rotate=false;
 
-				Logger.logMessage(String.Format("{0}-{1}",width,height));
+				//Logger.logMessage(String.Format("{0}-{1}",width,height));
 
 				if (width < height) {
 					double temp=width;
@@ -192,7 +192,7 @@ namespace VotGESOrders
 					rotate = true;
 				}				
 
-				Logger.logMessage(String.Format("{0}-{1}", width, height));
+				//Logger.logMessage(String.Format("{0}-{1}", width, height));
 
 				if (pages == null) {
 					pages = getPrintPages(width,height);
