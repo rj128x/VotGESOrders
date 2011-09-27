@@ -32,6 +32,7 @@ namespace VotGESOrders.Converters
 		public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture) {
 			double? time=(double?)value;
 			string param=parameter.ToString();
+			return "";
 			if (param == "fakt") {
 				if (time.HasValue) {
 					if (time.Value > 0) {

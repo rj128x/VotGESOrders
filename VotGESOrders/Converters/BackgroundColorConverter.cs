@@ -76,14 +76,15 @@ namespace VotGESOrders.Converters
 				} 
 				else if (param == "Expired") {
 					bool? expired=(bool?)value;
-					if (expired.HasValue) {
+					color = Colors.Transparent;
+					/*if (expired.HasValue) {
 						if (expired.Value)
 							color = Color.FromArgb(255, 255, 204, 204);
 						else
 							color = Color.FromArgb(255, 153, 255, 204);
 					} else {
 						color = Colors.Transparent;
-					}
+					}*/
 				}
 				return new SolidColorBrush(color);
 			} catch {
