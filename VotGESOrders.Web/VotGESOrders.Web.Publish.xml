@@ -99,7 +99,7 @@
     <file relUrl="bin/ru/System.ServiceModel.DomainServices.Hosting.resources.dll" publishTime="01/14/2011 14:13:46" />
     <file relUrl="bin/System.ServiceModel.DomainServices.Server.dll" publishTime="01/14/2011 14:13:46" />
     <file relUrl="Logging/Logger.cs" publishTime="07/25/2011 14:02:15" />
-    <file relUrl="bin/VotGESOrders.Web.dll" publishTime="09/27/2011 07:58:05" />
+    <file relUrl="bin/VotGESOrders.Web.dll" publishTime="09/27/2011 10:54:44" />
     <file relUrl="SQL/users.sql" publishTime="09/20/2011 13:36:10" />
     <file relUrl="Models/XMLStringSerializer.shared.cs" publishTime="07/07/2011 07:54:59" />
     <file relUrl="Scripts/MicrosoftMvcAjax.js" publishTime="07/07/2011 07:54:59" />
@@ -129,7 +129,7 @@
     <file relUrl="VotGESOrders.Web.csproj.user" publishTime="09/26/2011 14:25:18" />
     <file relUrl="SQL/objects.sql" publishTime="09/21/2011 10:06:24" />
     <file relUrl="bin/ru/System.Web.Mvc.resources.dll" publishTime="03/29/2010 17:36:52" />
-    <file relUrl="bin/VotGESOrders.Web.pdb" publishTime="09/27/2011 07:58:05" />
+    <file relUrl="bin/VotGESOrders.Web.pdb" publishTime="09/27/2011 10:54:44" />
     <file relUrl="Views/Home/About.aspx" publishTime="07/07/2011 07:55:00" />
     <file relUrl="Scripts/jquery-1.4.1-vsdoc.js" publishTime="07/07/2011 07:54:59" />
     <file relUrl="bin/ko/System.ServiceModel.DomainServices.Server.resources.dll" publishTime="01/14/2011 14:13:52" />
@@ -139,7 +139,7 @@
     <file relUrl="Controllers/HomeController.cs" publishTime="09/20/2011 13:02:31" />
     <file relUrl="bin/log4net.dll" publishTime="03/30/2006 13:24:28" />
     <file relUrl="Models/OrdersUser.cs" publishTime="09/20/2011 12:36:35" />
-    <file relUrl="ClientBin/VotGESOrders.xap" publishTime="09/26/2011 14:23:36" />
+    <file relUrl="ClientBin/VotGESOrders.xap" publishTime="09/27/2011 10:54:58" />
     <file relUrl="Views/Shared/Site.Master" publishTime="07/07/2011 07:55:00" />
     <file relUrl="Scripts/jquery.validate.min.js" publishTime="07/07/2011 07:55:00" />
     <file relUrl="Services/AuthenticationDomainService.cs" publishTime="07/25/2011 14:04:16" />
@@ -176,6 +176,6 @@
     <file relUrl="bin/es/System.ServiceModel.DomainServices.Hosting.resources.dll" publishTime="01/14/2011 14:13:44" />
     <file relUrl="Services/OrdersDomainService.cs" publishTime="07/25/2011 14:04:16" />
     <file relUrl="Models/AccountModels.cs" publishTime="07/07/2011 07:54:59" />
-    <file relUrl="Web.config" publishTime="09/26/2011 14:24:09" />
+    <file relUrl="Web.config" publishTime="09/27/2011 10:55:06" />
   </publishProfile>
 </publishData>
