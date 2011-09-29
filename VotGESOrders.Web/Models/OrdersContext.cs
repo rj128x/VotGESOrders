@@ -506,6 +506,59 @@ namespace VotGESOrders.Web.Models
 		}
 
 
+		public void RejectReviewOrder(Order order, Guid guid) {
+			Logger.info("Пользователь отменил рассмотрение заявки  №" + order.OrderNumber.ToString(OrderInfo.NFI), Logger.LoggerSource.ordersContext);
+			try {
+				VotGESOrdersEntities context=new VotGESOrdersEntities();
+				Orders orderDB=context.Orders.First(o => o.orderNumber == order.OrderNumber);
+				order.checkPremissions(orderDB, currentUser);
+				if (order.AllowRejectExtendOrder) {
+					orderDB.orderLastUpdate = DateTime.Now;
+					orderDB.orderDateReview = null;
+					orderDB.userReviewOrderID = null;
+					orderDB.reviewText = null;
+					orderDB.orderReviewed = false;
+					orderDB.orderState = OrderStateEnum.created.ToString();
+
+					if (order.OrderIsExtend) {
+						Logger.info("===Продленная заявка", Logger.LoggerSource.ordersContext);
+						Orders parentOrderDB=context.Orders.Include("Users").Where(o => o.orderNumber == order.ParentOrderNumber).First();
+						parentOrderDB.orderLastUpdate = DateTime.Now;
+						parentOrderDB.orderExtended = false;
+						parentOrderDB.orderAskExtended = false;
+						parentOrderDB.orderOpened = true;
+						parentOrderDB.orderState = OrderStateEnum.opened.ToString();
+						parentOrderDB.childOrderNumber = null;
+
+						parentOrderDB.orderCompleted = false;
+						parentOrderDB.orderDateComplete = null;
+						parentOrderDB.completeText = null;
+						parentOrderDB.faktCompleteDate = null;
+						parentOrderDB.userCompleteOrderID = null;
+
+						MailContext.sendMail(String.Format("Заявка №{0}. Продление заявки отклонено", order.ParentOrderNumber.ToString(OrderInfo.NFI)),
+							new Order(parentOrderDB, currentUser, false, null), false, false);
+					}
+
+					context.SaveChanges();
+					LastUpdate.save(guid);
+					Logger.info("===Заявка. Отмена рассмотения. Заявка №" + order.OrderNumber.ToString(OrderInfo.NFI), Logger.LoggerSource.ordersContext);
+
+				} else {
+					throw new DomainException("Нельзя отменить рассмотрение заявки");
+				}
+				order.refreshOrderFromDB(orderDB, currentUser, false, null);
+				MailContext.sendMail(String.Format("Заявка №{0}. Отмена рассмотрения заявки", orderDB.orderNumber.ToString(OrderInfo.NFI)),
+					order, false, false);
+			} catch (Exception e) {
+				Logger.error(String.Format("===Ошибка при отмене рассмотрения заявки №{1}: {0}", e, order.OrderNumber.ToString(OrderInfo.NFI)), Logger.LoggerSource.ordersContext);
+				if (e is DomainException) {
+					throw e;
+				}
+				throw new DomainException(String.Format("Ошибка при запрете заявки №{0}", order.OrderNumber.ToString(OrderInfo.NFI)));
+			}
+		}
+
 
 		public void OpenOrder(Order order, Guid guid) {
 			Logger.info("Пользователь открыл заявку  №" + order.OrderNumber.ToString(OrderInfo.NFI), Logger.LoggerSource.ordersContext);
@@ -540,6 +593,39 @@ namespace VotGESOrders.Web.Models
 			}
 		}
 
+		public void RejectOpenOrder(Order order, Guid guid) {
+			Logger.info("Пользователь отменил открытие заявки  №" + order.OrderNumber.ToString(OrderInfo.NFI), Logger.LoggerSource.ordersContext);
+			try {
+				VotGESOrdersEntities context=new VotGESOrdersEntities();
+				Orders orderDB=context.Orders.First(o => o.orderNumber == order.OrderNumber);
+				order.checkPremissions(orderDB, currentUser);
+				if (order.AllowOpenOrder) {
+					orderDB.orderLastUpdate = DateTime.Now;
+					orderDB.orderDateOpen = null;
+					orderDB.faktStartDate = null;
+					orderDB.userOpenOrderID = null;
+					orderDB.openText = null;
+					orderDB.orderOpened = false;
+					orderDB.orderState = OrderStateEnum.accepted.ToString();
+
+					context.SaveChanges();
+					LastUpdate.save(guid);
+					Logger.info("===Заявка. отмена открытия. Заявка №" + order.OrderNumber.ToString(OrderInfo.NFI), Logger.LoggerSource.ordersContext);
+				} else {
+					throw new DomainException("Нельзя отменить открытие заявки");
+				}
+				order.refreshOrderFromDB(orderDB, currentUser, false, null);
+				MailContext.sendMail(String.Format("Заявка №{0}. Заявка. отмена открытия", orderDB.orderNumber.ToString(OrderInfo.NFI)),
+					order, false, false);
+			} catch (Exception e) {
+				Logger.error(String.Format("===Ошибка при открытии заявки №{1}: {0}", e, order.OrderNumber.ToString(OrderInfo.NFI)), Logger.LoggerSource.ordersContext);
+				if (e is DomainException) {
+					throw e;
+				}
+				throw new DomainException(String.Format("Ошибка при открытии заявки №{0}", order.OrderNumber.ToString(OrderInfo.NFI)));
+			}
+		}
+
 		public void CloseOrder(Order order, Guid guid) {
 			Logger.info("Пользователь разрешил ввод оборудования. Заявка  №" + order.OrderNumber.ToString(OrderInfo.NFI), Logger.LoggerSource.ordersContext);
 			try {
@@ -563,6 +649,39 @@ namespace VotGESOrders.Web.Models
 				}
 				order.refreshOrderFromDB(orderDB, currentUser, false, null);
 				MailContext.sendMail(String.Format("Заявка №{0}. Разрешен ввод оборудования", orderDB.orderNumber.ToString(OrderInfo.NFI)), 
+					order, false, false);
+			} catch (Exception e) {
+				Logger.error(String.Format("===Ошибка при разрешении ввода. Заявка №{1}: {0}", e, order.OrderNumber.ToString(OrderInfo.NFI)), Logger.LoggerSource.ordersContext);
+				if (e is DomainException) {
+					throw e;
+				}
+				throw new DomainException(String.Format("Ошибка при разрешении ввода. Заявка №{0}", order.OrderNumber.ToString(OrderInfo.NFI)));
+			}
+		}
+
+		public void RejectCloseOrder(Order order, Guid guid) {
+			Logger.info("Пользователь отменил разрешение на ввод оборудования. Заявка  №" + order.OrderNumber.ToString(OrderInfo.NFI), Logger.LoggerSource.ordersContext);
+			try {
+				VotGESOrdersEntities context=new VotGESOrdersEntities();
+				Orders orderDB=context.Orders.First(o => o.orderNumber == order.OrderNumber);
+				order.checkPremissions(orderDB, currentUser);
+				if (order.AllowCloseOrder) {
+					orderDB.orderLastUpdate = DateTime.Now;
+					orderDB.orderDateClose = null;
+					orderDB.faktStopDate = null;
+					orderDB.orderClosed = false;
+					orderDB.orderState = null;
+					orderDB.closeText = OrderStateEnum.opened.ToString();
+					orderDB.userCloseOrderID = null;
+
+					context.SaveChanges();
+					LastUpdate.save(guid);
+					Logger.info("===Отменено разрешение на ввод оборудования. Заявка №" + order.OrderNumber.ToString(OrderInfo.NFI), Logger.LoggerSource.ordersContext);
+				} else {
+					throw new DomainException("Нельзя отменить разрешение на ввод оборудования");
+				}
+				order.refreshOrderFromDB(orderDB, currentUser, false, null);
+				MailContext.sendMail(String.Format("Заявка №{0}. Отмена разрешения на ввод оборудования", orderDB.orderNumber.ToString(OrderInfo.NFI)),
 					order, false, false);
 			} catch (Exception e) {
 				Logger.error(String.Format("===Ошибка при разрешении ввода. Заявка №{1}: {0}", e, order.OrderNumber.ToString(OrderInfo.NFI)), Logger.LoggerSource.ordersContext);
@@ -608,12 +727,48 @@ namespace VotGESOrders.Web.Models
 
 					context.SaveChanges();
 					LastUpdate.save(guid);
+					Logger.info("===Заявка. Отмена снятия. Заявка №" + order.OrderNumber.ToString(OrderInfo.NFI), Logger.LoggerSource.ordersContext);
+				} else {
+					throw new DomainException("Нельзя отменить снятие заявки");
+				}
+				order.refreshOrderFromDB(orderDB, currentUser, false, null);
+				MailContext.sendMail(String.Format("Заявка №{0}. Заявка. отмена снятия", orderDB.orderNumber.ToString(OrderInfo.NFI)), 
+					order, false, false);
+			} catch (Exception e) {
+				Logger.error(String.Format("===Ошибка при отмене снятия заявки №{1}: {0}", e, order.OrderNumber.ToString(OrderInfo.NFI)), Logger.LoggerSource.ordersContext);
+				if (e is DomainException) {
+					throw e;
+				}
+				throw new DomainException(String.Format("Ошибка при снятии заявки №{0}", order.OrderNumber.ToString(OrderInfo.NFI)));
+			}
+		}
+
+		public void RejectCancelOrder(Order order, Guid guid) {
+			Logger.info("Пользователь отменил снятие заявки №" + order.OrderNumber.ToString(OrderInfo.NFI), Logger.LoggerSource.ordersContext);
+			try {
+				VotGESOrdersEntities context=new VotGESOrdersEntities();
+				Orders orderDB=context.Orders.First(o => o.orderNumber == order.OrderNumber);
+				order.checkPremissions(orderDB, currentUser);
+				if (order.AllowCancelOrder) {
+					orderDB.orderLastUpdate = DateTime.Now;
+					orderDB.orderDateCancel = null;
+					orderDB.userCancelOrderID = null;
+					orderDB.cancelText = null;
+					orderDB.orderCanceled = false;
+					orderDB.orderState = order.OrderReviewed?OrderStateEnum.accepted.ToString():OrderStateEnum.created.ToString();
+
+					if (order.OrderIsExtend) {
+						throw new DomainException("Нельзя отменить снятие заявки. Заявка продлена");						
+					}
+
+					context.SaveChanges();
+					LastUpdate.save(guid);
 					Logger.info("===Заявка снята. Заявка №" + order.OrderNumber.ToString(OrderInfo.NFI), Logger.LoggerSource.ordersContext);
 				} else {
 					throw new DomainException("Нельзя снять заявку");
 				}
 				order.refreshOrderFromDB(orderDB, currentUser, false, null);
-				MailContext.sendMail(String.Format("Заявка №{0}. Заявка снята", orderDB.orderNumber.ToString(OrderInfo.NFI)), 
+				MailContext.sendMail(String.Format("Заявка №{0}. Заявка снята", orderDB.orderNumber.ToString(OrderInfo.NFI)),
 					order, false, false);
 			} catch (Exception e) {
 				Logger.error(String.Format("===Ошибка при снятии заявки №{1}: {0}", e, order.OrderNumber.ToString(OrderInfo.NFI)), Logger.LoggerSource.ordersContext);
@@ -654,6 +809,38 @@ namespace VotGESOrders.Web.Models
 					throw e;
 				}
 				throw new DomainException(String.Format("Ошибка при вводе оборудования по заявке №{0}", order.OrderNumber.ToString(OrderInfo.NFI)));
+			}
+		}
+
+		public void CompleteOrder(Order order, Guid guid) {
+			Logger.info("Пользователь отменил ввод оборудования. Заявка №" + order.OrderNumber.ToString(OrderInfo.NFI), Logger.LoggerSource.ordersContext);
+			try {
+				VotGESOrdersEntities context=new VotGESOrdersEntities();
+				Orders orderDB=context.Orders.First(o => o.orderNumber == order.OrderNumber);
+				order.checkPremissions(orderDB, currentUser);
+				if (order.AllowCompleteOrder) {
+					orderDB.orderLastUpdate = DateTime.Now;
+					orderDB.orderDateComplete = null;
+					orderDB.orderCompleted = false;
+					orderDB.orderState = OrderStateEnum.closed.ToString();
+					orderDB.completeText = null;
+					orderDB.userCompleteOrderID = null;
+					orderDB.faktCompleteDate = null;
+					context.SaveChanges();
+					LastUpdate.save(guid);
+					Logger.info("===Отмена ввода оборудования. Заявка №" + order.OrderNumber.ToString(OrderInfo.NFI), Logger.LoggerSource.ordersContext);
+				} else {
+					throw new DomainException("Нельзя отменить ввод оборудования");
+				}
+				order.refreshOrderFromDB(orderDB, currentUser, false, null);
+				MailContext.sendMail(String.Format("Заявка №{0}. Заявка. Отмена ввода оборудования", orderDB.orderNumber.ToString(OrderInfo.NFI)),
+					order, false, false);
+			} catch (Exception e) {
+				Logger.error(String.Format("===Ошибка при отмене ввода оборудования по заявке №{1}: {0}", e, order.OrderNumber.ToString(OrderInfo.NFI)), Logger.LoggerSource.ordersContext);
+				if (e is DomainException) {
+					throw e;
+				}
+				throw new DomainException(String.Format("Ошибка при отмене ввода оборудования по заявке №{0}", order.OrderNumber.ToString(OrderInfo.NFI)));
 			}
 		}
 

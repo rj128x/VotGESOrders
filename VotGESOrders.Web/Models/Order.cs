@@ -698,6 +698,11 @@ namespace VotGESOrders.Web.Models
 			AllowExtendOrder = (currentUser.AllowChangeOrder || currentUser.UserID == creator) && OrderState == OrderStateEnum.opened;
 			AllowCancelOrder = (currentUser.UserID == creator && OrderState == OrderStateEnum.created) ||
 				(currentUser.AllowChangeOrder && (OrderState == OrderStateEnum.accepted));
+
+			AllowRejectReviewOrder = currentUser.AllowChangeOrder && (OrderState == OrderStateEnum.accepted || OrderState == OrderStateEnum.banned ||
+				(OrderState == OrderStateEnum.opened && OrderType == OrderTypeEnum.crash || OrderType == OrderTypeEnum.no));
+			AllowRejectOpenOrder = currentUser.AllowChangeOrder && OrderState == OrderStateEnum.opened && OrderType!=OrderTypeEnum.no && OrderType!=OrderTypeEnum.crash;
+			AllowRejectCloseOrder = currentUser.AllowChangeOrder && OrderState == OrderStateEnum.closed;			
 		}
 
 		private void checkExpired() {
@@ -767,6 +772,12 @@ namespace VotGESOrders.Web.Models
 		public bool AllowCompleteWithoutEnterOrder { get; protected set; }
 		public bool AllowExtendOrder { get; protected set; }
 		public bool AllowCancelOrder { get; protected set; }
+
+		public bool AllowRejectReviewOrder { get; protected set; }
+		public bool AllowRejectOpenOrder { get; protected set; }
+		public bool AllowRejectCloseOrder { get; protected set; }
+		public bool AllowRejectCompleteOrder { get; protected set; }
+		public bool AllowRejectCancelOrder { get; protected set; }		
 
 		[Display(Description = "Комментарий (не обязательно)")]
 		public string NewComment { get; set; }
