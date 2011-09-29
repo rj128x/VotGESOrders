@@ -695,8 +695,8 @@ namespace VotGESOrders.Web.Models
 				currentUser.AllowChangeOrder && OrderState == OrderStateEnum.opened;
 			AllowCompleteWithoutEnterOrder = currentUser.AllowChangeOrder && currentUser.AllowCreateCrashOrder && OrderState == OrderStateEnum.closed;
 			AllowCompleteOrder = currentUser.AllowChangeOrder && OrderState == OrderStateEnum.closed;
-			AllowChangeOrder = (currentUser.UserID == creator || currentUser.AllowChangeOrder) && 
-				(OrderState == OrderStateEnum.created||((OrderType==OrderTypeEnum.no||OrderType==OrderTypeEnum.crash)&&OrderState==OrderStateEnum.opened&&!OrderIsFixErrorEnter));
+			AllowChangeOrder = (currentUser.UserID == creator || currentUser.AllowChangeOrder) && OrderState == OrderStateEnum.created||
+				(currentUser.AllowEditOrders && (OrderType==OrderTypeEnum.no||OrderType==OrderTypeEnum.crash)&&OrderState==OrderStateEnum.opened);
 			AllowExtendOrder = (currentUser.AllowChangeOrder || currentUser.UserID == creator) && OrderState == OrderStateEnum.opened;
 			AllowCancelOrder = ((currentUser.UserID == creator || currentUser.AllowChangeOrder) && OrderState == OrderStateEnum.created) ||
 				(currentUser.AllowChangeOrder && (OrderState == OrderStateEnum.accepted));

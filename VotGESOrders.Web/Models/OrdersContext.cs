@@ -327,8 +327,13 @@ namespace VotGESOrders.Web.Models
 					Order parentOrder=new Order(parentOrderDB, currentUser, false, null);
 					parentOrder.checkPremissions(parentOrderDB, currentUser);
 
-					if (!parentOrder.AllowExtendOrder) {
+					if (!parentOrder.AllowExtendOrder && isNew) {
 						throw new DomainException("Заявка уже продлена");
+					}
+
+					if (isNew) {
+						parentOrderDB.orderDateComplete = DateTime.Now;
+						parentOrderDB.userCompleteOrderID = currentUser.UserID;
 					}
 
 					orderDB.userCreateOrderID = parentOrderDB.userCreateOrderID;
@@ -336,12 +341,9 @@ namespace VotGESOrders.Web.Models
 					parentOrderDB.orderLastUpdate = DateTime.Now;
 					parentOrderDB.orderAskExtended = true;
 					parentOrderDB.orderState = OrderStateEnum.askExtended.ToString();
-
-					parentOrderDB.orderCompleted = true;
-					parentOrderDB.orderDateComplete = DateTime.Now;
+					parentOrderDB.orderCompleted = true;					
 					parentOrderDB.completeText = order.CreateText;
-					parentOrderDB.faktCompleteDate = order.PlanStartDate;
-					parentOrderDB.userCompleteOrderID = currentUser.UserID;
+					parentOrderDB.faktCompleteDate = order.PlanStartDate;					
 
 					orderDB.orderIsExtend = true;
 
@@ -359,21 +361,23 @@ namespace VotGESOrders.Web.Models
 					Order parentOrder=new Order(parentOrderDB, currentUser, false, null);
 					parentOrder.checkPremissions(parentOrderDB, currentUser);
 
-					if (!parentOrder.AllowCompleteWithoutEnterOrder) {
+					if (!parentOrder.AllowCompleteWithoutEnterOrder&&isNew) {
 						throw new DomainException("Заявка уже закрыта");
 					}
 
 					orderDB.userCreateOrderID = parentOrderDB.userCreateOrderID;
 
+					if (isNew) {
+						parentOrderDB.orderDateComplete = DateTime.Now;
+						parentOrderDB.userCompleteOrderID = currentUser.UserID;
+					}
+
 					parentOrderDB.orderLastUpdate = DateTime.Now;
 					parentOrderDB.orderCompletedWithoutEnter = true;
-					parentOrderDB.orderCompleted = true;
-					parentOrderDB.orderDateComplete = DateTime.Now;
+					parentOrderDB.orderCompleted = true;					
 					parentOrderDB.completeText = order.CreateText;
 					parentOrderDB.orderState = OrderStateEnum.completedWithoutEnter.ToString();
 					parentOrderDB.faktCompleteDate = order.PlanStartDate;
-					parentOrderDB.userCompleteOrderID = currentUser.UserID;
-
 					orderDB.orderIsFixErrorEnter = true;
 
 					orderDB.parentOrderNumber = order.ParentOrderNumber;
