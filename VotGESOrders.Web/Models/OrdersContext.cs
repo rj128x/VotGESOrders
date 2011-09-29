@@ -512,7 +512,7 @@ namespace VotGESOrders.Web.Models
 				VotGESOrdersEntities context=new VotGESOrdersEntities();
 				Orders orderDB=context.Orders.First(o => o.orderNumber == order.OrderNumber);
 				order.checkPremissions(orderDB, currentUser);
-				if (order.AllowRejectExtendOrder) {
+				if (order.AllowRejectReviewOrder) {
 					orderDB.orderLastUpdate = DateTime.Now;
 					orderDB.orderDateReview = null;
 					orderDB.userReviewOrderID = null;
@@ -599,7 +599,7 @@ namespace VotGESOrders.Web.Models
 				VotGESOrdersEntities context=new VotGESOrdersEntities();
 				Orders orderDB=context.Orders.First(o => o.orderNumber == order.OrderNumber);
 				order.checkPremissions(orderDB, currentUser);
-				if (order.AllowOpenOrder) {
+				if (order.AllowRejectOpenOrder) {
 					orderDB.orderLastUpdate = DateTime.Now;
 					orderDB.orderDateOpen = null;
 					orderDB.faktStartDate = null;
@@ -615,7 +615,7 @@ namespace VotGESOrders.Web.Models
 					throw new DomainException("Нельзя отменить открытие заявки");
 				}
 				order.refreshOrderFromDB(orderDB, currentUser, false, null);
-				MailContext.sendMail(String.Format("Заявка №{0}. Заявка. отмена открытия", orderDB.orderNumber.ToString(OrderInfo.NFI)),
+				MailContext.sendMail(String.Format("Заявка №{0}. Отмена открытия заявки", orderDB.orderNumber.ToString(OrderInfo.NFI)),
 					order, false, false);
 			} catch (Exception e) {
 				Logger.error(String.Format("===Ошибка при открытии заявки №{1}: {0}", e, order.OrderNumber.ToString(OrderInfo.NFI)), Logger.LoggerSource.ordersContext);
@@ -665,7 +665,7 @@ namespace VotGESOrders.Web.Models
 				VotGESOrdersEntities context=new VotGESOrdersEntities();
 				Orders orderDB=context.Orders.First(o => o.orderNumber == order.OrderNumber);
 				order.checkPremissions(orderDB, currentUser);
-				if (order.AllowCloseOrder) {
+				if (order.AllowRejectCloseOrder) {
 					orderDB.orderLastUpdate = DateTime.Now;
 					orderDB.orderDateClose = null;
 					orderDB.faktStopDate = null;
@@ -749,7 +749,7 @@ namespace VotGESOrders.Web.Models
 				VotGESOrdersEntities context=new VotGESOrdersEntities();
 				Orders orderDB=context.Orders.First(o => o.orderNumber == order.OrderNumber);
 				order.checkPremissions(orderDB, currentUser);
-				if (order.AllowCancelOrder) {
+				if (order.AllowRejectCancelOrder) {
 					orderDB.orderLastUpdate = DateTime.Now;
 					orderDB.orderDateCancel = null;
 					orderDB.userCancelOrderID = null;
@@ -812,13 +812,13 @@ namespace VotGESOrders.Web.Models
 			}
 		}
 
-		public void CompleteOrder(Order order, Guid guid) {
+		public void RejectCompleteOrder(Order order, Guid guid) {
 			Logger.info("Пользователь отменил ввод оборудования. Заявка №" + order.OrderNumber.ToString(OrderInfo.NFI), Logger.LoggerSource.ordersContext);
 			try {
 				VotGESOrdersEntities context=new VotGESOrdersEntities();
 				Orders orderDB=context.Orders.First(o => o.orderNumber == order.OrderNumber);
 				order.checkPremissions(orderDB, currentUser);
-				if (order.AllowCompleteOrder) {
+				if (order.AllowRejectCompleteOrder) {
 					orderDB.orderLastUpdate = DateTime.Now;
 					orderDB.orderDateComplete = null;
 					orderDB.orderCompleted = false;
@@ -833,7 +833,7 @@ namespace VotGESOrders.Web.Models
 					throw new DomainException("Нельзя отменить ввод оборудования");
 				}
 				order.refreshOrderFromDB(orderDB, currentUser, false, null);
-				MailContext.sendMail(String.Format("Заявка №{0}. Заявка. Отмена ввода оборудования", orderDB.orderNumber.ToString(OrderInfo.NFI)),
+				MailContext.sendMail(String.Format("Заявка №{0}. Отмена ввода оборудования", orderDB.orderNumber.ToString(OrderInfo.NFI)),
 					order, false, false);
 			} catch (Exception e) {
 				Logger.error(String.Format("===Ошибка при отмене ввода оборудования по заявке №{1}: {0}", e, order.OrderNumber.ToString(OrderInfo.NFI)), Logger.LoggerSource.ordersContext);
@@ -842,7 +842,7 @@ namespace VotGESOrders.Web.Models
 				}
 				throw new DomainException(String.Format("Ошибка при отмене ввода оборудования по заявке №{0}", order.OrderNumber.ToString(OrderInfo.NFI)));
 			}
-		}
+		}		
 
 		public void ReloadOrder(Order order) {
 			Logger.info("Пользователь обновляет заявку №" + order.OrderNumber.ToString(OrderInfo.NFI), Logger.LoggerSource.ordersContext);

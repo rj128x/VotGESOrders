@@ -117,6 +117,16 @@ namespace VotGESOrders.Web.Models
         
         private bool _allowOpenOrder;
         
+        private bool _allowRejectCancelOrder;
+        
+        private bool _allowRejectCloseOrder;
+        
+        private bool _allowRejectCompleteOrder;
+        
+        private bool _allowRejectOpenOrder;
+        
+        private bool _allowRejectReviewOrder;
+        
         private bool _allowReviewOrder;
         
         private string _cancelText;
@@ -284,6 +294,16 @@ namespace VotGESOrders.Web.Models
         partial void OnAllowExtendOrderChanged();
         partial void OnAllowOpenOrderChanging(bool value);
         partial void OnAllowOpenOrderChanged();
+        partial void OnAllowRejectCancelOrderChanging(bool value);
+        partial void OnAllowRejectCancelOrderChanged();
+        partial void OnAllowRejectCloseOrderChanging(bool value);
+        partial void OnAllowRejectCloseOrderChanged();
+        partial void OnAllowRejectCompleteOrderChanging(bool value);
+        partial void OnAllowRejectCompleteOrderChanged();
+        partial void OnAllowRejectOpenOrderChanging(bool value);
+        partial void OnAllowRejectOpenOrderChanged();
+        partial void OnAllowRejectReviewOrderChanging(bool value);
+        partial void OnAllowRejectReviewOrderChanged();
         partial void OnAllowReviewOrderChanging(bool value);
         partial void OnAllowReviewOrderChanged();
         partial void OnCancelTextChanging(string value);
@@ -683,6 +703,131 @@ namespace VotGESOrders.Web.Models
                     this._allowOpenOrder = value;
                     this.RaisePropertyChanged("AllowOpenOrder");
                     this.OnAllowOpenOrderChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "AllowRejectCancelOrder".
+        /// </summary>
+        [DataMember()]
+        [Editable(false)]
+        [ReadOnly(true)]
+        public bool AllowRejectCancelOrder
+        {
+            get
+            {
+                return this._allowRejectCancelOrder;
+            }
+            set
+            {
+                if ((this._allowRejectCancelOrder != value))
+                {
+                    this.OnAllowRejectCancelOrderChanging(value);
+                    this.ValidateProperty("AllowRejectCancelOrder", value);
+                    this._allowRejectCancelOrder = value;
+                    this.RaisePropertyChanged("AllowRejectCancelOrder");
+                    this.OnAllowRejectCancelOrderChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "AllowRejectCloseOrder".
+        /// </summary>
+        [DataMember()]
+        [Editable(false)]
+        [ReadOnly(true)]
+        public bool AllowRejectCloseOrder
+        {
+            get
+            {
+                return this._allowRejectCloseOrder;
+            }
+            set
+            {
+                if ((this._allowRejectCloseOrder != value))
+                {
+                    this.OnAllowRejectCloseOrderChanging(value);
+                    this.ValidateProperty("AllowRejectCloseOrder", value);
+                    this._allowRejectCloseOrder = value;
+                    this.RaisePropertyChanged("AllowRejectCloseOrder");
+                    this.OnAllowRejectCloseOrderChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "AllowRejectCompleteOrder".
+        /// </summary>
+        [DataMember()]
+        [Editable(false)]
+        [ReadOnly(true)]
+        public bool AllowRejectCompleteOrder
+        {
+            get
+            {
+                return this._allowRejectCompleteOrder;
+            }
+            set
+            {
+                if ((this._allowRejectCompleteOrder != value))
+                {
+                    this.OnAllowRejectCompleteOrderChanging(value);
+                    this.ValidateProperty("AllowRejectCompleteOrder", value);
+                    this._allowRejectCompleteOrder = value;
+                    this.RaisePropertyChanged("AllowRejectCompleteOrder");
+                    this.OnAllowRejectCompleteOrderChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "AllowRejectOpenOrder".
+        /// </summary>
+        [DataMember()]
+        [Editable(false)]
+        [ReadOnly(true)]
+        public bool AllowRejectOpenOrder
+        {
+            get
+            {
+                return this._allowRejectOpenOrder;
+            }
+            set
+            {
+                if ((this._allowRejectOpenOrder != value))
+                {
+                    this.OnAllowRejectOpenOrderChanging(value);
+                    this.ValidateProperty("AllowRejectOpenOrder", value);
+                    this._allowRejectOpenOrder = value;
+                    this.RaisePropertyChanged("AllowRejectOpenOrder");
+                    this.OnAllowRejectOpenOrderChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "AllowRejectReviewOrder".
+        /// </summary>
+        [DataMember()]
+        [Editable(false)]
+        [ReadOnly(true)]
+        public bool AllowRejectReviewOrder
+        {
+            get
+            {
+                return this._allowRejectReviewOrder;
+            }
+            set
+            {
+                if ((this._allowRejectReviewOrder != value))
+                {
+                    this.OnAllowRejectReviewOrderChanging(value);
+                    this.ValidateProperty("AllowRejectReviewOrder", value);
+                    this._allowRejectReviewOrder = value;
+                    this.RaisePropertyChanged("AllowRejectReviewOrder");
+                    this.OnAllowRejectReviewOrderChanged();
                 }
             }
         }

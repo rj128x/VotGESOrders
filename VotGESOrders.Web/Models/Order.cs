@@ -694,15 +694,17 @@ namespace VotGESOrders.Web.Models
 				currentUser.AllowChangeOrder && OrderState == OrderStateEnum.opened;
 			AllowCompleteWithoutEnterOrder = currentUser.AllowChangeOrder && currentUser.AllowCreateCrashOrder && OrderState == OrderStateEnum.closed;
 			AllowCompleteOrder = currentUser.AllowChangeOrder && OrderState == OrderStateEnum.closed;
-			AllowChangeOrder = currentUser.UserID == creator && OrderState == OrderStateEnum.created;
+			AllowChangeOrder = (currentUser.UserID == creator || currentUser.AllowChangeOrder) && OrderState == OrderStateEnum.created;
 			AllowExtendOrder = (currentUser.AllowChangeOrder || currentUser.UserID == creator) && OrderState == OrderStateEnum.opened;
 			AllowCancelOrder = (currentUser.UserID == creator && OrderState == OrderStateEnum.created) ||
 				(currentUser.AllowChangeOrder && (OrderState == OrderStateEnum.accepted));
 
-			AllowRejectReviewOrder = currentUser.AllowChangeOrder && (OrderState == OrderStateEnum.accepted || OrderState == OrderStateEnum.banned ||
-				(OrderState == OrderStateEnum.opened && OrderType == OrderTypeEnum.crash || OrderType == OrderTypeEnum.no));
-			AllowRejectOpenOrder = currentUser.AllowChangeOrder && OrderState == OrderStateEnum.opened && OrderType!=OrderTypeEnum.no && OrderType!=OrderTypeEnum.crash;
-			AllowRejectCloseOrder = currentUser.AllowChangeOrder && OrderState == OrderStateEnum.closed;			
+			AllowRejectReviewOrder = currentUser.AllowChangeOrder && (OrderState == OrderStateEnum.accepted || OrderState == OrderStateEnum.banned || 
+				OrderState==OrderStateEnum.opened && OrderIsExtend);
+			AllowRejectOpenOrder = currentUser.AllowChangeOrder && OrderState == OrderStateEnum.opened && !OrderIsExtend && !OrderIsFixErrorEnter;
+			AllowRejectCloseOrder = currentUser.AllowChangeOrder && OrderState == OrderStateEnum.closed;
+			AllowRejectCancelOrder = currentUser.AllowChangeOrder && OrderState == OrderStateEnum.canceled && !OrderIsExtend;
+			AllowRejectCompleteOrder = currentUser.AllowChangeOrder && OrderState == OrderStateEnum.completed;
 		}
 
 		private void checkExpired() {
