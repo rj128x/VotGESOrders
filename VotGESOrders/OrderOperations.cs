@@ -113,6 +113,17 @@ namespace VotGESOrders
 				//context.Orders.Detach(newOrderWindow.CurrentOrder);
 		}
 
+		public void RejectReviewOrder() {
+			GlobalStatus.Current.IsChangingOrder = true;
+			if (MessageBox.Show("Вы уверены что хотите отозвать рассмотрение заявки?", "ОТМЕНА!", MessageBoxButton.OKCancel) == MessageBoxResult.OK) {
+
+				if ((CurrentOrder.OrderIsExtend || CurrentOrder.OrderIsFixErrorEnter) && (CurrentOrder.ParentOrder != null)) {
+					OrdersContext.Current.Context.ReloadOrder(CurrentOrder.ParentOrder, OrdersContext.Current.SessionGUID);
+				}
+				OrdersContext.Current.SubmitChangesCallbackError();
+			}
+		}
+
 		public void initCreate() {
 			GlobalStatus.Current.IsChangingOrder = true;
 			Order newOrder=new Order();

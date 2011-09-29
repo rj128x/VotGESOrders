@@ -232,6 +232,21 @@
 					  Visibility="{Binding AllowExtendOrder, Converter={StaticResource visibilityConverter}}"
 					  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
 
+				<Button Name="btnRejectReview" Click="btnRejectReview_Click" Content="Отменить рассмотрение"
+					  Visibility="{Binding AllowRejectReviewOrder, Converter={StaticResource visibilityConverter}}"
+					  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
+				<Button Name="btnRejectOpen" Click="btnRejectOpen_Click" Content="Отменить открытие"
+					  Visibility="{Binding AllowRejectOpenOrder, Converter={StaticResource visibilityConverter}}"
+					  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
+				<Button Name="btnRejectCancel" Click="btnRejectCancel_Click" Content="Отменить снятие"
+					  Visibility="{Binding AllowRejectCancelOrder, Converter={StaticResource visibilityConverter}}"
+					  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
+				<Button Name="btnRejectClose" Click="btnRejectClose_Click" Content="Отменить разрешение на ввод"
+					  Visibility="{Binding AllowRejectCloseOrder, Converter={StaticResource visibilityConverter}}"
+					  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
+				<Button Name="btnRejectComplete" Click="btnRejectComplete_Click" Content="Отменить закрытие"
+					  Visibility="{Binding AllowRejectCompleteOrder, Converter={StaticResource visibilityConverter}}"
+					  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
 			</StackPanel>
 		</StackPanel>
 	</Grid>

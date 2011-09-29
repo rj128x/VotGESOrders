@@ -51,6 +51,26 @@ namespace VotGESOrders.Views
 
 		private void btnCompleteWithoutEnter_Click(object sender, RoutedEventArgs e) {
 			OrderOperations.Current.initCompleteWithoutEnter();
+		}
+
+		private void btnRejectReview_Click(object sender, RoutedEventArgs e) {
+
+		}
+
+		private void btnRejectOpen_Click(object sender, RoutedEventArgs e) {
+
+		}
+
+		private void btnRejectCancel_Click(object sender, RoutedEventArgs e) {
+
+		}
+
+		private void btnRejectClose_Click(object sender, RoutedEventArgs e) {
+
+		}
+
+		private void btnRejectComplete_Click(object sender, RoutedEventArgs e) {
+
 		}		
 		
 	}
