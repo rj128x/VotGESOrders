@@ -29,6 +29,7 @@ namespace VotGESOrders.Web.Models
 		public bool AllowChangeOrder { get; set; }
 		public bool AllowEditTree { get; set; }
 		public bool AllowEditUsers { get; set; }
+		public bool AllowEditOrders { get; set; }
 		public bool AllowAgreeOrders { get; set; }
 
 		protected static VotGESOrdersEntities context;
@@ -98,6 +99,7 @@ namespace VotGESOrders.Web.Models
 				user.AllowChangeOrder = userDB.allowChangeOrder;
 				user.AllowEditTree = userDB.allowEditTree;
 				user.AllowEditUsers = userDB.allowEditUsers;
+				user.AllowEditOrders = userDB.allowEditOrders;
 				user.AllowAgreeOrders = userDB.allowAgreeOrders;
 				return user;
 			} catch (Exception e) {

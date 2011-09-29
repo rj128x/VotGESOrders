@@ -107,6 +107,9 @@
 						<toolkit:DataField Name="AllowEditUsers" Label="">
 							<CheckBox Content="Может редактировать пользователей" IsChecked="{Binding AllowEditUsers,Mode=TwoWay}"/>
 						</toolkit:DataField>
+						<toolkit:DataField Name="AllowEditOrders" Label="">
+							<CheckBox Content="Может редактировать заявки" IsChecked="{Binding AllowEditOrders,Mode=TwoWay}"/>
+						</toolkit:DataField>
 						<toolkit:DataField Name="AllowAgreeOrders" Label="">
 							<CheckBox Content="Может согласовывать заявки" IsChecked="{Binding AllowAgreeOrders,Mode=TwoWay}"/>
 						</toolkit:DataField>

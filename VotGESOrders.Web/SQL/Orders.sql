@@ -32,6 +32,7 @@ CREATE TABLE [dbo].[Users](
 	[allowChangeOrder] [bit] NOT NULL,/*пользователь может изменить заявку*/
 	[allowEditTree] [bit] NOT NULL,/*пользователь может редактировать дерево оборудования*/
 	[allowEditUsers][bit] NOT NULL,/*пользователь может редактировать дерево список пользователей*/
+	[allowEditOrders][bit] NOT NULL,/*пользователь может редактировать дерево список пользователей*/
 	[allowAgreeOrders][bit] NOT NULL,/*пользователь может согласовывать заявку*/
 	
  CONSTRAINT [PK_Users] PRIMARY KEY CLUSTERED 

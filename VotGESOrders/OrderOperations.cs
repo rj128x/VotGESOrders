@@ -116,7 +116,51 @@ namespace VotGESOrders
 		public void RejectReviewOrder() {
 			GlobalStatus.Current.IsChangingOrder = true;
 			if (MessageBox.Show("Вы уверены что хотите отозвать рассмотрение заявки?", "ОТМЕНА!", MessageBoxButton.OKCancel) == MessageBoxResult.OK) {
+				OrdersContext.Current.Context.RegisterRejectReviewOrder(CurrentOrder, OrdersContext.Current.SessionGUID);
+				if ((CurrentOrder.OrderIsExtend || CurrentOrder.OrderIsFixErrorEnter) && (CurrentOrder.ParentOrder != null)) {
+					OrdersContext.Current.Context.ReloadOrder(CurrentOrder.ParentOrder, OrdersContext.Current.SessionGUID);
+				}
+				OrdersContext.Current.SubmitChangesCallbackError();
+			}
+		}
 
+		public void RejectOpenOrder() {
+			GlobalStatus.Current.IsChangingOrder = true;
+			if (MessageBox.Show("Вы уверены что хотите отозвать открытия заявки?", "ОТМЕНА!", MessageBoxButton.OKCancel) == MessageBoxResult.OK) {
+				OrdersContext.Current.Context.RegisterRejectOpenOrder(CurrentOrder, OrdersContext.Current.SessionGUID);
+				if ((CurrentOrder.OrderIsExtend || CurrentOrder.OrderIsFixErrorEnter) && (CurrentOrder.ParentOrder != null)) {
+					OrdersContext.Current.Context.ReloadOrder(CurrentOrder.ParentOrder, OrdersContext.Current.SessionGUID);
+				}
+				OrdersContext.Current.SubmitChangesCallbackError();
+			}
+		}
+
+		public void RejectCloseOrder() {
+			GlobalStatus.Current.IsChangingOrder = true;
+			if (MessageBox.Show("Вы уверены что хотите отозвать разрешение на ввод?", "ОТМЕНА!", MessageBoxButton.OKCancel) == MessageBoxResult.OK) {
+				OrdersContext.Current.Context.RegisterRejectCloseOrder(CurrentOrder, OrdersContext.Current.SessionGUID);
+				if ((CurrentOrder.OrderIsExtend || CurrentOrder.OrderIsFixErrorEnter) && (CurrentOrder.ParentOrder != null)) {
+					OrdersContext.Current.Context.ReloadOrder(CurrentOrder.ParentOrder, OrdersContext.Current.SessionGUID);
+				}
+				OrdersContext.Current.SubmitChangesCallbackError();
+			}
+		}
+
+		public void RejectCompleteOrder() {
+			GlobalStatus.Current.IsChangingOrder = true;
+			if (MessageBox.Show("Вы уверены что хотите отозвать закрытие заявки?", "ОТМЕНА!", MessageBoxButton.OKCancel) == MessageBoxResult.OK) {
+				OrdersContext.Current.Context.RegisterRejectCompleteOrder(CurrentOrder, OrdersContext.Current.SessionGUID);
+				if ((CurrentOrder.OrderIsExtend || CurrentOrder.OrderIsFixErrorEnter) && (CurrentOrder.ParentOrder != null)) {
+					OrdersContext.Current.Context.ReloadOrder(CurrentOrder.ParentOrder, OrdersContext.Current.SessionGUID);
+				}
+				OrdersContext.Current.SubmitChangesCallbackError();
+			}
+		}
+
+		public void RejectCancelOrder() {
+			GlobalStatus.Current.IsChangingOrder = true;
+			if (MessageBox.Show("Вы уверены что хотите отозвать снятие заявки?", "ОТМЕНА!", MessageBoxButton.OKCancel) == MessageBoxResult.OK) {
+				OrdersContext.Current.Context.RegisterRejectCancelOrder(CurrentOrder, OrdersContext.Current.SessionGUID);
 				if ((CurrentOrder.OrderIsExtend || CurrentOrder.OrderIsFixErrorEnter) && (CurrentOrder.ParentOrder != null)) {
 					OrdersContext.Current.Context.ReloadOrder(CurrentOrder.ParentOrder, OrdersContext.Current.SessionGUID);
 				}
@@ -143,6 +187,7 @@ namespace VotGESOrders
 		public void initChange() {
 			GlobalStatus.Current.IsChangingOrder = true;
 			newOrderWindow.CurrentOrder = CurrentOrder;
+			CurrentOrder.OrderState = OrderStateEnum.created;
 			if (CurrentOrder.ParentOrder != null) {
 				newOrderWindow.ParentOrder = CurrentOrder.ParentOrder;
 			}

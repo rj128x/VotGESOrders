@@ -686,6 +686,7 @@ namespace VotGESOrders.Web.Models
 			OrderIsFixErrorEnter = dbOrder.orderIsFixErrorEnter;
 
 			OrderState = (OrderStateEnum)Enum.Parse(typeof(OrderStateEnum), dbOrder.orderState, true);
+			OrderType = (OrderTypeEnum)Enum.Parse(typeof(OrderTypeEnum), dbOrder.orderType, true);
 
 			int creator=dbOrder.userCreateOrderID;
 			AllowReviewOrder = currentUser.AllowReviewOrder && OrderState == OrderStateEnum.created;
@@ -694,17 +695,20 @@ namespace VotGESOrders.Web.Models
 				currentUser.AllowChangeOrder && OrderState == OrderStateEnum.opened;
 			AllowCompleteWithoutEnterOrder = currentUser.AllowChangeOrder && currentUser.AllowCreateCrashOrder && OrderState == OrderStateEnum.closed;
 			AllowCompleteOrder = currentUser.AllowChangeOrder && OrderState == OrderStateEnum.closed;
-			AllowChangeOrder = (currentUser.UserID == creator || currentUser.AllowChangeOrder) && OrderState == OrderStateEnum.created;
+			AllowChangeOrder = (currentUser.UserID == creator || currentUser.AllowChangeOrder) && 
+				(OrderState == OrderStateEnum.created||((OrderType==OrderTypeEnum.no||OrderType==OrderTypeEnum.crash)&&OrderState==OrderStateEnum.opened&&!OrderIsFixErrorEnter));
 			AllowExtendOrder = (currentUser.AllowChangeOrder || currentUser.UserID == creator) && OrderState == OrderStateEnum.opened;
-			AllowCancelOrder = (currentUser.UserID == creator && OrderState == OrderStateEnum.created) ||
+			AllowCancelOrder = ((currentUser.UserID == creator || currentUser.AllowChangeOrder) && OrderState == OrderStateEnum.created) ||
 				(currentUser.AllowChangeOrder && (OrderState == OrderStateEnum.accepted));
 
-			AllowRejectReviewOrder = currentUser.AllowChangeOrder && (OrderState == OrderStateEnum.accepted || OrderState == OrderStateEnum.banned || 
+			AllowRejectReviewOrder = currentUser.AllowEditOrders && (OrderState == OrderStateEnum.accepted || OrderState == OrderStateEnum.banned && !OrderIsExtend || 
 				OrderState==OrderStateEnum.opened && OrderIsExtend);
-			AllowRejectOpenOrder = currentUser.AllowChangeOrder && OrderState == OrderStateEnum.opened && !OrderIsExtend && !OrderIsFixErrorEnter;
-			AllowRejectCloseOrder = currentUser.AllowChangeOrder && OrderState == OrderStateEnum.closed;
-			AllowRejectCancelOrder = currentUser.AllowChangeOrder && OrderState == OrderStateEnum.canceled && !OrderIsExtend;
-			AllowRejectCompleteOrder = currentUser.AllowChangeOrder && OrderState == OrderStateEnum.completed;
+			AllowRejectOpenOrder = currentUser.AllowEditOrders && OrderState == OrderStateEnum.opened && !OrderIsExtend && !OrderIsFixErrorEnter && 
+				!OrderExtended && !OrderAskExtended &&
+				OrderType != OrderTypeEnum.crash && OrderType != OrderTypeEnum.no;
+			AllowRejectCloseOrder = currentUser.AllowEditOrders && OrderState == OrderStateEnum.closed;
+			AllowRejectCancelOrder = currentUser.AllowEditOrders && OrderState == OrderStateEnum.canceled && !OrderIsExtend;
+			AllowRejectCompleteOrder = currentUser.AllowEditOrders && OrderState == OrderStateEnum.completed;
 		}
 
 		private void checkExpired() {

@@ -442,6 +442,16 @@ namespace VotGESOrders.Web.Models
         partial void OnRegisterNewInvoked();
         partial void OnRegisterOpenOrderInvoking(Guid guid);
         partial void OnRegisterOpenOrderInvoked();
+        partial void OnRegisterRejectCancelOrderInvoking(Guid guid);
+        partial void OnRegisterRejectCancelOrderInvoked();
+        partial void OnRegisterRejectCloseOrderInvoking(Guid guid);
+        partial void OnRegisterRejectCloseOrderInvoked();
+        partial void OnRegisterRejectCompleteOrderInvoking(Guid guid);
+        partial void OnRegisterRejectCompleteOrderInvoked();
+        partial void OnRegisterRejectOpenOrderInvoking(Guid guid);
+        partial void OnRegisterRejectOpenOrderInvoked();
+        partial void OnRegisterRejectReviewOrderInvoking(Guid guid);
+        partial void OnRegisterRejectReviewOrderInvoked();
         partial void OnReloadOrderInvoking(Guid guid);
         partial void OnReloadOrderInvoked();
 
@@ -2762,6 +2772,126 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
+        /// Возвращает значение, указывающее, может ли действие "RegisterRejectCancelOrder" быть вызвано для данной сущности.
+        /// </summary>
+        [Display(AutoGenerateField=false)]
+        public bool IsRegisterRejectCancelOrderInvoked
+        {
+            get
+            {
+                return base.IsActionInvoked("RegisterRejectCancelOrder");
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает значение, указывающее, может ли вызываться метод "RegisterRejectCancelOrder" для данной сущности.
+        /// </summary>
+        [Display(AutoGenerateField=false)]
+        public bool CanRegisterRejectCancelOrder
+        {
+            get
+            {
+                return base.CanInvokeAction("RegisterRejectCancelOrder");
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает значение, указывающее, может ли действие "RegisterRejectCloseOrder" быть вызвано для данной сущности.
+        /// </summary>
+        [Display(AutoGenerateField=false)]
+        public bool IsRegisterRejectCloseOrderInvoked
+        {
+            get
+            {
+                return base.IsActionInvoked("RegisterRejectCloseOrder");
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает значение, указывающее, может ли вызываться метод "RegisterRejectCloseOrder" для данной сущности.
+        /// </summary>
+        [Display(AutoGenerateField=false)]
+        public bool CanRegisterRejectCloseOrder
+        {
+            get
+            {
+                return base.CanInvokeAction("RegisterRejectCloseOrder");
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает значение, указывающее, может ли действие "RegisterRejectCompleteOrder" быть вызвано для данной сущности.
+        /// </summary>
+        [Display(AutoGenerateField=false)]
+        public bool IsRegisterRejectCompleteOrderInvoked
+        {
+            get
+            {
+                return base.IsActionInvoked("RegisterRejectCompleteOrder");
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает значение, указывающее, может ли вызываться метод "RegisterRejectCompleteOrder" для данной сущности.
+        /// </summary>
+        [Display(AutoGenerateField=false)]
+        public bool CanRegisterRejectCompleteOrder
+        {
+            get
+            {
+                return base.CanInvokeAction("RegisterRejectCompleteOrder");
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает значение, указывающее, может ли действие "RegisterRejectOpenOrder" быть вызвано для данной сущности.
+        /// </summary>
+        [Display(AutoGenerateField=false)]
+        public bool IsRegisterRejectOpenOrderInvoked
+        {
+            get
+            {
+                return base.IsActionInvoked("RegisterRejectOpenOrder");
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает значение, указывающее, может ли вызываться метод "RegisterRejectOpenOrder" для данной сущности.
+        /// </summary>
+        [Display(AutoGenerateField=false)]
+        public bool CanRegisterRejectOpenOrder
+        {
+            get
+            {
+                return base.CanInvokeAction("RegisterRejectOpenOrder");
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает значение, указывающее, может ли действие "RegisterRejectReviewOrder" быть вызвано для данной сущности.
+        /// </summary>
+        [Display(AutoGenerateField=false)]
+        public bool IsRegisterRejectReviewOrderInvoked
+        {
+            get
+            {
+                return base.IsActionInvoked("RegisterRejectReviewOrder");
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает значение, указывающее, может ли вызываться метод "RegisterRejectReviewOrder" для данной сущности.
+        /// </summary>
+        [Display(AutoGenerateField=false)]
+        public bool CanRegisterRejectReviewOrder
+        {
+            get
+            {
+                return base.CanInvokeAction("RegisterRejectReviewOrder");
+            }
+        }
+        
+        /// <summary>
         /// Возвращает значение, указывающее, может ли действие "ReloadOrder" быть вызвано для данной сущности.
         /// </summary>
         [Display(AutoGenerateField=false)]
@@ -2928,6 +3058,61 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
+        /// Вызывает действие "RegisterRejectCancelOrder" для данной сущности.
+        /// </summary>
+        /// <param name="guid">Значение, передаваемое параметру серверного метода (method's) "guid".</param>
+        public void RegisterRejectCancelOrder(Guid guid)
+        {
+            this.OnRegisterRejectCancelOrderInvoking(guid);
+            base.InvokeAction("RegisterRejectCancelOrder", guid);
+            this.OnRegisterRejectCancelOrderInvoked();
+        }
+        
+        /// <summary>
+        /// Вызывает действие "RegisterRejectCloseOrder" для данной сущности.
+        /// </summary>
+        /// <param name="guid">Значение, передаваемое параметру серверного метода (method's) "guid".</param>
+        public void RegisterRejectCloseOrder(Guid guid)
+        {
+            this.OnRegisterRejectCloseOrderInvoking(guid);
+            base.InvokeAction("RegisterRejectCloseOrder", guid);
+            this.OnRegisterRejectCloseOrderInvoked();
+        }
+        
+        /// <summary>
+        /// Вызывает действие "RegisterRejectCompleteOrder" для данной сущности.
+        /// </summary>
+        /// <param name="guid">Значение, передаваемое параметру серверного метода (method's) "guid".</param>
+        public void RegisterRejectCompleteOrder(Guid guid)
+        {
+            this.OnRegisterRejectCompleteOrderInvoking(guid);
+            base.InvokeAction("RegisterRejectCompleteOrder", guid);
+            this.OnRegisterRejectCompleteOrderInvoked();
+        }
+        
+        /// <summary>
+        /// Вызывает действие "RegisterRejectOpenOrder" для данной сущности.
+        /// </summary>
+        /// <param name="guid">Значение, передаваемое параметру серверного метода (method's) "guid".</param>
+        public void RegisterRejectOpenOrder(Guid guid)
+        {
+            this.OnRegisterRejectOpenOrderInvoking(guid);
+            base.InvokeAction("RegisterRejectOpenOrder", guid);
+            this.OnRegisterRejectOpenOrderInvoked();
+        }
+        
+        /// <summary>
+        /// Вызывает действие "RegisterRejectReviewOrder" для данной сущности.
+        /// </summary>
+        /// <param name="guid">Значение, передаваемое параметру серверного метода (method's) "guid".</param>
+        public void RegisterRejectReviewOrder(Guid guid)
+        {
+            this.OnRegisterRejectReviewOrderInvoking(guid);
+            base.InvokeAction("RegisterRejectReviewOrder", guid);
+            this.OnRegisterRejectReviewOrderInvoked();
+        }
+        
+        /// <summary>
         /// Вызывает действие "ReloadOrder" для данной сущности.
         /// </summary>
         /// <param name="guid">Значение, передаваемое параметру серверного метода (method's) "guid".</param>
@@ -2948,6 +3133,11 @@ namespace VotGESOrders.Web.Models
             base.UpdateActionState("RegisterCompleteOrder", "CanRegisterCompleteOrder", "IsRegisterCompleteOrderInvoked");
             base.UpdateActionState("RegisterNew", "CanRegisterNew", "IsRegisterNewInvoked");
             base.UpdateActionState("RegisterOpenOrder", "CanRegisterOpenOrder", "IsRegisterOpenOrderInvoked");
+            base.UpdateActionState("RegisterRejectCancelOrder", "CanRegisterRejectCancelOrder", "IsRegisterRejectCancelOrderInvoked");
+            base.UpdateActionState("RegisterRejectCloseOrder", "CanRegisterRejectCloseOrder", "IsRegisterRejectCloseOrderInvoked");
+            base.UpdateActionState("RegisterRejectCompleteOrder", "CanRegisterRejectCompleteOrder", "IsRegisterRejectCompleteOrderInvoked");
+            base.UpdateActionState("RegisterRejectOpenOrder", "CanRegisterRejectOpenOrder", "IsRegisterRejectOpenOrderInvoked");
+            base.UpdateActionState("RegisterRejectReviewOrder", "CanRegisterRejectReviewOrder", "IsRegisterRejectReviewOrderInvoked");
             base.UpdateActionState("ReloadOrder", "CanReloadOrder", "IsReloadOrderInvoked");
         }
     }
@@ -3303,6 +3493,8 @@ namespace VotGESOrders.Web.Models
         
         private bool _allowCreateOrder;
         
+        private bool _allowEditOrders;
+        
         private bool _allowEditTree;
         
         private bool _allowEditUsers;
@@ -3342,6 +3534,8 @@ namespace VotGESOrders.Web.Models
         partial void OnAllowCreateCrashOrderChanged();
         partial void OnAllowCreateOrderChanging(bool value);
         partial void OnAllowCreateOrderChanged();
+        partial void OnAllowEditOrdersChanging(bool value);
+        partial void OnAllowEditOrdersChanged();
         partial void OnAllowEditTreeChanging(bool value);
         partial void OnAllowEditTreeChanged();
         partial void OnAllowEditUsersChanging(bool value);
@@ -3474,6 +3668,30 @@ namespace VotGESOrders.Web.Models
                     this._allowCreateOrder = value;
                     this.RaiseDataMemberChanged("AllowCreateOrder");
                     this.OnAllowCreateOrderChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "AllowEditOrders".
+        /// </summary>
+        [DataMember()]
+        public bool AllowEditOrders
+        {
+            get
+            {
+                return this._allowEditOrders;
+            }
+            set
+            {
+                if ((this._allowEditOrders != value))
+                {
+                    this.OnAllowEditOrdersChanging(value);
+                    this.RaiseDataMemberChanging("AllowEditOrders");
+                    this.ValidateProperty("AllowEditOrders", value);
+                    this._allowEditOrders = value;
+                    this.RaiseDataMemberChanged("AllowEditOrders");
+                    this.OnAllowEditOrdersChanged();
                 }
             }
         }
@@ -4483,6 +4701,56 @@ namespace VotGESOrders.Web.Services
         public void RegisterCompleteOrder(Order order, Guid guid)
         {
             order.RegisterCompleteOrder(guid);
+        }
+        
+        /// <summary>
+        /// Вызывает метод "RegisterRejectReviewOrder" указанной сущности <see cref="Order"/>.
+        /// </summary>
+        /// <param name="order">Экземпляр сущности <see cref="Order"/>.</param>
+        /// <param name="guid">Значение параметра "guid" для данного действия.</param>
+        public void RegisterRejectReviewOrder(Order order, Guid guid)
+        {
+            order.RegisterRejectReviewOrder(guid);
+        }
+        
+        /// <summary>
+        /// Вызывает метод "RegisterRejectCancelOrder" указанной сущности <see cref="Order"/>.
+        /// </summary>
+        /// <param name="order">Экземпляр сущности <see cref="Order"/>.</param>
+        /// <param name="guid">Значение параметра "guid" для данного действия.</param>
+        public void RegisterRejectCancelOrder(Order order, Guid guid)
+        {
+            order.RegisterRejectCancelOrder(guid);
+        }
+        
+        /// <summary>
+        /// Вызывает метод "RegisterRejectOpenOrder" указанной сущности <see cref="Order"/>.
+        /// </summary>
+        /// <param name="order">Экземпляр сущности <see cref="Order"/>.</param>
+        /// <param name="guid">Значение параметра "guid" для данного действия.</param>
+        public void RegisterRejectOpenOrder(Order order, Guid guid)
+        {
+            order.RegisterRejectOpenOrder(guid);
+        }
+        
+        /// <summary>
+        /// Вызывает метод "RegisterRejectCloseOrder" указанной сущности <see cref="Order"/>.
+        /// </summary>
+        /// <param name="order">Экземпляр сущности <see cref="Order"/>.</param>
+        /// <param name="guid">Значение параметра "guid" для данного действия.</param>
+        public void RegisterRejectCloseOrder(Order order, Guid guid)
+        {
+            order.RegisterRejectCloseOrder(guid);
+        }
+        
+        /// <summary>
+        /// Вызывает метод "RegisterRejectCompleteOrder" указанной сущности <see cref="Order"/>.
+        /// </summary>
+        /// <param name="order">Экземпляр сущности <see cref="Order"/>.</param>
+        /// <param name="guid">Значение параметра "guid" для данного действия.</param>
+        public void RegisterRejectCompleteOrder(Order order, Guid guid)
+        {
+            order.RegisterRejectCompleteOrder(guid);
         }
         
         /// <summary>

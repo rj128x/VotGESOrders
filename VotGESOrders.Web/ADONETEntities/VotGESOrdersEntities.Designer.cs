@@ -1798,7 +1798,8 @@ namespace VotGESOrders.Web.ADONETEntities
         /// <param name="allowAgreeOrders">Исходное значение свойства allowAgreeOrders.</param>
         /// <param name="sendAllCreateMail">Исходное значение свойства sendAllCreateMail.</param>
         /// <param name="sendAllAgreeMail">Исходное значение свойства sendAllAgreeMail.</param>
-        public static Users CreateUsers(global::System.Int32 userID, global::System.String name, global::System.String fullName, global::System.String mail, global::System.Boolean sendAllMail, global::System.Boolean sendAgreeMail, global::System.Boolean sendCreateMail, global::System.Boolean allowCreateOrder, global::System.Boolean allowCreateCrashOrder, global::System.Boolean allowReviewOrder, global::System.Boolean allowChangeOrder, global::System.Boolean allowEditTree, global::System.Boolean allowEditUsers, global::System.Boolean allowAgreeOrders, global::System.Boolean sendAllCreateMail, global::System.Boolean sendAllAgreeMail)
+        /// <param name="allowEditOrders">Исходное значение свойства allowEditOrders.</param>
+        public static Users CreateUsers(global::System.Int32 userID, global::System.String name, global::System.String fullName, global::System.String mail, global::System.Boolean sendAllMail, global::System.Boolean sendAgreeMail, global::System.Boolean sendCreateMail, global::System.Boolean allowCreateOrder, global::System.Boolean allowCreateCrashOrder, global::System.Boolean allowReviewOrder, global::System.Boolean allowChangeOrder, global::System.Boolean allowEditTree, global::System.Boolean allowEditUsers, global::System.Boolean allowAgreeOrders, global::System.Boolean sendAllCreateMail, global::System.Boolean sendAllAgreeMail, global::System.Boolean allowEditOrders)
         {
             Users users = new Users();
             users.userID = userID;
@@ -1817,6 +1818,7 @@ namespace VotGESOrders.Web.ADONETEntities
             users.allowAgreeOrders = allowAgreeOrders;
             users.sendAllCreateMail = sendAllCreateMail;
             users.sendAllAgreeMail = sendAllAgreeMail;
+            users.allowEditOrders = allowEditOrders;
             return users;
         }
 
@@ -2209,6 +2211,30 @@ namespace VotGESOrders.Web.ADONETEntities
         private global::System.Boolean _sendAllAgreeMail;
         partial void OnsendAllAgreeMailChanging(global::System.Boolean value);
         partial void OnsendAllAgreeMailChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean allowEditOrders
+        {
+            get
+            {
+                return _allowEditOrders;
+            }
+            set
+            {
+                OnallowEditOrdersChanging(value);
+                ReportPropertyChanging("allowEditOrders");
+                _allowEditOrders = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("allowEditOrders");
+                OnallowEditOrdersChanged();
+            }
+        }
+        private global::System.Boolean _allowEditOrders;
+        partial void OnallowEditOrdersChanging(global::System.Boolean value);
+        partial void OnallowEditOrdersChanged();
 
         #endregion
     

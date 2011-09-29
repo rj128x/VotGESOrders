@@ -88,6 +88,30 @@ namespace VotGESOrders.Web.Services
 			context.CompleteOrder(order, guid);
 		}
 
+		public void RegisterRejectReviewOrder(Order order, Guid guid) {
+			Logger.info("отмена рассмотрения заявки " + order.OrderNumber.ToString(), Logger.LoggerSource.service);
+			context.RejectReviewOrder(order, guid);
+		}
+
+		public void RegisterRejectCancelOrder(Order order, Guid guid) {
+			Logger.info("отмена снятия заявки " + order.OrderNumber.ToString(), Logger.LoggerSource.service);
+			context.RejectCancelOrder(order, guid);
+		}
+
+		public void RegisterRejectOpenOrder(Order order, Guid guid) {
+			Logger.info("отмена открытия заявки " + order.OrderNumber.ToString(), Logger.LoggerSource.service);
+			context.RejectOpenOrder(order, guid);
+		}
+
+		public void RegisterRejectCloseOrder(Order order, Guid guid) {
+			Logger.info("отмена разрешения на ввод заявки " + order.OrderNumber.ToString(), Logger.LoggerSource.service);
+			context.RejectCloseOrder(order, guid);
+		}
+
+		public void RegisterRejectCompleteOrder(Order order, Guid guid) {
+			Logger.info("отмена закрытия заявки " + order.OrderNumber.ToString(), Logger.LoggerSource.service);
+			context.RejectCompleteOrder(order, guid);
+		}
 
 		public void ReloadOrder(Order order, Guid guid) {
 			Logger.info("обновление заявки" + order.OrderNumber.ToString(), Logger.LoggerSource.service);

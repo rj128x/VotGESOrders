@@ -54,23 +54,23 @@ namespace VotGESOrders.Views
 		}
 
 		private void btnRejectReview_Click(object sender, RoutedEventArgs e) {
-
+			OrderOperations.Current.RejectReviewOrder();
 		}
 
 		private void btnRejectOpen_Click(object sender, RoutedEventArgs e) {
-
+			OrderOperations.Current.RejectOpenOrder();
 		}
 
 		private void btnRejectCancel_Click(object sender, RoutedEventArgs e) {
-
+			OrderOperations.Current.RejectCancelOrder();
 		}
 
 		private void btnRejectClose_Click(object sender, RoutedEventArgs e) {
-
+			OrderOperations.Current.RejectCloseOrder();
 		}
 
 		private void btnRejectComplete_Click(object sender, RoutedEventArgs e) {
-
+			OrderOperations.Current.RejectCompleteOrder();
 		}		
 		
 	}
