@@ -28,7 +28,9 @@ namespace VotGESOrders
 			newOrderWindow = new NewOrderWindow();
 			acceptWindow = new AcceptWindow();
 			dateOperationWindow = new OrderDateOperationWindow();
+			editOrderWindow = new EditOrderWindow();
 			newOrderWindow.Closed += new EventHandler(window_Closed);
+			editOrderWindow.Closed += new EventHandler(window_Closed);
 			acceptWindow.Closed += new EventHandler(window_Closed);
 			dateOperationWindow.Closed += new EventHandler(window_Closed);
 
@@ -45,6 +47,7 @@ namespace VotGESOrders
 		}
 
 		private NewOrderWindow newOrderWindow;
+		private EditOrderWindow editOrderWindow;
 		private AcceptWindow acceptWindow;
 		private OrderDateOperationWindow dateOperationWindow;
 		
@@ -113,6 +116,11 @@ namespace VotGESOrders
 				//context.Orders.Detach(newOrderWindow.CurrentOrder);
 		}
 
+		public void ApplyEdit(Order currentOrder) {
+			OrdersContext.Current.Context.RegisterEditOrder(currentOrder, OrdersContext.Current.SessionGUID);
+			OrdersContext.Current.SubmitChangesCallbackError();
+		}
+
 		public void RejectReviewOrder() {
 			GlobalStatus.Current.IsChangingOrder = true;
 			if (MessageBox.Show("Вы уверены что хотите отозвать рассмотрение заявки?", "ОТМЕНА!", MessageBoxButton.OKCancel) == MessageBoxResult.OK) {
@@ -126,7 +134,7 @@ namespace VotGESOrders
 
 		public void RejectOpenOrder() {
 			GlobalStatus.Current.IsChangingOrder = true;
-			if (MessageBox.Show("Вы уверены что хотите отозвать открытия заявки?", "ОТМЕНА!", MessageBoxButton.OKCancel) == MessageBoxResult.OK) {
+			if (MessageBox.Show("Вы уверены что хотите отозвать открытие заявки?", "ОТМЕНА!", MessageBoxButton.OKCancel) == MessageBoxResult.OK) {
 				OrdersContext.Current.Context.RegisterRejectOpenOrder(CurrentOrder, OrdersContext.Current.SessionGUID);
 				if ((CurrentOrder.OrderIsExtend || CurrentOrder.OrderIsFixErrorEnter) && (CurrentOrder.ParentOrder != null)) {
 					OrdersContext.Current.Context.ReloadOrder(CurrentOrder.ParentOrder, OrdersContext.Current.SessionGUID);
@@ -193,6 +201,13 @@ namespace VotGESOrders
 			}
 			newOrderWindow.IsNewOrder = false;
 			newOrderWindow.Show();
+		}
+
+		public void initEdit() {
+			GlobalStatus.Current.IsChangingOrder = true;
+			CurrentOrder.ManualEdit = true;
+			editOrderWindow.CurrentOrder = CurrentOrder;
+			editOrderWindow.Show();
 		}
 
 		public void initAccept() {

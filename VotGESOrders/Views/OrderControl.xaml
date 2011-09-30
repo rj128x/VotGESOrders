@@ -232,21 +232,26 @@
 					  Visibility="{Binding AllowExtendOrder, Converter={StaticResource visibilityConverter}}"
 					  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
 
-				<Button Name="btnRejectReview" Click="btnRejectReview_Click" Content="Отменить рассмотрение"
+				<StackPanel Orientation="Horizontal" Margin="50,0,0,0">
+				<Button Name="btnRejectReview" Click="btnRejectReview_Click" Content="Отменить рассмотрение"  Foreground="Red" Background="Red"
 					  Visibility="{Binding AllowRejectReviewOrder, Converter={StaticResource visibilityConverter}}"
 					  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
-				<Button Name="btnRejectOpen" Click="btnRejectOpen_Click" Content="Отменить открытие"
+				<Button Name="btnRejectOpen" Click="btnRejectOpen_Click" Content="Отменить открытие"  Foreground="Red" Background="Red"
 					  Visibility="{Binding AllowRejectOpenOrder, Converter={StaticResource visibilityConverter}}"
 					  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
-				<Button Name="btnRejectCancel" Click="btnRejectCancel_Click" Content="Отменить снятие"
+				<Button Name="btnRejectCancel" Click="btnRejectCancel_Click" Content="Отменить снятие"  Foreground="Red" Background="Red"
 					  Visibility="{Binding AllowRejectCancelOrder, Converter={StaticResource visibilityConverter}}"
 					  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
-				<Button Name="btnRejectClose" Click="btnRejectClose_Click" Content="Отменить разрешение на ввод"
+				<Button Name="btnRejectClose" Click="btnRejectClose_Click" Content="Отменить разрешение на ввод"  Foreground="Red" Background="Red"
 					  Visibility="{Binding AllowRejectCloseOrder, Converter={StaticResource visibilityConverter}}"
 					  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
-				<Button Name="btnRejectComplete" Click="btnRejectComplete_Click" Content="Отменить закрытие"
+				<Button Name="btnRejectComplete" Click="btnRejectComplete_Click" Content="Отменить закрытие"  Foreground="Red" Background="Red"
 					  Visibility="{Binding AllowRejectCompleteOrder, Converter={StaticResource visibilityConverter}}"
 					  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
+				<Button Name="btnEdit" Click="btnEdit_Click" Content="Редактировать вручную"  Foreground="Red" Background="Red"
+					  Visibility="{Binding AllowEditOrder, Converter={StaticResource visibilityConverter}}"
+					  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
+				</StackPanel>
 			</StackPanel>
 		</StackPanel>
 	</Grid>

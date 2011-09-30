@@ -10,7 +10,7 @@ namespace VotGESOrders.Web.Models
 		
 		public static ValidationResult ValidatePlanStartDate(DateTime date, ValidationContext context) {
 			Order order=context.ObjectInstance as Order;
-			if (order.OrderState != OrderStateEnum.created) {
+			if (order.OrderState != OrderStateEnum.created || order.ManualEdit) {
 				return ValidationResult.Success;
 			}
 			if (date < DateTime.Now.AddMinutes(0) && !order.OrderIsExtend && !order.OrderIsFixErrorEnter && 
@@ -28,7 +28,7 @@ namespace VotGESOrders.Web.Models
 
 		public static ValidationResult ValidatePlanStopDate(DateTime date, ValidationContext context) {
 			Order order=context.ObjectInstance as Order;
-			if (order.OrderState != OrderStateEnum.created) {
+			if (order.OrderState != OrderStateEnum.created || order.ManualEdit) {
 				return ValidationResult.Success;
 			}
 			if (date < order.PlanStartDate)
@@ -40,7 +40,7 @@ namespace VotGESOrders.Web.Models
 
 		public static ValidationResult ValidateFaktStartDate(DateTime? date, ValidationContext context) {
 			Order order=context.ObjectInstance as Order;
-			if (order.OrderState != OrderStateEnum.opened) {
+			if (order.OrderState != OrderStateEnum.opened || order.ManualEdit) {
 				return ValidationResult.Success;
 			}
 			if (date.Value.AddHours(6) < order.PlanStartDate)
@@ -57,7 +57,7 @@ namespace VotGESOrders.Web.Models
 
 		public static ValidationResult ValidateFaktStopDate(DateTime? date, ValidationContext context) {
 			Order order=context.ObjectInstance as Order;
-			if (order.OrderState != OrderStateEnum.closed) {
+			if (order.OrderState != OrderStateEnum.closed || order.ManualEdit) {
 				return ValidationResult.Success;
 			}
 			if (date < order.FaktStartDate)
@@ -71,7 +71,7 @@ namespace VotGESOrders.Web.Models
 
 		public static ValidationResult ValidateFaktCompleteDate(DateTime? date, ValidationContext context) {
 			Order order=context.ObjectInstance as Order;
-			if (order.OrderState != OrderStateEnum.completed) {
+			if (order.OrderState != OrderStateEnum.completed || order.ManualEdit) {
 				return ValidationResult.Success;
 			}
 			if (date < order.FaktStopDate)

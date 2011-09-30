@@ -1,0 +1,123 @@
+﻿<controls:ChildWindow xmlns:sdk="http://schemas.microsoft.com/winfx/2006/xaml/presentation/sdk"  xmlns:toolkit="http://schemas.microsoft.com/winfx/2006/xaml/presentation/toolkit"  x:Class="VotGESOrders.Views.EditOrderWindow"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+           xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+           xmlns:controls="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls"
+			xmlns:usr="clr-namespace:VotGESOrders.Views"
+           MinHeight="500" MaxHeight="800" Height="500"
+           Title="Создание заявки">
+
+	<Grid x:Name="LayoutRoot" Margin="2">
+		<Grid.RowDefinitions>
+			<RowDefinition />
+			<RowDefinition Height="Auto" />
+		</Grid.RowDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition MaxWidth="150" Width="Auto"/>
+			<ColumnDefinition Width="420"/>			
+			<ColumnDefinition Width="Auto"/>
+		</Grid.ColumnDefinitions>
+
+		<Grid Grid.Column="1" Grid.Row="0" VerticalAlignment="Stretch">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="20"/>
+				<RowDefinition Height="1*"/>
+			</Grid.RowDefinitions>
+			<TextBlock Grid.Row="0" Text="Заявка" HorizontalAlignment="Center"></TextBlock>
+			<toolkit:DataForm HorizontalAlignment="Stretch" Name="orderForm" 
+								VerticalAlignment="Stretch" AutoGenerateFields="False"
+								CommandButtonsVisibility="None" Grid.Row="1">
+				<StackPanel>
+					<StackPanel >
+						<toolkit:DataField Name="OrderType" Label="Тип заявки">
+							<StackPanel>
+								<ComboBox Name="cmbOrderTypes" SelectedValue="{Binding OrderType,Mode=TwoWay}" DisplayMemberPath="Value" 
+										 SelectedValuePath="Key"/>
+							</StackPanel>
+						</toolkit:DataField>
+
+						<toolkit:DataField Name="SelOrderObjectText" Label="Оборудование">
+							<TextBox Text="{Binding SelOrderObjectText,Mode=TwoWay}" TextWrapping="Wrap" IsEnabled="False"/>
+						</toolkit:DataField>
+						<toolkit:DataField Name="OrderObjectAddInfo" Label="Дополнительно">
+							<TextBox x:Name="txtAddInfo" Text="{Binding OrderObjectAddInfo,Mode=TwoWay}" />
+						</toolkit:DataField>
+						<StackPanel Orientation="Vertical">
+							<toolkit:DataField Name="PlanStartDate" Label="План старт">
+								<usr:DateTimePicker x:Name="PlanStartDatePicker" SelectedDateTime="{Binding PlanStartDate, Mode=TwoWay}"/>
+							</toolkit:DataField>
+							<toolkit:DataField Name="PlanStopDate" Label="План стоп">
+								<usr:DateTimePicker SelectedDateTime="{Binding PlanStopDate, Mode=TwoWay}"/>
+							</toolkit:DataField>
+							<toolkit:DataField Name="ReadyTime" Label="Ав. готовность" >
+								<sdk:AutoCompleteBox Name="cmbReadyTime" Text="{Binding ReadyTime, Mode=TwoWay}">
+
+								</sdk:AutoCompleteBox>
+							</toolkit:DataField>
+							<toolkit:DataField Name="OrderText" Label="Текст">
+								<TextBox Text="{Binding OrderText, Mode=TwoWay}" Height="50"  AcceptsReturn="True" TextWrapping="Wrap"/>
+							</toolkit:DataField>
+							<toolkit:DataField Name="AgreeText" Label="Согласовано">
+								<TextBox Text="{Binding AgreeText, Mode=TwoWay}" Height="50"  AcceptsReturn="True" TextWrapping="Wrap" IsEnabled="false"/>
+							</toolkit:DataField>
+							<toolkit:DataField Name="CreateText" Label="Комментарий">
+								<TextBox Text="{Binding CreateText, Mode=TwoWay}" Height="50"  AcceptsReturn="True" TextWrapping="Wrap"/>
+							</toolkit:DataField>
+
+							<toolkit:DataField Name="OrderDateReview" Label="Разрешение">
+								<usr:DateTimePicker x:Name="OrderDateReviewPicker" SelectedDateTime="{Binding OrderDateReview, Mode=TwoWay}"/>
+							</toolkit:DataField>
+							<toolkit:DataField Name="FaktStartDate" Label="Факт старт">
+								<usr:DateTimePicker x:Name="FaktStartDatePicker" SelectedDateTime="{Binding FaktStartDate, Mode=TwoWay}"/>
+							</toolkit:DataField>
+							<toolkit:DataField Name="FaktStopDate" Label="Разрешение на ввод">
+								<usr:DateTimePicker x:Name="FaktStopDatePicker" SelectedDateTime="{Binding FaktStopDate, Mode=TwoWay}"/>
+							</toolkit:DataField>
+							<toolkit:DataField Name="FaktCompleteDate" Label="Закрытие">
+								<usr:DateTimePicker x:Name="FaktCompleteDatePicker" SelectedDateTime="{Binding FaktCompleteDate, Mode=TwoWay}"/>
+							</toolkit:DataField>
+
+							<toolkit:DataField Name="ReviewText" Label="Разрешение">
+								<TextBox Text="{Binding ReviewText, Mode=TwoWay}" Height="40"  AcceptsReturn="True" TextWrapping="Wrap"/>
+							</toolkit:DataField>
+							<toolkit:DataField Name="OpenText" Label="Открытие">
+								<TextBox Text="{Binding OpenText, Mode=TwoWay}" Height="40"  AcceptsReturn="True" TextWrapping="Wrap"/>
+							</toolkit:DataField>
+							<toolkit:DataField Name="CloseText" Label="Разрешение на ввод">
+								<TextBox Text="{Binding CloseText, Mode=TwoWay}" Height="40"  AcceptsReturn="True" TextWrapping="Wrap"/>
+							</toolkit:DataField>
+							<toolkit:DataField Name="CompleteText" Label="Закрытие">
+								<TextBox Text="{Binding CompleteText, Mode=TwoWay}" Height="40"  AcceptsReturn="True" TextWrapping="Wrap"/>
+							</toolkit:DataField>
+						</StackPanel>
+					</StackPanel>
+				</StackPanel>
+			</toolkit:DataForm>
+		</Grid>
+		<Grid Grid.Column="2" Grid.Row="0" VerticalAlignment="Stretch">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="20"/>
+				<RowDefinition Height="1*"/>
+			</Grid.RowDefinitions>
+			<TextBlock Text="Оборудование" Grid.Row="0"  HorizontalAlignment="Center"/>
+			<sdk:TreeView Name="treeObjects" Grid.Row="1" ItemTemplate="{StaticResource treeTemplate}"  
+										  SelectedItemChanged="treeObjects_SelectedItemChanged" VerticalContentAlignment="Stretch"/>
+		</Grid>
+
+		<Grid Grid.Column="0" Grid.Row="0" VerticalAlignment="Stretch" >
+			<Grid.RowDefinitions>
+				<RowDefinition Height="20"/>
+				<RowDefinition Height="1*"/>
+			</Grid.RowDefinitions>
+			<TextBlock Text="Согласование" Grid.Row="0" HorizontalAlignment="Center"/>
+			<ListBox Name="lstUsers" Grid.Row="1" DisplayMemberPath="FullName" MouseLeftButtonUp="lstUsers_MouseLeftButtonUp"/>
+		</Grid>
+
+
+
+		<StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+			<Button x:Name="CancelButton" Content="Отмена" Click="CancelButton_Click" Width="75" Height="23" HorizontalAlignment="Right" Margin="0,12,0,0" Grid.Row="1" />
+			<Button x:Name="OKButton" Content="ОК" Click="OKButton_Click" Width="75" Height="23" HorizontalAlignment="Right" Margin="0,12,79,0" Grid.Row="1" />
+		</StackPanel>
+
+	</Grid>
+</controls:ChildWindow>

@@ -709,6 +709,7 @@ namespace VotGESOrders.Web.Models
 			AllowRejectCloseOrder = currentUser.AllowEditOrders && OrderState == OrderStateEnum.closed;
 			AllowRejectCancelOrder = currentUser.AllowEditOrders && OrderState == OrderStateEnum.canceled && !OrderIsExtend;
 			AllowRejectCompleteOrder = currentUser.AllowEditOrders && OrderState == OrderStateEnum.completed;
+			AllowEditOrder = currentUser.AllowEditOrders;
 		}
 
 		private void checkExpired() {
@@ -779,6 +780,8 @@ namespace VotGESOrders.Web.Models
 		public bool AllowExtendOrder { get; protected set; }
 		public bool AllowCancelOrder { get; protected set; }
 
+		public bool AllowEditOrder { get; protected set; }
+		public bool ManualEdit { get; set; }
 		public bool AllowRejectReviewOrder { get; protected set; }
 		public bool AllowRejectOpenOrder { get; protected set; }
 		public bool AllowRejectCloseOrder { get; protected set; }

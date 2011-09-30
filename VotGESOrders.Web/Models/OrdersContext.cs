@@ -854,8 +854,85 @@ namespace VotGESOrders.Web.Models
 				}
 				throw new DomainException(String.Format("Ошибка при отмене ввода оборудования по заявке №{0}", order.OrderNumber.ToString(OrderInfo.NFI)));
 			}
-		}		
+		}
 
+		public void RegisterEditOrder(Order order, Guid guid) {
+			Logger.info("Пользователь отредактировал заявку. Заявка №" + order.OrderNumber.ToString(OrderInfo.NFI), Logger.LoggerSource.ordersContext);
+			try {
+				VotGESOrdersEntities context=new VotGESOrdersEntities();
+				Orders orderDB=context.Orders.First(o => o.orderNumber == order.OrderNumber);
+				order.checkPremissions(orderDB, currentUser);
+				if (order.AllowEditOrder) {
+					orderDB.orderLastUpdate = DateTime.Now;
+
+					writeOrderToOrderDB(order, orderDB);
+
+					if (orderDB.orderReviewed) {
+						orderDB.reviewText = order.ReviewText;
+						orderDB.orderDateReview = order.OrderDateReview;
+					}
+					if (orderDB.orderOpened) {
+						orderDB.faktStartDate = order.FaktStartDate;
+						orderDB.openText = order.OpenText;					
+					}
+					if (orderDB.orderClosed) {
+						orderDB.faktStopDate = order.FaktStopDate;
+						orderDB.closeText = order.CloseText;
+					}
+					if (orderDB.orderCompleted) {
+						orderDB.faktCompleteDate = order.FaktCompleteDate;
+						orderDB.completeText = order.CompleteText;
+					}
+					checkOrder(orderDB);
+					context.SaveChanges();
+					LastUpdate.save(guid);
+					Logger.info("===Заявка отредактирована. Заявка №" + order.OrderNumber.ToString(OrderInfo.NFI), Logger.LoggerSource.ordersContext);
+				} else {
+					throw new DomainException("Нельзя отменить ввод оборудования");
+				}
+				order.refreshOrderFromDB(orderDB, currentUser, false, null);
+				MailContext.sendMail(String.Format("Заявка №{0}. Заявка отредактирована {1}", orderDB.orderNumber.ToString(OrderInfo.NFI), CurrentUser.FullName),
+					order, false, false);
+			} catch (Exception e) {
+				Logger.error(String.Format("===Ошибка приредактировании заявки №{1}: {0}", e, order.OrderNumber.ToString(OrderInfo.NFI)), Logger.LoggerSource.ordersContext);
+				if (e is DomainException) {
+					throw e;
+				}
+				throw new DomainException(String.Format("Ошибка при редактировании заявки №{0}", order.OrderNumber.ToString(OrderInfo.NFI)));
+			}
+		}
+
+
+		protected void checkOrder(Orders orderDB) {
+			if (!orderDB.orderReviewed) {
+				orderDB.orderDateReview = null;
+				orderDB.userReviewOrderID = null;
+				orderDB.reviewText = null;
+			}
+			if (!orderDB.orderOpened) {
+				orderDB.orderDateOpen = null;
+				orderDB.faktStartDate = null;
+				orderDB.userOpenOrderID = null;
+				orderDB.openText = null;
+			}
+			if (!orderDB.orderClosed) {
+				orderDB.orderDateClose = null;
+				orderDB.faktStopDate = null;
+				orderDB.userCloseOrderID = null;
+				orderDB.closeText = null;
+			}
+			if (!orderDB.orderCompleted) {
+				orderDB.orderDateComplete = null;
+				orderDB.faktCompleteDate = null;
+				orderDB.userCompleteOrderID = null;
+				orderDB.completeText = null;
+			}
+			if (!orderDB.orderCanceled) {
+				orderDB.orderDateCancel = null;				
+				orderDB.userCancelOrderID = null;
+				orderDB.cancelText = null;
+			}
+		}
 		public void ReloadOrder(Order order) {
 			Logger.info("Пользователь обновляет заявку №" + order.OrderNumber.ToString(OrderInfo.NFI), Logger.LoggerSource.ordersContext);
 			try {

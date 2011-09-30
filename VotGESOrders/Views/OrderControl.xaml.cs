@@ -71,6 +71,10 @@ namespace VotGESOrders.Views
 
 		private void btnRejectComplete_Click(object sender, RoutedEventArgs e) {
 			OrderOperations.Current.RejectCompleteOrder();
+		}
+
+		private void btnEdit_Click(object sender, RoutedEventArgs e) {
+			OrderOperations.Current.initEdit();
 		}		
 		
 	}

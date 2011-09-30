@@ -151,6 +151,9 @@
     <Compile Include="Views\OrderPrintBriefLandscapeControl.xaml.cs">
       <DependentUpon>OrderPrintBriefLandscapeControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\EditOrderWindow.xaml.cs">
+      <DependentUpon>EditOrderWindow.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -214,6 +217,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\OrderPrintBriefLandscapeControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\EditOrderWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

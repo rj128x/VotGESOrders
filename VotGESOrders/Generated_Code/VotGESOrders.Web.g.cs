@@ -113,6 +113,8 @@ namespace VotGESOrders.Web.Models
         
         private bool _allowCompleteWithoutEnterOrder;
         
+        private bool _allowEditOrder;
+        
         private bool _allowExtendOrder;
         
         private bool _allowOpenOrder;
@@ -154,6 +156,8 @@ namespace VotGESOrders.Web.Models
         private Nullable<DateTime> _faktStopDate;
         
         private string _fullOrderObjectInfo;
+        
+        private bool _manualEdit;
         
         private string _newComment;
         
@@ -290,6 +294,8 @@ namespace VotGESOrders.Web.Models
         partial void OnAllowCompleteOrderChanged();
         partial void OnAllowCompleteWithoutEnterOrderChanging(bool value);
         partial void OnAllowCompleteWithoutEnterOrderChanged();
+        partial void OnAllowEditOrderChanging(bool value);
+        partial void OnAllowEditOrderChanged();
         partial void OnAllowExtendOrderChanging(bool value);
         partial void OnAllowExtendOrderChanged();
         partial void OnAllowOpenOrderChanging(bool value);
@@ -330,6 +336,8 @@ namespace VotGESOrders.Web.Models
         partial void OnFaktStopDateChanged();
         partial void OnFullOrderObjectInfoChanging(string value);
         partial void OnFullOrderObjectInfoChanged();
+        partial void OnManualEditChanging(bool value);
+        partial void OnManualEditChanged();
         partial void OnNewCommentChanging(string value);
         partial void OnNewCommentChanged();
         partial void OnOpenTextChanging(string value);
@@ -438,6 +446,8 @@ namespace VotGESOrders.Web.Models
         partial void OnRegisterCloseOrderInvoked();
         partial void OnRegisterCompleteOrderInvoking(Guid guid);
         partial void OnRegisterCompleteOrderInvoked();
+        partial void OnRegisterEditOrderInvoking(Guid guid);
+        partial void OnRegisterEditOrderInvoked();
         partial void OnRegisterNewInvoking(Guid guid);
         partial void OnRegisterNewInvoked();
         partial void OnRegisterOpenOrderInvoking(Guid guid);
@@ -663,6 +673,31 @@ namespace VotGESOrders.Web.Models
                     this._allowCompleteWithoutEnterOrder = value;
                     this.RaisePropertyChanged("AllowCompleteWithoutEnterOrder");
                     this.OnAllowCompleteWithoutEnterOrderChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "AllowEditOrder".
+        /// </summary>
+        [DataMember()]
+        [Editable(false)]
+        [ReadOnly(true)]
+        public bool AllowEditOrder
+        {
+            get
+            {
+                return this._allowEditOrder;
+            }
+            set
+            {
+                if ((this._allowEditOrder != value))
+                {
+                    this.OnAllowEditOrderChanging(value);
+                    this.ValidateProperty("AllowEditOrder", value);
+                    this._allowEditOrder = value;
+                    this.RaisePropertyChanged("AllowEditOrder");
+                    this.OnAllowEditOrderChanged();
                 }
             }
         }
@@ -1191,6 +1226,30 @@ namespace VotGESOrders.Web.Models
                     this._fullOrderObjectInfo = value;
                     this.RaiseDataMemberChanged("FullOrderObjectInfo");
                     this.OnFullOrderObjectInfoChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "ManualEdit".
+        /// </summary>
+        [DataMember()]
+        public bool ManualEdit
+        {
+            get
+            {
+                return this._manualEdit;
+            }
+            set
+            {
+                if ((this._manualEdit != value))
+                {
+                    this.OnManualEditChanging(value);
+                    this.RaiseDataMemberChanging("ManualEdit");
+                    this.ValidateProperty("ManualEdit", value);
+                    this._manualEdit = value;
+                    this.RaiseDataMemberChanged("ManualEdit");
+                    this.OnManualEditChanged();
                 }
             }
         }
@@ -2724,6 +2783,30 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
+        /// Возвращает значение, указывающее, может ли действие "RegisterEditOrder" быть вызвано для данной сущности.
+        /// </summary>
+        [Display(AutoGenerateField=false)]
+        public bool IsRegisterEditOrderInvoked
+        {
+            get
+            {
+                return base.IsActionInvoked("RegisterEditOrder");
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает значение, указывающее, может ли вызываться метод "RegisterEditOrder" для данной сущности.
+        /// </summary>
+        [Display(AutoGenerateField=false)]
+        public bool CanRegisterEditOrder
+        {
+            get
+            {
+                return base.CanInvokeAction("RegisterEditOrder");
+            }
+        }
+        
+        /// <summary>
         /// Возвращает значение, указывающее, может ли действие "RegisterNew" быть вызвано для данной сущности.
         /// </summary>
         [Display(AutoGenerateField=false)]
@@ -3036,6 +3119,17 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
+        /// Вызывает действие "RegisterEditOrder" для данной сущности.
+        /// </summary>
+        /// <param name="guid">Значение, передаваемое параметру серверного метода (method's) "guid".</param>
+        public void RegisterEditOrder(Guid guid)
+        {
+            this.OnRegisterEditOrderInvoking(guid);
+            base.InvokeAction("RegisterEditOrder", guid);
+            this.OnRegisterEditOrderInvoked();
+        }
+        
+        /// <summary>
         /// Вызывает действие "RegisterNew" для данной сущности.
         /// </summary>
         /// <param name="guid">Значение, передаваемое параметру серверного метода (method's) "guid".</param>
@@ -3131,6 +3225,7 @@ namespace VotGESOrders.Web.Models
             base.UpdateActionState("RegisterChangeOrder", "CanRegisterChangeOrder", "IsRegisterChangeOrderInvoked");
             base.UpdateActionState("RegisterCloseOrder", "CanRegisterCloseOrder", "IsRegisterCloseOrderInvoked");
             base.UpdateActionState("RegisterCompleteOrder", "CanRegisterCompleteOrder", "IsRegisterCompleteOrderInvoked");
+            base.UpdateActionState("RegisterEditOrder", "CanRegisterEditOrder", "IsRegisterEditOrderInvoked");
             base.UpdateActionState("RegisterNew", "CanRegisterNew", "IsRegisterNewInvoked");
             base.UpdateActionState("RegisterOpenOrder", "CanRegisterOpenOrder", "IsRegisterOpenOrderInvoked");
             base.UpdateActionState("RegisterRejectCancelOrder", "CanRegisterRejectCancelOrder", "IsRegisterRejectCancelOrderInvoked");
@@ -4751,6 +4846,16 @@ namespace VotGESOrders.Web.Services
         public void RegisterRejectCompleteOrder(Order order, Guid guid)
         {
             order.RegisterRejectCompleteOrder(guid);
+        }
+        
+        /// <summary>
+        /// Вызывает метод "RegisterEditOrder" указанной сущности <see cref="Order"/>.
+        /// </summary>
+        /// <param name="order">Экземпляр сущности <see cref="Order"/>.</param>
+        /// <param name="guid">Значение параметра "guid" для данного действия.</param>
+        public void RegisterEditOrder(Order order, Guid guid)
+        {
+            order.RegisterEditOrder(guid);
         }
         
         /// <summary>
