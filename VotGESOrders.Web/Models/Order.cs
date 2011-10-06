@@ -701,7 +701,8 @@ namespace VotGESOrders.Web.Models
 			AllowCancelOrder = ((currentUser.UserID == creator || currentUser.AllowChangeOrder) && OrderState == OrderStateEnum.created) ||
 				(currentUser.AllowChangeOrder && (OrderState == OrderStateEnum.accepted));
 
-			AllowRejectReviewOrder = currentUser.AllowEditOrders && (OrderState == OrderStateEnum.accepted || OrderState == OrderStateEnum.banned && !OrderIsExtend || 
+			AllowRejectReviewOrder = (currentUser.AllowEditOrders||currentUser.AllowReviewOrder) && 
+				(OrderState == OrderStateEnum.accepted || OrderState == OrderStateEnum.banned && !OrderIsExtend || 
 				OrderState==OrderStateEnum.opened && OrderIsExtend);
 			AllowRejectOpenOrder = currentUser.AllowEditOrders && OrderState == OrderStateEnum.opened && !OrderIsExtend && !OrderIsFixErrorEnter && 
 				!OrderExtended && !OrderAskExtended &&
