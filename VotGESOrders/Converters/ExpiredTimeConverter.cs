@@ -32,12 +32,12 @@ namespace VotGESOrders.Converters
 		public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture) {
 			double? time=(double?)value;
 			string param=parameter.ToString();
-			return "";
 			if (param == "fakt") {
 				if (time.HasValue) {
 					if (time.Value > 0) {
+						return "";
 						return String.Format("{0}", getTimeStr(time.Value));
-					} else if (time.Value < 0) {
+					} else if (time.Value < -2) {
 						return String.Format("-{0}", getTimeStr(time.Value));
 					} else {
 						return "";
@@ -47,9 +47,12 @@ namespace VotGESOrders.Converters
 				}
 			} else if (param == "plan") {
 				if (time.HasValue) {
-					if (time.Value > 0) {
+					if (time.Value > 2) {
+						return "";
+					}
+					else if (time.Value > 0) {
 						return String.Format("{0}", getTimeStr(time.Value));
-					} else if (time.Value < 0) {
+					} else if (time.Value < 0) {						
 						return String.Format("-{0}", getTimeStr(time.Value));
 					} else {
 						return "";
