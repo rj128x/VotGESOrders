@@ -35,14 +35,16 @@ namespace VotGESOrders.Views
 		}
 
 		private void BanButton_Click(object sender, RoutedEventArgs e) {
-			Result = AcceptResult.ban;
-			CurrentOrder.OrderState = OrderStateEnum.banned;
-			bool ok=orderForm.ValidateItem();
-			if (ok) {
-				orderForm.CommitEdit();
-				if (!CurrentOrder.HasValidationErrors) {
-					OrderOperations.Current.ApplyAccept(CurrentOrder, Result);
-					this.DialogResult = true;
+			if (MessageBox.Show("Вы уверены что хотите отклонить заявку", "ОТКАЗ ЗАЯВКИ", MessageBoxButton.OKCancel) == MessageBoxResult.OK) {
+				Result = AcceptResult.ban;
+				CurrentOrder.OrderState = OrderStateEnum.banned;
+				bool ok=orderForm.ValidateItem();
+				if (ok) {
+					orderForm.CommitEdit();
+					if (!CurrentOrder.HasValidationErrors) {
+						OrderOperations.Current.ApplyAccept(CurrentOrder, Result);
+						this.DialogResult = true;
+					}
 				}
 			}
 		}

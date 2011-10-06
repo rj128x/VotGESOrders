@@ -27,7 +27,7 @@
 		<StackPanel Orientation="Horizontal" FlowDirection="RightToLeft" Grid.Row="1">
 			<Button x:Name="CancelButton" Content="Отмена" Click="CancelButton_Click" Width="75" Height="23" Margin="0,0,30,0"/>
 			<Button x:Name="AcceptButton" Content="Разрешить" Click="AcceptButton_Click" Width="75" Height="23" />
-			<Button x:Name="BanButton" Content="Отклонить" Click="BanButton_Click" Width="75" Height="23"/>
+			<Button x:Name="BanButton" Content="Отклонить" Click="BanButton_Click" Width="75" Height="23" Foreground="Red" Background="Red"/>
 			<Button x:Name="CancelOrderButton" Content="Снять заявку" Click="CancelOrderButton_Click" />
 		</StackPanel>
 	</Grid>
