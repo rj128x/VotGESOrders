@@ -88,6 +88,12 @@
 							<toolkit:DataField Name="CompleteText" Label="Закрытие">
 								<TextBox Text="{Binding CompleteText, Mode=TwoWay}" Height="40"  AcceptsReturn="True" TextWrapping="Wrap"/>
 							</toolkit:DataField>
+							<toolkit:DataField Name="CancelText" Label="Снятие">
+								<TextBox Text="{Binding CancelText, Mode=TwoWay}" Height="40"  AcceptsReturn="True" TextWrapping="Wrap"/>
+							</toolkit:DataField>
+							<toolkit:DataField Name="CommentsText" Label="Комментарии">
+								<TextBox Text="{Binding CommentsText, Mode=TwoWay}" Height="40"  AcceptsReturn="True" TextWrapping="Wrap"/>
+							</toolkit:DataField>
 						</StackPanel>
 					</StackPanel>
 				</StackPanel>

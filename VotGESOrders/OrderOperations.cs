@@ -87,6 +87,9 @@ namespace VotGESOrders
 						currentOrder.CancelText = currentOrder.NewComment;
 						OrdersContext.Current.Context.RegisterCancelOrder(currentOrder, OrdersContext.Current.SessionGUID);
 						break;
+					case AcceptResult.comment:
+						OrdersContext.Current.Context.RegisterAddComment(currentOrder, currentOrder.NewComment, OrdersContext.Current.SessionGUID);
+						break;
 				}
 				if ((currentOrder.OrderIsExtend || currentOrder.OrderIsFixErrorEnter) && (currentOrder.ParentOrder != null)) {
 					OrdersContext.Current.Context.ReloadOrder(currentOrder.ParentOrder, OrdersContext.Current.SessionGUID);
@@ -214,6 +217,7 @@ namespace VotGESOrders
 			GlobalStatus.Current.IsChangingOrder = true;
 			acceptWindow.CurrentOrder = CurrentOrder;
 			acceptWindow.isCancelWindow = false;
+			acceptWindow.isCommentWindow = false;
 			acceptWindow.Show();
 		}
 
@@ -221,6 +225,15 @@ namespace VotGESOrders
 			GlobalStatus.Current.IsChangingOrder = true;
 			acceptWindow.CurrentOrder = CurrentOrder;
 			acceptWindow.isCancelWindow = true;
+			acceptWindow.isCommentWindow = false;
+			acceptWindow.Show();
+		}
+
+		public void initComment() {
+			GlobalStatus.Current.IsChangingOrder = true;
+			acceptWindow.CurrentOrder = CurrentOrder;
+			acceptWindow.isCancelWindow = false;
+			acceptWindow.isCommentWindow = true;
 			acceptWindow.Show();
 		}
 

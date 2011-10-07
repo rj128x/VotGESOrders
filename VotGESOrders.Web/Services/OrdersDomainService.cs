@@ -118,6 +118,11 @@ namespace VotGESOrders.Web.Services
 			context.RegisterEditOrder(order, guid);
 		}
 
+		public void RegisterAddComment(Order order, string commentText, Guid guid) {
+			Logger.info("комментирование заявки " + order.OrderNumber.ToString(), Logger.LoggerSource.service);
+			context.RegisterAddComment(order, commentText, guid);
+		}
+
 		public void ReloadOrder(Order order, Guid guid) {
 			Logger.info("обновление заявки" + order.OrderNumber.ToString(), Logger.LoggerSource.service);
 			context.ReloadOrder(order);

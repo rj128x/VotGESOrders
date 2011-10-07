@@ -67,8 +67,6 @@ GO
 
 
 
-
-
 USE [VotGESOrders]
 GO
 
@@ -136,7 +134,9 @@ CREATE TABLE [dbo].[Orders](
 	[orderIsExtend] [bit] NOT NULL,/*зявка является продлением*/
 	[orderIsFixErrorEnter] [bit] NOT NULL,/*зявка является исправлением ошибки ввода*/
 	
-	[orderState] [varchar](50) NOT NULL /*состояние заявки - created, accepted, banned, opened, canceled, closed, completed, extended, askExtended*/
+	[orderState] [varchar](50) NOT NULL, /*состояние заявки - created, accepted, banned, opened, canceled, closed, completed, extended, askExtended*/
+
+	[commentsText] [text] NULL
 	
  CONSTRAINT [PK_Orders] PRIMARY KEY CLUSTERED 
 (
@@ -195,6 +195,8 @@ GO
 ALTER TABLE [dbo].[Orders]  WITH CHECK ADD  CONSTRAINT [FK_Orders_OrderObjects] FOREIGN KEY([orderObjectID])
 REFERENCES [dbo].[OrderObjects] ([objectID])
 GO
+
+
 
 ALTER TABLE [dbo].[Orders] CHECK CONSTRAINT [FK_Orders_OrderObjects]
 GO

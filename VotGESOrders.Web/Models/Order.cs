@@ -505,8 +505,6 @@ namespace VotGESOrders.Web.Models
 			set { orderHasParentOrder = value; }
 		}
 
-
-
 		private OrderStateEnum orderState;
 		public OrderStateEnum OrderState {
 			get { return orderState; }
@@ -575,6 +573,12 @@ namespace VotGESOrders.Web.Models
 			get { return expiredEnterHours; }
 			set { expiredEnterHours = value; }
 		}
+
+		private String commentsText;
+		public String CommentsText {
+			get { return commentsText; }
+			set { commentsText = value; }
+		}
 				
 
 		public Order() {
@@ -628,6 +632,8 @@ namespace VotGESOrders.Web.Models
 			OrderDateComplete = dbOrder.orderDateComplete;
 			OrderDateCancel = dbOrder.orderDateCancel;
 
+			CommentsText = dbOrder.commentsText;
+
 			UserCreateOrder = OrdersUser.loadFromCache(dbOrder.userCreateOrderID);
 
 			if (dbOrder.userReviewOrderID != null) {
@@ -672,6 +678,8 @@ namespace VotGESOrders.Web.Models
 						
 		}
 
+
+
 		public void checkPremissions(Orders dbOrder, OrdersUser currentUser) {
 			OrderCreated = dbOrder.orderCreated;
 			OrderReviewed = dbOrder.orderReviewed;
@@ -700,6 +708,8 @@ namespace VotGESOrders.Web.Models
 			AllowExtendOrder = (currentUser.AllowChangeOrder || currentUser.UserID == creator) && OrderState == OrderStateEnum.opened;
 			AllowCancelOrder = ((currentUser.UserID == creator || currentUser.AllowChangeOrder) && OrderState == OrderStateEnum.created) ||
 				(currentUser.AllowChangeOrder && (OrderState == OrderStateEnum.accepted));
+
+			AllowCommentOrder = true;
 
 			AllowRejectReviewOrder = (currentUser.AllowEditOrders||currentUser.AllowReviewOrder) && 
 				(OrderState == OrderStateEnum.accepted || OrderState == OrderStateEnum.banned && !OrderIsExtend || 
@@ -780,6 +790,7 @@ namespace VotGESOrders.Web.Models
 		public bool AllowCompleteWithoutEnterOrder { get; protected set; }
 		public bool AllowExtendOrder { get; protected set; }
 		public bool AllowCancelOrder { get; protected set; }
+		public bool AllowCommentOrder { get; protected set; }
 
 		public bool AllowEditOrder { get; protected set; }
 		public bool ManualEdit { get; set; }

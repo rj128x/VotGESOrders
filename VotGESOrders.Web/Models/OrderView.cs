@@ -8,7 +8,7 @@ namespace VotGESOrders.Web.Models
 	public class OrderView
 	{
 		public static string getOrderHTML(Order order) {
-			string style="<Style>table {border-collapse: collapse;} td{text-align:center;} td, th {border-width: 1px;	border-style: solid;	border-color: #BBBBFF;	padding-left: 3px;	padding-right: 3px;}</Style>";
+			string style="<Style>table {border-collapse: collapse;} td{text-align:center;} td.comments{text-align:left;} td, th {border-width: 1px;	border-style: solid;	border-color: #BBBBFF;	padding-left: 3px;	padding-right: 3px;}</Style>";
 			string htmlNumber = String.Format("Заявка {0} №{1} от {2}", order.OrderTypeShortName, order.OrderNumber.ToString(OrderInfo.NFI), order.OrderDateCreate.ToString("dd.MM.yy"));
 			string htmlState=String.Format("Состояние: {0}", order.OrderStateStr);
 			string htmlReady=String.Format("Ав.готовность: {0}", order.ReadyTime);
@@ -36,10 +36,12 @@ namespace VotGESOrders.Web.Models
 			string htmlCloseTR=order.OrderClosed ? String.Format(formatTR, "Разрешил ввод", order.UserCloseOrder.FullName, order.OrderDateClose.Value.ToString("dd.MM.yy HH:mm"), order.CloseText) : "";
 			string htmlEnterTR=order.OrderCompleted ? String.Format(formatTR, "Завершил", order.UserCompleteOrder.FullName, order.OrderDateComplete.Value.ToString("dd.MM.yy HH:mm"), order.CompleteText) : "";
 			string htmlCancelTR=order.OrderCanceled ? String.Format(formatTR, "Снял", order.UserCancelOrder.FullName, order.OrderDateCancel.Value.ToString("dd.MM.yy HH:mm"), order.CancelText) : "";
+			string htmlCommentsTR=!String.IsNullOrEmpty(order.CommentsText) ? 
+				String.Format("<tr><td colspan='4' class='comments'>{0}</td></tr>", order.CommentsText.Replace(" ","&nbsp;").Replace("\n","<br/>")) : "";
 
 			string htmlOper="<tr><th>&nbsp;</th><th>Автор</th><th>Дата</th><th>Комментарий</th></tr>";
-			string htmlOperTable=String.Format("<table  width='100%'><tr><th colspan='4'>Операции над заявкой</th></tr> {0}{1}{2}{3}{4}{5}{6}</table>",
-				htmlOper, htmlCreateTR, htmlAcceptTR, htmlOpenTR, htmlCloseTR, htmlEnterTR, htmlCancelTR);
+			string htmlOperTable=String.Format("<table  width='100%'><tr><th colspan='4'>Операции над заявкой</th></tr> {0}{1}{2}{3}{4}{5}{6}{7}</table>",
+				htmlOper, htmlCreateTR, htmlAcceptTR, htmlOpenTR, htmlCloseTR, htmlEnterTR, htmlCancelTR, htmlCommentsTR);
 
 			string fullTable=String.Format("<table width='100%'><tr><td colspan='2'>{0}</td></tr><tr><td colspan='2'>{1}</td></tr><tr><td>{2}</td><td>{3}</td></tr></table>",
 				htmlFirstTRTable, htmlInfoTable, htmlExtend + htmlDatesTable, htmlOperTable);

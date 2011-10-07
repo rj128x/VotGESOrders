@@ -16,6 +16,8 @@
 				<StackPanel Orientation="Horizontal" FlowDirection="RightToLeft">
 					<Button Content="Главный инженер" Name="btnGI" Click="btnGI_Click"/>
 					<Button Content="Работы не проводились" Name="btnCancelNoWork" Click="btnCancelNoWork_Click"/>
+					<Button Content="Согласовано" Name="btnAgreeText" Click="btnAgreeText_Click"/>
+					<Button Content="Не согласовано" Name="btnNotAgreeText" Click="btnNotAgreeText_Click" Foreground="Red" Background="Red"/>
 				</StackPanel>
 				<StackPanel Orientation="Vertical">					
 					<toolkit:DataField Name="NewComment" Label="Текст" LabelVisibility="Collapsed">
@@ -29,6 +31,7 @@
 			<Button x:Name="AcceptButton" Content="Разрешить" Click="AcceptButton_Click" Width="75" Height="23" />
 			<Button x:Name="BanButton" Content="Отклонить" Click="BanButton_Click" Width="75" Height="23" Foreground="Red" Background="Red"/>
 			<Button x:Name="CancelOrderButton" Content="Снять заявку" Click="CancelOrderButton_Click" />
+			<Button x:Name="CommentOrderButton" Content="Комментировать заявку" Click="CommentOrderButton_Click" />
 		</StackPanel>
 	</Grid>
 </controls:ChildWindow>

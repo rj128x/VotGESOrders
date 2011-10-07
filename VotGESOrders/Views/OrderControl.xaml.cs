@@ -75,6 +75,10 @@ namespace VotGESOrders.Views
 
 		private void btnEdit_Click(object sender, RoutedEventArgs e) {
 			OrderOperations.Current.initEdit();
+		}
+
+		private void btnComment_Click(object sender, RoutedEventArgs e) {
+			OrderOperations.Current.initComment();
 		}		
 		
 	}

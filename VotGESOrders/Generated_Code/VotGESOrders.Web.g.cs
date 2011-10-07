@@ -109,6 +109,8 @@ namespace VotGESOrders.Web.Models
         
         private bool _allowCloseOrder;
         
+        private bool _allowCommentOrder;
+        
         private bool _allowCompleteOrder;
         
         private bool _allowCompleteWithoutEnterOrder;
@@ -138,6 +140,8 @@ namespace VotGESOrders.Web.Models
         private double _childOrderNumber;
         
         private string _closeText;
+        
+        private string _commentsText;
         
         private string _completeText;
         
@@ -290,6 +294,8 @@ namespace VotGESOrders.Web.Models
         partial void OnAllowChangeOrderChanged();
         partial void OnAllowCloseOrderChanging(bool value);
         partial void OnAllowCloseOrderChanged();
+        partial void OnAllowCommentOrderChanging(bool value);
+        partial void OnAllowCommentOrderChanged();
         partial void OnAllowCompleteOrderChanging(bool value);
         partial void OnAllowCompleteOrderChanged();
         partial void OnAllowCompleteWithoutEnterOrderChanging(bool value);
@@ -318,6 +324,8 @@ namespace VotGESOrders.Web.Models
         partial void OnChildOrderNumberChanged();
         partial void OnCloseTextChanging(string value);
         partial void OnCloseTextChanged();
+        partial void OnCommentsTextChanging(string value);
+        partial void OnCommentsTextChanged();
         partial void OnCompleteTextChanging(string value);
         partial void OnCompleteTextChanged();
         partial void OnCreateTextChanging(string value);
@@ -436,6 +444,8 @@ namespace VotGESOrders.Web.Models
         partial void OnUserReviewOrderIDChanged();
         partial void OnRegisterAcceptOrderInvoking(Guid guid);
         partial void OnRegisterAcceptOrderInvoked();
+        partial void OnRegisterAddCommentInvoking(string commentText, Guid guid);
+        partial void OnRegisterAddCommentInvoked();
         partial void OnRegisterBanOrderInvoking(Guid guid);
         partial void OnRegisterBanOrderInvoked();
         partial void OnRegisterCancelOrderInvoking(Guid guid);
@@ -623,6 +633,31 @@ namespace VotGESOrders.Web.Models
                     this._allowCloseOrder = value;
                     this.RaisePropertyChanged("AllowCloseOrder");
                     this.OnAllowCloseOrderChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "AllowCommentOrder".
+        /// </summary>
+        [DataMember()]
+        [Editable(false)]
+        [ReadOnly(true)]
+        public bool AllowCommentOrder
+        {
+            get
+            {
+                return this._allowCommentOrder;
+            }
+            set
+            {
+                if ((this._allowCommentOrder != value))
+                {
+                    this.OnAllowCommentOrderChanging(value);
+                    this.ValidateProperty("AllowCommentOrder", value);
+                    this._allowCommentOrder = value;
+                    this.RaisePropertyChanged("AllowCommentOrder");
+                    this.OnAllowCommentOrderChanged();
                 }
             }
         }
@@ -1000,6 +1035,30 @@ namespace VotGESOrders.Web.Models
                     this._closeText = value;
                     this.RaiseDataMemberChanged("CloseText");
                     this.OnCloseTextChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "CommentsText".
+        /// </summary>
+        [DataMember()]
+        public string CommentsText
+        {
+            get
+            {
+                return this._commentsText;
+            }
+            set
+            {
+                if ((this._commentsText != value))
+                {
+                    this.OnCommentsTextChanging(value);
+                    this.RaiseDataMemberChanging("CommentsText");
+                    this.ValidateProperty("CommentsText", value);
+                    this._commentsText = value;
+                    this.RaiseDataMemberChanged("CommentsText");
+                    this.OnCommentsTextChanged();
                 }
             }
         }
@@ -2663,6 +2722,30 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
+        /// Возвращает значение, указывающее, может ли действие "RegisterAddComment" быть вызвано для данной сущности.
+        /// </summary>
+        [Display(AutoGenerateField=false)]
+        public bool IsRegisterAddCommentInvoked
+        {
+            get
+            {
+                return base.IsActionInvoked("RegisterAddComment");
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает значение, указывающее, может ли вызываться метод "RegisterAddComment" для данной сущности.
+        /// </summary>
+        [Display(AutoGenerateField=false)]
+        public bool CanRegisterAddComment
+        {
+            get
+            {
+                return base.CanInvokeAction("RegisterAddComment");
+            }
+        }
+        
+        /// <summary>
         /// Возвращает значение, указывающее, может ли действие "RegisterBanOrder" быть вызвано для данной сущности.
         /// </summary>
         [Display(AutoGenerateField=false)]
@@ -3064,6 +3147,18 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
+        /// Вызывает действие "RegisterAddComment" для данной сущности.
+        /// </summary>
+        /// <param name="commentText">Значение, передаваемое параметру серверного метода (method's) "commentText".</param>
+        /// <param name="guid">Значение, передаваемое параметру серверного метода (method's) "guid".</param>
+        public void RegisterAddComment(string commentText, Guid guid)
+        {
+            this.OnRegisterAddCommentInvoking(commentText, guid);
+            base.InvokeAction("RegisterAddComment", commentText, guid);
+            this.OnRegisterAddCommentInvoked();
+        }
+        
+        /// <summary>
         /// Вызывает действие "RegisterBanOrder" для данной сущности.
         /// </summary>
         /// <param name="guid">Значение, передаваемое параметру серверного метода (method's) "guid".</param>
@@ -3220,6 +3315,7 @@ namespace VotGESOrders.Web.Models
         protected override void OnActionStateChanged()
         {
             base.UpdateActionState("RegisterAcceptOrder", "CanRegisterAcceptOrder", "IsRegisterAcceptOrderInvoked");
+            base.UpdateActionState("RegisterAddComment", "CanRegisterAddComment", "IsRegisterAddCommentInvoked");
             base.UpdateActionState("RegisterBanOrder", "CanRegisterBanOrder", "IsRegisterBanOrderInvoked");
             base.UpdateActionState("RegisterCancelOrder", "CanRegisterCancelOrder", "IsRegisterCancelOrderInvoked");
             base.UpdateActionState("RegisterChangeOrder", "CanRegisterChangeOrder", "IsRegisterChangeOrderInvoked");
@@ -4856,6 +4952,17 @@ namespace VotGESOrders.Web.Services
         public void RegisterEditOrder(Order order, Guid guid)
         {
             order.RegisterEditOrder(guid);
+        }
+        
+        /// <summary>
+        /// Вызывает метод "RegisterAddComment" указанной сущности <see cref="Order"/>.
+        /// </summary>
+        /// <param name="order">Экземпляр сущности <see cref="Order"/>.</param>
+        /// <param name="commentText">Значение параметра "commentText" для данного действия.</param>
+        /// <param name="guid">Значение параметра "guid" для данного действия.</param>
+        public void RegisterAddComment(Order order, string commentText, Guid guid)
+        {
+            order.RegisterAddComment(commentText, guid);
         }
         
         /// <summary>

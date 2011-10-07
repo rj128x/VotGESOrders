@@ -556,13 +556,13 @@ namespace VotGESOrders.Web.Models
 						parentOrderDB.orderExtended = false;
 						parentOrderDB.orderAskExtended = true;
 						parentOrderDB.orderState = OrderStateEnum.askExtended.ToString();
-
+						addComment(parentOrderDB, "Отмена рассмотрения заявки на продление");
 						
 						MailContext.sendMail(String.Format("Заявка №{0}. Отмена рассмотрения заявки на продление ({1})", 
 							order.ParentOrderNumber.ToString(OrderInfo.NFI), CurrentUser.FullName),
 							new Order(parentOrderDB, currentUser, false, null), false, false);
 					}
-
+					addComment(orderDB, "Отмена рассмотрения заявки");
 					context.SaveChanges();
 					LastUpdate.save(guid);
 					Logger.info("===Заявка. Отмена рассмотрения. Заявка №" + order.OrderNumber.ToString(OrderInfo.NFI), Logger.LoggerSource.ordersContext);
@@ -630,7 +630,7 @@ namespace VotGESOrders.Web.Models
 					orderDB.openText = null;
 					orderDB.orderOpened = false;
 					orderDB.orderState = OrderStateEnum.accepted.ToString();
-
+					addComment(orderDB, "Отмена открытия заявки");
 					context.SaveChanges();
 					LastUpdate.save(guid);
 					Logger.info("===Заявка. отмена открытия. Заявка №" + order.OrderNumber.ToString(OrderInfo.NFI), Logger.LoggerSource.ordersContext);
@@ -696,6 +696,7 @@ namespace VotGESOrders.Web.Models
 					orderDB.orderState = OrderStateEnum.opened.ToString();
 					orderDB.closeText = null;
 					orderDB.userCloseOrderID = null;
+					addComment(orderDB, "Отмена разрешения на ввод");
 
 					context.SaveChanges();
 					LastUpdate.save(guid);
@@ -779,7 +780,7 @@ namespace VotGESOrders.Web.Models
 					orderDB.cancelText = null;
 					orderDB.orderCanceled = false;
 					orderDB.orderState = order.OrderReviewed?OrderStateEnum.accepted.ToString():OrderStateEnum.created.ToString();
-
+					addComment(orderDB, "Отмена снятия заявки");
 					context.SaveChanges();
 					LastUpdate.save(guid);
 					Logger.info("===Заявка. Отмена снятия. Заявка №" + order.OrderNumber.ToString(OrderInfo.NFI), Logger.LoggerSource.ordersContext);
@@ -845,6 +846,7 @@ namespace VotGESOrders.Web.Models
 					orderDB.completeText = null;
 					orderDB.userCompleteOrderID = null;
 					orderDB.faktCompleteDate = null;
+					addComment(orderDB, "Отмена ввода оборудования");
 					context.SaveChanges();
 					LastUpdate.save(guid);
 					Logger.info("===Отмена ввода оборудования. Заявка №" + order.OrderNumber.ToString(OrderInfo.NFI), Logger.LoggerSource.ordersContext);
@@ -890,6 +892,13 @@ namespace VotGESOrders.Web.Models
 						orderDB.faktCompleteDate = order.FaktCompleteDate;
 						orderDB.completeText = order.CompleteText;
 					}
+					if (orderDB.orderCanceled) {						
+						orderDB.cancelText = order.CancelText;
+					}
+
+					orderDB.commentsText = order.CommentsText;
+					addComment(orderDB, "Ручное редактирование заявки");
+					
 					checkOrder(orderDB);
 					context.SaveChanges();
 					LastUpdate.save(guid);
@@ -907,6 +916,37 @@ namespace VotGESOrders.Web.Models
 				}
 				throw new DomainException(String.Format("Ошибка при редактировании заявки №{0}", order.OrderNumber.ToString(OrderInfo.NFI)));
 			}
+		}
+
+		public void RegisterAddComment(Order order, String commentText, Guid guid) {
+			Logger.info("Пользователь добавил комментарий к заявке. Заявка №" + order.OrderNumber.ToString(OrderInfo.NFI), Logger.LoggerSource.ordersContext);
+			try {
+				VotGESOrdersEntities context=new VotGESOrdersEntities();
+				Orders orderDB=context.Orders.First(o => o.orderNumber == order.OrderNumber);
+				order.checkPremissions(orderDB, currentUser);
+
+				addComment(orderDB, commentText);
+
+				context.SaveChanges();
+				LastUpdate.save(guid);
+				Logger.info("===Добавлен комментарий. Заявка №" + order.OrderNumber.ToString(OrderInfo.NFI), Logger.LoggerSource.ordersContext);
+				
+				order.refreshOrderFromDB(orderDB, currentUser, false, null);
+				MailContext.sendMail(String.Format("Заявка №{0}. Новый комментарий ({1})", orderDB.orderNumber.ToString(OrderInfo.NFI), CurrentUser.FullName),
+					order, true, false);
+			} catch (Exception e) {
+				Logger.error(String.Format("===Ошибка при комментировании заявки №{1}: {0}", e, order.OrderNumber.ToString(OrderInfo.NFI)), Logger.LoggerSource.ordersContext);
+				if (e is DomainException) {
+					throw e;
+				}
+				throw new DomainException(String.Format("Ошибка при комментировании заявки №{0}", order.OrderNumber.ToString(OrderInfo.NFI)));
+			}
+		}
+
+		private void addComment(Orders orderDB, string commentText) {
+			if (!String.IsNullOrEmpty(orderDB.commentsText))
+				orderDB.commentsText = "\n" + orderDB.commentsText;
+			orderDB.commentsText = String.Format("{1,20}[{0}] : {2}", DateTime.Now.ToString("dd.MM.yy HH:mm"), CurrentUser.FullName, commentText) + orderDB.commentsText;
 		}
 
 
