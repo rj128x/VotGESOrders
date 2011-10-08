@@ -24,8 +24,10 @@ namespace VotGESOrders.Web.Models
 						onlyAuthor && order.UserCreateOrderID == user.UserID && !mailToList.Contains(user.Mail)||
 						isNewOrder && (user.SendAllCreateMail || user.SendAgreeMail && order.AgreeUsers.Contains(user)) && !mailToList.Contains(user.Mail) && !onlyAuthor
 						) {
-						if (!String.IsNullOrEmpty(user.Mail)) {
-							mailToList.Add(user.Mail);
+						if (user.Mails.Count>0) {
+							foreach (string mail in user.Mails) {
+								mailToList.Add(mail);
+							}
 						}
 					}
 				}

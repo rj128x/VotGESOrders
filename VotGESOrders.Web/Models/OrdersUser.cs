@@ -18,6 +18,7 @@ namespace VotGESOrders.Web.Models
 		public string Name { get; set; }
 		public string FullName { get; set; }
 		public string Mail { get; set; }
+		public List<String> Mails { get; set; }
 		public bool SendAllMail { get; set; }
 		public bool SendAgreeMail { get; set; }
 		public bool SendCreateMail { get; set; }
@@ -59,10 +60,10 @@ namespace VotGESOrders.Web.Models
 				return user;
 			} catch (Exception e) {
 				OrdersUser user=new OrdersUser();
-				user.FullName = String.Format("{0} (нет в базе)", userName);
+				user.FullName = String.Format("{0}", userName);
 				user.Name = userName;
 				user.UserID = -1;
-				Logger.error(String.Format("Ошибка при получении краткой информации о пользователе из БД: {0}", userName), Logger.LoggerSource.server);
+				//Logger.error(String.Format("Ошибка при получении краткой информации о пользователе из БД: {0}", userName), Logger.LoggerSource.server);
 				return user;
 			}
 		}
@@ -73,10 +74,10 @@ namespace VotGESOrders.Web.Models
 				return user;
 			} catch (Exception e) {
 				OrdersUser user=new OrdersUser();
-				user.FullName = String.Format("{0} (нет в базе)", userID);
+				user.FullName = String.Format("{0}", userID);
 				user.Name = userID.ToString();
 				user.UserID = -1;
-				Logger.error(String.Format("Ошибка при получении краткой информации о пользователе из БД: {0}, {1}", userID, e), Logger.LoggerSource.server);
+				//Logger.error(String.Format("Ошибка при получении краткой информации о пользователе из БД: {0}, {1}", userID, e), Logger.LoggerSource.server);
 				return user;
 			}
 		}
@@ -101,6 +102,14 @@ namespace VotGESOrders.Web.Models
 				user.AllowEditUsers = userDB.allowEditUsers;
 				user.AllowEditOrders = userDB.allowEditOrders;
 				user.AllowAgreeOrders = userDB.allowAgreeOrders;
+				try {
+					user.Mails = user.Mail.Split(';').ToList();
+				}catch{
+					user.Mails=new List<string>();
+					if (!String.IsNullOrEmpty(user.Mail)){
+						user.Mails.Add(user.Mail);
+					}
+				}
 				return user;
 			} catch (Exception e) {
 				Logger.error(String.Format("Ошибка при получении краткой информации о пользователе: {0}", e), Logger.LoggerSource.server);

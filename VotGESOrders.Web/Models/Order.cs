@@ -709,6 +709,8 @@ namespace VotGESOrders.Web.Models
 			AllowCancelOrder = ((currentUser.UserID == creator || currentUser.AllowChangeOrder) && OrderState == OrderStateEnum.created) ||
 				(currentUser.AllowChangeOrder && (OrderState == OrderStateEnum.accepted));
 
+
+			string[] ids= dbOrder.agreeUsersIDS.Split(';');
 			AllowCommentOrder = true;
 
 			AllowRejectReviewOrder = (currentUser.AllowEditOrders||currentUser.AllowReviewOrder) && 

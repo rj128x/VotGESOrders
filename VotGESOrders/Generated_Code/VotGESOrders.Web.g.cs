@@ -3696,6 +3696,8 @@ namespace VotGESOrders.Web.Models
         
         private string _mail;
         
+        private IEnumerable<string> _mails;
+        
         private string _name;
         
         private bool _sendAgreeMail;
@@ -3737,6 +3739,8 @@ namespace VotGESOrders.Web.Models
         partial void OnFullNameChanged();
         partial void OnMailChanging(string value);
         partial void OnMailChanged();
+        partial void OnMailsChanging(IEnumerable<string> value);
+        partial void OnMailsChanged();
         partial void OnNameChanging(string value);
         partial void OnNameChanged();
         partial void OnSendAgreeMailChanging(bool value);
@@ -4003,6 +4007,30 @@ namespace VotGESOrders.Web.Models
                     this._mail = value;
                     this.RaiseDataMemberChanged("Mail");
                     this.OnMailChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "Mails".
+        /// </summary>
+        [DataMember()]
+        public IEnumerable<string> Mails
+        {
+            get
+            {
+                return this._mails;
+            }
+            set
+            {
+                if ((this._mails != value))
+                {
+                    this.OnMailsChanging(value);
+                    this.RaiseDataMemberChanging("Mails");
+                    this.ValidateProperty("Mails", value);
+                    this._mails = value;
+                    this.RaiseDataMemberChanged("Mails");
+                    this.OnMailsChanged();
                 }
             }
         }
