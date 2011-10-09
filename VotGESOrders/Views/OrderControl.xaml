@@ -201,9 +201,9 @@
 								<TextBlock Text="{Binding CancelText}" 
 							  Grid.Column="3" Grid.Row="6"   Style="{StaticResource ValueText}" />
 
-								<ScrollViewer MaxHeight="50" Grid.Row="7" Grid.ColumnSpan="4" HorizontalAlignment="Stretch">
+								<ScrollViewer MaxHeight="70" Grid.Row="7" Grid.ColumnSpan="4" HorizontalAlignment="Stretch">
 									<TextBlock  Text="{Binding CommentsText}" Style="{StaticResource ValueText}" 
-												  TextAlignment="Left" HorizontalAlignment="Center" TextDecorations="None" />
+												  TextAlignment="Left" HorizontalAlignment="Stretch" TextDecorations="None" />
 								</ScrollViewer>
 
 							</Grid>

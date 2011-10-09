@@ -944,8 +944,9 @@ namespace VotGESOrders.Web.Models
 		}
 
 		private void addComment(Orders orderDB, string commentText) {
+			
 			if (!String.IsNullOrEmpty(orderDB.commentsText))
-				orderDB.commentsText = "\n" + orderDB.commentsText;
+				orderDB.commentsText = "\n=======================================\n" + orderDB.commentsText;
 			orderDB.commentsText = String.Format("{1,20}[{0}] : {2}", DateTime.Now.ToString("dd.MM.yy HH:mm"), CurrentUser.FullName, commentText) + orderDB.commentsText;
 		}
 
