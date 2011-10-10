@@ -1813,17 +1813,17 @@ namespace VotGESOrders.Web.ADONETEntities
         /// <param name="sendAllMail">Исходное значение свойства sendAllMail.</param>
         /// <param name="sendAgreeMail">Исходное значение свойства sendAgreeMail.</param>
         /// <param name="sendCreateMail">Исходное значение свойства sendCreateMail.</param>
-        /// <param name="sendAllAgreeMail">Исходное значение свойства sendAllAgreeMail.</param>
-        /// <param name="sendAllCreateMail">Исходное значение свойства sendAllCreateMail.</param>
         /// <param name="allowCreateOrder">Исходное значение свойства allowCreateOrder.</param>
         /// <param name="allowCreateCrashOrder">Исходное значение свойства allowCreateCrashOrder.</param>
         /// <param name="allowReviewOrder">Исходное значение свойства allowReviewOrder.</param>
         /// <param name="allowChangeOrder">Исходное значение свойства allowChangeOrder.</param>
         /// <param name="allowEditTree">Исходное значение свойства allowEditTree.</param>
         /// <param name="allowEditUsers">Исходное значение свойства allowEditUsers.</param>
-        /// <param name="allowEditOrders">Исходное значение свойства allowEditOrders.</param>
         /// <param name="allowAgreeOrders">Исходное значение свойства allowAgreeOrders.</param>
-        public static Users CreateUsers(global::System.Int32 userID, global::System.String name, global::System.String fullName, global::System.String mail, global::System.Boolean sendAllMail, global::System.Boolean sendAgreeMail, global::System.Boolean sendCreateMail, global::System.Boolean sendAllAgreeMail, global::System.Boolean sendAllCreateMail, global::System.Boolean allowCreateOrder, global::System.Boolean allowCreateCrashOrder, global::System.Boolean allowReviewOrder, global::System.Boolean allowChangeOrder, global::System.Boolean allowEditTree, global::System.Boolean allowEditUsers, global::System.Boolean allowEditOrders, global::System.Boolean allowAgreeOrders)
+        /// <param name="sendAllCreateMail">Исходное значение свойства sendAllCreateMail.</param>
+        /// <param name="sendAllAgreeMail">Исходное значение свойства sendAllAgreeMail.</param>
+        /// <param name="allowEditOrders">Исходное значение свойства allowEditOrders.</param>
+        public static Users CreateUsers(global::System.Int32 userID, global::System.String name, global::System.String fullName, global::System.String mail, global::System.Boolean sendAllMail, global::System.Boolean sendAgreeMail, global::System.Boolean sendCreateMail, global::System.Boolean allowCreateOrder, global::System.Boolean allowCreateCrashOrder, global::System.Boolean allowReviewOrder, global::System.Boolean allowChangeOrder, global::System.Boolean allowEditTree, global::System.Boolean allowEditUsers, global::System.Boolean allowAgreeOrders, global::System.Boolean sendAllCreateMail, global::System.Boolean sendAllAgreeMail, global::System.Boolean allowEditOrders)
         {
             Users users = new Users();
             users.userID = userID;
@@ -1833,16 +1833,16 @@ namespace VotGESOrders.Web.ADONETEntities
             users.sendAllMail = sendAllMail;
             users.sendAgreeMail = sendAgreeMail;
             users.sendCreateMail = sendCreateMail;
-            users.sendAllAgreeMail = sendAllAgreeMail;
-            users.sendAllCreateMail = sendAllCreateMail;
             users.allowCreateOrder = allowCreateOrder;
             users.allowCreateCrashOrder = allowCreateCrashOrder;
             users.allowReviewOrder = allowReviewOrder;
             users.allowChangeOrder = allowChangeOrder;
             users.allowEditTree = allowEditTree;
             users.allowEditUsers = allowEditUsers;
-            users.allowEditOrders = allowEditOrders;
             users.allowAgreeOrders = allowAgreeOrders;
+            users.sendAllCreateMail = sendAllCreateMail;
+            users.sendAllAgreeMail = sendAllAgreeMail;
+            users.allowEditOrders = allowEditOrders;
             return users;
         }
 
@@ -2025,54 +2025,6 @@ namespace VotGESOrders.Web.ADONETEntities
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Boolean sendAllAgreeMail
-        {
-            get
-            {
-                return _sendAllAgreeMail;
-            }
-            set
-            {
-                OnsendAllAgreeMailChanging(value);
-                ReportPropertyChanging("sendAllAgreeMail");
-                _sendAllAgreeMail = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("sendAllAgreeMail");
-                OnsendAllAgreeMailChanged();
-            }
-        }
-        private global::System.Boolean _sendAllAgreeMail;
-        partial void OnsendAllAgreeMailChanging(global::System.Boolean value);
-        partial void OnsendAllAgreeMailChanged();
-    
-        /// <summary>
-        /// Нет доступной документации по метаданным.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Boolean sendAllCreateMail
-        {
-            get
-            {
-                return _sendAllCreateMail;
-            }
-            set
-            {
-                OnsendAllCreateMailChanging(value);
-                ReportPropertyChanging("sendAllCreateMail");
-                _sendAllCreateMail = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("sendAllCreateMail");
-                OnsendAllCreateMailChanged();
-            }
-        }
-        private global::System.Boolean _sendAllCreateMail;
-        partial void OnsendAllCreateMailChanging(global::System.Boolean value);
-        partial void OnsendAllCreateMailChanged();
-    
-        /// <summary>
-        /// Нет доступной документации по метаданным.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
         public global::System.Boolean allowCreateOrder
         {
             get
@@ -2217,30 +2169,6 @@ namespace VotGESOrders.Web.ADONETEntities
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Boolean allowEditOrders
-        {
-            get
-            {
-                return _allowEditOrders;
-            }
-            set
-            {
-                OnallowEditOrdersChanging(value);
-                ReportPropertyChanging("allowEditOrders");
-                _allowEditOrders = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("allowEditOrders");
-                OnallowEditOrdersChanged();
-            }
-        }
-        private global::System.Boolean _allowEditOrders;
-        partial void OnallowEditOrdersChanging(global::System.Boolean value);
-        partial void OnallowEditOrdersChanged();
-    
-        /// <summary>
-        /// Нет доступной документации по метаданным.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
         public global::System.Boolean allowAgreeOrders
         {
             get
@@ -2259,6 +2187,78 @@ namespace VotGESOrders.Web.ADONETEntities
         private global::System.Boolean _allowAgreeOrders;
         partial void OnallowAgreeOrdersChanging(global::System.Boolean value);
         partial void OnallowAgreeOrdersChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean sendAllCreateMail
+        {
+            get
+            {
+                return _sendAllCreateMail;
+            }
+            set
+            {
+                OnsendAllCreateMailChanging(value);
+                ReportPropertyChanging("sendAllCreateMail");
+                _sendAllCreateMail = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("sendAllCreateMail");
+                OnsendAllCreateMailChanged();
+            }
+        }
+        private global::System.Boolean _sendAllCreateMail;
+        partial void OnsendAllCreateMailChanging(global::System.Boolean value);
+        partial void OnsendAllCreateMailChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean sendAllAgreeMail
+        {
+            get
+            {
+                return _sendAllAgreeMail;
+            }
+            set
+            {
+                OnsendAllAgreeMailChanging(value);
+                ReportPropertyChanging("sendAllAgreeMail");
+                _sendAllAgreeMail = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("sendAllAgreeMail");
+                OnsendAllAgreeMailChanged();
+            }
+        }
+        private global::System.Boolean _sendAllAgreeMail;
+        partial void OnsendAllAgreeMailChanging(global::System.Boolean value);
+        partial void OnsendAllAgreeMailChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean allowEditOrders
+        {
+            get
+            {
+                return _allowEditOrders;
+            }
+            set
+            {
+                OnallowEditOrdersChanging(value);
+                ReportPropertyChanging("allowEditOrders");
+                _allowEditOrders = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("allowEditOrders");
+                OnallowEditOrdersChanged();
+            }
+        }
+        private global::System.Boolean _allowEditOrders;
+        partial void OnallowEditOrdersChanging(global::System.Boolean value);
+        partial void OnallowEditOrdersChanged();
 
         #endregion
     

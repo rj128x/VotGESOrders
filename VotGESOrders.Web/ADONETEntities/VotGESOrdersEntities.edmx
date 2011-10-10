@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="VotGESOrdersModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+      <Schema Namespace="VotGESOrdersModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="VotGESOrdersModelStoreContainer">
           <EntitySet Name="OrderObjects" EntityType="VotGESOrdersModel.Store.OrderObjects" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Orders" EntityType="VotGESOrdersModel.Store.Orders" store:Type="Tables" Schema="dbo" />
@@ -97,7 +97,7 @@
           <Property Name="orderIsExtend" Type="bit" Nullable="false" />
           <Property Name="orderIsFixErrorEnter" Type="bit" Nullable="false" />
           <Property Name="orderState" Type="varchar" Nullable="false" MaxLength="50" />
-          <Property Name="commentsText" Type="text" />
+          <Property Name="commentsText" Type="ntext" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -110,16 +110,16 @@
           <Property Name="sendAllMail" Type="bit" Nullable="false" />
           <Property Name="sendAgreeMail" Type="bit" Nullable="false" />
           <Property Name="sendCreateMail" Type="bit" Nullable="false" />
-          <Property Name="sendAllAgreeMail" Type="bit" Nullable="false" />
-          <Property Name="sendAllCreateMail" Type="bit" Nullable="false" />
           <Property Name="allowCreateOrder" Type="bit" Nullable="false" />
           <Property Name="allowCreateCrashOrder" Type="bit" Nullable="false" />
           <Property Name="allowReviewOrder" Type="bit" Nullable="false" />
           <Property Name="allowChangeOrder" Type="bit" Nullable="false" />
           <Property Name="allowEditTree" Type="bit" Nullable="false" />
           <Property Name="allowEditUsers" Type="bit" Nullable="false" />
-          <Property Name="allowEditOrders" Type="bit" Nullable="false" />
           <Property Name="allowAgreeOrders" Type="bit" Nullable="false" />
+          <Property Name="sendAllCreateMail" Type="bit" Nullable="false" />
+          <Property Name="sendAllAgreeMail" Type="bit" Nullable="false" />
+          <Property Name="allowEditOrders" Type="bit" Nullable="false" />
         </EntityType>
         <Association Name="FK_Orders_OrderObjects">
           <End Role="OrderObjects" Type="VotGESOrdersModel.Store.OrderObjects" Multiplicity="1" />
@@ -303,7 +303,7 @@
           <Property Name="orderIsExtend" Type="Boolean" Nullable="false" />
           <Property Name="orderIsFixErrorEnter" Type="Boolean" Nullable="false" />
           <Property Name="orderState" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
-          <Property Name="commentsText" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="commentsText" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="OrderObjects" Relationship="VotGESOrdersModel.FK_Orders_OrderObjects" FromRole="Orders" ToRole="OrderObjects" />
           <NavigationProperty Name="Users" Relationship="VotGESOrdersModel.FK_Orders_UsersCancel" FromRole="Orders" ToRole="Users" />
           <NavigationProperty Name="Users1" Relationship="VotGESOrdersModel.FK_Orders_UsersClose" FromRole="Orders" ToRole="Users" />
@@ -323,16 +323,16 @@
           <Property Name="sendAllMail" Type="Boolean" Nullable="false" />
           <Property Name="sendAgreeMail" Type="Boolean" Nullable="false" />
           <Property Name="sendCreateMail" Type="Boolean" Nullable="false" />
-          <Property Name="sendAllAgreeMail" Type="Boolean" Nullable="false" />
-          <Property Name="sendAllCreateMail" Type="Boolean" Nullable="false" />
           <Property Name="allowCreateOrder" Type="Boolean" Nullable="false" />
           <Property Name="allowCreateCrashOrder" Type="Boolean" Nullable="false" />
           <Property Name="allowReviewOrder" Type="Boolean" Nullable="false" />
           <Property Name="allowChangeOrder" Type="Boolean" Nullable="false" />
           <Property Name="allowEditTree" Type="Boolean" Nullable="false" />
           <Property Name="allowEditUsers" Type="Boolean" Nullable="false" />
-          <Property Name="allowEditOrders" Type="Boolean" Nullable="false" />
           <Property Name="allowAgreeOrders" Type="Boolean" Nullable="false" />
+          <Property Name="sendAllCreateMail" Type="Boolean" Nullable="false" />
+          <Property Name="sendAllAgreeMail" Type="Boolean" Nullable="false" />
+          <Property Name="allowEditOrders" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Orders" Relationship="VotGESOrdersModel.FK_Orders_UsersCancel" FromRole="Users" ToRole="Orders" />
           <NavigationProperty Name="Orders1" Relationship="VotGESOrdersModel.FK_Orders_UsersClose" FromRole="Users" ToRole="Orders" />
           <NavigationProperty Name="Orders2" Relationship="VotGESOrdersModel.FK_Orders_UsersComplete" FromRole="Users" ToRole="Orders" />
@@ -493,16 +493,16 @@
             <ScalarProperty Name="sendAllMail" ColumnName="sendAllMail" />
             <ScalarProperty Name="sendAgreeMail" ColumnName="sendAgreeMail" />
             <ScalarProperty Name="sendCreateMail" ColumnName="sendCreateMail" />
-            <ScalarProperty Name="sendAllAgreeMail" ColumnName="sendAllAgreeMail" />
-            <ScalarProperty Name="sendAllCreateMail" ColumnName="sendAllCreateMail" />
             <ScalarProperty Name="allowCreateOrder" ColumnName="allowCreateOrder" />
             <ScalarProperty Name="allowCreateCrashOrder" ColumnName="allowCreateCrashOrder" />
             <ScalarProperty Name="allowReviewOrder" ColumnName="allowReviewOrder" />
             <ScalarProperty Name="allowChangeOrder" ColumnName="allowChangeOrder" />
             <ScalarProperty Name="allowEditTree" ColumnName="allowEditTree" />
             <ScalarProperty Name="allowEditUsers" ColumnName="allowEditUsers" />
-            <ScalarProperty Name="allowEditOrders" ColumnName="allowEditOrders" />
             <ScalarProperty Name="allowAgreeOrders" ColumnName="allowAgreeOrders" />
+            <ScalarProperty Name="sendAllCreateMail" ColumnName="sendAllCreateMail" />
+            <ScalarProperty Name="sendAllAgreeMail" ColumnName="sendAllAgreeMail" />
+            <ScalarProperty Name="allowEditOrders" ColumnName="allowEditOrders" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
@@ -525,36 +525,36 @@
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
       <Diagram Name="VotGESOrdersEntities">
-        <EntityTypeShape EntityType="VotGESOrdersModel.OrderObjects" Width="1.5" PointX="0.75" PointY="1.125" Height="1.9802864583333335" IsExpanded="true" />
-        <EntityTypeShape EntityType="VotGESOrdersModel.Orders" Width="1.5" PointX="3" PointY="1.375" Height="11.403056640624998" IsExpanded="true" />
-        <EntityTypeShape EntityType="VotGESOrdersModel.Users" Width="1.5" PointX="0.75" PointY="4.375" Height="5.4417122395833335" IsExpanded="true" />
+        <EntityTypeShape EntityType="VotGESOrdersModel.OrderObjects" Width="1.5" PointX="0.75" PointY="1.375" Height="1.7566536458333335" IsExpanded="true" />
+        <EntityTypeShape EntityType="VotGESOrdersModel.Orders" Width="1.5" PointX="3" PointY="1.375" Height="9.809672851562496" IsExpanded="true" />
+        <EntityTypeShape EntityType="VotGESOrdersModel.Users" Width="1.5" PointX="0.75" PointY="3.875" Height="4.7149055989583326" IsExpanded="true" />
         <AssociationConnector Association="VotGESOrdersModel.FK_Orders_OrderObjects" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="2.2401432291666667" />
-          <ConnectorPoint PointX="3" PointY="2.2401432291666667" />
+          <ConnectorPoint PointX="2.25" PointY="2.2533268229166667" />
+          <ConnectorPoint PointX="3" PointY="2.2533268229166667" />
         </AssociationConnector>
         <AssociationConnector Association="VotGESOrdersModel.FK_Orders_UsersCancel" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="7.0958561197916667" />
-          <ConnectorPoint PointX="3" PointY="7.0958561197916667" />
+          <ConnectorPoint PointX="2.25" PointY="6.2324527994791659" />
+          <ConnectorPoint PointX="3" PointY="6.2324527994791659" />
         </AssociationConnector>
         <AssociationConnector Association="VotGESOrdersModel.FK_Orders_UsersClose" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="5.6729280598958329" />
-          <ConnectorPoint PointX="3" PointY="5.6729280598958329" />
+          <ConnectorPoint PointX="2.25" PointY="4.9912263997395829" />
+          <ConnectorPoint PointX="3" PointY="4.9912263997395829" />
         </AssociationConnector>
         <AssociationConnector Association="VotGESOrdersModel.FK_Orders_UsersComplete" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="8.5187841796875" />
-          <ConnectorPoint PointX="3" PointY="8.5187841796875" />
+          <ConnectorPoint PointX="2.25" PointY="7.4736791992187488" />
+          <ConnectorPoint PointX="3" PointY="7.4736791992187488" />
         </AssociationConnector>
         <AssociationConnector Association="VotGESOrdersModel.FK_Orders_UsersCreate" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="7.8073201497395832" />
-          <ConnectorPoint PointX="3" PointY="7.8073201497395832" />
+          <ConnectorPoint PointX="2.25" PointY="6.8530659993489573" />
+          <ConnectorPoint PointX="3" PointY="6.8530659993489573" />
         </AssociationConnector>
         <AssociationConnector Association="VotGESOrdersModel.FK_Orders_UsersOpen" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="6.38439208984375" />
-          <ConnectorPoint PointX="3" PointY="6.38439208984375" />
+          <ConnectorPoint PointX="2.25" PointY="5.6118395996093744" />
+          <ConnectorPoint PointX="3" PointY="5.6118395996093744" />
         </AssociationConnector>
         <AssociationConnector Association="VotGESOrdersModel.FK_Orders_UsersReview" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="4.9614640299479165" />
-          <ConnectorPoint PointX="3" PointY="4.9614640299479165" />
+          <ConnectorPoint PointX="2.25" PointY="4.3706131998697915" />
+          <ConnectorPoint PointX="3" PointY="4.3706131998697915" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>

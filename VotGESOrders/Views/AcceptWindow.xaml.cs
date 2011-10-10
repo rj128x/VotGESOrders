@@ -103,7 +103,7 @@ namespace VotGESOrders.Views
 
 		private void CancelOrderButton_Click(object sender, RoutedEventArgs e) {
 			Result = AcceptResult.cancel;
-			CurrentOrder.OrderState = OrderStateEnum.canceled;
+			/*CurrentOrder.ManualEdit = true;
 			bool ok=orderForm.ValidateItem();
 			if (ok) {
 				orderForm.CommitEdit();
@@ -111,7 +111,10 @@ namespace VotGESOrders.Views
 					OrderOperations.Current.ApplyAccept(CurrentOrder, Result);
 					this.DialogResult = true;
 				}
-			}
+			}*/
+			orderForm.CommitEdit();
+			OrderOperations.Current.ApplyAccept(CurrentOrder, Result);
+			this.DialogResult = true;
 		}
 
 
@@ -125,7 +128,8 @@ namespace VotGESOrders.Views
 
 		private void CommentOrderButton_Click(object sender, RoutedEventArgs e) {
 			Result = AcceptResult.comment;
-			bool ok=orderForm.ValidateItem();
+			CurrentOrder.OrderState = OrderStateEnum.accepted;
+			bool ok=orderForm.ValidateItem();			
 			if (ok) {
 				orderForm.CommitEdit();
 				if (!CurrentOrder.HasValidationErrors) {
