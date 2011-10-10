@@ -26,7 +26,9 @@ namespace VotGESOrders.Web.Models
 						) {
 						if (user.Mails.Count>0) {
 							foreach (string mail in user.Mails) {
-								mailToList.Add(mail);
+								if (!String.IsNullOrEmpty(mail)) {
+									mailToList.Add(mail);
+								}
 							}
 						}
 					}
