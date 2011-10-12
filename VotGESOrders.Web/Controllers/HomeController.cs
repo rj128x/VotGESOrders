@@ -21,7 +21,8 @@ namespace VotGESOrders.Web.Controllers
 			OrdersContext context= new OrdersContext();
 			IQueryable<Order> expiredOrders=context.OrdersActiveExpired;
 			foreach (Order order in expiredOrders) {
-				MailContext.sendMail("Информация о просроченной заявке", order,false, true);
+				MailContext.sendMail(String.Format("Заявка №{0}. Заявка просрочена [{1}]",order.OrderNumber.ToString(OrderInfo.NFI), order.FullOrderObjectInfo), 
+					order,false, true);
 				Logging.Logger.info(String.Format("Отправка письма о просроченной заявке №{0} - {1}", order.OrderNumber.ToString(OrderInfo.NFI), order.UserCreateOrder.Mail), Logging.Logger.LoggerSource.server);
 			}
 			return View();
