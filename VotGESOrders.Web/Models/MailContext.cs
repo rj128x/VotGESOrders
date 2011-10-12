@@ -9,7 +9,7 @@ namespace VotGESOrders.Web.Models
 {
 	public class MailContext
 	{
-		public static void sendMail(string header, Order order,bool isNewOrder, bool onlyAuthor) {
+		public static void sendMail(string header, Order order, bool isNewOrder, bool onlyAuthor, Order prevOrder=null) {
 			if (HttpContext.Current.Request.Url.Port == 8071 || HttpContext.Current.Request.Url.Port == 8090)
 				return;
 			try {
@@ -35,7 +35,11 @@ namespace VotGESOrders.Web.Models
 				}
 
 				string message=OrderView.getOrderHTML(order);
+				if (prevOrder!=null) {
+					message += "<br/><br/><h3>Предыдущее состояние:</h3><br/>" + OrderView.getOrderHTML(prevOrder);
+				}
 				message += String.Format("<h3><a href='{0}'>Перейти к списку заявок</a></h3>", String.Format("http://{0}:{1}", HttpContext.Current.Request.Url.Host, HttpContext.Current.Request.Url.Port));
+				
 				if (mailToList.Count > 0) {
 					SendMailLocal("mx-votges-121.corp.gidroogk.com", 25, "", "", "", "SR-VOTGES-INT@votges.rushydro.ru", mailToList, header, message, true);
 				}
