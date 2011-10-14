@@ -59,6 +59,10 @@ namespace VotGESOrders.Views
 
 					CurrentOrder.FaktStopDate = DateTime.Now;
 					CurrentOrder.CloseText = "Работы завершены. Оборудование можно вводить в работу";
+
+					if (WebContext.Current.User.UserID != CurrentOrder.UserCreateOrderID) {
+						CurrentOrder.CloseText += "\n" + CurrentOrder.UserCreateOrder.FullName + " (по телефону)";
+					}
 					
 					FaktStopDate.Visibility = System.Windows.Visibility.Visible;
 					FaktStartDate.Visibility = System.Windows.Visibility.Collapsed;

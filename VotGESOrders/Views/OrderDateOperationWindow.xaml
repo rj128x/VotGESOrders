@@ -21,7 +21,7 @@
 							<usr:DateTimePicker x:Name="FaktStartDatePicker" SelectedDateTime="{Binding FaktStartDate, Mode=TwoWay}"/>
 						</toolkit:DataField>
 						<toolkit:DataField Name="OpenText" Label="Текст" LabelVisibility="Collapsed">
-							<TextBox Text="{Binding OpenText, Mode=TwoWay}" Height="50"  AcceptsReturn="true" TextWrapping="Wrap"/>
+							<TextBox Text="{Binding OpenText, Mode=TwoWay}" Height="60"  AcceptsReturn="true" TextWrapping="Wrap"/>
 						</toolkit:DataField>
 					</StackPanel>
 					<StackPanel  Name="FaktStopDate">
@@ -29,7 +29,7 @@
 							<usr:DateTimePicker SelectedDateTime="{Binding FaktStopDate, Mode=TwoWay}"/>
 						</toolkit:DataField>
 						<toolkit:DataField Name="CloseText" Label="Текст"  LabelVisibility="Collapsed">
-							<TextBox Text="{Binding CloseText, Mode=TwoWay}" Height="50"  AcceptsReturn="true" TextWrapping="Wrap"/>
+							<TextBox Text="{Binding CloseText, Mode=TwoWay}" Height="60"  AcceptsReturn="true" TextWrapping="Wrap"/>
 						</toolkit:DataField>
 					</StackPanel>
 					<StackPanel  Name="FaktCompleteDate">
@@ -37,7 +37,7 @@
 							<usr:DateTimePicker SelectedDateTime="{Binding FaktCompleteDate, Mode=TwoWay}"/>
 						</toolkit:DataField>
 						<toolkit:DataField Name="CompleteText" Label="Текст">
-							<TextBox Text="{Binding CompleteText, Mode=TwoWay}" Height="50"  AcceptsReturn="true" TextWrapping="Wrap"/>
+							<TextBox Text="{Binding CompleteText, Mode=TwoWay}" Height="60"  AcceptsReturn="true" TextWrapping="Wrap"/>
 						</toolkit:DataField>
 					</StackPanel>
 
