@@ -145,7 +145,7 @@
 		<Setter Property="HorizontalAlignment" Value="Center"/>
 		<Setter Property="Margin" Value="1,1,1,1"/>
 		<Setter Property="HorizontalAlignment" Value="Center"/>
-		<Setter Property="Foreground" Value="Coral"/>
+		<Setter Property="Foreground" Value="Gray"/>
 		<Setter Property="FontStyle" Value="Italic"/>
 		<Setter Property="TextAlignment" Value="Center"/>
 		

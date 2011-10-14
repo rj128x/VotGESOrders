@@ -136,7 +136,12 @@ CREATE TABLE [dbo].[Orders](
 	
 	[orderState] [varchar](50) NOT NULL, /*состояние заявки - created, accepted, banned, opened, canceled, closed, completed, extended, askExtended*/
 
-	[commentsText] [text] NULL
+	[commentsText] [text] NULL,
+	[expiredReglamentHours] [float] NULL,
+	[expiredOpenHours] [float] NULL,
+	[expiredCloseHours] [float] NULL,
+	[expiredCompleteHours] [float] NULL,
+
 	
  CONSTRAINT [PK_Orders] PRIMARY KEY CLUSTERED 
 (
