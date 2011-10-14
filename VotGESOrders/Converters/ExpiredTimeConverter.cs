@@ -60,6 +60,16 @@ namespace VotGESOrders.Converters
 				} else {
 					return "";
 				}
+			} else if (param == "reglament") {
+				if (time.HasValue) {
+					if (time.Value < 0) {
+						return "Не в регламенте\n" + getTimeStr(time.Value);
+					} else {
+						return "";
+					}
+				} else {
+					return "";
+				}
 			}
 			return "";
 		}

@@ -95,14 +95,14 @@
 	</ControlTemplate>
 
 	<ControlTemplate x:Key="OrderCellTimeEnter" TargetType="ContentControl">
-		<Border BorderBrush="{Binding OrderIsExpriredEnter, Converter={StaticResource backgroundColorConverter}, ConverterParameter='Expired',Mode=OneWay}"
+		<Border BorderBrush="{Binding OrderIsExpriredComplete, Converter={StaticResource backgroundColorConverter}, ConverterParameter='Expired',Mode=OneWay}"
 				  CornerRadius="2" BorderThickness="2">
 			<StackPanel Style="{StaticResource pnlCellOrderRow}"
 							Background="{Binding TimeToEnter, Converter={StaticResource backgroundColorConverter}, ConverterParameter='Time',Mode=OneWay}">
 				<TextBlock Style="{StaticResource txtCellOrderRow}" Text="{TemplateBinding Content}" TextWrapping="Wrap"  TextAlignment="Center"/>
 				<StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
 					<TextBlock Style="{StaticResource txtCellOrderRowAdd}" Text="{Binding TimeToEnter, Converter={StaticResource expiredTimeConverter},ConverterParameter='plan'}"/>
-					<TextBlock Style="{StaticResource txtCellOrderRowAdd}" Text="{Binding ExpiredEnterHours, Converter={StaticResource expiredTimeConverter},ConverterParameter='fakt'}"/>
+					<TextBlock Style="{StaticResource txtCellOrderRowAdd}" Text="{Binding ExpiredCompleteHours, Converter={StaticResource expiredTimeConverter},ConverterParameter='fakt'}"/>
 				</StackPanel>
 
 			</StackPanel>
@@ -111,8 +111,15 @@
 
 	<ControlTemplate x:Key="OrderCellDef" TargetType="ContentControl">
 			<StackPanel Style="{StaticResource pnlCellOrderRow}">
-				<TextBlock Style="{StaticResource txtCellOrderRow}" Text="{TemplateBinding Content}" TextWrapping="Wrap" TextAlignment="Center"/>
-			</StackPanel>
+				<TextBlock Style="{StaticResource txtCellOrderRow}" Text="{TemplateBinding Content}" TextWrapping="Wrap" TextAlignment="Center"/>			
+		</StackPanel>
+	</ControlTemplate>
+
+	<ControlTemplate x:Key="OrderCellAuthor" TargetType="ContentControl">
+		<StackPanel Style="{StaticResource pnlCellOrderRow}">
+			<TextBlock Style="{StaticResource txtCellOrderRow}" Text="{TemplateBinding Content}" TextWrapping="Wrap" TextAlignment="Center"/>
+			<TextBlock Style="{StaticResource txtCellOrderRowAddRed}" Text="{Binding ExpiredReglamentHours, Converter={StaticResource expiredTimeConverter},ConverterParameter='reglament'}"/>
+		</StackPanel>
 	</ControlTemplate>
 
 
@@ -132,6 +139,16 @@
 		<Setter Property="HorizontalAlignment" Value="Center"/>
 		<Setter Property="Foreground" Value="Gray"/>
 		<Setter Property="FontStyle" Value="Italic"/>
+	</Style>
+	<Style x:Key="txtCellOrderRowAddRed" TargetType="TextBlock">
+		<Setter Property="VerticalAlignment" Value="Center"/>
+		<Setter Property="HorizontalAlignment" Value="Center"/>
+		<Setter Property="Margin" Value="1,1,1,1"/>
+		<Setter Property="HorizontalAlignment" Value="Center"/>
+		<Setter Property="Foreground" Value="Coral"/>
+		<Setter Property="FontStyle" Value="Italic"/>
+		<Setter Property="TextAlignment" Value="Center"/>
+		
 	</Style>
 
 	<Style x:Key="Label" TargetType="TextBlock">

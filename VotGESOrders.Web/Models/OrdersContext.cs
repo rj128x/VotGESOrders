@@ -350,7 +350,8 @@ namespace VotGESOrders.Web.Models
 
 					orderDB.parentOrderNumber = order.ParentOrderNumber;
 					parentOrderDB.childOrderNumber = orderDB.orderNumber;
-					
+
+					Order.writeExpired(parentOrderDB);
 					if (isNew) {
 						MailContext.sendMail(String.Format("Заявка №{0}. Продление заявки ({2}) [{1}]", order.ParentOrderNumber.ToString(OrderInfo.NFI), 
 							order.FullOrderObjectInfo, CurrentUser.FullName),
@@ -386,7 +387,7 @@ namespace VotGESOrders.Web.Models
 
 					orderDB.parentOrderNumber = order.ParentOrderNumber;
 					parentOrderDB.childOrderNumber = orderDB.orderNumber;
-
+					Order.writeExpired(parentOrderDB);
 					if (isNew) {
 						MailContext.sendMail(String.Format("Заявка №{0}. Заявка закрыта без ввода оборудования ({2}) [{1}]",
 							order.ParentOrderNumber.ToString(OrderInfo.NFI), order.FullOrderObjectInfo, CurrentUser.FullName),
@@ -397,6 +398,7 @@ namespace VotGESOrders.Web.Models
 				if (isNew) {
 					context.Orders.AddObject(orderDB);
 				}
+				Order.writeExpired(orderDB);
 				context.SaveChanges();
 
 				Logger.info("===Сохранено", Logger.LoggerSource.ordersContext);		
@@ -460,10 +462,12 @@ namespace VotGESOrders.Web.Models
 						parentOrderDB.orderExtended = true;
 						parentOrderDB.orderAskExtended = false;
 						parentOrderDB.orderState = OrderStateEnum.extended.ToString();
+						Order.writeExpired(parentOrderDB);
 						MailContext.sendMail(String.Format("Заявка №{0}. Заявка продлена ({2}) [{1}]", 
 							order.ParentOrderNumber.ToString(OrderInfo.NFI), order.FullOrderObjectInfo, CurrentUser.FullName), 
 							new Order(parentOrderDB, currentUser, false, null), false, false);
 					}
+					Order.writeExpired(orderDB);
 					context.SaveChanges();
 					LastUpdate.save(guid);
 					Logger.info("===Заявка разрешена. Заявка №" + order.OrderNumber.ToString(OrderInfo.NFI), Logger.LoggerSource.ordersContext);
@@ -512,12 +516,12 @@ namespace VotGESOrders.Web.Models
 						parentOrderDB.completeText = null;
 						parentOrderDB.faktCompleteDate = null;
 						parentOrderDB.userCompleteOrderID = null;
-
+						Order.writeExpired(parentOrderDB);
 						MailContext.sendMail(String.Format("Заявка №{0}. Продление заявки отклонено ({2}) [{1}]", 
 							order.ParentOrderNumber.ToString(OrderInfo.NFI), order.FullOrderObjectInfo,CurrentUser.FullName), 
 							new Order(parentOrderDB, currentUser, false, null), false, false);
 					}
-
+					Order.writeExpired(orderDB);
 					context.SaveChanges();
 					LastUpdate.save(guid);
 					Logger.info("===Заявка запрещена. Заявка №" + order.OrderNumber.ToString(OrderInfo.NFI), Logger.LoggerSource.ordersContext);
@@ -565,12 +569,13 @@ namespace VotGESOrders.Web.Models
 						parentOrderDB.orderAskExtended = true;
 						parentOrderDB.orderState = OrderStateEnum.askExtended.ToString();
 						addComment(parentOrderDB, "Отмена рассмотрения заявки на продление");
-
+						Order.writeExpired(parentOrderDB);
 						MailContext.sendMail(String.Format("Заявка №{0}. Отмена рассмотрения заявки на продление ({2}) [{1}]", 
 							order.ParentOrderNumber.ToString(OrderInfo.NFI), order.FullOrderObjectInfo, CurrentUser.FullName),
 							new Order(parentOrderDB, currentUser, false, null), false, false);
 					}
 					addComment(orderDB, "Отмена рассмотрения заявки");
+					Order.writeExpired(orderDB);
 					context.SaveChanges();
 					LastUpdate.save(guid);
 					Logger.info("===Заявка. Отмена рассмотрения. Заявка №" + order.OrderNumber.ToString(OrderInfo.NFI), Logger.LoggerSource.ordersContext);
@@ -606,7 +611,7 @@ namespace VotGESOrders.Web.Models
 					orderDB.openText = order.OpenText;
 					orderDB.orderOpened = true;
 					orderDB.orderState = OrderStateEnum.opened.ToString();
-
+					Order.writeExpired(orderDB);
 					context.SaveChanges();
 					LastUpdate.save(guid);
 					Logger.info("===Заявка открыта. Заявка №" + order.OrderNumber.ToString(OrderInfo.NFI), Logger.LoggerSource.ordersContext);
@@ -641,6 +646,7 @@ namespace VotGESOrders.Web.Models
 					orderDB.orderOpened = false;
 					orderDB.orderState = OrderStateEnum.accepted.ToString();
 					addComment(orderDB, "Отмена открытия заявки");
+					Order.writeExpired(orderDB);
 					context.SaveChanges();
 					LastUpdate.save(guid);
 					Logger.info("===Заявка. отмена открытия. Заявка №" + order.OrderNumber.ToString(OrderInfo.NFI), Logger.LoggerSource.ordersContext);
@@ -674,7 +680,7 @@ namespace VotGESOrders.Web.Models
 					orderDB.orderState = OrderStateEnum.closed.ToString();
 					orderDB.closeText = order.CloseText;
 					orderDB.userCloseOrderID = currentUser.UserID;
-
+					Order.writeExpired(orderDB);
 					context.SaveChanges();
 					LastUpdate.save(guid);
 					Logger.info("===Разрешен ввод оборудования. Заявка №" + order.OrderNumber.ToString(OrderInfo.NFI), Logger.LoggerSource.ordersContext);
@@ -709,7 +715,7 @@ namespace VotGESOrders.Web.Models
 					orderDB.closeText = null;
 					orderDB.userCloseOrderID = null;
 					addComment(orderDB, "Отмена разрешения на ввод");
-
+					Order.writeExpired(orderDB);
 					context.SaveChanges();
 					LastUpdate.save(guid);
 					Logger.info("===Отменено разрешение на ввод оборудования. Заявка №" + order.OrderNumber.ToString(OrderInfo.NFI), Logger.LoggerSource.ordersContext);
@@ -757,12 +763,12 @@ namespace VotGESOrders.Web.Models
 						parentOrderDB.completeText = null;
 						parentOrderDB.faktCompleteDate = null;
 						parentOrderDB.userCompleteOrderID = null;
-
+						Order.writeExpired(parentOrderDB);
 						MailContext.sendMail(String.Format("Заявка №{0}. Снята заявка на продление ({2}) [{1}]", 
 							order.ParentOrderNumber.ToString(OrderInfo.NFI),order.FullOrderObjectInfo,CurrentUser.FullName), 
 							new Order(parentOrderDB, currentUser, false, null), false, false);
 					}
-
+					Order.writeExpired(orderDB);
 					context.SaveChanges();
 					LastUpdate.save(guid);
 					Logger.info("===Заявка. Снята заявка №" + order.OrderNumber.ToString(OrderInfo.NFI), Logger.LoggerSource.ordersContext);
@@ -795,7 +801,8 @@ namespace VotGESOrders.Web.Models
 					orderDB.cancelText = null;
 					orderDB.orderCanceled = false;
 					orderDB.orderState = order.OrderReviewed?OrderStateEnum.accepted.ToString():OrderStateEnum.created.ToString();
-					addComment(orderDB, "Отмена снятия заявки");
+					addComment(orderDB, "Отмена снятия заявки"); 
+					Order.writeExpired(orderDB);
 					context.SaveChanges();
 					LastUpdate.save(guid);
 					Logger.info("===Заявка. Отмена снятия. Заявка №" + order.OrderNumber.ToString(OrderInfo.NFI), Logger.LoggerSource.ordersContext);
@@ -830,6 +837,7 @@ namespace VotGESOrders.Web.Models
 					orderDB.completeText = order.CompleteText;
 					orderDB.userCompleteOrderID = currentUser.UserID;
 					orderDB.faktCompleteDate = order.FaktCompleteDate;
+					Order.writeExpired(orderDB);
 					context.SaveChanges();
 					LastUpdate.save(guid);
 					Logger.info("===Оборудование введено. Заявка №" + order.OrderNumber.ToString(OrderInfo.NFI), Logger.LoggerSource.ordersContext);
@@ -864,6 +872,7 @@ namespace VotGESOrders.Web.Models
 					orderDB.userCompleteOrderID = null;
 					orderDB.faktCompleteDate = null;
 					addComment(orderDB, "Отмена ввода оборудования");
+					Order.writeExpired(orderDB);
 					context.SaveChanges();
 					LastUpdate.save(guid);
 					Logger.info("===Отмена ввода оборудования. Заявка №" + order.OrderNumber.ToString(OrderInfo.NFI), Logger.LoggerSource.ordersContext);
@@ -920,6 +929,7 @@ namespace VotGESOrders.Web.Models
 					addComment(orderDB, "Ручное редактирование заявки");
 					
 					checkOrder(orderDB);
+					Order.writeExpired(orderDB);
 					context.SaveChanges();
 					LastUpdate.save(guid);
 					Logger.info("===Заявка отредактирована. Заявка №" + order.OrderNumber.ToString(OrderInfo.NFI), Logger.LoggerSource.ordersContext);
@@ -947,7 +957,7 @@ namespace VotGESOrders.Web.Models
 				order.checkPremissions(orderDB, currentUser);
 
 				addComment(orderDB, commentText);
-
+				Order.writeExpired(orderDB);
 				context.SaveChanges();
 				LastUpdate.save(guid);
 				Logger.info("===Добавлен комментарий. Заявка №" + order.OrderNumber.ToString(OrderInfo.NFI), Logger.LoggerSource.ordersContext);

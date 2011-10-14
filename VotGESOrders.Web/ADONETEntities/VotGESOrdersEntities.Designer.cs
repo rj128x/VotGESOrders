@@ -1519,6 +1519,102 @@ namespace VotGESOrders.Web.ADONETEntities
         private global::System.String _commentsText;
         partial void OncommentsTextChanging(global::System.String value);
         partial void OncommentsTextChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Double> expiredReglamentHours
+        {
+            get
+            {
+                return _expiredReglamentHours;
+            }
+            set
+            {
+                OnexpiredReglamentHoursChanging(value);
+                ReportPropertyChanging("expiredReglamentHours");
+                _expiredReglamentHours = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("expiredReglamentHours");
+                OnexpiredReglamentHoursChanged();
+            }
+        }
+        private Nullable<global::System.Double> _expiredReglamentHours;
+        partial void OnexpiredReglamentHoursChanging(Nullable<global::System.Double> value);
+        partial void OnexpiredReglamentHoursChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Double> expiredOpenHours
+        {
+            get
+            {
+                return _expiredOpenHours;
+            }
+            set
+            {
+                OnexpiredOpenHoursChanging(value);
+                ReportPropertyChanging("expiredOpenHours");
+                _expiredOpenHours = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("expiredOpenHours");
+                OnexpiredOpenHoursChanged();
+            }
+        }
+        private Nullable<global::System.Double> _expiredOpenHours;
+        partial void OnexpiredOpenHoursChanging(Nullable<global::System.Double> value);
+        partial void OnexpiredOpenHoursChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Double> expiredCloseHours
+        {
+            get
+            {
+                return _expiredCloseHours;
+            }
+            set
+            {
+                OnexpiredCloseHoursChanging(value);
+                ReportPropertyChanging("expiredCloseHours");
+                _expiredCloseHours = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("expiredCloseHours");
+                OnexpiredCloseHoursChanged();
+            }
+        }
+        private Nullable<global::System.Double> _expiredCloseHours;
+        partial void OnexpiredCloseHoursChanging(Nullable<global::System.Double> value);
+        partial void OnexpiredCloseHoursChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Double> expiredCompleteHours
+        {
+            get
+            {
+                return _expiredCompleteHours;
+            }
+            set
+            {
+                OnexpiredCompleteHoursChanging(value);
+                ReportPropertyChanging("expiredCompleteHours");
+                _expiredCompleteHours = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("expiredCompleteHours");
+                OnexpiredCompleteHoursChanged();
+            }
+        }
+        private Nullable<global::System.Double> _expiredCompleteHours;
+        partial void OnexpiredCompleteHoursChanging(Nullable<global::System.Double> value);
+        partial void OnexpiredCompleteHoursChanged();
 
         #endregion
     

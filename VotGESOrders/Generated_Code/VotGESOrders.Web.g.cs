@@ -149,9 +149,11 @@ namespace VotGESOrders.Web.Models
         
         private Nullable<double> _expiredCloseHours;
         
-        private Nullable<double> _expiredEnterHours;
+        private Nullable<double> _expiredCompleteHours;
         
         private Nullable<double> _expiredOpenHours;
+        
+        private Nullable<double> _expiredReglamentHours;
         
         private Nullable<DateTime> _faktCompleteDate;
         
@@ -201,7 +203,9 @@ namespace VotGESOrders.Web.Models
         
         private Nullable<bool> _orderIsExpiredOpen;
         
-        private Nullable<bool> _orderIsExpriredEnter;
+        private Nullable<bool> _orderIsExpiredReglament;
+        
+        private Nullable<bool> _orderIsExpriredComplete;
         
         private bool _orderIsExtend;
         
@@ -332,10 +336,12 @@ namespace VotGESOrders.Web.Models
         partial void OnCreateTextChanged();
         partial void OnExpiredCloseHoursChanging(Nullable<double> value);
         partial void OnExpiredCloseHoursChanged();
-        partial void OnExpiredEnterHoursChanging(Nullable<double> value);
-        partial void OnExpiredEnterHoursChanged();
+        partial void OnExpiredCompleteHoursChanging(Nullable<double> value);
+        partial void OnExpiredCompleteHoursChanged();
         partial void OnExpiredOpenHoursChanging(Nullable<double> value);
         partial void OnExpiredOpenHoursChanged();
+        partial void OnExpiredReglamentHoursChanging(Nullable<double> value);
+        partial void OnExpiredReglamentHoursChanged();
         partial void OnFaktCompleteDateChanging(Nullable<DateTime> value);
         partial void OnFaktCompleteDateChanged();
         partial void OnFaktStartDateChanging(Nullable<DateTime> value);
@@ -384,8 +390,10 @@ namespace VotGESOrders.Web.Models
         partial void OnOrderIsExpiredCloseChanged();
         partial void OnOrderIsExpiredOpenChanging(Nullable<bool> value);
         partial void OnOrderIsExpiredOpenChanged();
-        partial void OnOrderIsExpriredEnterChanging(Nullable<bool> value);
-        partial void OnOrderIsExpriredEnterChanged();
+        partial void OnOrderIsExpiredReglamentChanging(Nullable<bool> value);
+        partial void OnOrderIsExpiredReglamentChanged();
+        partial void OnOrderIsExpriredCompleteChanging(Nullable<bool> value);
+        partial void OnOrderIsExpriredCompleteChanged();
         partial void OnOrderIsExtendChanging(bool value);
         partial void OnOrderIsExtendChanged();
         partial void OnOrderIsFixErrorEnterChanging(bool value);
@@ -1140,25 +1148,25 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Возвращает или задает значение параметра "ExpiredEnterHours".
+        /// Возвращает или задает значение параметра "ExpiredCompleteHours".
         /// </summary>
         [DataMember()]
-        public Nullable<double> ExpiredEnterHours
+        public Nullable<double> ExpiredCompleteHours
         {
             get
             {
-                return this._expiredEnterHours;
+                return this._expiredCompleteHours;
             }
             set
             {
-                if ((this._expiredEnterHours != value))
+                if ((this._expiredCompleteHours != value))
                 {
-                    this.OnExpiredEnterHoursChanging(value);
-                    this.RaiseDataMemberChanging("ExpiredEnterHours");
-                    this.ValidateProperty("ExpiredEnterHours", value);
-                    this._expiredEnterHours = value;
-                    this.RaiseDataMemberChanged("ExpiredEnterHours");
-                    this.OnExpiredEnterHoursChanged();
+                    this.OnExpiredCompleteHoursChanging(value);
+                    this.RaiseDataMemberChanging("ExpiredCompleteHours");
+                    this.ValidateProperty("ExpiredCompleteHours", value);
+                    this._expiredCompleteHours = value;
+                    this.RaiseDataMemberChanged("ExpiredCompleteHours");
+                    this.OnExpiredCompleteHoursChanged();
                 }
             }
         }
@@ -1183,6 +1191,30 @@ namespace VotGESOrders.Web.Models
                     this._expiredOpenHours = value;
                     this.RaiseDataMemberChanged("ExpiredOpenHours");
                     this.OnExpiredOpenHoursChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "ExpiredReglamentHours".
+        /// </summary>
+        [DataMember()]
+        public Nullable<double> ExpiredReglamentHours
+        {
+            get
+            {
+                return this._expiredReglamentHours;
+            }
+            set
+            {
+                if ((this._expiredReglamentHours != value))
+                {
+                    this.OnExpiredReglamentHoursChanging(value);
+                    this.RaiseDataMemberChanging("ExpiredReglamentHours");
+                    this.ValidateProperty("ExpiredReglamentHours", value);
+                    this._expiredReglamentHours = value;
+                    this.RaiseDataMemberChanged("ExpiredReglamentHours");
+                    this.OnExpiredReglamentHoursChanged();
                 }
             }
         }
@@ -1773,25 +1805,49 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Возвращает или задает значение параметра "OrderIsExpriredEnter".
+        /// Возвращает или задает значение параметра "OrderIsExpiredReglament".
         /// </summary>
         [DataMember()]
-        public Nullable<bool> OrderIsExpriredEnter
+        public Nullable<bool> OrderIsExpiredReglament
         {
             get
             {
-                return this._orderIsExpriredEnter;
+                return this._orderIsExpiredReglament;
             }
             set
             {
-                if ((this._orderIsExpriredEnter != value))
+                if ((this._orderIsExpiredReglament != value))
                 {
-                    this.OnOrderIsExpriredEnterChanging(value);
-                    this.RaiseDataMemberChanging("OrderIsExpriredEnter");
-                    this.ValidateProperty("OrderIsExpriredEnter", value);
-                    this._orderIsExpriredEnter = value;
-                    this.RaiseDataMemberChanged("OrderIsExpriredEnter");
-                    this.OnOrderIsExpriredEnterChanged();
+                    this.OnOrderIsExpiredReglamentChanging(value);
+                    this.RaiseDataMemberChanging("OrderIsExpiredReglament");
+                    this.ValidateProperty("OrderIsExpiredReglament", value);
+                    this._orderIsExpiredReglament = value;
+                    this.RaiseDataMemberChanged("OrderIsExpiredReglament");
+                    this.OnOrderIsExpiredReglamentChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "OrderIsExpriredComplete".
+        /// </summary>
+        [DataMember()]
+        public Nullable<bool> OrderIsExpriredComplete
+        {
+            get
+            {
+                return this._orderIsExpriredComplete;
+            }
+            set
+            {
+                if ((this._orderIsExpriredComplete != value))
+                {
+                    this.OnOrderIsExpriredCompleteChanging(value);
+                    this.RaiseDataMemberChanging("OrderIsExpriredComplete");
+                    this.ValidateProperty("OrderIsExpriredComplete", value);
+                    this._orderIsExpriredComplete = value;
+                    this.RaiseDataMemberChanged("OrderIsExpriredComplete");
+                    this.OnOrderIsExpriredCompleteChanged();
                 }
             }
         }

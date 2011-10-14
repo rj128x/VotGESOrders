@@ -544,16 +544,22 @@ namespace VotGESOrders.Web.Models
 			set { orderIsExpiredClose = value; }
 		}
 
-		private bool? orderIsExpriredEnter;
-		public bool? OrderIsExpriredEnter {
-			get { return orderIsExpriredEnter; }
-			set { orderIsExpriredEnter = value; }
+		private bool? orderIsExpriredComplete;
+		public bool? OrderIsExpriredComplete {
+			get { return orderIsExpriredComplete; }
+			set { orderIsExpriredComplete = value; }
 		}
 
 		private bool? orderIsExpiredOpen;
 		public bool? OrderIsExpiredOpen {
 			get { return orderIsExpiredOpen; }
 			set { orderIsExpiredOpen = value; }
+		}
+
+		private bool? orderIsExpiredReglament;
+		public bool? OrderIsExpiredReglament {
+			get { return orderIsExpiredReglament; }
+			set { orderIsExpiredReglament = value; }
 		}
 
 		private double? expiredOpenHours;
@@ -568,10 +574,16 @@ namespace VotGESOrders.Web.Models
 			set { expiredCloseHours = value; }
 		}
 
-		private double? expiredEnterHours;
-		public double? ExpiredEnterHours {
-			get { return expiredEnterHours; }
-			set { expiredEnterHours = value; }
+		private double? expiredCompleteHours;
+		public double? ExpiredCompleteHours {
+			get { return expiredCompleteHours; }
+			set { expiredCompleteHours = value; }
+		}
+
+		private double? expiredReglamentHours;
+		public double? ExpiredReglamentHours {
+			get { return expiredReglamentHours; }
+			set { expiredReglamentHours = value; }
 		}
 
 		private String commentsText;
@@ -632,6 +644,17 @@ namespace VotGESOrders.Web.Models
 			OrderDateComplete = dbOrder.orderDateComplete;
 			OrderDateCancel = dbOrder.orderDateCancel;
 
+			ExpiredReglamentHours = dbOrder.expiredReglamentHours;
+			ExpiredOpenHours = dbOrder.expiredOpenHours;
+			ExpiredCompleteHours = dbOrder.expiredCompleteHours;
+			ExpiredCloseHours = dbOrder.expiredCloseHours;
+
+			OrderIsExpiredClose = ExpiredCloseHours.HasValue && ExpiredCloseHours.Value < 0;
+			OrderIsExpiredOpen = ExpiredOpenHours.HasValue && ExpiredOpenHours.Value < 0;
+			OrderIsExpriredComplete = ExpiredCompleteHours.HasValue && ExpiredCompleteHours.Value < 0;
+			OrderIsExpiredReglament = ExpiredReglamentHours.HasValue && ExpiredReglamentHours.Value < 0;
+
+
 			CommentsText = dbOrder.commentsText;
 
 			UserCreateOrder = OrdersUser.loadFromCache(dbOrder.userCreateOrderID);
@@ -673,9 +696,7 @@ namespace VotGESOrders.Web.Models
 			}
 			OrderHasChildOrder = ChildOrderNumber > 0;
 			OrderHasParentOrder = ParentOrderNumber > 0;
-			
-			checkExpired();
-						
+			checkTimeToOpen();	
 		}
 
 
@@ -692,7 +713,7 @@ namespace VotGESOrders.Web.Models
 			OrderAskExtended = dbOrder.orderAskExtended;
 			OrderIsExtend = dbOrder.orderIsExtend;
 			OrderIsFixErrorEnter = dbOrder.orderIsFixErrorEnter;
-
+						
 			OrderState = (OrderStateEnum)Enum.Parse(typeof(OrderStateEnum), dbOrder.orderState, true);
 			OrderType = (OrderTypeEnum)Enum.Parse(typeof(OrderTypeEnum), dbOrder.orderType, true);
 
@@ -725,15 +746,11 @@ namespace VotGESOrders.Web.Models
 			AllowEditOrder = currentUser.AllowEditOrders;
 		}
 
-		private void checkExpired() {
+		private void checkTimeToOpen(){
 			double koef=10000000.0 * 60.0 * 60.0;
-			timeToOpen =  null;
+			timeToOpen = null;
 			timeToClose = null;
 			timeToEnter = null;
-			OrderIsExpiredClose = null;
-			OrderIsExpriredEnter = null;
-			OrderIsExpiredOpen = null;
-
 			if (OrderState == OrderStateEnum.accepted || OrderState == OrderStateEnum.created) {
 				timeToOpen = (PlanStartDate.Ticks - DateTime.Now.Ticks) / koef;
 				timeToClose = (PlanStopDate.Ticks - DateTime.Now.Ticks) / koef;
@@ -742,26 +759,41 @@ namespace VotGESOrders.Web.Models
 			if (OrderState == OrderStateEnum.opened) {
 				timeToClose = (PlanStopDate.Ticks - DateTime.Now.Ticks) / koef;
 				timeToEnter = (PlanStopDate.Ticks - DateTime.Now.Ticks) / koef;
-			}			
-			if (OrderState==OrderStateEnum.closed){
+			}
+			if (OrderState == OrderStateEnum.closed) {
 				timeToEnter = (PlanStopDate.Ticks - DateTime.Now.Ticks) / koef;
-			}
-
-			if (OrderOpened) {
-				OrderIsExpiredOpen = PlanStartDate < FaktStartDate;
-				ExpiredOpenHours = (PlanStartDate.Ticks - FaktStartDate.Value.Ticks) / koef;
-			}
-
-			if (OrderClosed) {
-				OrderIsExpiredClose = PlanStopDate < FaktStopDate;
-				ExpiredCloseHours = (PlanStopDate.Ticks - FaktStopDate.Value.Ticks) / koef;
-			}
-			if (OrderCompleted) {
-				OrderIsExpriredEnter = PlanStopDate < FaktCompleteDate;
-				ExpiredEnterHours = (PlanStopDate.Ticks - FaktCompleteDate.Value.Ticks) / koef;
 			}
 		}
 
+		public static void writeExpired(Orders orderDB) {
+			double koef=10000000.0 * 60.0 * 60.0;
+
+			if (orderDB.orderOpened&&orderDB.faktStartDate.HasValue) {
+				orderDB.expiredOpenHours = (orderDB.planStartDate.Ticks - orderDB.faktStartDate.Value.Ticks) / koef;
+			}
+
+			if (orderDB.orderClosed && orderDB.faktStopDate.HasValue) {
+				orderDB.expiredCloseHours = (orderDB.planStopDate.Ticks - orderDB.faktStopDate.Value.Ticks) / koef;
+			}
+			if (orderDB.orderCompleted && orderDB.faktCompleteDate.HasValue) {
+				orderDB.expiredCompleteHours = (orderDB.planStopDate.Ticks - orderDB.faktCompleteDate.Value.Ticks) / koef;
+			}
+
+
+			DateTime needCreate=orderDB.orderDateCreate;
+			if (!orderDB.orderIsExtend) {
+				if (orderDB.orderType == OrderTypeEnum.npl.ToString() || orderDB.orderType == OrderTypeEnum.pl.ToString()) {
+					if (orderDB.planStartDate.DayOfWeek == DayOfWeek.Monday || orderDB.planStartDate.DayOfWeek == DayOfWeek.Saturday || orderDB.planStartDate.DayOfWeek == DayOfWeek.Sunday) {
+						needCreate = orderDB.planStartDate.AddDays(-3).Date.AddHours(15);
+					} else {
+						needCreate = orderDB.planStartDate.AddDays(-1).Date.AddHours(15);
+					}
+				} else {
+					needCreate = orderDB.planStartDate.AddHours(24);
+				}
+			}
+			orderDB.expiredReglamentHours = (needCreate.Ticks - orderDB.orderDateCreate.Ticks) / koef;
+		}
 
 
 		public Order(Orders dbOrder, OrdersUser currentUser, bool readRelated, List<Order> listOrders) {

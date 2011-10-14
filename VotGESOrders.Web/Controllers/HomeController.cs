@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using VotGESOrders.Web.Models;
 using System.Net.Mail;
+using VotGESOrders.Web.ADONETEntities;
 
 namespace VotGESOrders.Web.Controllers
 {
@@ -45,6 +46,16 @@ namespace VotGESOrders.Web.Controllers
 						
 			// Отправляем письмо
 			client.Send(mess);
+			return View();
+		}
+
+		public ActionResult ProcessAllExpiredOrders() {
+			VotGESOrdersEntities context=new VotGESOrdersEntities();
+			IQueryable<Orders> expiredOrders=from Orders o in context.Orders select o;
+			foreach (Orders order in expiredOrders) {
+				Order.writeExpired(order);
+			}
+			context.SaveChanges();
 			return View();
 		}
 

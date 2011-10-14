@@ -51,7 +51,7 @@
 				<sdk:DataGridTemplateColumn Header="Автор"  SortMemberPath="UserCreateOrder.FullName"   >
 					<sdk:DataGridTemplateColumn.CellTemplate>
 						<DataTemplate>
-							<ContentControl Content="{Binding UserCreateOrder.FullName}"  Template="{StaticResource OrderCellDef}"/>
+							<ContentControl Content="{Binding UserCreateOrder.FullName}"  Template="{StaticResource OrderCellAuthor}"/>
 						</DataTemplate>
 					</sdk:DataGridTemplateColumn.CellTemplate>
 				</sdk:DataGridTemplateColumn>

@@ -10,7 +10,7 @@
     <file relUrl="bin/ru/System.ServiceModel.DomainServices.Hosting.resources.dll" publishTime="01/14/2011 14:13:46" />
     <file relUrl="bin/System.ServiceModel.DomainServices.Server.dll" publishTime="01/14/2011 14:13:46" />
     <file relUrl="Logging/Logger.cs" publishTime="07/25/2011 14:02:15" />
-    <file relUrl="bin/VotGESOrders.Web.dll" publishTime="10/14/2011 10:33:59" />
+    <file relUrl="bin/VotGESOrders.Web.dll" publishTime="10/14/2011 13:05:39" />
     <file relUrl="SQL/users.sql" publishTime="09/30/2011 08:03:47" />
     <file relUrl="Models/XMLStringSerializer.shared.cs" publishTime="07/07/2011 07:54:59" />
     <file relUrl="Scripts/MicrosoftMvcAjax.js" publishTime="07/07/2011 07:54:59" />
@@ -19,7 +19,7 @@
     <file relUrl="bin/ru/System.ServiceModel.DomainServices.Server.resources.dll" publishTime="01/14/2011 14:13:50" />
     <file relUrl="Models/OrderObject.cs" publishTime="09/21/2011 09:54:58" />
     <file relUrl="Scripts/MicrosoftMvcValidation.debug.js" publishTime="07/07/2011 07:54:59" />
-    <file relUrl="VotGESOrders.Web.csproj" publishTime="10/10/2011 08:04:39" />
+    <file relUrl="VotGESOrders.Web.csproj" publishTime="10/14/2011 11:06:12" />
     <file relUrl="bin/System.ServiceModel.DomainServices.Hosting.xml" publishTime="01/14/2011 14:08:54" />
     <file relUrl="bin/zh-Hans/System.ServiceModel.DomainServices.Server.resources.dll" publishTime="01/14/2011 14:13:50" />
     <file relUrl="bin/System.ServiceModel.DomainServices.Server.xml" publishTime="01/14/2011 14:08:52" />
@@ -32,24 +32,24 @@
     <file relUrl="Views/Home/TestMail.aspx" publishTime="09/09/2011 07:56:48" />
     <file relUrl="Scripts/jquery-1.4.1.js" publishTime="07/07/2011 07:55:00" />
     <file relUrl="bin/log4net.xml" publishTime="03/30/2006 13:24:28" />
-    <file relUrl="Models/OrdersContext.cs" publishTime="10/12/2011 12:09:12" />
+    <file relUrl="Models/OrdersContext.cs" publishTime="10/14/2011 11:48:00" />
     <file relUrl="Global.asax.cs" publishTime="07/07/2011 07:54:59" />
     <file relUrl="Models/LastUpdate.cs" publishTime="09/12/2011 07:57:00" />
     <file relUrl="SQL/users_PI.sql" publishTime="07/19/2011 09:54:09" />
-    <file relUrl="VotGESOrders.Web.csproj.user" publishTime="10/12/2011 12:13:17" />
+    <file relUrl="VotGESOrders.Web.csproj.user" publishTime="10/14/2011 12:20:08" />
     <file relUrl="SQL/objects.sql" publishTime="09/21/2011 10:06:24" />
     <file relUrl="bin/ru/System.Web.Mvc.resources.dll" publishTime="03/29/2010 17:36:52" />
-    <file relUrl="bin/VotGESOrders.Web.pdb" publishTime="10/14/2011 10:33:59" />
+    <file relUrl="bin/VotGESOrders.Web.pdb" publishTime="10/14/2011 13:05:39" />
     <file relUrl="Views/Home/About.aspx" publishTime="07/07/2011 07:55:00" />
     <file relUrl="Scripts/jquery-1.4.1-vsdoc.js" publishTime="07/07/2011 07:54:59" />
     <file relUrl="bin/ko/System.ServiceModel.DomainServices.Server.resources.dll" publishTime="01/14/2011 14:13:52" />
     <file relUrl="Models/OrderInfo.shared.cs" publishTime="09/12/2011 07:57:00" />
     <file relUrl="Views/Home/Index.aspx" publishTime="07/07/2011 07:55:00" />
     <file relUrl="bin/es/System.ServiceModel.DomainServices.Server.resources.dll" publishTime="01/14/2011 14:13:48" />
-    <file relUrl="Controllers/HomeController.cs" publishTime="10/12/2011 12:11:24" />
+    <file relUrl="Controllers/HomeController.cs" publishTime="10/14/2011 11:50:55" />
     <file relUrl="bin/log4net.dll" publishTime="03/30/2006 13:24:28" />
     <file relUrl="Models/OrdersUser.cs" publishTime="10/10/2011 07:56:22" />
-    <file relUrl="ClientBin/VotGESOrders.xap" publishTime="10/14/2011 10:34:11" />
+    <file relUrl="ClientBin/VotGESOrders.xap" publishTime="10/14/2011 13:06:12" />
     <file relUrl="Views/Shared/Site.Master" publishTime="07/07/2011 07:55:00" />
     <file relUrl="Scripts/jquery.validate.min.js" publishTime="07/07/2011 07:55:00" />
     <file relUrl="Services/AuthenticationDomainService.cs" publishTime="07/25/2011 14:04:16" />
@@ -69,11 +69,11 @@
     <file relUrl="Scripts/MicrosoftMvcValidation.js" publishTime="07/07/2011 07:54:59" />
     <file relUrl="bin/de/System.ServiceModel.DomainServices.Server.resources.dll" publishTime="01/14/2011 14:13:50" />
     <file relUrl="Views/Shared/Error.aspx" publishTime="07/07/2011 07:55:00" />
-    <file relUrl="ADONETEntities/VotGESOrdersEntities.Designer.cs" publishTime="10/10/2011 08:03:58" />
+    <file relUrl="ADONETEntities/VotGESOrdersEntities.Designer.cs" publishTime="10/14/2011 10:53:22" />
     <file relUrl="SQL/Orders.sql" publishTime="10/10/2011 07:56:22" />
     <file relUrl="bin/zh-Hant/System.ServiceModel.DomainServices.Server.resources.dll" publishTime="01/14/2011 14:13:50" />
     <file relUrl="Models/OrderValidator.shared.cs" publishTime="09/30/2011 10:12:43" />
-    <file relUrl="Models/Order.cs" publishTime="10/10/2011 07:56:22" />
+    <file relUrl="Models/Order.cs" publishTime="10/14/2011 13:05:36" />
     <file relUrl="Scripts/MicrosoftAjax.debug.js" publishTime="07/07/2011 07:54:59" />
     <file relUrl="bin/de/System.ServiceModel.DomainServices.Hosting.resources.dll" publishTime="01/14/2011 14:13:44" />
     <file relUrl="Services/LoggerService.cs" publishTime="07/25/2011 14:03:29" />
@@ -87,7 +87,7 @@
     <file relUrl="bin/es/System.ServiceModel.DomainServices.Hosting.resources.dll" publishTime="01/14/2011 14:13:44" />
     <file relUrl="Services/OrdersDomainService.cs" publishTime="09/30/2011 10:04:22" />
     <file relUrl="Models/AccountModels.cs" publishTime="07/07/2011 07:54:59" />
-    <file relUrl="Web.config" publishTime="10/10/2011 08:08:43" />
+    <file relUrl="Web.config" publishTime="10/14/2011 13:03:22" />
   </publishProfile>
   <publishProfile publishUrl="Z:\Projects\OrdersTest" deleteExistingFiles="False" ftpAnonymousLogin="False" ftpPassiveMode="True" msdeploySite="" msdeploySiteID="" msdeployRemoteSitePhysicalPath="" msdeployAllowUntrustedCertificate="False" msdeploySkipExtraFilesOnServer="True" msdeployMarkAsApp="False" profileName="Test" publishMethod="FileSystem" replaceMatchingFiles="True" userName="" savePWD="False" userPWD="" SelectedForPublish="False">
     <file relUrl="Scripts/MicrosoftAjax.js" publishTime="07/07/2011 07:54:59" />
@@ -99,7 +99,7 @@
     <file relUrl="bin/ru/System.ServiceModel.DomainServices.Hosting.resources.dll" publishTime="01/14/2011 14:13:46" />
     <file relUrl="bin/System.ServiceModel.DomainServices.Server.dll" publishTime="01/14/2011 14:13:46" />
     <file relUrl="Logging/Logger.cs" publishTime="07/25/2011 14:02:15" />
-    <file relUrl="bin/VotGESOrders.Web.dll" publishTime="10/12/2011 08:19:10" />
+    <file relUrl="bin/VotGESOrders.Web.dll" publishTime="10/14/2011 12:50:48" />
     <file relUrl="SQL/users.sql" publishTime="09/30/2011 08:03:47" />
     <file relUrl="Models/XMLStringSerializer.shared.cs" publishTime="07/07/2011 07:54:59" />
     <file relUrl="Scripts/MicrosoftMvcAjax.js" publishTime="07/07/2011 07:54:59" />
@@ -109,7 +109,7 @@
     <file relUrl="bin/ru/System.ServiceModel.DomainServices.Server.resources.dll" publishTime="01/14/2011 14:13:50" />
     <file relUrl="Models/OrderObject.cs" publishTime="09/21/2011 09:54:58" />
     <file relUrl="Scripts/MicrosoftMvcValidation.debug.js" publishTime="07/07/2011 07:54:59" />
-    <file relUrl="VotGESOrders.Web.csproj" publishTime="10/10/2011 08:04:39" />
+    <file relUrl="VotGESOrders.Web.csproj" publishTime="10/14/2011 11:06:12" />
     <file relUrl="bin/System.ServiceModel.DomainServices.Hosting.xml" publishTime="01/14/2011 14:08:54" />
     <file relUrl="bin/zh-Hans/System.ServiceModel.DomainServices.Server.resources.dll" publishTime="01/14/2011 14:13:50" />
     <file relUrl="bin/System.ServiceModel.DomainServices.Server.xml" publishTime="01/14/2011 14:08:52" />
@@ -122,24 +122,24 @@
     <file relUrl="Views/Home/TestMail.aspx" publishTime="09/09/2011 07:56:48" />
     <file relUrl="Scripts/jquery-1.4.1.js" publishTime="07/07/2011 07:55:00" />
     <file relUrl="bin/log4net.xml" publishTime="03/30/2006 13:24:28" />
-    <file relUrl="Models/OrdersContext.cs" publishTime="10/12/2011 08:18:28" />
+    <file relUrl="Models/OrdersContext.cs" publishTime="10/14/2011 11:48:00" />
     <file relUrl="Global.asax.cs" publishTime="07/07/2011 07:54:59" />
     <file relUrl="Models/LastUpdate.cs" publishTime="09/12/2011 07:57:00" />
     <file relUrl="SQL/users_PI.sql" publishTime="07/19/2011 09:54:09" />
-    <file relUrl="VotGESOrders.Web.csproj.user" publishTime="10/10/2011 16:36:06" />
+    <file relUrl="VotGESOrders.Web.csproj.user" publishTime="10/14/2011 12:20:08" />
     <file relUrl="SQL/objects.sql" publishTime="09/21/2011 10:06:24" />
     <file relUrl="bin/ru/System.Web.Mvc.resources.dll" publishTime="03/29/2010 17:36:52" />
-    <file relUrl="bin/VotGESOrders.Web.pdb" publishTime="10/12/2011 08:19:10" />
+    <file relUrl="bin/VotGESOrders.Web.pdb" publishTime="10/14/2011 12:50:48" />
     <file relUrl="Views/Home/About.aspx" publishTime="07/07/2011 07:55:00" />
     <file relUrl="Scripts/jquery-1.4.1-vsdoc.js" publishTime="07/07/2011 07:54:59" />
     <file relUrl="bin/ko/System.ServiceModel.DomainServices.Server.resources.dll" publishTime="01/14/2011 14:13:52" />
     <file relUrl="Models/OrderInfo.shared.cs" publishTime="09/12/2011 07:57:00" />
     <file relUrl="Views/Home/Index.aspx" publishTime="07/07/2011 07:55:00" />
     <file relUrl="bin/es/System.ServiceModel.DomainServices.Server.resources.dll" publishTime="01/14/2011 14:13:48" />
-    <file relUrl="Controllers/HomeController.cs" publishTime="09/20/2011 13:02:31" />
+    <file relUrl="Controllers/HomeController.cs" publishTime="10/14/2011 11:50:55" />
     <file relUrl="bin/log4net.dll" publishTime="03/30/2006 13:24:28" />
     <file relUrl="Models/OrdersUser.cs" publishTime="10/10/2011 07:56:22" />
-    <file relUrl="ClientBin/VotGESOrders.xap" publishTime="10/12/2011 08:19:39" />
+    <file relUrl="ClientBin/VotGESOrders.xap" publishTime="10/14/2011 12:51:20" />
     <file relUrl="Views/Shared/Site.Master" publishTime="07/07/2011 07:55:00" />
     <file relUrl="Scripts/jquery.validate.min.js" publishTime="07/07/2011 07:55:00" />
     <file relUrl="Services/AuthenticationDomainService.cs" publishTime="07/25/2011 14:04:16" />
@@ -158,11 +158,11 @@
     <file relUrl="Scripts/MicrosoftMvcValidation.js" publishTime="07/07/2011 07:54:59" />
     <file relUrl="bin/de/System.ServiceModel.DomainServices.Server.resources.dll" publishTime="01/14/2011 14:13:50" />
     <file relUrl="Views/Shared/Error.aspx" publishTime="07/07/2011 07:55:00" />
-    <file relUrl="ADONETEntities/VotGESOrdersEntities.Designer.cs" publishTime="10/10/2011 08:03:58" />
+    <file relUrl="ADONETEntities/VotGESOrdersEntities.Designer.cs" publishTime="10/14/2011 10:53:22" />
     <file relUrl="SQL/Orders.sql" publishTime="10/10/2011 07:56:22" />
     <file relUrl="bin/zh-Hant/System.ServiceModel.DomainServices.Server.resources.dll" publishTime="01/14/2011 14:13:50" />
     <file relUrl="Models/OrderValidator.shared.cs" publishTime="09/30/2011 10:12:43" />
-    <file relUrl="Models/Order.cs" publishTime="10/10/2011 07:56:22" />
+    <file relUrl="Models/Order.cs" publishTime="10/14/2011 12:50:07" />
     <file relUrl="Scripts/MicrosoftAjax.debug.js" publishTime="07/07/2011 07:54:59" />
     <file relUrl="bin/de/System.ServiceModel.DomainServices.Hosting.resources.dll" publishTime="01/14/2011 14:13:44" />
     <file relUrl="Services/LoggerService.cs" publishTime="07/25/2011 14:03:29" />
@@ -176,6 +176,6 @@
     <file relUrl="bin/es/System.ServiceModel.DomainServices.Hosting.resources.dll" publishTime="01/14/2011 14:13:44" />
     <file relUrl="Services/OrdersDomainService.cs" publishTime="09/30/2011 10:04:22" />
     <file relUrl="Models/AccountModels.cs" publishTime="07/07/2011 07:54:59" />
-    <file relUrl="Web.config" publishTime="10/10/2011 08:05:22" />
+    <file relUrl="Web.config" publishTime="10/14/2011 12:24:44" />
   </publishProfile>
 </publishData>
