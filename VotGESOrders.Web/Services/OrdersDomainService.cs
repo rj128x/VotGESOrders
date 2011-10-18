@@ -33,18 +33,17 @@ namespace VotGESOrders.Web.Services
 		}
 
 		public IQueryable<OrdersUser> LoadOrdersUsers() {
-			System.Threading.Thread.Sleep(10000);
 			Logger.info("Получение списка пользователей (LoadUsers)", Logger.LoggerSource.service);
 			return OrdersUser.getAllUsers().AsQueryable();
 		}
 
 		public IQueryable<OrderObject> LoadOrderObjects() {
-			System.Threading.Thread.Sleep(10000);
+			Logger.info("Получение списка объектов (LoadOrderObjects)", Logger.LoggerSource.service);
 			return OrderObject.getAllObjects().AsQueryable();
 		}
 
 		public void RegisterNew(Order order,Guid guid) {
-			Logger.info("Ссоздание заявки", Logger.LoggerSource.service);
+			Logger.info("Создание заявки", Logger.LoggerSource.service);
 			context.RegisterOrder(order, guid);
 		}
 

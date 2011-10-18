@@ -34,7 +34,7 @@ namespace VotGESOrders
 
 		public void finish() {
 			pnlButtons.DataContext = WebContext.Current.User;
-			
+
 			OrdersContext.Current.View.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(View_CollectionChanged);
 			OrdersContext.Current.Context.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(context_PropertyChanged);
 
@@ -52,7 +52,7 @@ namespace VotGESOrders
 			cmbFilterType.DataContext = OrdersContext.Current.Filter;
 			cntrlFilter.lstAllUsers.ItemsSource = OrdersContext.Current.Context.OrdersUsers;
 			cntrlFilter.chooseObjectsWindow = new ChooseObjectsWindow();
-
+			Logger.info("Главная страница загружена");
 		}
 
 		

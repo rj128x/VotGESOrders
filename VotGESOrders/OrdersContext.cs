@@ -85,8 +85,6 @@ namespace VotGESOrders
 		private bool readyOrders;
 		private bool readyAll;
 		protected void loadData() {
-			
-
 			readyObjects = false;
 			readyUsers = false;
 			readyOrders = true;
@@ -100,21 +98,22 @@ namespace VotGESOrders
 
 			LoadOperation loadOrdersOper=context.Load(context.LoadOrdersQuery(SessionGUID));
 			loadOrdersOper.Completed += new EventHandler(loadOrdersOper_Completed);
-
-			
 		}
 
 		void loadUsersOper_Completed(object sender, EventArgs e) {
+			Logger.info("Получен список пользователей");
 			readyUsers = true;
 			loadOrders();
 		}
 
 		void loadObjectsOper_Completed(object sender, EventArgs e) {
+			Logger.info("Получен список оборудования");
 			readyObjects = true;
 			loadOrders();
 		}
 
 		void loadOrdersOper_Completed(object sender, EventArgs e) {
+			Logger.info("Получен список заявок");
 			readyOrders = true;			
 			loadOrders();
 		}

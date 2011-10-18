@@ -48,9 +48,9 @@
 		<Button x:Name="btnVisFilter" Grid.Row="2" Click="btnVisFilter_Click" Content="..." Height="8" BorderBrush="Gray" BorderThickness="4" 
 					  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
 		
-		<Border Grid.Row="1" HorizontalAlignment="Right" Visibility="Collapsed">
+		<Border Grid.Row="1" HorizontalAlignment="Right">
 			<StackPanel>
-				<usr:FilterControl x:Name="cntrlFilter"></usr:FilterControl>
+				<usr:FilterControl x:Name="cntrlFilter" Visibility="Collapsed"></usr:FilterControl>
 			</StackPanel>
 		</Border>
 
