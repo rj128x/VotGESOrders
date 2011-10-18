@@ -128,7 +128,7 @@ namespace VotGESOrders
 		}
 
 		public void RejectReviewOrder() {
-			GlobalStatus.Current.IsChangingOrder = true;
+			GlobalStatus.Current.IsChangingOrder = true;						
 			if (MessageBox.Show("Вы уверены что хотите отозвать рассмотрение заявки?", "ОТМЕНА!", MessageBoxButton.OKCancel) == MessageBoxResult.OK) {
 				OrdersContext.Current.Context.RegisterRejectReviewOrder(CurrentOrder, OrdersContext.Current.SessionGUID);
 				if ((CurrentOrder.OrderIsExtend || CurrentOrder.OrderIsFixErrorEnter) && (CurrentOrder.ParentOrder != null)) {
