@@ -25,6 +25,10 @@ namespace VotGESOrders
 		}
 
 		protected OrderOperations() {
+			
+		}
+
+		public void CreateWindows() {
 			newOrderWindow = new NewOrderWindow();
 			acceptWindow = new AcceptWindow();
 			dateOperationWindow = new OrderDateOperationWindow();
@@ -33,7 +37,6 @@ namespace VotGESOrders
 			editOrderWindow.Closed += new EventHandler(window_Closed);
 			acceptWindow.Closed += new EventHandler(window_Closed);
 			dateOperationWindow.Closed += new EventHandler(window_Closed);
-
 		}
 
 		void window_Closed(object sender, EventArgs e) {

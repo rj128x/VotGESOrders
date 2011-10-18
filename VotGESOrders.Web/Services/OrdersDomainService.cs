@@ -33,11 +33,13 @@ namespace VotGESOrders.Web.Services
 		}
 
 		public IQueryable<OrdersUser> LoadOrdersUsers() {
+			System.Threading.Thread.Sleep(10000);
 			Logger.info("Получение списка пользователей (LoadUsers)", Logger.LoggerSource.service);
 			return OrdersUser.getAllUsers().AsQueryable();
 		}
 
 		public IQueryable<OrderObject> LoadOrderObjects() {
+			System.Threading.Thread.Sleep(10000);
 			return OrderObject.getAllObjects().AsQueryable();
 		}
 

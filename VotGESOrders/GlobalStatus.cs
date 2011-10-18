@@ -23,12 +23,17 @@ namespace VotGESOrders
 		}
 
 		public GlobalStatus() {
+			
+		}
+
+		public void init() {
 			try {
 				OrdersContext.Current.Context.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(Context_PropertyChanged);
 				OrdersContext.Current.PropertyChanged += new PropertyChangedEventHandler(Current_PropertyChanged);
 				LastUpdate = OrdersContext.Current.LastUpdate;
 				HomeHeader = "Список заявок";
-			} catch {
+			} catch (Exception e){
+				//Logging.Logger.logMessage(e.ToString());
 			}
 		}
 
@@ -41,6 +46,7 @@ namespace VotGESOrders
 
 
 		void Context_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e) {
+			
 			if (e.PropertyName == "IsLoading") {
 				Status = OrdersContext.Current.Context.IsLoading ? "Загрузка" : "Готово";				
 			}

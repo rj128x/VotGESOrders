@@ -27,22 +27,32 @@ namespace VotGESOrders
 
 			LoggerContext context=new LoggerContext();
 			Logging.Logger.init(context);
-			OrdersContext.init();
-									
+							
 			this.ApplicationLifetimeObjects.Add(webcontext);
 
 			WebContext.Current.Authentication.LoadUser(OnLoadUser_Completed, null);
 			InitializeComponent();
+
+			
+			
+			
 		}
 
 		private void Application_Startup(object sender, StartupEventArgs e) {
 			//this.RootVisual = new MainPage();
+			
 		}
 
 		private void OnLoadUser_Completed(LoadUserOperation operation) {			
 			Logger.info("Пользователь авторизовался в клиенте");
 			this.RootVisual = new MainPage();
+			
 		}
+
+		public void finish() {
+				
+		}
+				
 		
 
 		private void Application_UnhandledException(object sender, ApplicationUnhandledExceptionEventArgs e) {

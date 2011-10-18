@@ -26,36 +26,41 @@ namespace VotGESOrders
 	{
 		DispatcherTimer timerExistChanges;
 		public Home() {
-			
 			InitializeComponent();
-			pnlButtons.DataContext = WebContext.Current.User;
+			OrdersContext.init();
+			OrdersContext.Current.FinishLoadingOrdersEvent += new OrdersContext.DelegateLoadedAllData(finish);		
+		}
 
-			OrdersContext.Current.Context.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(context_PropertyChanged);
-			OrdersContext.Current.View = new PagedCollectionView(OrdersContext.Current.Context.Orders);
-			OrdersContext.Current.View.SortDescriptions.Add(new System.ComponentModel.SortDescription("OrderNumber", System.ComponentModel.ListSortDirection.Descending));
+
+		public void finish() {
+			pnlButtons.DataContext = WebContext.Current.User;
+			
 			OrdersContext.Current.View.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(View_CollectionChanged);
+			OrdersContext.Current.Context.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(context_PropertyChanged);
+
 			ordersGridControl.ordersGrid.ItemsSource = OrdersContext.Current.View;
-			ordersGridControl.ordersGrid.MouseLeftButtonUp += new MouseButtonEventHandler(ordersGrid_MouseLeftButtonUp);			
-			//context.Orders.OrderByDescending(o => o.OrderDateCreate);			
+			ordersGridControl.ordersGrid.MouseLeftButtonUp += new MouseButtonEventHandler(ordersGrid_MouseLeftButtonUp);
 
 			timerExistChanges = new DispatcherTimer();
 			timerExistChanges.Tick += new EventHandler(timerExistChanges_Tick);
 			timerExistChanges.Interval = new TimeSpan(0, 0, 10);
-			timerExistChanges.Start();			
-
+			timerExistChanges.Start();
 
 			cntrlOrder.Visibility = System.Windows.Visibility.Collapsed;
 			cntrlFilter.DataContext = OrdersContext.Current.Filter;
 			cmbFilterType.ItemsSource = OrderFilter.FilterTypes;
 			cmbFilterType.DataContext = OrdersContext.Current.Filter;
-			
+			cntrlFilter.lstAllUsers.ItemsSource = OrdersContext.Current.Context.OrdersUsers;
+			cntrlFilter.chooseObjectsWindow = new ChooseObjectsWindow();
+
 		}
 
+		
+
 		void View_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e) {
-			if (OrderOperations.Current.CurrentOrder == null) {
-				cntrlOrder.Visibility = System.Windows.Visibility.Collapsed;
-			}
-			
+				if (OrderOperations.Current.CurrentOrder == null) {
+					cntrlOrder.Visibility = System.Windows.Visibility.Collapsed;
+				}
 		}
 
 		void timerExistChanges_Tick(object sender, EventArgs e) {
@@ -84,16 +89,14 @@ namespace VotGESOrders
 			
 		}
 
-		void context_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e) {
+		void context_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e) {			
 			OrdersContext.Current.View.Refresh();
 			//ordersGrid.UpdateLayout();
 		}
 
 
 
-		// Выполняется, когда пользователь переходит на эту страницу.
-		protected override void OnNavigatedTo(NavigationEventArgs e) {
-		}
+		
 
 
 		private void btnCreateOrder_Click(object sender, RoutedEventArgs e) {

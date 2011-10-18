@@ -80,16 +80,62 @@ namespace VotGESOrders
 			}
 		}
 
+		private bool readyUsers;
+		private bool readyObjects;
+		private bool readyOrders;
+		private bool readyAll;
 		protected void loadData() {
-			context = new OrdersDomainContext();
-			context.Load(context.LoadOrdersUsersQuery());
-			context.Load(context.LoadOrderObjectsQuery());
+			
 
-			filter = new OrderFilter();
-			context.Load(context.LoadOrdersQuery(OrdersContext.Current.SessionGUID));
+			readyObjects = false;
+			readyUsers = false;
+			readyOrders = true;
+			readyAll = false;
 
-			LastUpdate = DateTime.Now;
+			LoadOperation loadUsersOper=context.Load(context.LoadOrdersUsersQuery());
+			loadUsersOper.Completed += new EventHandler(loadUsersOper_Completed);
+			
+			LoadOperation loadObjectsOper=context.Load(context.LoadOrderObjectsQuery());
+			loadObjectsOper.Completed += new EventHandler(loadObjectsOper_Completed);
+
+			LoadOperation loadOrdersOper=context.Load(context.LoadOrdersQuery(SessionGUID));
+			loadOrdersOper.Completed += new EventHandler(loadOrdersOper_Completed);
+
+			
 		}
+
+		void loadUsersOper_Completed(object sender, EventArgs e) {
+			readyUsers = true;
+			loadOrders();
+		}
+
+		void loadObjectsOper_Completed(object sender, EventArgs e) {
+			readyObjects = true;
+			loadOrders();
+		}
+
+		void loadOrdersOper_Completed(object sender, EventArgs e) {
+			readyOrders = true;			
+			loadOrders();
+		}
+
+		public delegate void DelegateLoadedAllData();
+		public DelegateLoadedAllData FinishLoadingOrdersEvent=null;
+
+		private void loadOrders() {
+			if (readyUsers && readyObjects&&readyOrders&&!readyAll) {
+				OrderOperations.Current.CreateWindows();
+				readyAll = true;
+				view = new PagedCollectionView(context.Orders);
+				view.SortDescriptions.Add(new System.ComponentModel.SortDescription("OrderNumber", System.ComponentModel.ListSortDirection.Descending));
+				LastUpdate = DateTime.Now;
+				if (FinishLoadingOrdersEvent != null) {
+					FinishLoadingOrdersEvent();
+				}
+			}
+		}
+
+		
 
 		public void SubmitChangesCallbackError() {
 			context.SubmitChanges(submit, null);
@@ -127,8 +173,11 @@ namespace VotGESOrders
 			RefreshOrdersFilterXML(clear);			
 		}
 
-		public static void init() {
+		public static void init() {			
 			ordersContext = new OrdersContext();
+			ordersContext.context = new OrdersDomainContext();
+			ordersContext.filter = new OrderFilter();
+			GlobalStatus.Current.init();
 			ordersContext.loadData();
 		}
 

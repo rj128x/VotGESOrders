@@ -17,15 +17,13 @@ namespace VotGESOrders.Views
 	public partial class FilterControl : UserControl
 	{
 		protected OrderFilter filter;
-		protected  ChooseObjectsWindow chooseObjectsWindow;
+		public  ChooseObjectsWindow chooseObjectsWindow;
 		public FilterControl() {
 			InitializeComponent();
 			//filter = DataContext as OrderFilter;
-			try {
-				lstAllUsers.ItemsSource = OrdersContext.Current.Context.OrdersUsers;				
+			try {							
 				cmbFilterDate.ItemsSource = OrderFilter.DateFilterTypes;
-				cmbFilterUser.ItemsSource = OrderFilter.UserFilterTypes;
-				chooseObjectsWindow = new ChooseObjectsWindow();
+				cmbFilterUser.ItemsSource = OrderFilter.UserFilterTypes;				
 			}catch{
 			}
 		}		

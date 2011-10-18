@@ -48,14 +48,14 @@
 		<Button x:Name="btnVisFilter" Grid.Row="2" Click="btnVisFilter_Click" Content="..." Height="8" BorderBrush="Gray" BorderThickness="4" 
 					  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
 		
-		<Border Grid.Row="1" HorizontalAlignment="Right">
+		<Border Grid.Row="1" HorizontalAlignment="Right" Visibility="Collapsed">
 			<StackPanel>
-				<usr:FilterControl x:Name="cntrlFilter" Visibility="Collapsed"></usr:FilterControl>
+				<usr:FilterControl x:Name="cntrlFilter"></usr:FilterControl>
 			</StackPanel>
 		</Border>
 
 		<Border Style="{StaticResource borderFilterControl}" Grid.Row="5"  HorizontalAlignment="Stretch">
-			<usr:OrderControl x:Name="cntrlOrder"  HorizontalAlignment="Stretch"/>
+			<usr:OrderControl x:Name="cntrlOrder"  HorizontalAlignment="Stretch" Visibility="Collapsed"/>
 		</Border>
 	</Grid>
 
