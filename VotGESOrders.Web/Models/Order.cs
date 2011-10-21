@@ -783,9 +783,14 @@ namespace VotGESOrders.Web.Models
 			DateTime needCreate=orderDB.orderDateCreate;
 			if (!orderDB.orderIsExtend) {
 				if (orderDB.orderType == OrderTypeEnum.npl.ToString() || orderDB.orderType == OrderTypeEnum.pl.ToString()) {
-					if (orderDB.planStartDate.DayOfWeek == DayOfWeek.Monday || orderDB.planStartDate.DayOfWeek == DayOfWeek.Saturday || orderDB.planStartDate.DayOfWeek == DayOfWeek.Sunday) {
+					if (orderDB.planStartDate.DayOfWeek == DayOfWeek.Monday) {
 						needCreate = orderDB.planStartDate.AddDays(-3).Date.AddHours(15);
-					} else {
+					} else if (orderDB.planStartDate.DayOfWeek == DayOfWeek.Sunday) {
+						needCreate = orderDB.planStartDate.AddDays(-2).Date.AddHours(15);
+					} else if (orderDB.planStartDate.DayOfWeek == DayOfWeek.Saturday) {
+						needCreate = orderDB.planStartDate.AddDays(-1).Date.AddHours(15);
+					} 
+					else {
 						needCreate = orderDB.planStartDate.AddDays(-1).Date.AddHours(15);
 					}
 				} else {
