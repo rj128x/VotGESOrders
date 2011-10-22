@@ -117,8 +117,10 @@
 
 	<ControlTemplate x:Key="OrderCellAuthor" TargetType="ContentControl">
 		<StackPanel Style="{StaticResource pnlCellOrderRow}">
-			<TextBlock Style="{StaticResource txtCellOrderRow}" Text="{TemplateBinding Content}" TextWrapping="Wrap" TextAlignment="Center"/>
-			<TextBlock Style="{StaticResource txtCellOrderRowAddRed}" Text="{Binding ExpiredReglamentHours, Converter={StaticResource expiredTimeConverter},ConverterParameter='reglament'}"/>
+			<TextBlock Style="{StaticResource txtCellOrderRow}" Text="{TemplateBinding Content}" TextWrapping="Wrap" TextAlignment="Center"/>			
+			<TextBlock Style="{StaticResource txtCellOrderRowAddRed}" 
+						  Text="{Binding ExpiredReglamentHours, Converter={StaticResource expiredTimeConverter},ConverterParameter='reglament'}"
+						  HorizontalAlignment="Right" Margin="0,10,0,0"/>
 		</StackPanel>
 	</ControlTemplate>
 

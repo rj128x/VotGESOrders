@@ -656,6 +656,8 @@ namespace VotGESOrders.Web.Models
 
 
 			CommentsText = dbOrder.commentsText;
+			HasComments = !String.IsNullOrEmpty(CommentsText) || !String.IsNullOrEmpty(CreateText);
+
 
 			UserCreateOrder = OrdersUser.loadFromCache(dbOrder.userCreateOrderID);
 
@@ -820,6 +822,7 @@ namespace VotGESOrders.Web.Models
 			return newOrder;			
 		}
 
+		public bool HasComments { get; set; }
 
 		public bool AllowCloseOrder { get; protected set; }
 		public bool AllowOpenOrder { get; protected set; }

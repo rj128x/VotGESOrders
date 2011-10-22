@@ -63,7 +63,7 @@ namespace VotGESOrders.Converters
 			} else if (param == "reglament") {
 				if (time.HasValue) {
 					if (time.Value < 0) {
-						return "Регламент!\n" + getTimeStr(time.Value);
+						return "[р-т: " + getTimeStr(time.Value)+"]";
 					} else {
 						return "";
 					}

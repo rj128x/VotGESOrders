@@ -20,7 +20,8 @@
 								<ContentControl Content="{Binding OrderNumber, Mode=OneWay, Converter={StaticResource orderNumberConverter}}" 
 													 Template="{StaticResource OrderCellDef}"/>
 								<TextBlock Text="{Binding OrderTypeShortName, Mode=OneWay}" Style="{StaticResource Label}"/>
-
+								<TextBlock Style="{StaticResource txtCellOrderRowAddRed}" Text="***" Visibility="{Binding HasComments, Converter={StaticResource visibilityConverter}}"
+											  HorizontalAlignment="Right"/>
 							</StackPanel>
 						</DataTemplate>
 					</sdk:DataGridTemplateColumn.CellTemplate>

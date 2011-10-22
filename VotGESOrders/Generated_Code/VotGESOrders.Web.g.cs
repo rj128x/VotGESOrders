@@ -163,6 +163,8 @@ namespace VotGESOrders.Web.Models
         
         private string _fullOrderObjectInfo;
         
+        private bool _hasComments;
+        
         private bool _manualEdit;
         
         private string _newComment;
@@ -350,6 +352,8 @@ namespace VotGESOrders.Web.Models
         partial void OnFaktStopDateChanged();
         partial void OnFullOrderObjectInfoChanging(string value);
         partial void OnFullOrderObjectInfoChanged();
+        partial void OnHasCommentsChanging(bool value);
+        partial void OnHasCommentsChanged();
         partial void OnManualEditChanging(bool value);
         partial void OnManualEditChanged();
         partial void OnNewCommentChanging(string value);
@@ -1317,6 +1321,30 @@ namespace VotGESOrders.Web.Models
                     this._fullOrderObjectInfo = value;
                     this.RaiseDataMemberChanged("FullOrderObjectInfo");
                     this.OnFullOrderObjectInfoChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "HasComments".
+        /// </summary>
+        [DataMember()]
+        public bool HasComments
+        {
+            get
+            {
+                return this._hasComments;
+            }
+            set
+            {
+                if ((this._hasComments != value))
+                {
+                    this.OnHasCommentsChanging(value);
+                    this.RaiseDataMemberChanging("HasComments");
+                    this.ValidateProperty("HasComments", value);
+                    this._hasComments = value;
+                    this.RaiseDataMemberChanged("HasComments");
+                    this.OnHasCommentsChanged();
                 }
             }
         }
