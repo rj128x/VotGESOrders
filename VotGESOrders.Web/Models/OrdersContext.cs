@@ -352,10 +352,12 @@ namespace VotGESOrders.Web.Models
 					parentOrderDB.childOrderNumber = orderDB.orderNumber;
 
 					Order.writeExpired(parentOrderDB);
+
+					Order parentOrderNew=new Order(parentOrderDB, currentUser, false, null);
 					if (isNew) {
-						MailContext.sendMail(String.Format("Заявка №{0}. Продление заявки ({2}) [{1}]", order.ParentOrderNumber.ToString(OrderInfo.NFI), 
-							order.FullOrderObjectInfo, CurrentUser.FullName),
-							new Order(parentOrderDB, currentUser, false, null), false, false);
+						MailContext.sendMail(String.Format("Заявка №{0}. Продление заявки ({2}) [{1}]", parentOrderNew.OrderNumber.ToString(OrderInfo.NFI),
+							parentOrderNew.FullOrderObjectInfo, CurrentUser.FullName),
+							parentOrderNew, false, false);
 					}
 				}
 
@@ -389,9 +391,10 @@ namespace VotGESOrders.Web.Models
 					parentOrderDB.childOrderNumber = orderDB.orderNumber;
 					Order.writeExpired(parentOrderDB);
 					if (isNew) {
+						Order parentOrderNew=new Order(parentOrderDB, currentUser, false, null);
 						MailContext.sendMail(String.Format("Заявка №{0}. Заявка закрыта без ввода оборудования ({2}) [{1}]",
-							order.ParentOrderNumber.ToString(OrderInfo.NFI), order.FullOrderObjectInfo, CurrentUser.FullName),
-							new Order(parentOrderDB, currentUser, false, null), false, false);
+							parentOrderNew.OrderNumber.ToString(OrderInfo.NFI), parentOrderNew.FullOrderObjectInfo, CurrentUser.FullName),
+							parentOrderNew, false, false);
 					}
 				}
 
@@ -463,9 +466,10 @@ namespace VotGESOrders.Web.Models
 						parentOrderDB.orderAskExtended = false;
 						parentOrderDB.orderState = OrderStateEnum.extended.ToString();
 						Order.writeExpired(parentOrderDB);
-						MailContext.sendMail(String.Format("Заявка №{0}. Заявка продлена ({2}) [{1}]", 
-							order.ParentOrderNumber.ToString(OrderInfo.NFI), order.FullOrderObjectInfo, CurrentUser.FullName), 
-							new Order(parentOrderDB, currentUser, false, null), false, false);
+						Order parentOrderNew=new Order(parentOrderDB, currentUser, false, null);
+						MailContext.sendMail(String.Format("Заявка №{0}. Заявка продлена ({2}) [{1}]",
+							parentOrderNew.OrderNumber.ToString(OrderInfo.NFI), parentOrderNew.FullOrderObjectInfo, CurrentUser.FullName),
+							parentOrderNew, false, false);
 					}
 					Order.writeExpired(orderDB);
 					context.SaveChanges();
@@ -517,9 +521,10 @@ namespace VotGESOrders.Web.Models
 						parentOrderDB.faktCompleteDate = null;
 						parentOrderDB.userCompleteOrderID = null;
 						Order.writeExpired(parentOrderDB);
-						MailContext.sendMail(String.Format("Заявка №{0}. Продление заявки отклонено ({2}) [{1}]", 
-							order.ParentOrderNumber.ToString(OrderInfo.NFI), order.FullOrderObjectInfo,CurrentUser.FullName), 
-							new Order(parentOrderDB, currentUser, false, null), false, false);
+						Order parentOrderNew=new Order(parentOrderDB, currentUser, false, null);
+						MailContext.sendMail(String.Format("Заявка №{0}. Продление заявки отклонено ({2}) [{1}]",
+							parentOrderNew.OrderNumber.ToString(OrderInfo.NFI), parentOrderNew.FullOrderObjectInfo, CurrentUser.FullName),
+							parentOrderNew, false, false);
 					}
 					Order.writeExpired(orderDB);
 					context.SaveChanges();
@@ -570,9 +575,10 @@ namespace VotGESOrders.Web.Models
 						parentOrderDB.orderState = OrderStateEnum.askExtended.ToString();
 						addComment(parentOrderDB, "Отмена рассмотрения заявки на продление");
 						Order.writeExpired(parentOrderDB);
-						MailContext.sendMail(String.Format("Заявка №{0}. Отмена рассмотрения заявки на продление ({2}) [{1}]", 
-							order.ParentOrderNumber.ToString(OrderInfo.NFI), order.FullOrderObjectInfo, CurrentUser.FullName),
-							new Order(parentOrderDB, currentUser, false, null), false, false);
+						Order parentOrderNew=new Order(parentOrderDB, currentUser, false, null);
+						MailContext.sendMail(String.Format("Заявка №{0}. Отмена рассмотрения заявки на продление ({2}) [{1}]",
+							parentOrderNew.OrderNumber.ToString(OrderInfo.NFI), parentOrderNew.FullOrderObjectInfo, CurrentUser.FullName),
+							parentOrderNew, false, false);
 					}
 					addComment(orderDB, "Отмена рассмотрения заявки");
 					Order.writeExpired(orderDB);
@@ -764,9 +770,10 @@ namespace VotGESOrders.Web.Models
 						parentOrderDB.faktCompleteDate = null;
 						parentOrderDB.userCompleteOrderID = null;
 						Order.writeExpired(parentOrderDB);
-						MailContext.sendMail(String.Format("Заявка №{0}. Снята заявка на продление ({2}) [{1}]", 
-							order.ParentOrderNumber.ToString(OrderInfo.NFI),order.FullOrderObjectInfo,CurrentUser.FullName), 
-							new Order(parentOrderDB, currentUser, false, null), false, false);
+						Order parentOrderNew=new Order(parentOrderDB, currentUser, false, null);
+						MailContext.sendMail(String.Format("Заявка №{0}. Снята заявка на продление ({2}) [{1}]",
+							parentOrderNew.OrderNumber.ToString(OrderInfo.NFI), parentOrderNew.FullOrderObjectInfo, CurrentUser.FullName),
+							parentOrderNew, false, false);
 					}
 					Order.writeExpired(orderDB);
 					context.SaveChanges();
