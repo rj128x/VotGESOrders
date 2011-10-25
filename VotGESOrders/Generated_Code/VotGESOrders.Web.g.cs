@@ -143,6 +143,8 @@ namespace VotGESOrders.Web.Models
         
         private string _commentsText;
         
+        private string _commentsTextBrief;
+        
         private string _completeText;
         
         private string _createText;
@@ -332,6 +334,8 @@ namespace VotGESOrders.Web.Models
         partial void OnCloseTextChanged();
         partial void OnCommentsTextChanging(string value);
         partial void OnCommentsTextChanged();
+        partial void OnCommentsTextBriefChanging(string value);
+        partial void OnCommentsTextBriefChanged();
         partial void OnCompleteTextChanging(string value);
         partial void OnCompleteTextChanged();
         partial void OnCreateTextChanging(string value);
@@ -1071,6 +1075,30 @@ namespace VotGESOrders.Web.Models
                     this._commentsText = value;
                     this.RaiseDataMemberChanged("CommentsText");
                     this.OnCommentsTextChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "CommentsTextBrief".
+        /// </summary>
+        [DataMember()]
+        public string CommentsTextBrief
+        {
+            get
+            {
+                return this._commentsTextBrief;
+            }
+            set
+            {
+                if ((this._commentsTextBrief != value))
+                {
+                    this.OnCommentsTextBriefChanging(value);
+                    this.RaiseDataMemberChanging("CommentsTextBrief");
+                    this.ValidateProperty("CommentsTextBrief", value);
+                    this._commentsTextBrief = value;
+                    this.RaiseDataMemberChanged("CommentsTextBrief");
+                    this.OnCommentsTextBriefChanged();
                 }
             }
         }

@@ -21,6 +21,7 @@ namespace VotGESOrders.Web.Models
 	/*[CustomValidation(typeof(OrderValidator), "Validate")]*/
 	public class Order : INotifyPropertyChanged
 	{
+		public static string OrderCommentsDelim="=======================================";
 		public event PropertyChangedEventHandler PropertyChanged;
 		public void NotifyChanged(string propName) {
 			if (PropertyChanged != null)
@@ -589,7 +590,25 @@ namespace VotGESOrders.Web.Models
 		private String commentsText;
 		public String CommentsText {
 			get { return commentsText; }
-			set { commentsText = value; }
+			set { 
+				commentsText = value;
+				CommentsTextBrief = commentsText;
+				
+			}
+		}
+
+		private String commentsTextBrief;
+		public String CommentsTextBrief {
+			get { return commentsTextBrief; }
+			set { 
+				commentsTextBrief = value;
+				if (!String.IsNullOrEmpty(commentsTextBrief)) {
+					commentsTextBrief=commentsTextBrief.Replace(OrderCommentsDelim + "\n", "\n");
+					while (commentsTextBrief.IndexOf("=\n") > 1)
+						commentsTextBrief=commentsTextBrief.Replace("=\n", "\n"); 
+					commentsTextBrief=commentsTextBrief.Replace("\n\n", "\n");					
+				}
+			}
 		}
 				
 
