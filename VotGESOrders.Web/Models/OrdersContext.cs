@@ -53,7 +53,9 @@ namespace VotGESOrders.Web.Models
 					List<Order> resultOrders=new List<Order>();
 					foreach (Orders orderDB in orders) {
 						resultOrders.Add(new Order(orderDB, currentUser, false, null));
-					}					
+					}
+
+
 					return resultOrders.AsQueryable();
 				} catch (Exception e) {
 					Logger.error("===Ошибка при получении списка заказов (по умолчанию)" + e.ToString(), Logger.LoggerSource.ordersContext);
@@ -86,6 +88,9 @@ namespace VotGESOrders.Web.Models
 					foreach (Orders orderDB in orders) {
 						resultOrders.Add(new Order(orderDB, currentUser,false,null));
 					}
+							
+
+
 					return resultOrders.AsQueryable();
 				} catch (Exception e) {
 					Logger.error("===Ошибка при получении списка заказов (активные)" + e.ToString(), Logger.LoggerSource.ordersContext);
@@ -343,7 +348,7 @@ namespace VotGESOrders.Web.Models
 					parentOrderDB.orderAskExtended = true;
 					parentOrderDB.orderState = OrderStateEnum.askExtended.ToString();
 					parentOrderDB.orderCompleted = true;					
-					parentOrderDB.completeText = order.CreateText;
+					parentOrderDB.completeText = "Продление заявки";
 					parentOrderDB.faktCompleteDate = order.PlanStartDate;					
 
 					orderDB.orderIsExtend = true;
@@ -382,7 +387,7 @@ namespace VotGESOrders.Web.Models
 					parentOrderDB.orderLastUpdate = DateTime.Now;
 					parentOrderDB.orderCompletedWithoutEnter = true;
 					parentOrderDB.orderCompleted = true;					
-					parentOrderDB.completeText = order.CreateText;
+					parentOrderDB.completeText = "Закрытие без ввода оборудования";
 					parentOrderDB.orderState = OrderStateEnum.completedWithoutEnter.ToString();
 					parentOrderDB.faktCompleteDate = order.PlanStartDate;
 					orderDB.orderIsFixErrorEnter = true;

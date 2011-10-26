@@ -287,7 +287,11 @@ namespace VotGESOrders
 				newOrder.AgreeUsersDict.Add(de.Key, de.Value);
 			}
 			newOrder.ReadyTime = CurrentOrder.ReadyTime;
-			newOrder.CreateText = "Работы не завершены";
+
+			if (!String.IsNullOrEmpty(CurrentOrder.CreateText))
+				newOrder.CreateText =  CurrentOrder.CreateText;
+			else
+				newOrder.CreateText = "Работы не завершены";
 			newOrder.OrderDateCreate = DateTime.Now;
 
 
@@ -323,7 +327,12 @@ namespace VotGESOrders
 			}
 			
 			newOrder.ReadyTime = "Время заявки";
-			newOrder.CreateText = "Невозможность ввода оборудования";
+
+			if (!String.IsNullOrEmpty(CurrentOrder.CreateText))
+				newOrder.CreateText = CurrentOrder.CreateText;
+			else
+				newOrder.CreateText = "Невозможность ввода оборудования";
+
 			newOrder.OrderDateCreate = DateTime.Now;
 
 
