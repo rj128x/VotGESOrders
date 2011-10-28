@@ -578,14 +578,12 @@ namespace VotGESOrders.Web.Models
 						parentOrderDB.orderExtended = false;
 						parentOrderDB.orderAskExtended = true;
 						parentOrderDB.orderState = OrderStateEnum.askExtended.ToString();
-						addComment(parentOrderDB, "Отмена рассмотрения заявки на продление");
 						Order.writeExpired(parentOrderDB);
 						Order parentOrderNew=new Order(parentOrderDB, currentUser, false, null);
 						MailContext.sendMail(String.Format("Заявка №{0}. Отмена рассмотрения заявки на продление ({2}) [{1}]",
 							parentOrderNew.OrderNumber.ToString(OrderInfo.NFI), parentOrderNew.FullOrderObjectInfo, CurrentUser.FullName),
 							parentOrderNew, false, false);
 					}
-					addComment(orderDB, "Отмена рассмотрения заявки");
 					Order.writeExpired(orderDB);
 					context.SaveChanges();
 					LastUpdate.save(guid);
@@ -656,7 +654,6 @@ namespace VotGESOrders.Web.Models
 					orderDB.openText = null;
 					orderDB.orderOpened = false;
 					orderDB.orderState = OrderStateEnum.accepted.ToString();
-					addComment(orderDB, "Отмена открытия заявки");
 					Order.writeExpired(orderDB);
 					context.SaveChanges();
 					LastUpdate.save(guid);
@@ -725,7 +722,6 @@ namespace VotGESOrders.Web.Models
 					orderDB.orderState = OrderStateEnum.opened.ToString();
 					orderDB.closeText = null;
 					orderDB.userCloseOrderID = null;
-					addComment(orderDB, "Отмена разрешения на ввод");
 					Order.writeExpired(orderDB);
 					context.SaveChanges();
 					LastUpdate.save(guid);
@@ -813,7 +809,6 @@ namespace VotGESOrders.Web.Models
 					orderDB.cancelText = null;
 					orderDB.orderCanceled = false;
 					orderDB.orderState = order.OrderReviewed?OrderStateEnum.accepted.ToString():OrderStateEnum.created.ToString();
-					addComment(orderDB, "Отмена снятия заявки"); 
 					Order.writeExpired(orderDB);
 					context.SaveChanges();
 					LastUpdate.save(guid);
@@ -883,7 +878,6 @@ namespace VotGESOrders.Web.Models
 					orderDB.completeText = null;
 					orderDB.userCompleteOrderID = null;
 					orderDB.faktCompleteDate = null;
-					addComment(orderDB, "Отмена ввода оборудования");
 					Order.writeExpired(orderDB);
 					context.SaveChanges();
 					LastUpdate.save(guid);
@@ -938,7 +932,6 @@ namespace VotGESOrders.Web.Models
 					}
 
 					orderDB.commentsText = order.CommentsText;
-					addComment(orderDB, "Ручное редактирование заявки");
 					
 					checkOrder(orderDB);
 					Order.writeExpired(orderDB);
