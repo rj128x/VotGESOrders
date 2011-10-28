@@ -164,7 +164,7 @@ namespace VotGESOrders
 
 					host.Measure(new Size(width, double.PositiveInfinity));
 
-					if (host.DesiredSize.Height + 65 > height && host.Children.Count > 1) {
+					if (host.DesiredSize.Height + 110 > height && host.Children.Count > 1) {
 						host.Children.Remove(cntrl);
 						break;
 					}
@@ -213,20 +213,22 @@ namespace VotGESOrders
 					grid.RowDefinitions.Add(new RowDefinition());
 					grid.RowDefinitions.Add(new RowDefinition());
 					grid.RowDefinitions.Add(new RowDefinition());
-					grid.RowDefinitions[0].Height = new GridLength(30);
-					grid.RowDefinitions[2].Height = new GridLength(35);
-					grid.RowDefinitions[1].Height = new GridLength(height - 65);
+					grid.RowDefinitions[0].Height = new GridLength(80);
+					grid.RowDefinitions[2].Height = new GridLength(30);
+					grid.RowDefinitions[1].Height = new GridLength(height - 110);
 
 					/*grid.ColumnDefinitions.Add(new ColumnDefinition());
 					grid.ColumnDefinitions[0].Width = new GridLength(width);*/
 
+					StackPanel headerPanel=new StackPanel();
 					TextBlock header=new TextBlock();
 					header.Text = String.Format("{0} на {1}", GlobalStatus.Current.HomeHeader,DateTime.Now.ToString("dd.MM.yy HH:mm"));
 					header.HorizontalAlignment = System.Windows.HorizontalAlignment.Center;
-					header.Margin = new Thickness(0, 0, 0, 10);
 					header.FontSize = 13;
-					grid.Children.Add(header);
-					header.SetValue(Grid.RowProperty, 0);
+					headerPanel.VerticalAlignment = System.Windows.VerticalAlignment.Bottom;
+					grid.Children.Add(headerPanel);
+					headerPanel.Children.Add(header);
+					headerPanel.SetValue(Grid.RowProperty, 0);
 
 					//host.Measure(new Size(width, double.PositiveInfinity));
 
@@ -240,6 +242,7 @@ namespace VotGESOrders
 					page.FontSize = 12;
 					page.Width = 200;
 					footerPnl.Children.Add(page);
+					footerPnl.VerticalAlignment = System.Windows.VerticalAlignment.Bottom;
 
 					TextBlock footer=new TextBlock();
 					//footer.Text = String.Format(" Начальник ОС ________________/{0}/",DateTime.Now.ToString("dd.MM.yy"));
@@ -250,7 +253,6 @@ namespace VotGESOrders
 					
 					grid.Children.Add(footerPnl);
 					footerPnl.SetValue(Grid.RowProperty, 2);
-					footerPnl.Margin = new Thickness(0, 15, 0, 0);
 
 					grid.Children.Add(host);
 					host.SetValue(Grid.RowProperty, 1);
