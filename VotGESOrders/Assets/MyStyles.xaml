@@ -65,8 +65,32 @@
 			</StackPanel>
 	</ControlTemplate>
 
+	<ControlTemplate x:Key="OrderCellNumber" TargetType="ContentControl">
+		<Border BorderBrush="{Binding OrderType, Converter={StaticResource backgroundColorConverter}, ConverterParameter='type',Mode=OneWay}"
+				  CornerRadius="2" BorderThickness="2">
+			<StackPanel Style="{StaticResource pnlCellOrderRow}">
+				<TextBlock Style="{StaticResource txtCellOrderRow}" Text="{TemplateBinding Content}"  FontWeight="Bold" />
+				<TextBlock Text="{Binding OrderTypeShortName, Mode=OneWay}" Style="{StaticResource Label}"/>
+				<TextBlock Style="{StaticResource txtCellOrderRowAddRed}" Text="***" Visibility="{Binding HasComments, Converter={StaticResource visibilityConverter}}"
+											  HorizontalAlignment="Right"/>
+			</StackPanel>
+		</Border>
+	</ControlTemplate>
+
+	<ControlTemplate x:Key="OrderCellTimeCreate" TargetType="ContentControl">
+		<Border BorderBrush="{Binding ExpiredReglamentHours, Converter={StaticResource backgroundColorConverter}, ConverterParameter='Expired',Mode=OneWay}"
+				  CornerRadius="2" BorderThickness="2">
+			<StackPanel Style="{StaticResource pnlCellOrderRow}">
+				<TextBlock Style="{StaticResource txtCellOrderRow}" Text="{TemplateBinding Content}" TextWrapping="Wrap" TextAlignment="Center"/>
+				<TextBlock Style="{StaticResource txtCellOrderRowAdd}" Text="{Binding OrderDateCreate, Converter={StaticResource dateTimeConverter}}" 
+							  TextAlignment="Center" TextWrapping="Wrap" Width="80"/>		
+			</StackPanel>
+		</Border>
+	</ControlTemplate>
+	
+	
 	<ControlTemplate x:Key="OrderCellTimeOpen" TargetType="ContentControl">
-		<Border BorderBrush="{Binding OrderIsExpiredOpen, Converter={StaticResource backgroundColorConverter}, ConverterParameter='Expired',Mode=OneWay}"
+		<Border BorderBrush="{Binding ExpiredOpenHours, Converter={StaticResource backgroundColorConverter}, ConverterParameter='Expired',Mode=OneWay}"
 				  CornerRadius="2" BorderThickness="2">
 			<StackPanel Style="{StaticResource pnlCellOrderRow}"
 							Background="{Binding TimeToOpen, Converter={StaticResource backgroundColorConverter}, ConverterParameter='Time',Mode=OneWay}">
@@ -81,7 +105,7 @@
 		
 
 	<ControlTemplate x:Key="OrderCellTimeClose" TargetType="ContentControl">
-		<Border BorderBrush="{Binding OrderIsExpiredClose, Converter={StaticResource backgroundColorConverter}, ConverterParameter='Expired',Mode=OneWay}"
+		<Border BorderBrush="{Binding ExpiredCloseHours, Converter={StaticResource backgroundColorConverter}, ConverterParameter='Expired',Mode=OneWay}"
 				  CornerRadius="2" BorderThickness="2">
 			<StackPanel Style="{StaticResource pnlCellOrderRow}"
 							Background="{Binding TimeToClose, Converter={StaticResource backgroundColorConverter}, ConverterParameter='Time',Mode=OneWay}">
@@ -95,7 +119,7 @@
 	</ControlTemplate>
 
 	<ControlTemplate x:Key="OrderCellTimeEnter" TargetType="ContentControl">
-		<Border BorderBrush="{Binding OrderIsExpriredComplete, Converter={StaticResource backgroundColorConverter}, ConverterParameter='Expired',Mode=OneWay}"
+		<Border BorderBrush="{Binding ExpiredCompleteHours, Converter={StaticResource backgroundColorConverter}, ConverterParameter='Expired',Mode=OneWay}"
 				  CornerRadius="2" BorderThickness="2">
 			<StackPanel Style="{StaticResource pnlCellOrderRow}"
 							Background="{Binding TimeToEnter, Converter={StaticResource backgroundColorConverter}, ConverterParameter='Time',Mode=OneWay}">
@@ -188,8 +212,17 @@
 		<Setter Property="FontWeight" Value="Normal"/>
 		<Setter Property="FontStyle" Value="Italic"/>
 		<Setter Property="VerticalAlignment" Value="Top"/>
-		<Setter Property="Foreground" Value="Gray"/>
+		<Setter Property="Foreground" Value="Black"/>
 		<Setter Property="FontSize" Value="10"/>
+	</Style>
+
+	<Style x:Key="ValuePrintSmall" TargetType="TextBlock">
+		<Setter Property="FontWeight" Value="Normal"/>
+		<Setter Property="FontStyle" Value="Italic"/>
+		<Setter Property="VerticalAlignment" Value="Top"/>
+		<Setter Property="Foreground" Value="Black"/>
+		<Setter Property="FontSize" Value="8"/>
+		<Setter Property="TextWrapping" Value="Wrap"/>
 	</Style>
 
 	<Style x:Key="ValuePrint" TargetType="TextBlock">
@@ -220,6 +253,14 @@
 		<Setter Property="BorderThickness" Value="2"/>
 		<Setter Property="BorderBrush" Value="LightGray"/>
 		<Setter Property="CornerRadius" Value="5"/>
+	</Style>
+
+	<Style x:Key="borderGripPrint" TargetType="Border">
+		<Setter Property="BorderThickness" Value="1"/>
+		<Setter Property="BorderBrush" Value="Black"/>
+		<Setter Property="CornerRadius" Value="0"/>
+		<Setter Property="Margin" Value="0,0,0,0"/>
+		<Setter Property="Padding" Value="0,0,0,0"/>
 	</Style>
 
 	<Style TargetType="Button">

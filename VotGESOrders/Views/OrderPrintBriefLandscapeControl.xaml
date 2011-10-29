@@ -5,9 +5,9 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d" >
 
-	<Grid x:Name="LayoutRoot" Margin="2">
-		<StackPanel>
-			<Grid Name="grdOrders">
+	<Grid x:Name="LayoutRoot" Margin="0">
+		<StackPanel Margin="0">
+			<Grid Name="grdOrders" Margin="0">
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="100"/>					
 					<ColumnDefinition Width="150"/>
@@ -23,34 +23,34 @@
 					<RowDefinition />
 				</Grid.RowDefinitions>
 
-				<StackPanel Grid.Row="0" Grid.Column="0">
-					<TextBlock Text="Заявка "  HorizontalAlignment="Center" FontSize="10"/>
-				</StackPanel>
-				<StackPanel Grid.Row="0" Grid.Column="1">
-					<TextBlock Text="Оборудование "  HorizontalAlignment="Center" FontSize="10"/>
-				</StackPanel>
-				<StackPanel Grid.Row="0" Grid.Column="2">
-					<TextBlock Text="Текст" HorizontalAlignment="Center" FontSize="10"/>
-				</StackPanel>
-				<StackPanel Grid.Row="0" Grid.Column="3">
-					<TextBlock Text="Создание" HorizontalAlignment="Center" FontSize="10"/>
-				</StackPanel>
-				<StackPanel Grid.Row="0" Grid.Column="4">
-					<TextBlock Text="Рассмотрение" HorizontalAlignment="Center" FontSize="10"/>
-				</StackPanel>
-				<StackPanel Grid.Row="0" Grid.Column="5">
-					<TextBlock Text="Начало работ" HorizontalAlignment="Center" FontSize="10"/>
-				</StackPanel>
-				<StackPanel Grid.Row="0" Grid.Column="6">
-					<TextBlock Text="Разрешение на ввод"  HorizontalAlignment="Center" FontSize="10"/>
-				</StackPanel>
-				<StackPanel Grid.Row="0" Grid.Column="7">
-					<TextBlock Text="Завершение"  HorizontalAlignment="Center" FontSize="10"/>
-				</StackPanel>
+				<Border Style="{StaticResource borderGripPrint}" Grid.Row="0" Grid.Column="0">
+					<TextBlock Text="Заявка "  HorizontalAlignment="Center" FontSize="12" FontWeight="Bold"/>
+				</Border>
+				<Border Style="{StaticResource borderGripPrint}" Grid.Row="0" Grid.Column="1">
+					<TextBlock Text="Оборудование "  HorizontalAlignment="Center" FontSize="12"  FontWeight="Bold"/>
+				</Border>
+				<Border Style="{StaticResource borderGripPrint}" Grid.Row="0" Grid.Column="2">
+					<TextBlock Text="Текст" HorizontalAlignment="Center" FontSize="12"  FontWeight="Bold"/>
+				</Border>
+				<Border Style="{StaticResource borderGripPrint}" Grid.Row="0" Grid.Column="3">
+					<TextBlock Text="Создание" HorizontalAlignment="Center" FontSize="12"  FontWeight="Bold"/>
+				</Border>
+				<Border Style="{StaticResource borderGripPrint}" Grid.Row="0" Grid.Column="4">
+					<TextBlock Text="Рассмотрение" HorizontalAlignment="Center" FontSize="12"  FontWeight="Bold"/>
+				</Border>
+				<Border Style="{StaticResource borderGripPrint}" Grid.Row="0" Grid.Column="5">
+					<TextBlock Text="Начало работ" HorizontalAlignment="Center" FontSize="12"  FontWeight="Bold"/>
+				</Border>
+				<Border Style="{StaticResource borderGripPrint}" Grid.Row="0" Grid.Column="6">
+					<TextBlock Text="Разр. на ввод"  HorizontalAlignment="Center" FontSize="12" FontWeight="Bold"/>
+				</Border>
+				<Border Style="{StaticResource borderGripPrint}" Grid.Row="0" Grid.Column="7">
+					<TextBlock Text="Завершение"  HorizontalAlignment="Center" FontSize="12" FontWeight="Bold"/>
+				</Border>
 
 
 
-				<Border Style="{StaticResource borderFilterControl}" Grid.Column="0" Grid.Row="1">
+				<Border Style="{StaticResource borderGripPrint}" Grid.Column="0" Grid.Row="1">
 					<Grid>
 						<Grid.RowDefinitions>
 							<RowDefinition />
@@ -81,33 +81,35 @@
 					</Grid>					
 				</Border>
 				
-				<Border Style="{StaticResource borderFilterControl}" Grid.Column="1" Grid.Row="1">
+				<Border Style="{StaticResource borderGripPrint}" Grid.Column="1" Grid.Row="1">
 					<Grid>
 						<Grid.RowDefinitions>
 							<RowDefinition />
+							<RowDefinition  Height="20"/>
 						</Grid.RowDefinitions>
-						<StackPanel Orientation="Vertical"  Grid.Row="0">
-							<TextBlock Text="Оборудование:  " Style="{StaticResource LabelPrint}"   HorizontalAlignment="Center"/>
-							<TextBlock Text="{Binding FullOrderObjectInfo}" Style="{StaticResource ValuePrintText}" />
-							<StackPanel Orientation="Horizontal">
-								<TextBlock Text="Ав. гот.:  " Style="{StaticResource LabelPrint}"  HorizontalAlignment="Center"/>
-								<TextBlock Text="{Binding ReadyTime}" Style="{StaticResource ValuePrintText}" />
-							</StackPanel>
-							<TextBlock Text="Согласовано:  " Style="{StaticResource LabelPrint}"  HorizontalAlignment="Center"/>
-							<TextBlock Text="{Binding AgreeText}" Style="{StaticResource ValuePrintText}" />
+						<StackPanel Orientation="Vertical"  Grid.Row="0">							
+							<TextBlock Text="{Binding FullOrderObjectInfo}" Style="{StaticResource ValuePrintText}" />							
+						</StackPanel>
+						<StackPanel Orientation="Horizontal" Grid.Row="1" VerticalAlignment="Bottom">
+							<TextBlock Text="Ав. гот: " Style="{StaticResource LabelPrint}"  HorizontalAlignment="Center"/>
+							<TextBlock Text="{Binding ReadyTime}" Style="{StaticResource ValuePrintText}" />
 						</StackPanel>
 					</Grid>
 				</Border>
-				<Border Style="{StaticResource borderFilterControl}" Grid.Column="2" Grid.Row="1">
+				<Border Style="{StaticResource borderGripPrint}" Grid.Column="2" Grid.Row="1">
 					<Grid>
 						<Grid.RowDefinitions>
 							<RowDefinition />
 							<RowDefinition Height="20"/>
 						</Grid.RowDefinitions>
 						<StackPanel Orientation="Vertical"  Grid.Row="0">						
-							<TextBlock Text="Текст заявки:  " Style="{StaticResource LabelPrint}"  HorizontalAlignment="Center"/>
 							<TextBlock Text="{Binding OrderText}" Style="{StaticResource ValuePrintText}" />
-							<TextBlock Text="{Binding CommentsTextBrief}" Style="{StaticResource LabelPrint}" Margin="0,10,0,0" TextWrapping="Wrap" HorizontalAlignment="Stretch" TextAlignment="Left"/>
+							<StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+								<TextBlock Text="Согласовано:  " Style="{StaticResource LabelPrint}"  HorizontalAlignment="Center"/>
+								<TextBlock Text="{Binding AgreeText}" Style="{StaticResource ValuePrintText}" />
+							</StackPanel>
+							<TextBlock Text="{Binding CommentsTextBrief}" Style="{StaticResource ValuePrintSmall}" FontStyle="Normal" Margin="0,5,0,0" 
+										  TextWrapping="Wrap" HorizontalAlignment="Stretch" TextAlignment="Left"/>
 						</StackPanel>
 						<StackPanel Orientation="Horizontal" Grid.Row="1" VerticalAlignment="Bottom">
 							<TextBlock Text="C " Style="{StaticResource LabelPrint}"/>
@@ -120,7 +122,7 @@
 						</StackPanel>
 					</Grid>
 				</Border>
-				<Border Style="{StaticResource borderFilterControl}" Grid.Column="3" Grid.Row="1">
+				<Border Style="{StaticResource borderGripPrint}" Grid.Column="3" Grid.Row="1">
 					<Grid>
 						<Grid.RowDefinitions>
 							<RowDefinition Height="1*"/>
@@ -130,14 +132,14 @@
 							<TextBlock Text="{Binding OrderDateCreate, Converter={StaticResource dateTimeConverter}}"
                                Style="{StaticResource ValuePrint}" />
 							<TextBlock Text="{Binding CreateText}" TextWrapping="Wrap"  Margin="0,10,0,0"
-										  Style="{StaticResource LabelPrint}" HorizontalAlignment="Center" TextAlignment="Center"/>
+										  Style="{StaticResource ValuePrintSmall}" HorizontalAlignment="Center" TextAlignment="Center"/>
 
 						</StackPanel>
 						<TextBlock  Grid.Row="1" Text="{Binding UserCreateOrder.FullName}" 
 										Style="{StaticResource ValuePrint}" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
 					</Grid>
 				</Border>
-				<Border Style="{StaticResource borderFilterControl}" Grid.Column="4" Grid.Row="1">
+				<Border Style="{StaticResource borderGripPrint}" Grid.Column="4" Grid.Row="1">
 					<Grid>
 						<Grid.RowDefinitions>
 							<RowDefinition Height="1*"/>
@@ -147,14 +149,14 @@
 							<TextBlock Text="{Binding OrderDateReview, Converter={StaticResource dateTimeConverter}}"
                                Style="{StaticResource ValuePrint}" />
 							<TextBlock Text="{Binding ReviewText}" TextWrapping="Wrap"  Margin="0,10,0,0"
-										  Style="{StaticResource LabelPrint}" HorizontalAlignment="Center" TextAlignment="Center"/>
+										  Style="{StaticResource ValuePrintSmall}" HorizontalAlignment="Center" TextAlignment="Center"/>
 
 						</StackPanel>
 						<TextBlock  Grid.Row="1" Text="{Binding UserReviewOrder.FullName}" 
 										Style="{StaticResource ValuePrint}" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
 					</Grid>
 				</Border>
-				<Border Style="{StaticResource borderFilterControl}" Grid.Column="5" Grid.Row="1">
+				<Border Style="{StaticResource borderGripPrint}" Grid.Column="5" Grid.Row="1">
 					<Grid>
 						<Grid.RowDefinitions>
 							<RowDefinition Height="1*"/>
@@ -162,18 +164,23 @@
 						</Grid.RowDefinitions>
 						<StackPanel Grid.Row="0">
 							<TextBlock Text="{Binding FaktStartDate, Converter={StaticResource dateTimeConverter}}"
-                               Style="{StaticResource ValuePrint}" />
+                               Style="{StaticResource ValuePrint}" />							
 							<TextBlock Text="{Binding OpenText}" TextWrapping="Wrap"  Margin="0,10,0,0"
-										  Style="{StaticResource LabelPrint}" HorizontalAlignment="Center" TextAlignment="Center"/>
+										  Style="{StaticResource ValuePrintSmall}" HorizontalAlignment="Center" TextAlignment="Center"/>							
 							<TextBlock Text="{Binding OrderDateOpen, Converter={StaticResource dateTimeConverter}}"
-										  Style="{StaticResource LabelPrint}" HorizontalAlignment="Center" TextAlignment="Center"/>
-													
+										  Style="{StaticResource ValuePrintSmall}" HorizontalAlignment="Center" TextAlignment="Center"/>
+							<TextBlock Text="{Binding TimeToOpen, Converter={StaticResource expiredTimeConverter},ConverterParameter='print'}"
+                               Style="{StaticResource LabelPrint}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+						</StackPanel>
+						<StackPanel Grid.Row="0" Visibility="{Binding OrderCanceled, Converter={StaticResource visibilityConverter}}">
+							<TextBlock Text="Заявка снята" TextWrapping="Wrap"  Margin="0,10,0,0"
+										  Style="{StaticResource LabelPrint}" HorizontalAlignment="Center" TextAlignment="Center" />
 						</StackPanel>
 						<TextBlock  Grid.Row="1" Text="{Binding UserOpenOrder.FullName}" 
 										Style="{StaticResource ValuePrint}" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
 					</Grid>					
 				</Border>
-				<Border Style="{StaticResource borderFilterControl}" Grid.Column="6" Grid.Row="1">
+				<Border Style="{StaticResource borderGripPrint}" Grid.Column="6" Grid.Row="1">
 					<Grid>
 						<Grid.RowDefinitions>
 							<RowDefinition Height="1*"/>
@@ -183,16 +190,30 @@
 							<TextBlock Text="{Binding FaktStopDate, Converter={StaticResource dateTimeConverter}}"
                                Style="{StaticResource ValuePrint}" />
 							<TextBlock Text="{Binding CloseText}" TextWrapping="Wrap"  Margin="0,10,0,0"
-										  Style="{StaticResource LabelPrint}" HorizontalAlignment="Center" TextAlignment="Center" />
+										  Style="{StaticResource ValuePrintSmall}" HorizontalAlignment="Center" TextAlignment="Center" />
 							<TextBlock Text="{Binding OrderDateClose, Converter={StaticResource dateTimeConverter}}"
-										  Style="{StaticResource LabelPrint}" HorizontalAlignment="Center" TextAlignment="Center"/>
+										  Style="{StaticResource ValuePrintSmall}" HorizontalAlignment="Center" TextAlignment="Center"/>
+							<TextBlock Text="{Binding TimeToClose, Converter={StaticResource expiredTimeConverter},ConverterParameter='print'}"
+                               Style="{StaticResource LabelPrint}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
 
+						</StackPanel>
+						<StackPanel Grid.Row="0" Visibility="{Binding OrderCanceled, Converter={StaticResource visibilityConverter}}">
+							<TextBlock Text="Заявка снята" TextWrapping="Wrap"  Margin="0,10,0,0"
+										  Style="{StaticResource LabelPrint}" HorizontalAlignment="Center" TextAlignment="Center" />
+						</StackPanel>
+						<StackPanel Grid.Row="0" Visibility="{Binding OrderExtended, Converter={StaticResource visibilityConverter}}">
+							<TextBlock Text="Заявка продлена" TextWrapping="Wrap"  Margin="0,10,0,0"
+										  Style="{StaticResource LabelPrint}" HorizontalAlignment="Center" TextAlignment="Center" />
+						</StackPanel>
+						<StackPanel Grid.Row="0" Visibility="{Binding OrderAskExtended, Converter={StaticResource visibilityConverter}}">
+							<TextBlock Text="Заявка на продление" TextWrapping="Wrap"  Margin="0,10,0,0"
+										  Style="{StaticResource LabelPrint}" HorizontalAlignment="Center" TextAlignment="Center" />
 						</StackPanel>
 						<TextBlock  Grid.Row="1" Text="{Binding UserCloseOrder.FullName}" 
 										Style="{StaticResource ValuePrint}" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
 					</Grid>
 				</Border>
-				<Border Style="{StaticResource borderFilterControl}" Grid.Column="7" Grid.Row="1">
+				<Border Style="{StaticResource borderGripPrint}" Grid.Column="7" Grid.Row="1">
 					<Grid>
 						<Grid.RowDefinitions>
 							<RowDefinition Height="1*"/>
@@ -202,9 +223,11 @@
 							<TextBlock Text="{Binding FaktCompleteDate, Converter={StaticResource dateTimeConverter}}"
                                Style="{StaticResource ValuePrint}" />
 							<TextBlock Text="{Binding CompleteText}" TextWrapping="Wrap"  Margin="0,10,0,0"
-										  Style="{StaticResource LabelPrint}" HorizontalAlignment="Center" TextAlignment="Center" />
+										  Style="{StaticResource ValuePrintSmall}" HorizontalAlignment="Center" TextAlignment="Center" />
 							<TextBlock Text="{Binding OrderDateComplete, Converter={StaticResource dateTimeConverter}}"
-										  Style="{StaticResource LabelPrint}" HorizontalAlignment="Center" TextAlignment="Center"/>
+										  Style="{StaticResource ValuePrintSmall}" HorizontalAlignment="Center" TextAlignment="Center"/>
+							<TextBlock Text="{Binding TimeToEnter, Converter={StaticResource expiredTimeConverter},ConverterParameter='print'}"
+                               Style="{StaticResource LabelPrint}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
 						</StackPanel>
 						<StackPanel Grid.Row="0" Visibility="{Binding OrderCanceled, Converter={StaticResource visibilityConverter}}">
 							<TextBlock Text="{Binding OrderDateCancel, Converter={StaticResource dateTimeConverter}}"
@@ -212,8 +235,7 @@
 							<TextBlock Text="Заявка снята" TextWrapping="Wrap"  Margin="0,10,0,0"
 										  Style="{StaticResource LabelPrint}" HorizontalAlignment="Center" TextAlignment="Center" />
 							<TextBlock Text="{Binding CancelText}" TextWrapping="Wrap"  Margin="0,0,0,0"
-										  Style="{StaticResource LabelPrint}" HorizontalAlignment="Center" TextAlignment="Center" />
-
+										  Style="{StaticResource ValuePrintSmall}" HorizontalAlignment="Center" TextAlignment="Center" />
 						</StackPanel>
 						<TextBlock  Grid.Row="1" Text="{Binding UserCompleteOrder.FullName}" 
 										Visibility="{Binding OrderCanceled, Converter={StaticResource visibilityNotConverter}}"

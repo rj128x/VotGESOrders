@@ -60,6 +60,20 @@ namespace VotGESOrders.Converters
 				} else {
 					return "";
 				}
+			} else if (param == "print") {
+				if (time.HasValue) {
+					if (time.Value > 12) {
+						return "";
+					} else if (time.Value > 0) {
+						return String.Format("{0}", getTimeStr(time.Value));
+					} else if (time.Value < 0) {
+						return String.Format("-{0}", getTimeStr(time.Value));
+					} else {
+						return "";
+					}
+				} else {
+					return "";
+				}
 			} else if (param == "reglament") {
 				if (time.HasValue) {
 					if (time.Value < 0) {

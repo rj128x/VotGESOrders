@@ -13,21 +13,15 @@
 						  CanUserSortColumns="True" CanUserResizeColumns="False">
 			<sdk:DataGrid.Columns>
 
-				<sdk:DataGridTemplateColumn Header="№ заявки" SortMemberPath="OrderNumber" Width="60" >
+				<sdk:DataGridTemplateColumn Header="№ заявки" SortMemberPath="OrderNumber" Width="70" >
 					<sdk:DataGridTemplateColumn.CellTemplate >
 						<DataTemplate>
-							<StackPanel>
-								<ContentControl Content="{Binding OrderNumber, Mode=OneWay, Converter={StaticResource orderNumberConverter}}" 
-													 Template="{StaticResource OrderCellDef}"/>
-								<TextBlock Text="{Binding OrderTypeShortName, Mode=OneWay}" Style="{StaticResource Label}"/>
-								<TextBlock Style="{StaticResource txtCellOrderRowAddRed}" Text="***" Visibility="{Binding HasComments, Converter={StaticResource visibilityConverter}}"
-											  HorizontalAlignment="Right"/>
-							</StackPanel>
+							<ContentControl Content="{Binding OrderNumber, Converter={StaticResource orderNumberConverter}}" Template="{StaticResource OrderCellNumber}"/>
 						</DataTemplate>
 					</sdk:DataGridTemplateColumn.CellTemplate>
 				</sdk:DataGridTemplateColumn>				
 
-				<sdk:DataGridTemplateColumn Header="Состояние"  SortMemberPath="OrderStateStr" Width="80" >
+				<sdk:DataGridTemplateColumn Header="Состояние"  SortMemberPath="OrderState" Width="80" >
 					<sdk:DataGridTemplateColumn.CellTemplate>
 						<DataTemplate>
 							<ContentControl Content="{Binding OrderStateStr}" Template="{StaticResource OrderCellState}"/>
@@ -52,7 +46,7 @@
 				<sdk:DataGridTemplateColumn Header="Автор"  SortMemberPath="UserCreateOrder.FullName"   >
 					<sdk:DataGridTemplateColumn.CellTemplate>
 						<DataTemplate>
-							<ContentControl Content="{Binding UserCreateOrder.FullName}"  Template="{StaticResource OrderCellAuthor}"/>
+							<ContentControl Content="{Binding UserCreateOrder.FullName}"  Template="{StaticResource OrderCellTimeCreate}"/>
 						</DataTemplate>
 					</sdk:DataGridTemplateColumn.CellTemplate>
 				</sdk:DataGridTemplateColumn>

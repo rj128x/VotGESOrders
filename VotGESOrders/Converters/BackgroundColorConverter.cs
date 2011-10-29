@@ -63,7 +63,23 @@ namespace VotGESOrders.Converters
 							color = Color.FromArgb(255, 204, 255, 204);
 							break;
 					}
-				} else if (param == "Time") {					
+				} else if (param == "type") {
+					OrderTypeEnum type=(OrderTypeEnum)value;
+					switch (type) {
+						case OrderTypeEnum.crash:
+							color = Colors.Red;
+							break;
+						case OrderTypeEnum.npl:
+							color = Color.FromArgb(255, 255, 204, 204);
+							break;
+						case OrderTypeEnum.pl:
+							color = Color.FromArgb(255, 153, 255, 204);
+							break;
+						case OrderTypeEnum.no:
+							color = Colors.Orange;
+							break;
+					}
+				} else if (param == "Time") {
 					double? time=(double?)value;
 					if (time.HasValue) {
 						if (time.Value < 0)
@@ -73,18 +89,15 @@ namespace VotGESOrders.Converters
 						else if (time.Value < 8)
 							color = Colors.Yellow;
 					}
-				} 
-				else if (param == "Expired") {
-					bool? expired=(bool?)value;
+				} else if (param == "Expired") {
+					double? time=(double?)value;
 					color = Colors.Transparent;
-					/*if (expired.HasValue) {
-						if (expired.Value)
-							color = Color.FromArgb(255, 255, 204, 204);
-						else
+					if (time.HasValue) {
+						/*if (time.Value > -2)
 							color = Color.FromArgb(255, 153, 255, 204);
-					} else {
-						color = Colors.Transparent;
-					}*/
+						else */if (time.Value<-2)
+							color = Color.FromArgb(255, 255, 204, 204);						
+					}
 				}
 				return new SolidColorBrush(color);
 			} catch {

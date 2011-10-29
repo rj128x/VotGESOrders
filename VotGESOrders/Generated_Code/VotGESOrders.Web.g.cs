@@ -3764,13 +3764,13 @@ namespace VotGESOrders.Web.Models
         
         accepted = 1,
         
-        banned = 2,
+        opened = 2,
         
-        opened = 3,
+        closed = 3,
         
-        canceled = 4,
+        banned = 4,
         
-        closed = 5,
+        canceled = 5,
         
         completed = 6,
         

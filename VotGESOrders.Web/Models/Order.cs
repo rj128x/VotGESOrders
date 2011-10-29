@@ -14,7 +14,7 @@ using System.ComponentModel;
 
 namespace VotGESOrders.Web.Models
 {
-	public enum OrderStateEnum { created, accepted, banned, opened, canceled, closed, completed, completedWithoutEnter, extended, askExtended }
+	public enum OrderStateEnum { created, accepted, opened, closed, banned, canceled, completed, completedWithoutEnter, extended, askExtended }
 	public enum OrderTypeEnum { pl, npl, no, crash }
 	
 
@@ -788,6 +788,10 @@ namespace VotGESOrders.Web.Models
 
 		public static void writeExpired(Orders orderDB) {
 			double koef=10000000.0 * 60.0 * 60.0;
+			orderDB.expiredOpenHours = null;
+			orderDB.expiredCloseHours = null;
+			orderDB.expiredCompleteHours = null;
+			orderDB.expiredReglamentHours = null;
 
 			if (orderDB.orderOpened&&orderDB.faktStartDate.HasValue) {
 				orderDB.expiredOpenHours = (orderDB.planStartDate.Ticks - orderDB.faktStartDate.Value.Ticks) / koef;

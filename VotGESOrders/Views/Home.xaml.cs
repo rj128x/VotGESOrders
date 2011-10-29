@@ -164,7 +164,7 @@ namespace VotGESOrders
 
 					host.Measure(new Size(width, double.PositiveInfinity));
 
-					if (host.DesiredSize.Height + 110 > height && host.Children.Count > 1) {
+					if (host.DesiredSize.Height + 80 > height && host.Children.Count > 1) {
 						host.Children.Remove(cntrl);
 						break;
 					}
@@ -213,18 +213,17 @@ namespace VotGESOrders
 					grid.RowDefinitions.Add(new RowDefinition());
 					grid.RowDefinitions.Add(new RowDefinition());
 					grid.RowDefinitions.Add(new RowDefinition());
-					grid.RowDefinitions[0].Height = new GridLength(80);
+					grid.RowDefinitions[0].Height = new GridLength(50);
 					grid.RowDefinitions[2].Height = new GridLength(30);
-					grid.RowDefinitions[1].Height = new GridLength(height - 110);
+					grid.RowDefinitions[1].Height = new GridLength(height - 80);
 
-					/*grid.ColumnDefinitions.Add(new ColumnDefinition());
-					grid.ColumnDefinitions[0].Width = new GridLength(width);*/
-
+					
 					StackPanel headerPanel=new StackPanel();
 					TextBlock header=new TextBlock();
-					header.Text = String.Format("{0} на {1}", GlobalStatus.Current.HomeHeader,DateTime.Now.ToString("dd.MM.yy HH:mm"));
+					//header.Text = String.Format("{0} на {1}", GlobalStatus.Current.HomeHeader,DateTime.Now.ToString("dd.MM.yy HH:mm"));
+					header.Text = "";
 					header.HorizontalAlignment = System.Windows.HorizontalAlignment.Center;
-					header.FontSize = 13;
+					header.FontSize = 13;					
 					headerPanel.VerticalAlignment = System.Windows.VerticalAlignment.Bottom;
 					grid.Children.Add(headerPanel);
 					headerPanel.Children.Add(header);
@@ -232,27 +231,40 @@ namespace VotGESOrders
 
 					//host.Measure(new Size(width, double.PositiveInfinity));
 
-					StackPanel footerPnl=new StackPanel();
-					footerPnl.Width = width;
-					footerPnl.Orientation = Orientation.Horizontal;
-					
-					TextBlock page=new TextBlock();
-					page.Text = String.Format("Cтраница {0} из {1}", index+1, pages.Count); ;
-					page.HorizontalAlignment = System.Windows.HorizontalAlignment.Center;
-					page.FontSize = 12;
-					page.Width = 200;
-					footerPnl.Children.Add(page);
-					footerPnl.VerticalAlignment = System.Windows.VerticalAlignment.Bottom;
 
-					TextBlock footer=new TextBlock();
-					//footer.Text = String.Format(" Начальник ОС ________________/{0}/",DateTime.Now.ToString("dd.MM.yy"));
-					footer.TextAlignment = TextAlignment.Right;
-					footer.FontSize = 12;
-					footer.Width = width - page.Width;
-					footerPnl.Children.Add(footer);
+					Grid footerGrid=new Grid();
+					footerGrid.ColumnDefinitions.Add(new ColumnDefinition());
+					footerGrid.ColumnDefinitions.Add(new ColumnDefinition());
+					footerGrid.ColumnDefinitions.Add(new ColumnDefinition());
+					footerGrid.ColumnDefinitions[0].Width = GridLength.Auto;
+					footerGrid.ColumnDefinitions[1].Width = new GridLength(1, GridUnitType.Star);
+					footerGrid.ColumnDefinitions[2].Width = GridLength.Auto;
+					footerGrid.HorizontalAlignment = System.Windows.HorizontalAlignment.Stretch;
 					
-					grid.Children.Add(footerPnl);
-					footerPnl.SetValue(Grid.RowProperty, 2);
+					TextBlock footer=new TextBlock();
+					footer.Text = String.Format("{0} на {1} ", GlobalStatus.Current.HomeHeader, DateTime.Now.ToString("HH:mm")); ;
+					footer.HorizontalAlignment = System.Windows.HorizontalAlignment.Center;
+					footer.FontSize = 12;
+					footerGrid.Children.Add(footer);
+					footer.SetValue(Grid.ColumnProperty, 1);
+
+					TextBlock page=new TextBlock();
+					//footer.Text = String.Format(" Начальник ОС ________________/{0}/",DateTime.Now.ToString("dd.MM.yy"));
+					page.Text = String.Format("Cтраница {0} из {1}", index + 1, pages.Count);
+					page.TextAlignment = TextAlignment.Left;
+					page.FontSize = 12;
+					footerGrid.Children.Add(page);
+					page.SetValue(Grid.ColumnProperty, 0);
+
+					TextBlock podp=new TextBlock();
+					podp.Text = String.Format("{0}", DateTime.Now.ToString("dd.MM.yy"));
+					podp.TextAlignment = TextAlignment.Right;
+					podp.FontSize = 12;
+					footerGrid.Children.Add(podp);
+					podp.SetValue(Grid.ColumnProperty, 2);
+
+					grid.Children.Add(footerGrid);
+					footerGrid.SetValue(Grid.RowProperty, 2);
 
 					grid.Children.Add(host);
 					host.SetValue(Grid.RowProperty, 1);
