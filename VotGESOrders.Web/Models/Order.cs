@@ -487,6 +487,19 @@ namespace VotGESOrders.Web.Models
 			set { orderIsExtend = value; }
 		}
 
+		private bool orderBanned;
+		public bool OrderBanned {
+			get { return orderBanned; }
+			set { orderBanned = value; }
+		}
+
+		private bool orderCanceledWithoutReview;
+		public bool OrderCanceledWithoutReview {
+			get { return orderCanceledWithoutReview; }
+			set { orderCanceledWithoutReview = value; }
+		}
+		
+
 		private bool orderIsFixErrorEnter;
 		public bool OrderIsFixErrorEnter {
 			get { return orderIsFixErrorEnter; }
@@ -734,9 +747,12 @@ namespace VotGESOrders.Web.Models
 			OrderAskExtended = dbOrder.orderAskExtended;
 			OrderIsExtend = dbOrder.orderIsExtend;
 			OrderIsFixErrorEnter = dbOrder.orderIsFixErrorEnter;
-						
+									
 			OrderState = (OrderStateEnum)Enum.Parse(typeof(OrderStateEnum), dbOrder.orderState, true);
 			OrderType = (OrderTypeEnum)Enum.Parse(typeof(OrderTypeEnum), dbOrder.orderType, true);
+
+			OrderCanceledWithoutReview = OrderCanceled && !OrderReviewed;
+			OrderBanned = OrderState == OrderStateEnum.banned;
 
 			int creator=dbOrder.userCreateOrderID;
 			AllowReviewOrder = currentUser.AllowReviewOrder && OrderState == OrderStateEnum.created;

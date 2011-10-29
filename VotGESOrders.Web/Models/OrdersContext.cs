@@ -95,14 +95,6 @@ namespace VotGESOrders.Web.Models
 						resultOrders.Add(new Order(orderDB, currentUser,false,null));
 					}
 
-					IEnumerable<double> floorNumbers=from Order o in resultOrders select Math.Floor(o.OrderNumber);
-					IEnumerable<double> numbers=from Order o in resultOrders select o.OrderNumber;
-					IQueryable<Orders> relOrders=from o in context.Orders where floorNumbers.Contains(Math.Floor(o.orderNumber)) && !numbers.Contains(o.orderNumber) select o;
-					foreach (Orders orderDB in relOrders) {
-						resultOrders.Add(new Order(orderDB, currentUser, false, null));
-					}
-
-
 					return resultOrders.AsQueryable();
 				} catch (Exception e) {
 					Logger.error("===Ошибка при получении списка заказов (активные)" + e.ToString(), Logger.LoggerSource.ordersContext);

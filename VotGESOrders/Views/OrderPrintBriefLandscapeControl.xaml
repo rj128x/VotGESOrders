@@ -152,6 +152,10 @@
 										  Style="{StaticResource ValuePrintSmall}" HorizontalAlignment="Center" TextAlignment="Center"/>
 
 						</StackPanel>
+						<StackPanel Grid.Row="0" Visibility="{Binding OrderCanceledWithoutReview, Converter={StaticResource visibilityConverter}}">
+							<TextBlock Text="Заявка снята" TextWrapping="Wrap"  Margin="0,10,0,0"
+										  Style="{StaticResource LabelPrint}" HorizontalAlignment="Center" TextAlignment="Center" />
+						</StackPanel>
 						<TextBlock  Grid.Row="1" Text="{Binding UserReviewOrder.FullName}" 
 										Style="{StaticResource ValuePrint}" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
 					</Grid>
@@ -174,6 +178,10 @@
 						</StackPanel>
 						<StackPanel Grid.Row="0" Visibility="{Binding OrderCanceled, Converter={StaticResource visibilityConverter}}">
 							<TextBlock Text="Заявка снята" TextWrapping="Wrap"  Margin="0,10,0,0"
+										  Style="{StaticResource LabelPrint}" HorizontalAlignment="Center" TextAlignment="Center" />
+						</StackPanel>
+						<StackPanel Grid.Row="0" Visibility="{Binding OrderBanned, Converter={StaticResource visibilityConverter}}">
+							<TextBlock Text="Заявка отклонена" TextWrapping="Wrap"  Margin="0,10,0,0"
 										  Style="{StaticResource LabelPrint}" HorizontalAlignment="Center" TextAlignment="Center" />
 						</StackPanel>
 						<TextBlock  Grid.Row="1" Text="{Binding UserOpenOrder.FullName}" 
@@ -209,6 +217,10 @@
 							<TextBlock Text="Заявка на продление" TextWrapping="Wrap"  Margin="0,10,0,0"
 										  Style="{StaticResource LabelPrint}" HorizontalAlignment="Center" TextAlignment="Center" />
 						</StackPanel>
+						<StackPanel Grid.Row="0" Visibility="{Binding OrderBanned, Converter={StaticResource visibilityConverter}}">
+							<TextBlock Text="Заявка отклонена" TextWrapping="Wrap"  Margin="0,10,0,0"
+										  Style="{StaticResource LabelPrint}" HorizontalAlignment="Center" TextAlignment="Center" />
+						</StackPanel>
 						<TextBlock  Grid.Row="1" Text="{Binding UserCloseOrder.FullName}" 
 										Style="{StaticResource ValuePrint}" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
 					</Grid>
@@ -236,6 +248,10 @@
 										  Style="{StaticResource LabelPrint}" HorizontalAlignment="Center" TextAlignment="Center" />
 							<TextBlock Text="{Binding CancelText}" TextWrapping="Wrap"  Margin="0,0,0,0"
 										  Style="{StaticResource ValuePrintSmall}" HorizontalAlignment="Center" TextAlignment="Center" />
+						</StackPanel>
+						<StackPanel Grid.Row="0" Visibility="{Binding OrderBanned, Converter={StaticResource visibilityConverter}}">
+							<TextBlock Text="Заявка отклонена" TextWrapping="Wrap"  Margin="0,10,0,0"
+										  Style="{StaticResource LabelPrint}" HorizontalAlignment="Center" TextAlignment="Center" />
 						</StackPanel>
 						<TextBlock  Grid.Row="1" Text="{Binding UserCompleteOrder.FullName}" 
 										Visibility="{Binding OrderCanceled, Converter={StaticResource visibilityNotConverter}}"
