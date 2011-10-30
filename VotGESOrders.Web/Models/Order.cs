@@ -15,6 +15,7 @@ using System.ComponentModel;
 namespace VotGESOrders.Web.Models
 {
 	public enum OrderStateEnum { created, accepted, opened, closed, banned, canceled, completed, completedWithoutEnter, extended, askExtended }
+	public enum OrderOperationEnum { none, create, review, open, close, complete,edit  }
 	public enum OrderTypeEnum { pl, npl, no, crash }
 	
 
@@ -641,7 +642,8 @@ namespace VotGESOrders.Web.Models
 					listOrders.Add(this);
 				}
 			}
-			
+
+			OrderOperation = OrderOperationEnum.none;
 			checkPremissions(dbOrder, currentUser);
 
 			SelOrderObject = OrderObject.getByID(dbOrder.orderObjectID);
@@ -762,7 +764,7 @@ namespace VotGESOrders.Web.Models
 			AllowCompleteWithoutEnterOrder = currentUser.AllowChangeOrder && currentUser.AllowCreateCrashOrder && OrderState == OrderStateEnum.closed;
 			AllowCompleteOrder = currentUser.AllowChangeOrder && OrderState == OrderStateEnum.closed;
 			AllowChangeOrder = (currentUser.UserID == creator || currentUser.AllowChangeOrder) && OrderState == OrderStateEnum.created||
-				(currentUser.AllowEditOrders && (OrderType==OrderTypeEnum.no||OrderType==OrderTypeEnum.crash)&&OrderState==OrderStateEnum.opened);
+				(currentUser.AllowChangeOrder && (OrderType==OrderTypeEnum.no||OrderType==OrderTypeEnum.crash)&&OrderState==OrderStateEnum.opened);
 			AllowExtendOrder = (currentUser.AllowChangeOrder || currentUser.UserID == creator) && OrderState == OrderStateEnum.opened;
 			AllowCancelOrder = ((currentUser.UserID == creator || currentUser.AllowChangeOrder) && OrderState == OrderStateEnum.created) ||
 				(currentUser.AllowChangeOrder && (OrderState == OrderStateEnum.accepted));
@@ -774,13 +776,13 @@ namespace VotGESOrders.Web.Models
 			AllowRejectReviewOrder = (currentUser.AllowEditOrders||currentUser.AllowReviewOrder) && 
 				(OrderState == OrderStateEnum.accepted || OrderState == OrderStateEnum.banned && !OrderIsExtend || 
 				OrderState==OrderStateEnum.opened && OrderIsExtend);
-			AllowRejectOpenOrder = currentUser.AllowEditOrders && OrderState == OrderStateEnum.opened && !OrderIsExtend && !OrderIsFixErrorEnter && 
+			AllowRejectOpenOrder = (currentUser.AllowEditOrders || currentUser.AllowChangeOrder) && OrderState == OrderStateEnum.opened && !OrderIsExtend && !OrderIsFixErrorEnter && 
 				!OrderExtended && !OrderAskExtended &&
 				OrderType != OrderTypeEnum.crash && OrderType != OrderTypeEnum.no;
-			AllowRejectCloseOrder = currentUser.AllowEditOrders && OrderState == OrderStateEnum.closed;
-			AllowRejectCancelOrder = currentUser.AllowEditOrders && OrderState == OrderStateEnum.canceled && !OrderIsExtend;
-			AllowRejectCompleteOrder = currentUser.AllowEditOrders && OrderState == OrderStateEnum.completed;
-			AllowEditOrder = currentUser.AllowEditOrders;
+			AllowRejectCloseOrder = (currentUser.AllowEditOrders || currentUser.AllowChangeOrder) && OrderState == OrderStateEnum.closed;
+			AllowRejectCancelOrder = (currentUser.AllowEditOrders || currentUser.AllowChangeOrder) && OrderState == OrderStateEnum.canceled && !OrderIsExtend;
+			AllowRejectCompleteOrder = (currentUser.AllowEditOrders || currentUser.AllowChangeOrder) && OrderState == OrderStateEnum.completed;
+			AllowEditOrder = currentUser.AllowChangeOrder;
 		}
 
 		private void checkTimeToOpen(){
@@ -874,12 +876,12 @@ namespace VotGESOrders.Web.Models
 		public bool AllowCommentOrder { get; protected set; }
 
 		public bool AllowEditOrder { get; protected set; }
-		public bool ManualEdit { get; set; }
 		public bool AllowRejectReviewOrder { get; protected set; }
 		public bool AllowRejectOpenOrder { get; protected set; }
 		public bool AllowRejectCloseOrder { get; protected set; }
 		public bool AllowRejectCompleteOrder { get; protected set; }
-		public bool AllowRejectCancelOrder { get; protected set; }		
+		public bool AllowRejectCancelOrder { get; protected set; }
+		public OrderOperationEnum OrderOperation { get; set; }
 
 		[Display(Description = "Комментарий (не обязательно)")]
 		public string NewComment { get; set; }

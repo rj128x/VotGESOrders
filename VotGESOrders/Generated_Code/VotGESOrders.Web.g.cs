@@ -167,15 +167,17 @@ namespace VotGESOrders.Web.Models
         
         private bool _hasComments;
         
-        private bool _manualEdit;
-        
         private string _newComment;
         
         private string _openText;
         
         private bool _orderAskExtended;
         
+        private bool _orderBanned;
+        
         private bool _orderCanceled;
+        
+        private bool _orderCanceledWithoutReview;
         
         private bool _orderClosed;
         
@@ -220,6 +222,8 @@ namespace VotGESOrders.Web.Models
         private string _orderObjectAddInfo;
         
         private bool _orderOpened;
+        
+        private OrderOperationEnum _orderOperation;
         
         private bool _orderReviewed;
         
@@ -358,16 +362,18 @@ namespace VotGESOrders.Web.Models
         partial void OnFullOrderObjectInfoChanged();
         partial void OnHasCommentsChanging(bool value);
         partial void OnHasCommentsChanged();
-        partial void OnManualEditChanging(bool value);
-        partial void OnManualEditChanged();
         partial void OnNewCommentChanging(string value);
         partial void OnNewCommentChanged();
         partial void OnOpenTextChanging(string value);
         partial void OnOpenTextChanged();
         partial void OnOrderAskExtendedChanging(bool value);
         partial void OnOrderAskExtendedChanged();
+        partial void OnOrderBannedChanging(bool value);
+        partial void OnOrderBannedChanged();
         partial void OnOrderCanceledChanging(bool value);
         partial void OnOrderCanceledChanged();
+        partial void OnOrderCanceledWithoutReviewChanging(bool value);
+        partial void OnOrderCanceledWithoutReviewChanged();
         partial void OnOrderClosedChanging(bool value);
         partial void OnOrderClosedChanged();
         partial void OnOrderCompletedChanging(bool value);
@@ -412,6 +418,8 @@ namespace VotGESOrders.Web.Models
         partial void OnOrderObjectAddInfoChanged();
         partial void OnOrderOpenedChanging(bool value);
         partial void OnOrderOpenedChanged();
+        partial void OnOrderOperationChanging(OrderOperationEnum value);
+        partial void OnOrderOperationChanged();
         partial void OnOrderReviewedChanging(bool value);
         partial void OnOrderReviewedChanged();
         partial void OnOrderStateChanging(OrderStateEnum value);
@@ -1378,30 +1386,6 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
-        /// Возвращает или задает значение параметра "ManualEdit".
-        /// </summary>
-        [DataMember()]
-        public bool ManualEdit
-        {
-            get
-            {
-                return this._manualEdit;
-            }
-            set
-            {
-                if ((this._manualEdit != value))
-                {
-                    this.OnManualEditChanging(value);
-                    this.RaiseDataMemberChanging("ManualEdit");
-                    this.ValidateProperty("ManualEdit", value);
-                    this._manualEdit = value;
-                    this.RaiseDataMemberChanged("ManualEdit");
-                    this.OnManualEditChanged();
-                }
-            }
-        }
-        
-        /// <summary>
         /// Возвращает или задает значение параметра "NewComment".
         /// </summary>
         [DataMember()]
@@ -1477,6 +1461,30 @@ namespace VotGESOrders.Web.Models
         }
         
         /// <summary>
+        /// Возвращает или задает значение параметра "OrderBanned".
+        /// </summary>
+        [DataMember()]
+        public bool OrderBanned
+        {
+            get
+            {
+                return this._orderBanned;
+            }
+            set
+            {
+                if ((this._orderBanned != value))
+                {
+                    this.OnOrderBannedChanging(value);
+                    this.RaiseDataMemberChanging("OrderBanned");
+                    this.ValidateProperty("OrderBanned", value);
+                    this._orderBanned = value;
+                    this.RaiseDataMemberChanged("OrderBanned");
+                    this.OnOrderBannedChanged();
+                }
+            }
+        }
+        
+        /// <summary>
         /// Возвращает или задает значение параметра "OrderCanceled".
         /// </summary>
         [DataMember()]
@@ -1496,6 +1504,30 @@ namespace VotGESOrders.Web.Models
                     this._orderCanceled = value;
                     this.RaiseDataMemberChanged("OrderCanceled");
                     this.OnOrderCanceledChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "OrderCanceledWithoutReview".
+        /// </summary>
+        [DataMember()]
+        public bool OrderCanceledWithoutReview
+        {
+            get
+            {
+                return this._orderCanceledWithoutReview;
+            }
+            set
+            {
+                if ((this._orderCanceledWithoutReview != value))
+                {
+                    this.OnOrderCanceledWithoutReviewChanging(value);
+                    this.RaiseDataMemberChanging("OrderCanceledWithoutReview");
+                    this.ValidateProperty("OrderCanceledWithoutReview", value);
+                    this._orderCanceledWithoutReview = value;
+                    this.RaiseDataMemberChanged("OrderCanceledWithoutReview");
+                    this.OnOrderCanceledWithoutReviewChanged();
                 }
             }
         }
@@ -2028,6 +2060,30 @@ namespace VotGESOrders.Web.Models
                     this._orderOpened = value;
                     this.RaiseDataMemberChanged("OrderOpened");
                     this.OnOrderOpenedChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "OrderOperation".
+        /// </summary>
+        [DataMember()]
+        public OrderOperationEnum OrderOperation
+        {
+            get
+            {
+                return this._orderOperation;
+            }
+            set
+            {
+                if ((this._orderOperation != value))
+                {
+                    this.OnOrderOperationChanging(value);
+                    this.RaiseDataMemberChanging("OrderOperation");
+                    this.ValidateProperty("OrderOperation", value);
+                    this._orderOperation = value;
+                    this.RaiseDataMemberChanged("OrderOperation");
+                    this.OnOrderOperationChanged();
                 }
             }
         }
@@ -3755,6 +3811,24 @@ namespace VotGESOrders.Web.Models
             base.UpdateActionState("RegisterChangeObject", "CanRegisterChangeObject", "IsRegisterChangeObjectInvoked");
             base.UpdateActionState("RegisterDeleteObject", "CanRegisterDeleteObject", "IsRegisterDeleteObjectInvoked");
         }
+    }
+    
+    public enum OrderOperationEnum
+    {
+        
+        none = 0,
+        
+        create = 1,
+        
+        review = 2,
+        
+        open = 3,
+        
+        close = 4,
+        
+        complete = 5,
+        
+        edit = 6,
     }
     
     public enum OrderStateEnum

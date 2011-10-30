@@ -38,7 +38,6 @@ namespace VotGESOrders.Views
 		private void BanButton_Click(object sender, RoutedEventArgs e) {
 			if (MessageBox.Show("Вы уверены что хотите отклонить заявку", "ОТКАЗ ЗАЯВКИ", MessageBoxButton.OKCancel) == MessageBoxResult.OK) {
 				Result = AcceptResult.ban;
-				CurrentOrder.OrderState = OrderStateEnum.banned;
 				bool ok=orderForm.ValidateItem();
 				if (ok) {
 					orderForm.CommitEdit();
@@ -52,7 +51,6 @@ namespace VotGESOrders.Views
 
 		private void AcceptButton_Click(object sender, RoutedEventArgs e) {
 			Result = AcceptResult.accept;
-			CurrentOrder.OrderState = OrderStateEnum.accepted;
 			bool ok=orderForm.ValidateItem();
 			if (ok) {
 				orderForm.CommitEdit();
@@ -103,7 +101,6 @@ namespace VotGESOrders.Views
 
 		private void CancelOrderButton_Click(object sender, RoutedEventArgs e) {
 			Result = AcceptResult.cancel;
-			CurrentOrder.OrderState = OrderStateEnum.canceled;
 			bool ok=orderForm.ValidateItem();
 			if (ok) {
 				orderForm.CommitEdit();
@@ -128,7 +125,6 @@ namespace VotGESOrders.Views
 
 		private void CommentOrderButton_Click(object sender, RoutedEventArgs e) {
 			Result = AcceptResult.comment;
-			CurrentOrder.OrderState = OrderStateEnum.accepted;
 			bool ok=orderForm.ValidateItem();			
 			if (ok) {
 				orderForm.CommitEdit();

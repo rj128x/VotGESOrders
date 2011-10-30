@@ -28,7 +28,7 @@ namespace VotGESOrders
 		public Home() {
 			InitializeComponent();
 			OrdersContext.init();
-			OrdersContext.Current.FinishLoadingOrdersEvent += new OrdersContext.DelegateLoadedAllData(finish);		
+			OrdersContext.Current.FinishLoadingOrdersEvent += new OrdersContext.DelegateLoadedAllData(finish);
 		}
 
 
@@ -55,18 +55,18 @@ namespace VotGESOrders
 			Logger.info("Главная страница загружена");
 		}
 
-		
+
 
 		void View_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e) {
-				if (OrderOperations.Current.CurrentOrder == null) {
-					cntrlOrder.Visibility = System.Windows.Visibility.Collapsed;
-				}
+			if (OrderOperations.Current.CurrentOrder == null) {
+				cntrlOrder.Visibility = System.Windows.Visibility.Collapsed;
+			}
 		}
 
 		void timerExistChanges_Tick(object sender, EventArgs e) {
-				InvokeOperation<bool> oper=
+			InvokeOperation<bool> oper=
 					OrdersContext.Current.Context.ExistsChanges(OrdersContext.Current.SessionGUID);
-				oper.Completed += new EventHandler(oper_Completed);									
+			oper.Completed += new EventHandler(oper_Completed);
 		}
 
 		void oper_Completed(object sender, EventArgs e) {
@@ -86,17 +86,17 @@ namespace VotGESOrders
 				GlobalStatus.Current.Status = "Ошибка при соединении с сервером";
 				oper.MarkErrorAsHandled();
 			}
-			
+
 		}
 
-		void context_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e) {			
+		void context_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e) {
 			OrdersContext.Current.View.Refresh();
 			//ordersGrid.UpdateLayout();
 		}
 
 
 
-		
+
 
 
 		private void btnCreateOrder_Click(object sender, RoutedEventArgs e) {
@@ -128,7 +128,7 @@ namespace VotGESOrders
 				OrderOperations.Current.CurrentOrder = order;
 			}
 		}
-				
+
 
 		private void btnVisDetails_Click(object sender, RoutedEventArgs e) {
 			if (OrderOperations.Current.CurrentOrder == null) {
@@ -146,30 +146,31 @@ namespace VotGESOrders
 		private List<StackPanel> getPrintPages(double width, double height) {
 			List<StackPanel> pages=new List<StackPanel>();
 			bool finish=false;
-			int index=0;			
+			int index=0;
 			while (!finish) {
-				StackPanel host = new StackPanel();				
+				StackPanel host = new StackPanel();
 				bool isFirst=true;
 				while (index < OrdersContext.Current.View.Count) {
 					OrderPrintBriefLandscapeControl cntrl = new OrderPrintBriefLandscapeControl();
 					cntrl.DataContext = OrdersContext.Current.View.GetItemAt(index); ;
-					cntrl.UpdateLayout();
-					host.Children.Add(cntrl);
-					
-					if (!isFirst) {
-						cntrl.hideHeader();
-						cntrl.InvalidateArrange();
+					//cntrl.UpdateLayout();
+					if (isFirst) {
+						cntrl.showHeader();
 					}
 					isFirst = false;
+					host.Children.Add(cntrl);
+
+					
 
 					host.Measure(new Size(width, double.PositiveInfinity));
 
-					if (host.DesiredSize.Height + 80 > height && host.Children.Count > 1) {
+					//Logger.logMessage(cntrl.DesiredSize.Height+" "+ host.DesiredSize.Height + " " + height);
+					if (host.DesiredSize.Height > height && host.Children.Count > 1) {
 						host.Children.Remove(cntrl);
 						break;
 					}
 					index++;
-					finish = OrdersContext.Current.View.Count==index;					
+					finish = OrdersContext.Current.View.Count == index;
 				}
 				pages.Add(host);
 			}
@@ -183,7 +184,7 @@ namespace VotGESOrders
 
 			multidoc.PrintPage += (s, arg) => {
 				double width = arg.PrintableArea.Width;
-				double height=arg.PrintableArea.Height;
+				double height=arg.PrintableArea.Height;				
 				bool rotate=false;
 
 				//Logger.logMessage(String.Format("{0}-{1}",width,height));
@@ -193,12 +194,12 @@ namespace VotGESOrders
 					width = height;
 					height = temp;
 					rotate = true;
-				}				
+				}
 
 				//Logger.logMessage(String.Format("{0}-{1}", width, height));
 
 				if (pages == null) {
-					pages = getPrintPages(width,height);
+					pages = getPrintPages(width, height-65);
 				}
 				if (index < pages.Count) {
 					StackPanel host=pages[index];
@@ -213,17 +214,19 @@ namespace VotGESOrders
 					grid.RowDefinitions.Add(new RowDefinition());
 					grid.RowDefinitions.Add(new RowDefinition());
 					grid.RowDefinitions.Add(new RowDefinition());
-					grid.RowDefinitions[0].Height = new GridLength(50);
-					grid.RowDefinitions[2].Height = new GridLength(30);
-					grid.RowDefinitions[1].Height = new GridLength(height - 80);
+					grid.RowDefinitions[0].Height = new GridLength(50, GridUnitType.Pixel);
+					grid.RowDefinitions[2].Height = new GridLength(15, GridUnitType.Pixel);
+					grid.RowDefinitions[1].Height = new GridLength(height - 65, GridUnitType.Pixel);
 
-					
+
 					StackPanel headerPanel=new StackPanel();
+					headerPanel.Height = 50;
+					headerPanel.Background = new SolidColorBrush(Colors.LightGray);
 					TextBlock header=new TextBlock();
 					//header.Text = String.Format("{0} на {1}", GlobalStatus.Current.HomeHeader,DateTime.Now.ToString("dd.MM.yy HH:mm"));
 					header.Text = "";
 					header.HorizontalAlignment = System.Windows.HorizontalAlignment.Center;
-					header.FontSize = 13;					
+					header.FontSize = 13;
 					headerPanel.VerticalAlignment = System.Windows.VerticalAlignment.Bottom;
 					grid.Children.Add(headerPanel);
 					headerPanel.Children.Add(header);
@@ -233,6 +236,8 @@ namespace VotGESOrders
 
 
 					Grid footerGrid=new Grid();
+					footerGrid.Height = 15;
+					footerGrid.Background = new SolidColorBrush(Colors.LightGray);
 					footerGrid.ColumnDefinitions.Add(new ColumnDefinition());
 					footerGrid.ColumnDefinitions.Add(new ColumnDefinition());
 					footerGrid.ColumnDefinitions.Add(new ColumnDefinition());
@@ -240,10 +245,11 @@ namespace VotGESOrders
 					footerGrid.ColumnDefinitions[1].Width = new GridLength(1, GridUnitType.Star);
 					footerGrid.ColumnDefinitions[2].Width = GridLength.Auto;
 					footerGrid.HorizontalAlignment = System.Windows.HorizontalAlignment.Stretch;
-					
+
 					TextBlock footer=new TextBlock();
 					footer.Text = String.Format("{0} на {1} ", GlobalStatus.Current.HomeHeader, DateTime.Now.ToString("HH:mm")); ;
 					footer.HorizontalAlignment = System.Windows.HorizontalAlignment.Center;
+					footer.VerticalAlignment = System.Windows.VerticalAlignment.Center;
 					footer.FontSize = 12;
 					footerGrid.Children.Add(footer);
 					footer.SetValue(Grid.ColumnProperty, 1);
@@ -251,6 +257,7 @@ namespace VotGESOrders
 					TextBlock page=new TextBlock();
 					//footer.Text = String.Format(" Начальник ОС ________________/{0}/",DateTime.Now.ToString("dd.MM.yy"));
 					page.Text = String.Format("Cтраница {0} из {1}", index + 1, pages.Count);
+					page.VerticalAlignment = System.Windows.VerticalAlignment.Center;
 					page.TextAlignment = TextAlignment.Left;
 					page.FontSize = 12;
 					footerGrid.Children.Add(page);
@@ -259,6 +266,7 @@ namespace VotGESOrders
 					TextBlock podp=new TextBlock();
 					podp.Text = String.Format("{0}", DateTime.Now.ToString("dd.MM.yy"));
 					podp.TextAlignment = TextAlignment.Right;
+					podp.VerticalAlignment = System.Windows.VerticalAlignment.Center;
 					podp.FontSize = 12;
 					footerGrid.Children.Add(podp);
 					podp.SetValue(Grid.ColumnProperty, 2);
@@ -268,19 +276,19 @@ namespace VotGESOrders
 
 					grid.Children.Add(host);
 					host.SetValue(Grid.RowProperty, 1);
-					if (rotate){
-						CompositeTransform transform=new CompositeTransform() {							
+					if (rotate) {
+						CompositeTransform transform=new CompositeTransform() {
 							Rotation = 90,
-							TranslateX=height
-							
+							TranslateX = height
+
 						};
 						grid.RenderTransform = transform;
-						
+
 					}
-					
-					arg.PageVisual = layout;			
-					
-				}				
+
+					arg.PageVisual = layout;
+
+				}
 				index++;
 				arg.HasMorePages = index < pages.Count;
 			};
@@ -310,8 +318,8 @@ namespace VotGESOrders
 		}
 
 		private void cmbFilterType_SelectionChanged(object sender, SelectionChangedEventArgs e) {
-			btnVisFilter.Visibility=OrdersContext.Current.Filter.FilterType==OrderFilterEnum.userFilter?
-				System.Windows.Visibility.Visible:
+			btnVisFilter.Visibility = OrdersContext.Current.Filter.FilterType == OrderFilterEnum.userFilter ?
+				System.Windows.Visibility.Visible :
 				System.Windows.Visibility.Collapsed;
 			cntrlFilter.Visibility = OrdersContext.Current.Filter.FilterType == OrderFilterEnum.userFilter ?
 				System.Windows.Visibility.Visible :

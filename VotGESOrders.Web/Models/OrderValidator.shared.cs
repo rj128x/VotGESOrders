@@ -10,17 +10,16 @@ namespace VotGESOrders.Web.Models
 		
 		public static ValidationResult ValidatePlanStartDate(DateTime date, ValidationContext context) {
 			Order order=context.ObjectInstance as Order;
-			if (order.OrderState != OrderStateEnum.created || order.ManualEdit) {
+			if (order.OrderOperation!=OrderOperationEnum.create) {
 				return ValidationResult.Success;
 			}
-			if (date < DateTime.Now.AddMinutes(0) && !order.OrderIsExtend && !order.OrderIsFixErrorEnter && 
-				order.OrderType != OrderTypeEnum.crash && order.OrderType!=OrderTypeEnum.no)
+			if (date < DateTime.Now.AddMinutes(0) && !order.OrderIsExtend && !order.OrderIsFixErrorEnter &&
+				order.OrderType != OrderTypeEnum.crash && order.OrderType != OrderTypeEnum.no)
 				return new ValidationResult(String.Format("Плановая дата начала({0}) раньше текущей даты", date));
 			if (order.OrderIsFixErrorEnter) {
 				if (order.ParentOrder != null && order.ParentOrder.FaktStopDate > date) 
 					return new ValidationResult(String.Format("Фактический отказ оборудования ({0}) раньше даты разрешения на ввод (родительская заявка)({1})", date, order.ParentOrder.FaktStopDate));				
 			}
-
 			if ((order.OrderType == OrderTypeEnum.crash || order.OrderType == OrderTypeEnum.no) && !order.OrderIsExtend && date > DateTime.Now.AddMinutes(0))
 				return new ValidationResult(String.Format("Фактический вывод оборудования ({0}) позже текущей даты", date));
 			return ValidationResult.Success;
@@ -28,7 +27,7 @@ namespace VotGESOrders.Web.Models
 
 		public static ValidationResult ValidatePlanStopDate(DateTime date, ValidationContext context) {
 			Order order=context.ObjectInstance as Order;
-			if (order.OrderState != OrderStateEnum.created || order.ManualEdit) {
+			if (order.OrderOperation != OrderOperationEnum.create) {
 				return ValidationResult.Success;
 			}
 			if (date < order.PlanStartDate)
@@ -40,7 +39,7 @@ namespace VotGESOrders.Web.Models
 
 		public static ValidationResult ValidateFaktStartDate(DateTime? date, ValidationContext context) {
 			Order order=context.ObjectInstance as Order;
-			if (order.OrderState != OrderStateEnum.opened || order.ManualEdit) {
+			if (order.OrderOperation != OrderOperationEnum.open) {
 				return ValidationResult.Success;
 			}
 			if (date.Value.AddHours(6) < order.PlanStartDate)
@@ -57,7 +56,7 @@ namespace VotGESOrders.Web.Models
 
 		public static ValidationResult ValidateFaktStopDate(DateTime? date, ValidationContext context) {
 			Order order=context.ObjectInstance as Order;
-			if (order.OrderState != OrderStateEnum.closed || order.ManualEdit) {
+			if (order.OrderOperation != OrderOperationEnum.close) {
 				return ValidationResult.Success;
 			}
 			if (date < order.FaktStartDate)
@@ -71,7 +70,7 @@ namespace VotGESOrders.Web.Models
 
 		public static ValidationResult ValidateFaktCompleteDate(DateTime? date, ValidationContext context) {
 			Order order=context.ObjectInstance as Order;
-			if (order.OrderState != OrderStateEnum.completed || order.ManualEdit) {
+			if (order.OrderOperation != OrderOperationEnum.complete) {
 				return ValidationResult.Success;
 			}
 			if (date < order.FaktStopDate)

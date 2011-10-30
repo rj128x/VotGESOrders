@@ -22,8 +22,8 @@ namespace VotGESOrders.Views
 
 		}
 
-		public void hideHeader() {
-			grdOrders.RowDefinitions[0].Height = new GridLength(0);
+		public void showHeader() {
+			grdOrders.RowDefinitions[0].Height = new GridLength(20);
 		}
 
 	

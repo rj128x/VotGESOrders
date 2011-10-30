@@ -128,7 +128,8 @@ namespace VotGESOrders
 		}
 
 		public void RejectReviewOrder() {
-			GlobalStatus.Current.IsChangingOrder = true;						
+			GlobalStatus.Current.IsChangingOrder = true;
+			CurrentOrder.OrderOperation = OrderOperationEnum.none;
 			if (MessageBox.Show("Вы уверены что хотите отозвать рассмотрение заявки?", "ОТМЕНА!", MessageBoxButton.OKCancel) == MessageBoxResult.OK) {
 				OrdersContext.Current.Context.RegisterRejectReviewOrder(CurrentOrder, OrdersContext.Current.SessionGUID);
 				if ((CurrentOrder.OrderIsExtend || CurrentOrder.OrderIsFixErrorEnter) && (CurrentOrder.ParentOrder != null)) {
@@ -140,6 +141,7 @@ namespace VotGESOrders
 
 		public void RejectOpenOrder() {
 			GlobalStatus.Current.IsChangingOrder = true;
+			CurrentOrder.OrderOperation = OrderOperationEnum.none;
 			if (MessageBox.Show("Вы уверены что хотите отозвать открытие заявки?", "ОТМЕНА!", MessageBoxButton.OKCancel) == MessageBoxResult.OK) {
 				OrdersContext.Current.Context.RegisterRejectOpenOrder(CurrentOrder, OrdersContext.Current.SessionGUID);
 				if ((CurrentOrder.OrderIsExtend || CurrentOrder.OrderIsFixErrorEnter) && (CurrentOrder.ParentOrder != null)) {
@@ -151,6 +153,7 @@ namespace VotGESOrders
 
 		public void RejectCloseOrder() {
 			GlobalStatus.Current.IsChangingOrder = true;
+			CurrentOrder.OrderOperation = OrderOperationEnum.none;
 			if (MessageBox.Show("Вы уверены что хотите отозвать разрешение на ввод?", "ОТМЕНА!", MessageBoxButton.OKCancel) == MessageBoxResult.OK) {
 				OrdersContext.Current.Context.RegisterRejectCloseOrder(CurrentOrder, OrdersContext.Current.SessionGUID);
 				if ((CurrentOrder.OrderIsExtend || CurrentOrder.OrderIsFixErrorEnter) && (CurrentOrder.ParentOrder != null)) {
@@ -162,6 +165,7 @@ namespace VotGESOrders
 
 		public void RejectCompleteOrder() {
 			GlobalStatus.Current.IsChangingOrder = true;
+			CurrentOrder.OrderOperation = OrderOperationEnum.none;
 			if (MessageBox.Show("Вы уверены что хотите отозвать закрытие заявки?", "ОТМЕНА!", MessageBoxButton.OKCancel) == MessageBoxResult.OK) {
 				OrdersContext.Current.Context.RegisterRejectCompleteOrder(CurrentOrder, OrdersContext.Current.SessionGUID);
 				if ((CurrentOrder.OrderIsExtend || CurrentOrder.OrderIsFixErrorEnter) && (CurrentOrder.ParentOrder != null)) {
@@ -173,6 +177,7 @@ namespace VotGESOrders
 
 		public void RejectCancelOrder() {
 			GlobalStatus.Current.IsChangingOrder = true;
+			CurrentOrder.OrderOperation = OrderOperationEnum.none;
 			if (MessageBox.Show("Вы уверены что хотите отозвать снятие заявки?", "ОТМЕНА!", MessageBoxButton.OKCancel) == MessageBoxResult.OK) {
 				OrdersContext.Current.Context.RegisterRejectCancelOrder(CurrentOrder, OrdersContext.Current.SessionGUID);
 				if ((CurrentOrder.OrderIsExtend || CurrentOrder.OrderIsFixErrorEnter) && (CurrentOrder.ParentOrder != null)) {
@@ -185,6 +190,7 @@ namespace VotGESOrders
 		public void initCreate() {
 			GlobalStatus.Current.IsChangingOrder = true;
 			Order newOrder=new Order();
+			newOrder.OrderOperation = OrderOperationEnum.create;
 			newOrder.OrderNumber = OrderNumber--;
 			newOrder.UserCreateOrderID = WebContext.Current.User.UserID;
 			newOrder.OrderDateCreate = DateTime.Now;
@@ -201,7 +207,7 @@ namespace VotGESOrders
 		public void initChange() {
 			GlobalStatus.Current.IsChangingOrder = true;
 			newOrderWindow.CurrentOrder = CurrentOrder;
-			CurrentOrder.OrderState = OrderStateEnum.created;
+			CurrentOrder.OrderOperation = OrderOperationEnum.create;
 			if (CurrentOrder.ParentOrder != null) {
 				newOrderWindow.ParentOrder = CurrentOrder.ParentOrder;
 			}
@@ -211,13 +217,14 @@ namespace VotGESOrders
 
 		public void initEdit() {
 			GlobalStatus.Current.IsChangingOrder = true;
-			CurrentOrder.ManualEdit = true;
+			CurrentOrder.OrderOperation = OrderOperationEnum.edit;
 			editOrderWindow.CurrentOrder = CurrentOrder;
 			editOrderWindow.Show();
 		}
 
 		public void initAccept() {
 			GlobalStatus.Current.IsChangingOrder = true;
+			CurrentOrder.OrderOperation = OrderOperationEnum.review;
 			acceptWindow.CurrentOrder = CurrentOrder;
 			acceptWindow.isCancelWindow = false;
 			acceptWindow.isCommentWindow = false;
@@ -226,6 +233,7 @@ namespace VotGESOrders
 
 		public void initCancel() {
 			GlobalStatus.Current.IsChangingOrder = true;
+			CurrentOrder.OrderOperation = OrderOperationEnum.review;
 			acceptWindow.CurrentOrder = CurrentOrder;
 			acceptWindow.isCancelWindow = true;
 			acceptWindow.isCommentWindow = false;
@@ -234,6 +242,7 @@ namespace VotGESOrders
 
 		public void initComment() {
 			GlobalStatus.Current.IsChangingOrder = true;
+			CurrentOrder.OrderOperation = OrderOperationEnum.none;
 			acceptWindow.CurrentOrder = CurrentOrder;
 			acceptWindow.isCancelWindow = false;
 			acceptWindow.isCommentWindow = true;
@@ -241,21 +250,24 @@ namespace VotGESOrders
 		}
 
 		public void initOpen() {
-			GlobalStatus.Current.IsChangingOrder = true;						
+			GlobalStatus.Current.IsChangingOrder = true;
+			CurrentOrder.OrderOperation = OrderOperationEnum.open;
 			dateOperationWindow.CurrentOrder = CurrentOrder;
 			dateOperationWindow.Operation = OrderOperation.open;
 			dateOperationWindow.Show();
 		}
 
 		public void initClose() {
-			GlobalStatus.Current.IsChangingOrder = true;			
+			GlobalStatus.Current.IsChangingOrder = true;
+			CurrentOrder.OrderOperation = OrderOperationEnum.close;
 			dateOperationWindow.CurrentOrder = CurrentOrder;
 			dateOperationWindow.Operation = OrderOperation.close;
 			dateOperationWindow.Show();
 		}
 
 		public void initComplete() {
-			GlobalStatus.Current.IsChangingOrder = true;			
+			GlobalStatus.Current.IsChangingOrder = true;
+			CurrentOrder.OrderOperation = OrderOperationEnum.complete;
 			dateOperationWindow.CurrentOrder = CurrentOrder;
 			dateOperationWindow.Operation = OrderOperation.complete;
 			dateOperationWindow.Show();
@@ -265,6 +277,7 @@ namespace VotGESOrders
 		public void initExtend() {
 			GlobalStatus.Current.IsChangingOrder = true;
 			Order newOrder=new Order();
+			newOrder.OrderOperation = OrderOperationEnum.create;
 			newOrder.OrderNumber = OrderNumber--;
 			newOrder.OrderType = CurrentOrder.OrderType;
 			newOrder.OrderTypeName = CurrentOrder.OrderTypeName;
@@ -304,6 +317,7 @@ namespace VotGESOrders
 		public void initCompleteWithoutEnter() {
 			GlobalStatus.Current.IsChangingOrder = true;
 			Order newOrder=new Order();
+			newOrder.OrderOperation = OrderOperationEnum.create;
 			newOrder.OrderNumber = OrderNumber--;
 			newOrder.OrderType = OrderTypeEnum.crash;
 			newOrder.OrderTypeName = OrderInfo.OrderTypes[OrderTypeEnum.crash];
