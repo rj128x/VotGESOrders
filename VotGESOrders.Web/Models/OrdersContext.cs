@@ -909,7 +909,8 @@ namespace VotGESOrders.Web.Models
 
 		public void RegisterEditOrder(Order order, Guid guid) {
 			Logger.info("Пользователь отредактировал заявку. Заявка №" + order.OrderNumber.ToString(OrderInfo.NFI), Logger.LoggerSource.ordersContext);
-			try {				
+			try {
+				OrderTypeEnum type=order.OrderType;
 				VotGESOrdersEntities context=new VotGESOrdersEntities();
 				Orders orderDB=context.Orders.First(o => o.orderNumber == order.OrderNumber);
 				Order prevOrder=new Order(orderDB, currentUser, false, null);
@@ -919,6 +920,19 @@ namespace VotGESOrders.Web.Models
 					orderDB.orderLastUpdate = DateTime.Now;
 
 					writeOrderToOrderDB(order, orderDB);
+					order.OrderType = type;
+					if (prevOrder.OrderType != order.OrderType &&
+							!order.OrderIsFixErrorEnter && !order.OrderIsExtend && !order.OrderExtended && !order.OrderAskExtended) {
+						if ((order.OrderType == OrderTypeEnum.crash || order.OrderType == OrderTypeEnum.no) &&
+							(prevOrder.OrderType == OrderTypeEnum.no || prevOrder.OrderType == OrderTypeEnum.crash) ) {
+								orderDB.orderType = order.OrderType.ToString();
+						} else if ((order.OrderType == OrderTypeEnum.npl || order.OrderType == OrderTypeEnum.pl) &&
+							 (prevOrder.OrderType == OrderTypeEnum.pl || prevOrder.OrderType == OrderTypeEnum.npl)) {
+							orderDB.orderType = order.OrderType.ToString();
+						} else {
+							orderDB.orderType = prevOrder.OrderType.ToString();
+						}
+					}
 
 					if (orderDB.orderReviewed) {
 						orderDB.reviewText = order.ReviewText;
