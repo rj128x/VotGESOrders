@@ -127,6 +127,7 @@ namespace VotGESOrders
 				readyAll = true;
 				view = new PagedCollectionView(context.Orders);
 				view.SortDescriptions.Add(new System.ComponentModel.SortDescription("OrderState", System.ComponentModel.ListSortDirection.Ascending));
+				view.SortDescriptions.Add(new System.ComponentModel.SortDescription("OrderNumber", System.ComponentModel.ListSortDirection.Descending));
 				LastUpdate = DateTime.Now;
 				if (FinishLoadingOrdersEvent != null) {
 					FinishLoadingOrdersEvent();

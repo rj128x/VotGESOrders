@@ -181,7 +181,7 @@ namespace VotGESOrders
 			PrintDocument multidoc = new PrintDocument();
 			int index = 0;
 			List<StackPanel> pages=null;
-
+			DateTime date=DateTime.Now;
 			multidoc.PrintPage += (s, arg) => {
 				double width = arg.PrintableArea.Width;
 				double height=arg.PrintableArea.Height;				
@@ -247,7 +247,7 @@ namespace VotGESOrders
 					footerGrid.HorizontalAlignment = System.Windows.HorizontalAlignment.Stretch;
 
 					TextBlock footer=new TextBlock();
-					footer.Text = String.Format("{0} на {1} ", GlobalStatus.Current.HomeHeader, DateTime.Now.ToString("HH:mm")); ;
+					footer.Text = String.Format("{0} на {1} ", GlobalStatus.Current.HomeHeader, date.ToString("HH:mm")); ;
 					footer.HorizontalAlignment = System.Windows.HorizontalAlignment.Center;
 					footer.VerticalAlignment = System.Windows.VerticalAlignment.Center;
 					footer.FontSize = 12;
@@ -264,7 +264,7 @@ namespace VotGESOrders
 					page.SetValue(Grid.ColumnProperty, 0);
 
 					TextBlock podp=new TextBlock();
-					podp.Text = String.Format("{0}", DateTime.Now.ToString("dd.MM.yy"));
+					podp.Text = String.Format("{0}", date.ToString("dd.MM.yy"));
 					podp.TextAlignment = TextAlignment.Right;
 					podp.VerticalAlignment = System.Windows.VerticalAlignment.Center;
 					podp.FontSize = 12;

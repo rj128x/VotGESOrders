@@ -43,13 +43,7 @@
 						</DataTemplate>
 					</sdk:DataGridTemplateColumn.CellTemplate>
 				</sdk:DataGridTemplateColumn>
-				<sdk:DataGridTemplateColumn Header="Автор"  SortMemberPath="UserCreateOrder.FullName"   >
-					<sdk:DataGridTemplateColumn.CellTemplate>
-						<DataTemplate>
-							<ContentControl Content="{Binding UserCreateOrder.FullName}"  Template="{StaticResource OrderCellTimeCreate}"/>
-						</DataTemplate>
-					</sdk:DataGridTemplateColumn.CellTemplate>
-				</sdk:DataGridTemplateColumn>
+				
 				<sdk:DataGridTemplateColumn Header="План начало"  SortMemberPath="PlanStartDate"   Width="60">
 					<sdk:DataGridTemplateColumn.CellTemplate>
 						<DataTemplate>
@@ -66,6 +60,13 @@
 						</DataTemplate>
 					</sdk:DataGridTemplateColumn.CellTemplate>
 				</sdk:DataGridTemplateColumn >
+				<sdk:DataGridTemplateColumn Header="Автор"  SortMemberPath="UserCreateOrder.FullName"   >
+					<sdk:DataGridTemplateColumn.CellTemplate>
+						<DataTemplate>
+							<ContentControl Content="{Binding UserCreateOrder.FullName}"  Template="{StaticResource OrderCellTimeCreate}"/>
+						</DataTemplate>
+					</sdk:DataGridTemplateColumn.CellTemplate>
+				</sdk:DataGridTemplateColumn>
 				<sdk:DataGridTemplateColumn Header="Факт начало"   SortMemberPath="FaktStartDate"  Width="60">
 					<sdk:DataGridTemplateColumn.CellTemplate>
 						<DataTemplate>
