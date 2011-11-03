@@ -19,12 +19,14 @@ using System.Threading;
 using System.Windows.Threading;
 using System.ServiceModel.DomainServices.Client;
 using System.Windows.Printing;
+using System.ComponentModel;
 
 namespace VotGESOrders
 {
 	public partial class Home : Page
 	{
 		DispatcherTimer timerExistChanges;
+		PrintDocument multidoc;
 		public Home() {
 			InitializeComponent();
 			OrdersContext.init();
@@ -251,9 +253,14 @@ namespace VotGESOrders
 		}
 
 		private void btnPrint_Click(object sender, RoutedEventArgs e) {
-			PrintDocument multidoc = new PrintDocument();
+			printDocument();
+			
+		}
+
+		protected void printDocument() {
+			multidoc = new PrintDocument();
 			int index = 0;
-			List<StackPanel> pages=null;			
+			List<StackPanel> pages=null;
 
 			StackPanel host=null;
 			Grid layout=null;
@@ -264,11 +271,12 @@ namespace VotGESOrders
 			double height=0;
 			bool rotate=false;
 
-			multidoc.PrintPage += (s, arg) => {							
+			
+			multidoc.PrintPage += (s, arg) => {
 				if (isFirstPage) {
 					width = arg.PrintableArea.Width;
-					height=arg.PrintableArea.Height;
-					rotate=false;
+					height = arg.PrintableArea.Height;
+					rotate = false;
 
 
 					if (width < height) {
@@ -277,21 +285,23 @@ namespace VotGESOrders
 						height = temp;
 						rotate = true;
 					}
-					GlobalStatus.Current.Status = "Разбивка на страницы";
+
+					GlobalStatus.Current.Status="Разбивка на страницы";
 					pages = getPrintPages(width, height - 65);
 
 					GlobalStatus.Current.Status = "Создание разметки";
 					layout = createGridLayout(width, height, out grid, out page);
 					isFirstPage = false;
 				}
+
 				GlobalStatus.Current.Status = String.Format("Печать страницы №{0} из {1}", index + 1, pages.Count);
-				if (index < pages.Count) {					
+				if (index < pages.Count) {
 
 					grid.Children.Remove(host);
-					host=pages[index];					
+					host = pages[index];
 					page.Text = String.Format("Cтраница {0} из {1}", index + 1, pages.Count);
-					
-					grid.Children.Add(host);					
+
+					grid.Children.Add(host);
 					host.SetValue(Grid.RowProperty, 1);
 					if (rotate) {
 						CompositeTransform transform=new CompositeTransform() {
@@ -303,11 +313,11 @@ namespace VotGESOrders
 					}
 
 					GlobalStatus.Current.Status = String.Format("Cтраница {0} из {1}. Отправка на принтер", index + 1, pages.Count);
-					arg.PageVisual = layout;					
+					
+					arg.PageVisual = layout;
 				}
 				index++;
 				arg.HasMorePages = index < pages.Count;
-				this.InvalidateArrange();
 			};
 
 			multidoc.BeginPrint += (s, arg) => {
@@ -316,13 +326,13 @@ namespace VotGESOrders
 
 			multidoc.EndPrint += (s, arg) => {
 				GlobalStatus.Current.Status = "Готово";
-			};			
+				
+			};
 
 			multidoc.Print("Список заявок");
-
-
-
 		}
+
+
 
 		void doc_PrintPage(object sender, PrintPageEventArgs e) {
 			OrderControl cntrl=new OrderControl();

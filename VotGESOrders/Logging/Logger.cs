@@ -44,5 +44,7 @@ namespace VotGESOrders.Logging
 		public static void logMessage(string message) {
 			System.Windows.Browser.HtmlPage.Window.Invoke("logMessage", message);
 		}
+
+
 	}
 }

@@ -25,8 +25,9 @@
 	 	}
 
 	 	function logMessage(message) {
-	 		console.log(message);
-	 	}
+			console.log(message);
+		}
+
 
 	</script>	
     <script type="text/javascript" src="Silverlight.js"></script>
@@ -67,7 +68,7 @@
         }
     </script>
 </head>
-<body>
+<body>	
     <form id="form1" runat="server" style="height:100%">
     <div id="silverlightControlHost">
         <object data="data:application/x-silverlight-2," type="application/x-silverlight-2" width="100%" height="100%">
