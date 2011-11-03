@@ -104,10 +104,14 @@
 						</Grid.RowDefinitions>
 						<StackPanel Orientation="Vertical"  Grid.Row="0">						
 							<TextBlock Text="{Binding OrderText}" Style="{StaticResource ValuePrintText}" />
-							<StackPanel Orientation="Horizontal" Margin="0,5,0,0">
-								<TextBlock Text="Согласовано:  " Style="{StaticResource LabelPrint}"  HorizontalAlignment="Center"/>
-								<TextBlock Text="{Binding AgreeText}" Style="{StaticResource ValuePrintText}" />
-							</StackPanel>
+							<Grid HorizontalAlignment="Stretch">
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="75"/>
+									<ColumnDefinition Width="*"/>
+								</Grid.ColumnDefinitions>
+								<TextBlock Text="Согласовано:  " Style="{StaticResource LabelPrint}"  Grid.Column="0"/>
+								<TextBlock Text="{Binding AgreeText}" Style="{StaticResource ValuePrintText}" TextWrapping="Wrap"  Grid.Column="1"/>
+							</Grid>
 							<TextBlock Text="{Binding CommentsTextBrief}" Style="{StaticResource ValuePrintSmall}" FontStyle="Normal" Margin="0,5,0,0" 
 										  TextWrapping="Wrap" HorizontalAlignment="Stretch" TextAlignment="Left"/>
 						</StackPanel>
