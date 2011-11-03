@@ -94,6 +94,15 @@ namespace VotGESOrders
 			}
 		}
 
+		protected bool isError;
+		public bool IsError {
+			get { return isError; }
+			set {
+				isError = value;
+				NotifyChanged("IsError");
+			}
+		}
+
 		private bool canRefresh;
 		public bool CanRefresh {
 			get { return canRefresh; }

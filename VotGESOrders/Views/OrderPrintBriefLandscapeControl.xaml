@@ -10,7 +10,7 @@
 			<Grid Name="grdOrders" Margin="0">
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="100"/>					
-					<ColumnDefinition Width="150"/>
+					<ColumnDefinition Width="200"/>
 					<ColumnDefinition Width="1*"/>
 					<ColumnDefinition Width="110"/>
 					<ColumnDefinition Width="110"/>
@@ -88,8 +88,11 @@
 							<RowDefinition  Height="20"/>
 						</Grid.RowDefinitions>
 						<StackPanel Orientation="Vertical"  Grid.Row="0">							
-							<TextBlock Text="{Binding FullOrderObjectInfo}" Style="{StaticResource ValuePrintText}" />							
+							<TextBlock Text="{Binding FullOrderObjectInfo}" Style="{StaticResource ValuePrintText}" />
+							<TextBlock Text="Согласовано:  " Margin="0,5,0,0" Style="{StaticResource LabelPrint}" HorizontalAlignment="Center" />
+							<TextBlock Text="{Binding AgreeText}" Style="{StaticResource ValuePrintText}" TextWrapping="Wrap"/>
 						</StackPanel>
+						
 						<StackPanel Orientation="Horizontal" Grid.Row="1" VerticalAlignment="Bottom">
 							<TextBlock Text="Ав. гот: " Style="{StaticResource LabelPrint}"  HorizontalAlignment="Center"/>
 							<TextBlock Text="{Binding ReadyTime}" Style="{StaticResource ValuePrintText}" />
@@ -104,14 +107,6 @@
 						</Grid.RowDefinitions>
 						<StackPanel Orientation="Vertical"  Grid.Row="0">						
 							<TextBlock Text="{Binding OrderText}" Style="{StaticResource ValuePrintText}" />
-							<Grid HorizontalAlignment="Stretch">
-								<Grid.ColumnDefinitions>
-									<ColumnDefinition Width="75"/>
-									<ColumnDefinition Width="*"/>
-								</Grid.ColumnDefinitions>
-								<TextBlock Text="Согласовано:  " Style="{StaticResource LabelPrint}"  Grid.Column="0"/>
-								<TextBlock Text="{Binding AgreeText}" Style="{StaticResource ValuePrintText}" TextWrapping="Wrap"  Grid.Column="1"/>
-							</Grid>
 							<TextBlock Text="{Binding CommentsTextBrief}" Style="{StaticResource ValuePrintSmall}" FontStyle="Normal" Margin="0,5,0,0" 
 										  TextWrapping="Wrap" HorizontalAlignment="Stretch" TextAlignment="Left"/>
 						</StackPanel>

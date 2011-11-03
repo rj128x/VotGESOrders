@@ -82,6 +82,14 @@
 								  Visibility="{Binding NeedRefresh,  Source={StaticResource globalStatus},
 									Converter={StaticResource visibilityConverter}}"/>
 					</StackPanel>
+					<StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="10,0,0,0">
+						<TextBlock x:Name="ConnectText" Text="Сервер найден" 
+								  Visibility="{Binding IsError,  Source={StaticResource globalStatus},
+									Converter={StaticResource visibilityNotConverter}}"/>
+						<TextBlock x:Name="NotConnectText" Text="Сервер не найден" Foreground="Red"
+								  Visibility="{Binding IsError,  Source={StaticResource globalStatus},
+									Converter={StaticResource visibilityConverter}}"/>
+					</StackPanel>
 				</StackPanel>
 			</Grid>
 

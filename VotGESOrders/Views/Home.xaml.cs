@@ -43,7 +43,7 @@ namespace VotGESOrders
 
 			timerExistChanges = new DispatcherTimer();
 			timerExistChanges.Tick += new EventHandler(timerExistChanges_Tick);
-			timerExistChanges.Interval = new TimeSpan(0, 0, 10);
+			timerExistChanges.Interval = new TimeSpan(0, 0, 30);
 			timerExistChanges.Start();
 
 			cntrlOrder.Visibility = System.Windows.Visibility.Collapsed;
@@ -72,6 +72,7 @@ namespace VotGESOrders
 		void oper_Completed(object sender, EventArgs e) {
 			InvokeOperation<bool> oper=sender as InvokeOperation<bool>;
 			if (!oper.HasError) {
+				GlobalStatus.Current.IsError = false;
 				if (OrdersContext.Current.LastUpdate.AddMinutes(10) < DateTime.Now) {
 					GlobalStatus.Current.NeedRefresh = true;
 				}
@@ -83,7 +84,7 @@ namespace VotGESOrders
 					}
 				}
 			} else {
-				GlobalStatus.Current.Status = "Ошибка при соединении с сервером";
+				GlobalStatus.Current.IsError = true;
 				oper.MarkErrorAsHandled();
 			}
 
@@ -177,104 +178,120 @@ namespace VotGESOrders
 			return pages;
 		}
 
+		private Grid createGridLayout(double width, double height, out Grid grid, out TextBlock page) {
+			grid=new Grid();
+			Grid layout=new Grid();
+			layout.VerticalAlignment = System.Windows.VerticalAlignment.Top;
+			layout.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
+			layout.Width = width;
+			layout.Height = width;
+			layout.Children.Add(grid);
+			grid.RowDefinitions.Add(new RowDefinition());
+			grid.RowDefinitions.Add(new RowDefinition());
+			grid.RowDefinitions.Add(new RowDefinition());
+			grid.RowDefinitions[0].Height = new GridLength(50, GridUnitType.Pixel);
+			grid.RowDefinitions[2].Height = new GridLength(15, GridUnitType.Pixel);
+			grid.RowDefinitions[1].Height = new GridLength(height - 65, GridUnitType.Pixel);
+
+
+			StackPanel headerPanel=new StackPanel();
+			headerPanel.Height = 50;
+			headerPanel.Background = new SolidColorBrush(Colors.LightGray);
+			TextBlock header=new TextBlock();
+			//header.Text = String.Format("{0} на {1}", GlobalStatus.Current.HomeHeader,DateTime.Now.ToString("dd.MM.yy HH:mm"));
+			header.Text = "";
+			header.HorizontalAlignment = System.Windows.HorizontalAlignment.Center;
+			header.FontSize = 13;
+			headerPanel.VerticalAlignment = System.Windows.VerticalAlignment.Bottom;
+			grid.Children.Add(headerPanel);
+			headerPanel.Children.Add(header);
+			headerPanel.SetValue(Grid.RowProperty, 0);
+
+			//host.Measure(new Size(width, double.PositiveInfinity));
+
+
+			Grid footerGrid=new Grid();
+			footerGrid.Height = 15;
+			footerGrid.Background = new SolidColorBrush(Colors.LightGray);
+			footerGrid.ColumnDefinitions.Add(new ColumnDefinition());
+			footerGrid.ColumnDefinitions.Add(new ColumnDefinition());
+			footerGrid.ColumnDefinitions.Add(new ColumnDefinition());
+			footerGrid.ColumnDefinitions[0].Width = GridLength.Auto;
+			footerGrid.ColumnDefinitions[1].Width = new GridLength(1, GridUnitType.Star);
+			footerGrid.ColumnDefinitions[2].Width = GridLength.Auto;
+			footerGrid.HorizontalAlignment = System.Windows.HorizontalAlignment.Stretch;
+
+			TextBlock footer=new TextBlock();			
+			footer.Text = String.Format("{0} на {1} ", GlobalStatus.Current.HomeHeader, DateTime.Now.ToString("HH:mm")); ;
+			footer.HorizontalAlignment = System.Windows.HorizontalAlignment.Center;
+			footer.VerticalAlignment = System.Windows.VerticalAlignment.Center;
+			footer.FontSize = 12;
+			footerGrid.Children.Add(footer);
+			footer.SetValue(Grid.ColumnProperty, 1);
+
+			page=new TextBlock();
+			page.VerticalAlignment = System.Windows.VerticalAlignment.Center;
+			page.TextAlignment = TextAlignment.Left;
+			page.FontSize = 12;
+			footerGrid.Children.Add(page);
+			page.SetValue(Grid.ColumnProperty, 0);
+
+			TextBlock podp=new TextBlock();
+			podp.Text = String.Format("{0}",  DateTime.Now.ToString("dd.MM.yy"));
+			podp.TextAlignment = TextAlignment.Right;
+			podp.VerticalAlignment = System.Windows.VerticalAlignment.Center;
+			podp.FontSize = 12;
+			footerGrid.Children.Add(podp);
+			podp.SetValue(Grid.ColumnProperty, 2);
+
+			grid.Children.Add(footerGrid);
+			footerGrid.SetValue(Grid.RowProperty, 2);
+
+			return layout;
+		}
+
 		private void btnPrint_Click(object sender, RoutedEventArgs e) {
 			PrintDocument multidoc = new PrintDocument();
 			int index = 0;
-			List<StackPanel> pages=null;
-			DateTime date=DateTime.Now;
-			multidoc.PrintPage += (s, arg) => {
-				double width = arg.PrintableArea.Width;
-				double height=arg.PrintableArea.Height;				
-				bool rotate=false;
+			List<StackPanel> pages=null;			
 
-				//Logger.logMessage(String.Format("{0}-{1}",width,height));
+			StackPanel host=null;
+			Grid layout=null;
+			Grid grid=null;
+			TextBlock page=null;
+			bool isFirstPage=true;
+			double width=0;
+			double height=0;
+			bool rotate=false;
 
-				if (width < height) {
-					double temp=width;
-					width = height;
-					height = temp;
-					rotate = true;
+			multidoc.PrintPage += (s, arg) => {							
+				if (isFirstPage) {
+					width = arg.PrintableArea.Width;
+					height=arg.PrintableArea.Height;
+					rotate=false;
+
+
+					if (width < height) {
+						double temp=width;
+						width = height;
+						height = temp;
+						rotate = true;
+					}
+					GlobalStatus.Current.Status = "Разбивка на страницы";
+					pages = getPrintPages(width, height - 65);
+
+					GlobalStatus.Current.Status = "Создание разметки";
+					layout = createGridLayout(width, height, out grid, out page);
+					isFirstPage = false;
 				}
+				GlobalStatus.Current.Status = String.Format("Печать страницы №{0} из {1}", index + 1, pages.Count);
+				if (index < pages.Count) {					
 
-				//Logger.logMessage(String.Format("{0}-{1}", width, height));
-
-				if (pages == null) {
-					pages = getPrintPages(width, height-65);
-				}
-				if (index < pages.Count) {
-					StackPanel host=pages[index];
-
-					Grid grid=new Grid();
-					Grid layout=new Grid();
-					layout.VerticalAlignment = System.Windows.VerticalAlignment.Top;
-					layout.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
-					layout.Width = width;
-					layout.Height = width;
-					layout.Children.Add(grid);
-					grid.RowDefinitions.Add(new RowDefinition());
-					grid.RowDefinitions.Add(new RowDefinition());
-					grid.RowDefinitions.Add(new RowDefinition());
-					grid.RowDefinitions[0].Height = new GridLength(50, GridUnitType.Pixel);
-					grid.RowDefinitions[2].Height = new GridLength(15, GridUnitType.Pixel);
-					grid.RowDefinitions[1].Height = new GridLength(height - 65, GridUnitType.Pixel);
-
-
-					StackPanel headerPanel=new StackPanel();
-					headerPanel.Height = 50;
-					headerPanel.Background = new SolidColorBrush(Colors.LightGray);
-					TextBlock header=new TextBlock();
-					//header.Text = String.Format("{0} на {1}", GlobalStatus.Current.HomeHeader,DateTime.Now.ToString("dd.MM.yy HH:mm"));
-					header.Text = "";
-					header.HorizontalAlignment = System.Windows.HorizontalAlignment.Center;
-					header.FontSize = 13;
-					headerPanel.VerticalAlignment = System.Windows.VerticalAlignment.Bottom;
-					grid.Children.Add(headerPanel);
-					headerPanel.Children.Add(header);
-					headerPanel.SetValue(Grid.RowProperty, 0);
-
-					//host.Measure(new Size(width, double.PositiveInfinity));
-
-
-					Grid footerGrid=new Grid();
-					footerGrid.Height = 15;
-					footerGrid.Background = new SolidColorBrush(Colors.LightGray);
-					footerGrid.ColumnDefinitions.Add(new ColumnDefinition());
-					footerGrid.ColumnDefinitions.Add(new ColumnDefinition());
-					footerGrid.ColumnDefinitions.Add(new ColumnDefinition());
-					footerGrid.ColumnDefinitions[0].Width = GridLength.Auto;
-					footerGrid.ColumnDefinitions[1].Width = new GridLength(1, GridUnitType.Star);
-					footerGrid.ColumnDefinitions[2].Width = GridLength.Auto;
-					footerGrid.HorizontalAlignment = System.Windows.HorizontalAlignment.Stretch;
-
-					TextBlock footer=new TextBlock();
-					footer.Text = String.Format("{0} на {1} ", GlobalStatus.Current.HomeHeader, date.ToString("HH:mm")); ;
-					footer.HorizontalAlignment = System.Windows.HorizontalAlignment.Center;
-					footer.VerticalAlignment = System.Windows.VerticalAlignment.Center;
-					footer.FontSize = 12;
-					footerGrid.Children.Add(footer);
-					footer.SetValue(Grid.ColumnProperty, 1);
-
-					TextBlock page=new TextBlock();
-					//footer.Text = String.Format(" Начальник ОС ________________/{0}/",DateTime.Now.ToString("dd.MM.yy"));
+					grid.Children.Remove(host);
+					host=pages[index];					
 					page.Text = String.Format("Cтраница {0} из {1}", index + 1, pages.Count);
-					page.VerticalAlignment = System.Windows.VerticalAlignment.Center;
-					page.TextAlignment = TextAlignment.Left;
-					page.FontSize = 12;
-					footerGrid.Children.Add(page);
-					page.SetValue(Grid.ColumnProperty, 0);
-
-					TextBlock podp=new TextBlock();
-					podp.Text = String.Format("{0}", date.ToString("dd.MM.yy"));
-					podp.TextAlignment = TextAlignment.Right;
-					podp.VerticalAlignment = System.Windows.VerticalAlignment.Center;
-					podp.FontSize = 12;
-					footerGrid.Children.Add(podp);
-					podp.SetValue(Grid.ColumnProperty, 2);
-
-					grid.Children.Add(footerGrid);
-					footerGrid.SetValue(Grid.RowProperty, 2);
-
-					grid.Children.Add(host);
+					
+					grid.Children.Add(host);					
 					host.SetValue(Grid.RowProperty, 1);
 					if (rotate) {
 						CompositeTransform transform=new CompositeTransform() {
@@ -283,23 +300,23 @@ namespace VotGESOrders
 
 						};
 						grid.RenderTransform = transform;
-
 					}
 
-					arg.PageVisual = layout;
-
+					GlobalStatus.Current.Status = String.Format("Cтраница {0} из {1}. Отправка на принтер", index + 1, pages.Count);
+					arg.PageVisual = layout;					
 				}
 				index++;
 				arg.HasMorePages = index < pages.Count;
+				this.InvalidateArrange();
 			};
 
 			multidoc.BeginPrint += (s, arg) => {
-				GlobalStatus.Current.Status = "Печать списка заказов";
+				GlobalStatus.Current.Status = "Печать списка заявок";
 			};
 
 			multidoc.EndPrint += (s, arg) => {
 				GlobalStatus.Current.Status = "Готово";
-			};
+			};			
 
 			multidoc.Print("Список заявок");
 
