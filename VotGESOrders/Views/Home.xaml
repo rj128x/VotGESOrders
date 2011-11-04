@@ -1,4 +1,4 @@
-<navigation:Page xmlns:sdk="http://schemas.microsoft.com/winfx/2006/xaml/presentation/sdk"  
+<navigation:Page xmlns:toolkit="http://schemas.microsoft.com/winfx/2006/xaml/presentation/toolkit"  xmlns:sdk="http://schemas.microsoft.com/winfx/2006/xaml/presentation/sdk"  
 					  x:Class="VotGESOrders.Home" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
 					  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
 					  xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
@@ -33,9 +33,10 @@
 				<Button x:Name="btnRefresh" Click="btnRefresh_Click" Content="Обновить"
 					  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
 			</StackPanel>
-			
 			<Button x:Name="btnPrint" Click="btnPrint_Click" Content="Печать"
 					  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
+			
+			
 			<Button x:Name="btnFullScreen" Click="btnFullScreen_Click" Content="На весь экран" Visibility="Collapsed"
 					  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
 

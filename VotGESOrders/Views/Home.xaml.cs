@@ -66,9 +66,11 @@ namespace VotGESOrders
 		}
 
 		void timerExistChanges_Tick(object sender, EventArgs e) {
-			InvokeOperation<bool> oper=
+			if (OrdersContext.Current.Filter.FilterType != OrderFilterEnum.userFilter) {
+				InvokeOperation<bool> oper=
 					OrdersContext.Current.Context.ExistsChanges(OrdersContext.Current.SessionGUID);
-			oper.Completed += new EventHandler(oper_Completed);
+				oper.Completed += new EventHandler(oper_Completed);
+			}
 		}
 
 		void oper_Completed(object sender, EventArgs e) {
@@ -286,20 +288,19 @@ namespace VotGESOrders
 						rotate = true;
 					}
 
-					GlobalStatus.Current.Status="Разбивка на страницы";
 					pages = getPrintPages(width, height - 65);
 
-					GlobalStatus.Current.Status = "Создание разметки";
 					layout = createGridLayout(width, height, out grid, out page);
 					isFirstPage = false;
 				}
-
-				GlobalStatus.Current.Status = String.Format("Печать страницы №{0} из {1}", index + 1, pages.Count);
+								
 				if (index < pages.Count) {
-
+					int pageIndex=index + 1;
+					//GlobalStatus.Current.Status = String.Format("Печать страницы №{0} из {1}", pageIndex, pages.Count);
+					
 					grid.Children.Remove(host);
 					host = pages[index];
-					page.Text = String.Format("Cтраница {0} из {1}", index + 1, pages.Count);
+					page.Text = String.Format("Cтраница {0} из {1}", pageIndex, pages.Count);
 
 					grid.Children.Add(host);
 					host.SetValue(Grid.RowProperty, 1);
@@ -310,10 +311,7 @@ namespace VotGESOrders
 
 						};
 						grid.RenderTransform = transform;
-					}
-
-					GlobalStatus.Current.Status = String.Format("Cтраница {0} из {1}. Отправка на принтер", index + 1, pages.Count);
-					
+					}					
 					arg.PageVisual = layout;
 				}
 				index++;
@@ -322,11 +320,12 @@ namespace VotGESOrders
 
 			multidoc.BeginPrint += (s, arg) => {
 				GlobalStatus.Current.Status = "Печать списка заявок";
+				GlobalStatus.Current.IsBusy = true;
 			};
 
 			multidoc.EndPrint += (s, arg) => {
 				GlobalStatus.Current.Status = "Готово";
-				
+				GlobalStatus.Current.IsBusy = false;
 			};
 
 			multidoc.Print("Список заявок");
