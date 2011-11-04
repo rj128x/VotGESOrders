@@ -21,11 +21,11 @@ CREATE TABLE [dbo].[Users](
 	[name] [varchar](50) NOT NULL, /*имя пользователя (CORP\xxx, SR-VOTGES-PI\xxx)*/
 	[fullName] [varchar](250) NOT NULL,/*полное имя пользователя*/
 	[mail] [varchar](250) NOT NULL,/*полное имя пользователя*/
-	[sendAllMail] [bit] NOT NULL,
-	[sendAgreeMail] [bit] NOT NULL,
-	[sendCreateMail] [bit] NOT NULL,
-	[sendAllAgreeMail] [bit] NOT NULL,
-	[sendAllCreateMail] [bit] NOT NULL,
+	[sendAllMail] [bit] NOT NULL,/*Оповещать о всех событиях*/
+	[sendAgreeMail] [bit] NOT NULL,/*Оповещать о создании согласованных с ним заявках*/
+	[sendCreateMail] [bit] NOT NULL,/*Оповещать о всех операциях со своими*/
+	[sendAllAgreeMail] [bit] NOT NULL,/*Оповещать о всех операциях с согласованными заявками*/
+	[sendAllCreateMail] [bit] NOT NULL,/*Оповещать о всех созданных заявках*/
 	[allowCreateOrder] [bit] NOT NULL, /*пользователь может создавать заявки*/
 	[allowCreateCrashOrder] [bit] NOT NULL, /*пользователь может создавать аварийные заявки*/
 	[allowReviewOrder] [bit] NOT NULL,/*пользователь может разрешить/отклонить заявку*/
@@ -136,11 +136,11 @@ CREATE TABLE [dbo].[Orders](
 	
 	[orderState] [varchar](50) NOT NULL, /*состояние заявки - created, accepted, banned, opened, canceled, closed, completed, extended, askExtended*/
 
-	[commentsText] [text] NULL,
-	[expiredReglamentHours] [float] NULL,
-	[expiredOpenHours] [float] NULL,
-	[expiredCloseHours] [float] NULL,
-	[expiredCompleteHours] [float] NULL,
+	[commentsText] [text] NULL, /*Текст комментариев к заявке*/
+	[expiredReglamentHours] [float] NULL,/*Количество часов, на которые заявка подана не по регламенту*/
+	[expiredOpenHours] [float] NULL,/*Количество часов на которое просрочено открытие заявки*/
+	[expiredCloseHours] [float] NULL,/*Количество часов на которое просрочено разрешение на ввод заявки*/
+	[expiredCompleteHours] [float] NULL,/*Количество часов на которое просрочено закрытие заявки*/
 
 	
  CONSTRAINT [PK_Orders] PRIMARY KEY CLUSTERED 
