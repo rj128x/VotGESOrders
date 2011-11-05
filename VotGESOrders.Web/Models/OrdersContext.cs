@@ -933,20 +933,22 @@ namespace VotGESOrders.Web.Models
 							orderDB.orderType = prevOrder.OrderType.ToString();
 						}
 					}
-
-					if (orderDB.orderReviewed) {
+										
+					if (orderDB.orderReviewed && order.OrderDateReview!=null) {
 						orderDB.reviewText = order.ReviewText;
 						orderDB.orderDateReview = order.OrderDateReview;
 					}
-					if (orderDB.orderOpened) {
+
+					Logger.info(order.FaktStartDate.ToString(),Logger.LoggerSource.ordersContext);
+					if (orderDB.orderOpened && order.FaktStartDate!=null) {
 						orderDB.faktStartDate = order.FaktStartDate;
 						orderDB.openText = order.OpenText;					
 					}
-					if (orderDB.orderClosed) {
+					if (orderDB.orderClosed && order.FaktStopDate!=null) {
 						orderDB.faktStopDate = order.FaktStopDate;
 						orderDB.closeText = order.CloseText;
 					}
-					if (orderDB.orderCompleted) {
+					if (orderDB.orderCompleted && order.FaktCompleteDate!=null) {
 						orderDB.faktCompleteDate = order.FaktCompleteDate;
 						orderDB.completeText = order.CompleteText;
 					}
