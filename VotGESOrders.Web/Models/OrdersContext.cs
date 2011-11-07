@@ -785,6 +785,25 @@ namespace VotGESOrders.Web.Models
 							parentOrderNew.OrderNumber.ToString(OrderInfo.NFI), parentOrderNew.FullOrderObjectInfo, CurrentUser.FullName),
 							parentOrderNew, false, false);
 					}
+					if (order.OrderIsFixErrorEnter) {
+						Logger.info("===Аварийная заявка", Logger.LoggerSource.ordersContext);
+						Orders parentOrderDB=context.Orders.Include("Users").Where(o => o.orderNumber == order.ParentOrderNumber).First();
+						parentOrderDB.orderLastUpdate = DateTime.Now;
+						parentOrderDB.orderCompletedWithoutEnter = false;
+						parentOrderDB.orderState = OrderStateEnum.closed.ToString();
+						parentOrderDB.childOrderNumber = null;
+
+						parentOrderDB.orderCompleted = false;
+						parentOrderDB.orderDateComplete = null;
+						parentOrderDB.completeText = null;
+						parentOrderDB.faktCompleteDate = null;
+						parentOrderDB.userCompleteOrderID = null;
+						Order.writeExpired(parentOrderDB);
+						Order parentOrderNew=new Order(parentOrderDB, currentUser, false, null);
+						MailContext.sendMail(String.Format("Заявка №{0}. Снята аварийная заявка ({2}) [{1}]",
+							parentOrderNew.OrderNumber.ToString(OrderInfo.NFI), parentOrderNew.FullOrderObjectInfo, CurrentUser.FullName),
+							parentOrderNew, false, false);
+					}
 					Order.writeExpired(orderDB);
 					context.SaveChanges();
 					LastUpdate.save(guid);

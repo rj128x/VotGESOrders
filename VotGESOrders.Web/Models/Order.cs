@@ -766,7 +766,10 @@ namespace VotGESOrders.Web.Models
 			AllowChangeOrder = (currentUser.UserID == creator || currentUser.AllowChangeOrder) && OrderState == OrderStateEnum.created||
 				(currentUser.AllowChangeOrder && (OrderType==OrderTypeEnum.no||OrderType==OrderTypeEnum.crash)&&OrderState==OrderStateEnum.opened);
 			AllowExtendOrder = (currentUser.AllowChangeOrder || currentUser.UserID == creator) && OrderState == OrderStateEnum.opened;
-			AllowCancelOrder = (currentUser.UserID == creator || currentUser.AllowChangeOrder) && (OrderState == OrderStateEnum.created || OrderState == OrderStateEnum.accepted);
+			AllowCancelOrder = ((currentUser.UserID == creator || currentUser.AllowChangeOrder) &&
+				(OrderState == OrderStateEnum.created || OrderState == OrderStateEnum.accepted || orderState == OrderStateEnum.opened && OrderIsExtend)) ||
+				currentUser.AllowChangeOrder && OrderState == OrderStateEnum.opened && orderIsFixErrorEnter;
+				
 
 
 			string[] ids= dbOrder.agreeUsersIDS.Split(';');
@@ -779,7 +782,7 @@ namespace VotGESOrders.Web.Models
 				!OrderExtended && !OrderAskExtended &&
 				OrderType != OrderTypeEnum.crash && OrderType != OrderTypeEnum.no;
 			AllowRejectCloseOrder = (currentUser.AllowEditOrders || currentUser.AllowChangeOrder) && OrderState == OrderStateEnum.closed;
-			AllowRejectCancelOrder = (currentUser.AllowEditOrders || currentUser.AllowChangeOrder) && OrderState == OrderStateEnum.canceled && !OrderIsExtend;
+			AllowRejectCancelOrder = (currentUser.AllowEditOrders || currentUser.AllowChangeOrder) && OrderState == OrderStateEnum.canceled && !OrderIsExtend && !OrderIsFixErrorEnter;
 			AllowRejectCompleteOrder = (currentUser.AllowEditOrders || currentUser.AllowChangeOrder) && OrderState == OrderStateEnum.completed;
 			AllowEditOrder = currentUser.AllowChangeOrder;
 		}
