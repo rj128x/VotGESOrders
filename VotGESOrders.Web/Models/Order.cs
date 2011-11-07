@@ -766,8 +766,7 @@ namespace VotGESOrders.Web.Models
 			AllowChangeOrder = (currentUser.UserID == creator || currentUser.AllowChangeOrder) && OrderState == OrderStateEnum.created||
 				(currentUser.AllowChangeOrder && (OrderType==OrderTypeEnum.no||OrderType==OrderTypeEnum.crash)&&OrderState==OrderStateEnum.opened);
 			AllowExtendOrder = (currentUser.AllowChangeOrder || currentUser.UserID == creator) && OrderState == OrderStateEnum.opened;
-			AllowCancelOrder = ((currentUser.UserID == creator || currentUser.AllowChangeOrder) && OrderState == OrderStateEnum.created) ||
-				(currentUser.AllowChangeOrder && (OrderState == OrderStateEnum.accepted));
+			AllowCancelOrder = (currentUser.UserID == creator || currentUser.AllowChangeOrder) && (OrderState == OrderStateEnum.created || OrderState == OrderStateEnum.accepted);
 
 
 			string[] ids= dbOrder.agreeUsersIDS.Split(';');
