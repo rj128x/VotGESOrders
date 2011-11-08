@@ -11,37 +11,37 @@
 	
 	<Grid x:Name="LayoutRoot" VerticalAlignment="Stretch">
 		<Grid.ColumnDefinitions>
-			<ColumnDefinition />
-			<ColumnDefinition Width="Auto"/>
+			<ColumnDefinition Width="3*"/>
+			<ColumnDefinition Width="1*"/>
 		</Grid.ColumnDefinitions>
 		<Grid.RowDefinitions>
 			<RowDefinition />
 			<RowDefinition Height="25"/>
 		</Grid.RowDefinitions>
-		<sdk:DataGrid AutoGenerateColumns="False" Name="gridUsers">
+		<sdk:DataGrid AutoGenerateColumns="False" Name="gridUsers" HorizontalAlignment="Stretch">
 			<sdk:DataGrid.Columns>
-				<sdk:DataGridTemplateColumn Header="Логин" SortMemberPath="Name">
+				<sdk:DataGridTemplateColumn Header="Логин" SortMemberPath="Name" Width="150">
 					<sdk:DataGridTemplateColumn.CellTemplate>
 						<DataTemplate>
 							<TextBlock Text="{Binding Name}"/>
 						</DataTemplate>
 					</sdk:DataGridTemplateColumn.CellTemplate>
 				</sdk:DataGridTemplateColumn>
-				<sdk:DataGridTemplateColumn Header="Имя" SortMemberPath="FullName">
+				<sdk:DataGridTemplateColumn Header="Имя" SortMemberPath="FullName" Width="150">
 					<sdk:DataGridTemplateColumn.CellTemplate>
 						<DataTemplate>
 							<TextBlock Text="{Binding FullName}"/>
 						</DataTemplate>
 					</sdk:DataGridTemplateColumn.CellTemplate>
 				</sdk:DataGridTemplateColumn>
-				<sdk:DataGridTemplateColumn Header="Почта" SortMemberPath="Mail">
+				<sdk:DataGridTemplateColumn Header="Почта" SortMemberPath="Mail" Width="*">
 					<sdk:DataGridTemplateColumn.CellTemplate>
 						<DataTemplate>
-							<TextBlock Text="{Binding Mail}"/>
+							<TextBlock Text="{Binding Mail}" TextWrapping="Wrap"/>
 						</DataTemplate>
 					</sdk:DataGridTemplateColumn.CellTemplate>
 				</sdk:DataGridTemplateColumn>
-				<sdk:DataGridTemplateColumn Header="Операции">
+				<sdk:DataGridTemplateColumn Header="Операции" Width="200">
 					<sdk:DataGridTemplateColumn.CellTemplate>
 						<DataTemplate>
 							<StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="1" >

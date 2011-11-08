@@ -371,7 +371,7 @@ namespace VotGESOrders.Web.Models
 					if (isNew) {
 						MailContext.sendMail(String.Format("Заявка №{0}. Продление заявки ({2}) [{1}]", parentOrderNew.OrderNumber.ToString(OrderInfo.NFI),
 							parentOrderNew.FullOrderObjectInfo, CurrentUser.FullName),
-							parentOrderNew, false, false);
+							parentOrderNew, true, false);
 					}
 				}
 
@@ -408,7 +408,7 @@ namespace VotGESOrders.Web.Models
 						Order parentOrderNew=new Order(parentOrderDB, currentUser, false, null);
 						MailContext.sendMail(String.Format("Заявка №{0}. Заявка закрыта без ввода оборудования ({2}) [{1}]",
 							parentOrderNew.OrderNumber.ToString(OrderInfo.NFI), parentOrderNew.FullOrderObjectInfo, CurrentUser.FullName),
-							parentOrderNew, false, false);
+							parentOrderNew, true, false);
 					}
 				}
 
@@ -988,7 +988,7 @@ namespace VotGESOrders.Web.Models
 				order.refreshOrderFromDB(orderDB, currentUser, false, null);
 				MailContext.sendMail(String.Format("Заявка №{0}. Заявка отредактирована ({2}) [{1}]", 
 					orderDB.orderNumber.ToString(OrderInfo.NFI), order.FullOrderObjectInfo, CurrentUser.FullName),
-					order, false, false,prevOrder);
+					order, true, false,prevOrder);
 			} catch (Exception e) {
 				Logger.error(String.Format("===Ошибка при редактировании заявки №{1}: {0}", e, order.OrderNumber.ToString(OrderInfo.NFI)), Logger.LoggerSource.ordersContext);
 				if (e is DomainException) {
