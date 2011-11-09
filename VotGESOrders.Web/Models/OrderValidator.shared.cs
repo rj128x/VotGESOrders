@@ -83,5 +83,15 @@ namespace VotGESOrders.Web.Models
 			return ValidationResult.Success;
 		}
 
+		public static ValidationResult ValidateNewComment(String date, ValidationContext context) {
+			Order order=context.ObjectInstance as Order;
+			if (order.OrderOperation==OrderOperationEnum.comment || order.OrderOperation==OrderOperationEnum.cancel) {
+				if (order.NewComment==null || order.NewComment.Trim().Length == 0) {
+					return new ValidationResult(String.Format("Введите текст комментария"));
+				}
+			}
+			return ValidationResult.Success;
+		}
+
 	}
 }

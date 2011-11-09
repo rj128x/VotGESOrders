@@ -233,7 +233,7 @@ namespace VotGESOrders
 
 		public void initCancel() {
 			GlobalStatus.Current.IsChangingOrder = true;
-			CurrentOrder.OrderOperation = OrderOperationEnum.review;
+			CurrentOrder.OrderOperation = OrderOperationEnum.cancel;
 			acceptWindow.CurrentOrder = CurrentOrder;
 			acceptWindow.isCancelWindow = true;
 			acceptWindow.isCommentWindow = false;
@@ -242,7 +242,7 @@ namespace VotGESOrders
 
 		public void initComment() {
 			GlobalStatus.Current.IsChangingOrder = true;
-			CurrentOrder.OrderOperation = OrderOperationEnum.none;
+			CurrentOrder.OrderOperation = OrderOperationEnum.comment;
 			acceptWindow.CurrentOrder = CurrentOrder;
 			acceptWindow.isCancelWindow = false;
 			acceptWindow.isCommentWindow = true;

@@ -1388,8 +1388,9 @@ namespace VotGESOrders.Web.Models
         /// <summary>
         /// Возвращает или задает значение параметра "NewComment".
         /// </summary>
+        [CustomValidation(typeof(OrderValidator), "ValidateNewComment", ErrorMessage="Ошибка")]
         [DataMember()]
-        [Display(Description="Комментарий (не обязательно)")]
+        [Display(Description="Комментарий")]
         public string NewComment
         {
             get
@@ -3829,6 +3830,10 @@ namespace VotGESOrders.Web.Models
         complete = 5,
         
         edit = 6,
+        
+        comment = 7,
+        
+        cancel = 8,
     }
     
     public enum OrderStateEnum

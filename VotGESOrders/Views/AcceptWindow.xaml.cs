@@ -75,7 +75,7 @@ namespace VotGESOrders.Views
 				btnGI.Visibility = System.Windows.Visibility.Collapsed;
 				btnAgreeText.Visibility = System.Windows.Visibility.Collapsed;
 				btnNotAgreeText.Visibility = System.Windows.Visibility.Collapsed;
-				Title = String.Format("Снять заявку №{0} от {1}", CurrentOrder.OrderNumber.ToString(OrderInfo.NFI), CurrentOrder.OrderDateCreate.ToShortDateString());
+				Title = String.Format("Снять заявку №{0} от {1}", CurrentOrder.OrderNumber.ToString(OrderInfo.NFI), CurrentOrder.OrderDateCreate.ToShortDateString());				
 			} else if (isCommentWindow) {
 				CancelOrderButton.Visibility = System.Windows.Visibility.Collapsed;
 				AcceptButton.Visibility = System.Windows.Visibility.Collapsed;
@@ -109,9 +109,6 @@ namespace VotGESOrders.Views
 					this.DialogResult = true;
 				}
 			}
-			/*orderForm.CommitEdit();
-			OrderOperations.Current.ApplyAccept(CurrentOrder, Result);*/
-			this.DialogResult = true;
 		}
 
 
@@ -123,7 +120,7 @@ namespace VotGESOrders.Views
 			CurrentOrder.NewComment = "Работы не проводились";
 		}
 
-		private void CommentOrderButton_Click(object sender, RoutedEventArgs e) {
+		private void CommentOrderButton_Click(object sender, RoutedEventArgs e) {			
 			Result = AcceptResult.comment;
 			bool ok=orderForm.ValidateItem();			
 			if (ok) {

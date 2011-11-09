@@ -15,7 +15,7 @@ using System.ComponentModel;
 namespace VotGESOrders.Web.Models
 {
 	public enum OrderStateEnum { created, accepted, opened, closed, banned, canceled, completed, completedWithoutEnter, extended, askExtended }
-	public enum OrderOperationEnum { none, create, review, open, close, complete,edit  }
+	public enum OrderOperationEnum { none, create, review, open, close, complete,edit,comment,cancel}
 	public enum OrderTypeEnum { pl, npl, no, crash }
 	
 
@@ -885,7 +885,8 @@ namespace VotGESOrders.Web.Models
 		public bool AllowRejectCancelOrder { get; protected set; }
 		public OrderOperationEnum OrderOperation { get; set; }
 
-		[Display(Description = "Комментарий (не обязательно)")]
+		[Display(Description = "Комментарий")]
+		[CustomValidation(typeof(OrderValidator), "ValidateNewComment", ErrorMessage = "Ошибка")]
 		public string NewComment { get; set; }
 
 	}
