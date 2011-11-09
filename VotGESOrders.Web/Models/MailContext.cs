@@ -36,7 +36,7 @@ namespace VotGESOrders.Web.Models
 
 				string message=OrderView.getOrderHTML(order);
 				if (prevOrder!=null) {
-					message += "<br/><br/><h3>Предыдущее состояние:</h3><br/>" + OrderView.getOrderHTML(prevOrder);
+					message += "<hr/>" + OrderView.getOrderHTML(prevOrder);
 				}
 				message += String.Format("<h3><a href='{0}'>Перейти к списку заявок</a></h3>", String.Format("http://{0}:{1}", HttpContext.Current.Request.Url.Host, HttpContext.Current.Request.Url.Port));
 				
