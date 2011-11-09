@@ -7,8 +7,8 @@ namespace VotGESOrders.Web.Models
 {
 	public class OrderView
 	{
-		public static string getOrderHTML(Order order) {
-			string style="<Style>table {border-collapse: collapse;} td{text-align:center;} td.comments{text-align:left;} td, th {border-width: 1px;	border-style: solid;	border-color: #BBBBFF;	padding-left: 3px;	padding-right: 3px;}</Style>";
+		public static string getOrderHTML(Order order, bool showStyle=true) {			
+			string style=showStyle?"<Style>table {border-collapse: collapse;} td{text-align:center;} td.comments{text-align:left;} td, th {border-width: 1px;	border-style: solid;	border-color: #BBBBFF;	padding-left: 3px;	padding-right: 3px;}</Style>":"";
 			string htmlNumber = String.Format("Заявка {0} №{1} от {2}", order.OrderTypeShortName, order.OrderNumber.ToString(OrderInfo.NFI), order.OrderDateCreate.ToString("dd.MM.yy"));
 			string htmlState=String.Format("Состояние: {0}", order.OrderStateStr);
 			string htmlReady=String.Format("Ав.готовность: {0}", order.ReadyTime);
