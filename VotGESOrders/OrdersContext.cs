@@ -154,23 +154,34 @@ namespace VotGESOrders
 		}
 		
 
-		protected void RefreshOrdersFilterXML(bool clear) {
+		protected void RefreshOrdersFilterXML(bool clear, bool sendMail) {
 			if (clear) {
 				context.Orders.Clear();
 			}
 			filter.SelectedUsersStr = filter.getSelectedUsersJoinStr();
 			filter.SelectedObjectsStr = filter.getSelectedObjectsJoinStr();
 			string xml=XMLStringSerializer.Serialize<OrderFilter>(filter);
-			context.Load(
-				context.GetFilteredOrdersFromXMLQuery(xml, OrdersContext.Current.SessionGUID),
-				System.ServiceModel.DomainServices.Client.LoadBehavior.RefreshCurrent, true);
+			if (!sendMail) {
+				context.Load(
+					context.GetFilteredOrdersFromXMLQuery(xml, OrdersContext.Current.SessionGUID),
+					System.ServiceModel.DomainServices.Client.LoadBehavior.RefreshCurrent, true);
+			} else {
+				context.Load(
+					context.GetFilteredOrdersFromXMLToMailQuery(xml, OrdersContext.Current.SessionGUID),
+					System.ServiceModel.DomainServices.Client.LoadBehavior.RefreshCurrent, true);
+			}
 			LastUpdate = DateTime.Now;
 
 		}
 
 		public void RefreshOrders(bool clear){
 			OrderOperations.Current.CurrentOrder = null;
-			RefreshOrdersFilterXML(clear);			
+			RefreshOrdersFilterXML(clear,false);			
+		}
+
+		public void SendMail(bool clear) {
+			OrderOperations.Current.CurrentOrder = null;
+			RefreshOrdersFilterXML(clear,true);
 		}
 
 		public static void init() {			
@@ -180,7 +191,6 @@ namespace VotGESOrders
 			GlobalStatus.Current.init();
 			ordersContext.loadData();
 		}
-
 
 
 	}

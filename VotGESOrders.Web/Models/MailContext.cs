@@ -48,7 +48,32 @@ namespace VotGESOrders.Web.Models
 			}
 		}
 
+		public static void sendOrdersList(string header, List<Order> orders) {
+			try {
+				IQueryable users=OrdersUser.getAllUsers();
+				List<string> mailToList=new List<string>();
 
+				OrdersUser CurrentUser = OrdersUser.loadFromCache(HttpContext.Current.User.Identity.Name);
+				foreach (string mail in CurrentUser.Mails) {
+					if (!String.IsNullOrEmpty(mail)) {
+						mailToList.Add(mail);
+					}
+				}
+
+				bool isFirst=true;
+				if (mailToList.Count > 0) {
+					string message="";
+					foreach (Order order in orders) {
+						message += OrderView.getOrderHTML(order, isFirst) + "<hr/>";
+						isFirst = false;
+					}
+					SendMailLocal("mx-votges-121.corp.gidroogk.com", 25, "", "", "", "SR-VOTGES-INT@votges.rushydro.ru", mailToList, header, message,true);
+
+				}				
+			} catch (Exception e) {
+				Logger.error(String.Format("Ошибка при отправке почты: {0}", e.ToString()), Logger.LoggerSource.server);
+			}
+		}
 
 
 		private static bool SendMailLocal(string smtp_server, int port, string mail_user, string mail_password, string domain, string mail_from, List<string> mailToList, string subject, string message, bool is_html) {

@@ -35,6 +35,8 @@
 			</StackPanel>
 			<Button x:Name="btnPrint" Click="btnPrint_Click" Content="Печать"
 					  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
+			<Button x:Name="btnMail" Click="btnMail_Click" Content="В почту"
+					  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
 			
 			
 			<Button x:Name="btnFullScreen" Click="btnFullScreen_Click" Content="На весь экран" Visibility="Collapsed"

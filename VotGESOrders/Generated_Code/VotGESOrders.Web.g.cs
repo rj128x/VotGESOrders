@@ -5001,6 +5001,21 @@ namespace VotGESOrders.Web.Services
         }
         
         /// <summary>
+        /// Возвращает экземпляр EntityQuery, который может быть использован для загрузки экземпляров сущностей <see cref="Order"/> с помощью запроса "GetFilteredOrdersFromXMLToMail".
+        /// </summary>
+        /// <param name="xml">Значение параметра "xml" для запроса.</param>
+        /// <param name="guid">Значение параметра "guid" для запроса.</param>
+        /// <returns>Значение EntityQuery, которое может быть загружено для извлечения экземпляров сущностей <see cref="Order"/>.</returns>
+        public EntityQuery<Order> GetFilteredOrdersFromXMLToMailQuery(string xml, Guid guid)
+        {
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+            parameters.Add("xml", xml);
+            parameters.Add("guid", guid);
+            this.ValidateMethod("GetFilteredOrdersFromXMLToMailQuery", parameters);
+            return base.CreateQuery<Order>("GetFilteredOrdersFromXMLToMail", parameters, true, true);
+        }
+        
+        /// <summary>
         /// Возвращает экземпляр EntityQuery, который может быть использован для загрузки экземпляров сущностей <see cref="OrderObject"/> с помощью запроса "LoadOrderObjects".
         /// </summary>
         /// <returns>Значение EntityQuery, которое может быть загружено для извлечения экземпляров сущностей <see cref="OrderObject"/>.</returns>
@@ -5312,6 +5327,26 @@ namespace VotGESOrders.Web.Services
             /// <param name="result">Интерфейс IAsyncResult, возвращенный из "BeginGetFilteredOrdersFromXML".</param>
             /// <returns>Объект "QueryResult", возвращенный из операции "GetFilteredOrdersFromXML".</returns>
             QueryResult<Order> EndGetFilteredOrdersFromXML(IAsyncResult result);
+            
+            /// <summary>
+            /// Асинхронно вызывает операцию "GetFilteredOrdersFromXMLToMail".
+            /// </summary>
+            /// <param name="xml">Значение параметра "xml" для данного действия.</param>
+            /// <param name="guid">Значение параметра "guid" для данного действия.</param>
+            /// <param name="callback">Функция обратного вызова вызывается после завершения.</param>
+            /// <param name="asyncState">Необязательный объект состояния.</param>
+            /// <returns>Интерфейс IAsyncResult, который может быть использован для отслеживания запроса.</returns>
+            [FaultContract(typeof(DomainServiceFault), Action="http://tempuri.org/OrdersDomainService/GetFilteredOrdersFromXMLToMailDomainServic" +
+                "eFault", Name="DomainServiceFault", Namespace="DomainServices")]
+            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/OrdersDomainService/GetFilteredOrdersFromXMLToMail", ReplyAction="http://tempuri.org/OrdersDomainService/GetFilteredOrdersFromXMLToMailResponse")]
+            IAsyncResult BeginGetFilteredOrdersFromXMLToMail(string xml, Guid guid, AsyncCallback callback, object asyncState);
+            
+            /// <summary>
+            /// Завершает асинхронную операцию, начатую "BeginGetFilteredOrdersFromXMLToMail".
+            /// </summary>
+            /// <param name="result">Интерфейс IAsyncResult, возвращенный из "BeginGetFilteredOrdersFromXMLToMail".</param>
+            /// <returns>Объект "QueryResult", возвращенный из операции "GetFilteredOrdersFromXMLToMail".</returns>
+            QueryResult<Order> EndGetFilteredOrdersFromXMLToMail(IAsyncResult result);
             
             /// <summary>
             /// Асинхронно вызывает операцию "LoadOrderObjects".

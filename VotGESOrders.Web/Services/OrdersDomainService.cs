@@ -32,6 +32,16 @@ namespace VotGESOrders.Web.Services
 			return context.getOrders(filter);
 		}
 
+		[Query(HasSideEffects = true)]
+		public IQueryable<Order> GetFilteredOrdersFromXMLToMail(string xml, Guid guid) {
+			Logger.info("Получение списка заказов (GetFilteredOrdersFromXML) В почту", Logger.LoggerSource.service);
+			OrderFilter filter=XMLStringSerializer.Deserialize<OrderFilter>(xml);
+			IQueryable<Order> ordersQuery= context.getOrders(filter);
+			List<Order> orders=ordersQuery.ToList();
+			MailContext.sendOrdersList("Список заявкок", orders);
+			return ordersQuery;
+		}
+
 		public IQueryable<OrdersUser> LoadOrdersUsers() {
 			Logger.info("Получение списка пользователей (LoadUsers)", Logger.LoggerSource.service);
 			return OrdersUser.getAllUsers().AsQueryable();

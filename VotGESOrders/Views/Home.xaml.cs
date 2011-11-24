@@ -352,6 +352,10 @@ namespace VotGESOrders
 				System.Windows.Visibility.Collapsed;
 		}
 
+		private void btnMail_Click(object sender, RoutedEventArgs e) {
+			OrdersContext.Current.SendMail(true);
+		}
+
 
 	}
 }
