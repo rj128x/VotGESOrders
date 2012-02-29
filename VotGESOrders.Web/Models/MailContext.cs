@@ -67,7 +67,7 @@ namespace VotGESOrders.Web.Models
 						message += OrderView.getOrderHTML(order, isFirst) + "<hr/>";
 						isFirst = false;
 					}
-					SendMailLocal("mx-votges-121.corp.gidroogk.com", 25, "", "", "", "SR-VOTGES-INT@votges.rushydro.ru", mailToList, header, message,true);
+					SendMailLocal("mx-votges-21.corp.gidroogk.com", 25, "", "", "", "SR-VOTGES-INT@votges.rushydro.ru", mailToList, header, message,true);
 
 				}				
 			} catch (Exception e) {
