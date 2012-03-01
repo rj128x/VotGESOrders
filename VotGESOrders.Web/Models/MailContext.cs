@@ -41,7 +41,7 @@ namespace VotGESOrders.Web.Models
 				message += String.Format("<h3><a href='{0}'>Перейти к списку заявок</a></h3>", String.Format("http://{0}:{1}", HttpContext.Current.Request.Url.Host, HttpContext.Current.Request.Url.Port));
 				
 				if (mailToList.Count > 0) {
-					SendMailLocal("mx-votges-121.corp.gidroogk.com", 25, "", "", "", "SR-VOTGES-INT@votges.rushydro.ru", mailToList, header, message, true);
+					SendMailLocal("mx-votges-021.corp.gidroogk.com", 25, "", "", "", "SR-VOTGES-INT@votges.rushydro.ru", mailToList, header, message, true);
 				}
 			} catch (Exception e) {
 				Logger.error(String.Format("Ошибка при отправке почты: {0}", e.ToString()), Logger.LoggerSource.server);
@@ -67,7 +67,7 @@ namespace VotGESOrders.Web.Models
 						message += OrderView.getOrderHTML(order, isFirst) + "<hr/>";
 						isFirst = false;
 					}
-					SendMailLocal("mx-votges-21.corp.gidroogk.com", 25, "", "", "", "SR-VOTGES-INT@votges.rushydro.ru", mailToList, header, message,true);
+					SendMailLocal("mx-votges-021.corp.gidroogk.com", 25, "", "", "", "SR-VOTGES-INT@votges.rushydro.ru", mailToList, header, message,true);
 
 				}				
 			} catch (Exception e) {
