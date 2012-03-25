@@ -9,6 +9,23 @@ namespace VotGESOrders.Web.Models
 {
 	public class MailContext
 	{
+		protected static string smtpServer;
+		protected static string smtpUser;
+		protected static string smtpPassword;
+		protected static string smtpDomain;
+		protected static int smtpPort;
+		protected static string smtpFrom;
+
+		static MailContext() {
+			smtpServer = System.Configuration.ConfigurationManager.AppSettings["smtpServer"];
+			smtpUser = System.Configuration.ConfigurationManager.AppSettings["smtpUser"];
+			smtpPassword = System.Configuration.ConfigurationManager.AppSettings["smtpPassword"];
+			smtpDomain = System.Configuration.ConfigurationManager.AppSettings["smtpDomain"];
+			smtpFrom = System.Configuration.ConfigurationManager.AppSettings["smtpFrom"];
+			Int32.TryParse(System.Configuration.ConfigurationManager.AppSettings["smtpPort"],out smtpPort);
+
+
+		}
 		public static void sendMail(string header, Order order, bool isNewOrder, bool onlyAuthor, Order prevOrder=null) {
 			if (HttpContext.Current.Request.Url.Port == 8071 || HttpContext.Current.Request.Url.Port == 8090)
 				return;
@@ -41,7 +58,8 @@ namespace VotGESOrders.Web.Models
 				message += String.Format("<h3><a href='{0}'>Перейти к списку заявок</a></h3>", String.Format("http://{0}:{1}", HttpContext.Current.Request.Url.Host, HttpContext.Current.Request.Url.Port));
 				
 				if (mailToList.Count > 0) {
-					SendMailLocal("mx-votges-021.corp.gidroogk.com", 25, "", "", "", "SR-VOTGES-INT@votges.rushydro.ru", mailToList, header, message, true);
+					//SendMailLocal("mx-votges-021.corp.gidroogk.com", 25, "", "", "", "SR-VOTGES-INT@votges.rushydro.ru", mailToList, header, message, true);
+					SendMailLocal(smtpServer, smtpPort, smtpUser, smtpPassword, smtpDomain, smtpFrom, mailToList, header, message, true);
 				}
 			} catch (Exception e) {
 				Logger.error(String.Format("Ошибка при отправке почты: {0}", e.ToString()), Logger.LoggerSource.server);
@@ -67,8 +85,8 @@ namespace VotGESOrders.Web.Models
 						message += OrderView.getOrderHTML(order, isFirst) + "<hr/>";
 						isFirst = false;
 					}
-					SendMailLocal("mx-votges-021.corp.gidroogk.com", 25, "", "", "", "SR-VOTGES-INT@votges.rushydro.ru", mailToList, header, message,true);
-
+					//SendMailLocal("mx-votges-021.corp.gidroogk.com", 25, "", "", "", "SR-VOTGES-INT@votges.rushydro.ru", mailToList, header, message,true);
+					SendMailLocal(smtpServer, smtpPort, smtpUser, smtpPassword, smtpDomain, smtpFrom, mailToList, header, message, true);
 				}				
 			} catch (Exception e) {
 				Logger.error(String.Format("Ошибка при отправке почты: {0}", e.ToString()), Logger.LoggerSource.server);

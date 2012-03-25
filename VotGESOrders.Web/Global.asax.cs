@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using VotGESOrders.Web.Logging;
 using VotGESOrders.Web.Models;
+using System.Configuration;
 
 namespace VotGESOrders.Web
 {
@@ -30,8 +31,8 @@ namespace VotGESOrders.Web
 			Logger.init(Server.MapPath("/logs/"), "orders");
 			OrderObject.init();
 			AreaRegistration.RegisterAllAreas();
-			
 
+			Logger.info(System.Configuration.ConfigurationManager.AppSettings["smtpServer"], Logger.LoggerSource.client);
 			RegisterRoutes(RouteTable.Routes);
 
 			
