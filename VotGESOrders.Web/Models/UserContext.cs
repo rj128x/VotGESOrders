@@ -57,6 +57,7 @@ namespace VotGESOrders.Web.Models
 				user.allowEditOrders = newUser.AllowEditOrders;
 				user.allowEditTree = newUser.AllowEditTree;
 				user.allowAgreeOrders = newUser.AllowAgreeOrders;
+				user.allowReviewOrder = newUser.AllowReviewOrder;
 
 				
 				context.SaveChanges();
