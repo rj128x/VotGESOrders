@@ -784,7 +784,7 @@ namespace VotGESOrders.Web.Models
 			AllowRejectCloseOrder = (currentUser.AllowEditOrders || currentUser.AllowChangeOrder) && OrderState == OrderStateEnum.closed;
 			AllowRejectCancelOrder = (currentUser.AllowEditOrders || currentUser.AllowChangeOrder) && OrderState == OrderStateEnum.canceled && !OrderIsExtend && !OrderIsFixErrorEnter;
 			AllowRejectCompleteOrder = (currentUser.AllowEditOrders || currentUser.AllowChangeOrder) && OrderState == OrderStateEnum.completed;
-			AllowEditOrder = currentUser.AllowChangeOrder;
+			AllowEditOrder = currentUser.AllowEditOrders;
 		}
 
 		private void checkTimeToOpen(){
